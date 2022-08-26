@@ -1,0 +1,8 @@
+query getOrgProductProperty($input: INPUT_FIND_DATA) {
+  getOrgProductProperty(input: $input) {
+    payload {
+      _id
+      globalName
+    }
+  }
+}

@@ -1,0 +1,18 @@
+mutation deleteCCTVToolkit($cctvToolkitId: ID!) {
+  deleteCCTVToolkit(cctvToolkitID: $cctvToolkitId) {
+    message
+    code
+    payload {
+      _id
+      appKey
+      orgKey
+      toolkitName
+      certID
+      serialNumber
+      status
+      lastHealthCheckTimestamp
+      createdAt
+      updatedAt
+    }
+  }
+}

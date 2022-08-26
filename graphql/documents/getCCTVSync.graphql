@@ -1,0 +1,21 @@
+query GetCCTVSync($input: INPUT_FIND_DATA) {
+  getCCTVSync(input: $input) {
+    message
+    code
+    payload {
+      cameraSerialNumber
+      fullSnapshotFileKey
+      licensePlateFileKey
+      licensePlateText
+      vehicleType
+      timestamp
+      createdAt
+    }
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+  }
+}

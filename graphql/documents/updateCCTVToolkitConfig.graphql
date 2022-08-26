@@ -1,0 +1,7 @@
+mutation updateCCTVToolkitConfig($tkSerialNumber: String!, $input: INPUT_SCHEMA_CCTV_TOOLKIT_CONFIG) {
+  updateCCTVToolkitConfig(tkSerialNumber: $tkSerialNumber, input: $input) {
+    payload {
+      _id
+    }
+  }
+}

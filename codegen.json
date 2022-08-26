@@ -1,0 +1,16 @@
+{
+  "schema": [
+    {
+      "${GRAPHQL_URL_SERVER}": {
+        "headers": {
+          "Authorization": "${GRAPHQL_TOKEN}"
+        }
+      }
+    }
+  ],
+  "generates": {
+    "graphql/generated/schema.graphql": {
+      "plugins": ["schema-ast"]
+    }
+  }
+}

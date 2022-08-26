@@ -1,0 +1,3064 @@
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | INTERFACE | OBJECT
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
+}
+
+scalar Date
+
+enum ENUM_APP_STATUS {
+  ACTIVE
+  INACTIVE
+}
+
+enum ENUM_BOM_STATUS {
+  ACTIVE
+  INACTIVE
+}
+
+enum ENUM_CCTV_TOOLKIT_STATUS {
+  ACTIVE
+  IN_ACTIVE
+  PRE_REGISTER
+}
+
+enum ENUM_CCTV_TOOLKIT_STATUS_UPDATE {
+  ACTIVE
+  IN_ACTIVE
+}
+
+enum ENUM_DATA_SECURITY {
+  NONE
+  ORGANIZATION
+  PARENT_CHILD
+  SYSTEM
+  USER
+}
+
+enum ENUM_DATA_TYPE {
+  LOCALE
+  MASTER_DATA
+  TAG
+}
+
+enum ENUM_DECLARATION_DETAIL_STATUS {
+  REVIEW
+  VERIFIED
+}
+
+enum ENUM_DECLARATION_RECEPTION_STATUS {
+  REVIEW
+  VERIFIED
+}
+
+enum ENUM_DECLARATION_STATUS {
+  CANCEL
+  CHECKED
+  FINISHED
+  NOT_FINISHED
+}
+
+enum ENUM_DECLARATION_TYPE {
+  IN_BOUND
+  OUT_BOUND
+}
+
+enum ENUM_IS {
+  NO
+  YES
+}
+
+enum ENUM_LOCATION_TYPE {
+  FINISH_GOODS
+  MACHINE
+  RAW_MATERIAL
+  SCRAP
+  WIP
+}
+
+enum ENUM_LRLE_TYPE {
+  RESOURCE_ADMIN
+  RESOURCE_OWNER
+  SYSTEM_ADMIN
+}
+
+enum ENUM_NOTIFICATION_CHANNEL {
+  EMAIL
+  MOBILE_NOTIFICATION
+  SMS
+}
+
+enum ENUM_NOTIFICATION_IS_REQUIRED {
+  NO
+  YES
+}
+
+enum ENUM_ORGANIZATION_STATUS {
+  APPROVED
+  BLOCKED
+  CLOSED
+  DECLINED
+  REVIEWING
+}
+
+enum ENUM_PRODUCTION_ORDER_STATUS {
+  CANCEL
+  CHECKED
+  FINISHED
+  IN_PROGRESS
+  IN_WIP
+  NOT_FINISHED
+}
+
+enum ENUM_PRODUCT_AVAILABLE {
+  ALL
+  AVAILABLE
+  SCRAP
+}
+
+enum ENUM_PRODUCT_LOCATION_TYPE {
+  DECLARATION
+  LOST
+  PRODUCTION_ORDER
+  SCRAP
+}
+
+enum ENUM_PRODUCT_PROPERTY_TYPE {
+  CATEGORY
+  TYPE
+  UNIT
+}
+
+enum ENUM_PRODUCT_RELOCATION_LOCATION_TYPE {
+  DECLARATION
+  NONE
+  PRODUCTION_ORDER
+}
+
+enum ENUM_PRODUCT_RELOCATION_STATUS {
+  REVIEW
+  VERIFIED
+}
+
+enum ENUM_PRODUCT_RELOCATION_TYPE {
+  IN_BOUND
+  IN_PDO
+  LOST
+  OUT_BOUND
+  OUT_PDO
+  SCRAP
+  TRANSFER_IN
+  TRANSFER_LOCATION
+  TRANSFER_OUT
+}
+
+enum ENUM_PRODUCT_TYPE {
+  FINISH_GOODS
+  MACHINE
+  RAW_MATERIAL
+  SCRAP
+}
+
+enum ENUM_REPORT_FILE_TYPE {
+  """
+  EXCEL
+  """
+  EXCEL
+
+  """
+  PDF
+  """
+  PDF
+}
+
+enum ENUM_REPORT_PRODUCT_TYPE {
+  """
+  สินค้าสำเร็จรูป
+  """
+  FINISH_GOODS
+
+  """
+  เครื่องจักร
+  """
+  MACHINE
+
+  """
+  วัตถุดิบ
+  """
+  RAW_MATERIAL
+}
+
+enum ENUM_REPORT_SELECT {
+  ALL
+  SELECT
+}
+
+enum ENUM_REPORT_STATUS {
+  """
+  ยกเลิก
+  """
+  CANCELED
+
+  """
+  หมดอายุ
+  """
+  EXPIRED
+
+  """
+  ล้มแหลว
+  """
+  FAILED
+
+  """
+  กำลังประมวลผล
+  """
+  PROCESSING
+
+  """
+  อยู่ในคิว
+  """
+  QUEUED
+
+  """
+  พร้อมดาวน์โหลด
+  """
+  READY_TO_DOWNLOAD
+}
+
+enum ENUM_REPORT_TYPE {
+  """
+  รายงานสินค้าคงเหลือ
+  """
+  REPORT_BALANCE
+
+  """
+  รายงานสินค้านำออก
+  """
+  REPORT_EXPORT_LIST
+
+  """
+  รายงานสินค้านำเข้า
+  """
+  REPORT_IMPORT_LIST
+
+  """
+  รายงานวัตถุดิบในกระบวนการผลิต
+  """
+  REPORT_IN_PROGRESS_RAW_MATERIALS
+
+  """
+  รายงานปริมาณการสูญเสีย
+  """
+  REPORT_LOST_VOLUME
+
+  """
+  รายงานสินค้าเคลื่อนไหว
+  """
+  REPORT_MOVEMENT
+}
+
+enum ENUM_RUNNING_NUMBER {
+  X
+  XX
+  XXX
+  XXXX
+  XXXXX
+}
+
+enum ENUM_RUNNING_NUMBER_DATEFORMAT {
+  YYMM
+  YYYYMM
+  YYYYMMDD
+  YYYYMMDDhhmmss
+}
+
+enum ENUM_SERVICE_ENDPOIN_TYPE {
+  GQL
+  REST
+}
+
+enum ENUM_SHOW_IN_LIST {
+  NO
+  YES
+}
+
+enum ENUM_SYNC_SERVICE {
+  FAILED
+  SUCCESS
+}
+
+enum ENUM_TRANSFER_PRODUCT_TYPE {
+  FINISH_GOODS
+  MACHINE
+  RAW_MATERIAL
+  SCRAP
+}
+
+enum ENUM_TRANSFER_STATUS {
+  FINISHED
+  NOT_FINISHED
+}
+
+enum ENUM_TRANSFER_TYPE {
+  TRANSFER_IN
+  TRANSFER_LOCATION
+  TRANSFER_OUT
+}
+
+enum ENUM_VEHICLE {
+  CAR
+  MOTORCYCLE
+  TRUCK
+}
+
+type HOORAY_SERVER_SERVICE_INFO {
+  featureKeys: [HOORAY_SERVER_SERVICE_INFO_FEATURE]
+  graphqlEndpointAdmin: String
+  graphqlEndpointClient: String
+  graphqlEndpointSuperAdmin: String
+  logo: String
+  methodUpdate: String
+  name: String
+  permissions: [HOORAY_SERVER_SERVICE_INFO_PERMISSION]
+  restEndpointAdmin: String
+  restEndpointClient: String
+  restEndpointSuperAdmin: String
+  serviceKey: String
+}
+
+type HOORAY_SERVER_SERVICE_INFO_FEATURE {
+  description: String
+  enable: Boolean
+  key: String
+}
+
+type HOORAY_SERVER_SERVICE_INFO_PERMISSION {
+  code: [String]
+  defaultCode: String
+  description: String
+  permissionName: String
+}
+
+input INPUT_ACTIVE {
+  isActive: Boolean!
+}
+
+input INPUT_ADDITINAL_INFORMATION {
+  attachmentList: [String]
+  note: String
+}
+
+input INPUT_APP_FORM {
+  appKey: String!
+  attribute: JSON
+  name: String!
+  status: ENUM_APP_STATUS
+}
+
+input INPUT_ATTRIBUTE {
+  key: String
+  value: String
+}
+
+input INPUT_BILL_OF_MATERIAL {
+  TimeSpent: Number
+  materialList: [INPUT_BOM_MATERIAL]
+  name: String
+  netWeight: Number
+  netWeightUnit: ID
+  orgKey: String
+  productFinishGood: ID
+  quantity: Number
+  quantityUnit: ID
+  status: ENUM_BOM_STATUS
+  totalPrice: Number
+  unitPrice: Number
+}
+
+input INPUT_BOM_MATERIAL {
+  productMaterial: ID
+  quantity: Number
+}
+
+input INPUT_CCTV {
+  cameraName: String
+  licensePlateDetection: INPUT_CCTV_VEHICLE_OPTION
+  localRTSP: String
+  mediaServiceEndpoint: String
+  motionDetection: Boolean
+  remoteRTSP: String
+  serialNumber: String
+  vehicleDeteion: INPUT_CCTV_VEHICLE_OPTION
+}
+
+input INPUT_CCTV_FROM_LOCATION {
+  cctvIdList: [String!]
+  locationId: String!
+}
+
+input INPUT_CCTV_SYNC {
+  cameraDetailCount: Number!
+  cameraDetailList: [INPUT_CCTV_SYNC_CAMERA_SCHEMA]
+  partitionNumber: Number!
+  tkSerialNumber: Number!
+}
+
+input INPUT_CCTV_SYNC_CAMERA_SCHEMA {
+  cameraSerialNumber: String
+  fullSnapshotFileKey: String
+  licensePlateFileKey: String
+  licensePlateText: String
+  timestamp: Date
+  vehicleType: ENUM_VEHICLE
+}
+
+input INPUT_CCTV_TO_LOCATION {
+  cctvIdList: [String!]
+  locationId: String!
+}
+
+input INPUT_CCTV_VEHICLE_OPTION {
+  car: Boolean
+  motorcycle: Boolean
+  truck: Boolean
+}
+
+input INPUT_CONTACT {
+  accountNo: String
+  address: String
+  attachmentList: [String]
+  attn: String
+  branch: String
+  code: String
+  contactType: String
+  country: String
+  emailInformation: String
+  emailPerson: String
+  globalName: String
+  incoterms: String
+  localName: String
+  name: String
+  note: String
+  officeFaxNo: String
+  officePhoneNo: String
+  phone: String
+  postcode: String
+  shippingAddress: String
+  shippingCountry: String
+  shippingPostcode: String
+  taxId: String
+  vatId: String
+  website: String
+}
+
+input INPUT_CONTACT_INFORMATION {
+  OfficePhoneNo: String
+  accountNo: String
+  address: String
+  attn: String
+  branch: String
+  code: String
+  contactType: String
+  country: String
+  email: String
+  globalName: String
+  incoterms: String
+  localName: String
+  officeFaxNo: String
+  postcode: String
+  shippingCountry: String
+  shippingPostcode: String
+  taxId: String
+  vatId: String
+  website: String
+}
+
+input INPUT_CONTACT_PERSON {
+  email: String
+  name: String
+  phone: String
+}
+
+input INPUT_CREATE_SERVICE {
+  endpointType: ENUM_SERVICE_ENDPOIN_TYPE!
+  serviceKey: String!
+  systemEndpoint: String!
+}
+
+input INPUT_DATA_SECURITY_FORM {
+  assign: ENUM_DATA_SECURITY!
+  assignToParent: ENUM_IS!
+  create: ENUM_DATA_SECURITY!
+  delete: ENUM_DATA_SECURITY!
+  name: String!
+  read: ENUM_DATA_SECURITY!
+  securityKey: String!
+  write: ENUM_DATA_SECURITY!
+}
+
+input INPUT_DATE {
+  endDate: Date!
+  startDate: Date!
+}
+
+input INPUT_DECLARATION {
+  contactId: ID
+  date: Date
+  declarationControlObj: INPUT_DECLARATION_CONTROL
+  declarationDetailList: [INPUT_DECLARATION_DETAIL]
+  declarationInvoiceObj: INPUT_DECLARATION_INVOICE
+  status: ENUM_DECLARATION_STATUS
+  step: Number
+  type: ENUM_DECLARATION_TYPE
+}
+
+input INPUT_DECLARATION_CONTROL {
+  approvalNo: String
+  approvalPort: String
+  arrivalDate: Date
+  assessmentRequestCode: String
+  bankBranchCode: String
+  bankCode: String
+  brokerBranch: String
+  cargoPackingType: String
+  consignmentCountry: String
+  currencyCode: String
+  customsBankCode: String
+  customsClearanceCard: String
+  customsClearanceName: String
+  date: Date
+  dateTransmit: Date
+  declarationControlId: ID
+  declarationNo: String
+  departureDate: Date
+  dischargePort: String
+  docType: String
+  drokerTaxNo: String
+  establishNo: String
+  exchangeRate: String
+  factoryNo: String
+  grossWeightUnit: ID
+  houseBillLading: String
+  inspectionRequestCode: String
+  managerName: String
+  managerNo: String
+  masterBillLading: String
+  netWeightUnit: ID
+  originCountry: String
+  packageUnit: ID
+  paymentMethod: String
+  productType: ENUM_PRODUCT_TYPE
+  refNo: String
+  refNoCommonAccess: String
+  releasePort: String
+  rgsCode: String
+  shippingMark: String
+  timeTransmit: Date
+  totalDeposit: String
+  totalTax: String
+  transportMode: String
+  uidTransmit: String
+  vesselName: String
+}
+
+input INPUT_DECLARATION_DETAIL {
+  ahtnCode: String
+  assessExciseQuantity: Number
+  assessQuantity: Number
+  bis19: String
+  boi: String
+  bond: String
+  currency: String
+  declarationDetailId: ID
+  declarationDetailOut: ID
+  declarationOut: ID
+  depositReason: String
+  epz: String
+  exchangeRate: Number
+  exciseNo: String
+  exciseQuantity: Number
+  exciseQuantityUnit: ID
+  exemptIncotermsLocal: Number
+  exportDeclarationLineNo: String
+  exportDeclarationNo: String
+  freeZone: String
+  importTariff: String
+  incotermsValueAssess: Number
+  incotermsValueForeign: Number
+  incotermsValueLocal: Number
+  increasedPriceForeign: Number
+  increasedPriceLocal: Number
+  invoiceAmountForeign: Number
+  invoiceAmountLocal: Number
+  invoiceItem: Number
+  invoiceNo: String
+  invoiceQuantity: Number
+  invoiceQuantityUnit: ID
+  itemNo: Number
+  lastEntry: String
+  natureTransaction: String
+  netWeight: Number
+  netWeightUnit: ID
+  originCountry: String
+  packageAmount: Number
+  packageUnit: ID
+  privilegeCode: String
+  product: ID
+  productAttribute1: String
+  productAttribute2: String
+  productYear: String
+  quantity: Number
+  quantityUnit: ID
+  reExport: String
+  reImportationCertificate: String
+  remark: String
+  serveral: String
+  shippingMark: String
+  statisticalCode: String
+  status: ENUM_DECLARATION_DETAIL_STATUS
+  tariffCode: String
+  tariffSequence: String
+  undgNumber: String
+  unitPriceForeign: Number
+  unitPriceLocal: Number
+}
+
+input INPUT_DECLARATION_INVOICE {
+  buyerStatus: String
+  commercialLevel: String
+  consigneeStatus: String
+  declarationInvoiceId: ID
+  foreignInlandFreightCAF: Number
+  foreignInlandFreightCC: String
+  forwardingCC: String
+  forwardingCF: String
+  freightAF: String
+  freightCurrency: String
+  insuranceAF: String
+  insuranceCurrency: String
+  invoiceCurrency: String
+  invoiceDate: Date
+  invoiceNo: String
+  otherCAF: Number
+  otherCC: String
+  packingCAF: Number
+  packingCC: String
+  purchaseOrderNumber: String
+  term: String
+  termPayment: String
+}
+
+input INPUT_DECLARATION_RECEPTION {
+  attachmentList: [String]
+  receptionDate: Date
+  receptionLocationList: INPUT_RECEPTION_LOCATION
+  receptionNo: String
+  status: ENUM_DECLARATION_RECEPTION_STATUS
+}
+
+input INPUT_DELETE_CCTV_MOTION {
+  idList: [String]
+}
+
+"""
+can delete multiple report
+"""
+input INPUT_DELETE_REPORT_LIST {
+  reportIds: [ID!]!
+}
+
+input INPUT_EXPIRATION {
+  access: String
+  refresh: String
+}
+
+input INPUT_FEATURE_FORM {
+  config: JSON
+  featureKey: String!
+}
+
+input INPUT_FILEUPLOAD {
+  attribute: JSON
+  fileExtension: String
+  fileKey: String!
+  fileName: String!
+  fileType: String
+  refId: String!
+}
+
+input INPUT_FILTER {
+  key: String
+  value: String
+}
+
+input INPUT_FILTER_DATE {
+  endDate: String
+  startDate: String
+}
+
+input INPUT_FIND_CCTV_SYNC {
+  camSerialNumber: String!
+}
+
+input INPUT_FIND_DATA {
+  filter: JSON
+  findManyById: [ID]
+  findOneById: ID
+  pagination: INPUT_PAGINATION
+  query: JSON
+  search: JSON
+  sort: JSON
+}
+
+input INPUT_GENERATE_RUNNING_NUMBER {
+  runningKey: String
+}
+
+input INPUT_INVOICE {
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: INPUT_INVOICE_CONTACT_DETAIL
+  customerId: String
+  customerName: String
+  invoiceNumber: String!
+  priceDetail: INPUT_INVOICE_PRICE_DETAIL
+  productList: [INPUT_INVOICE_PRODUCT]
+  remark: String
+  signature: [String]
+}
+
+input INPUT_INVOICE_CONTACT_DETAIL {
+  address: String
+  branch: String
+  taxId: String
+  zipCode: String
+}
+
+input INPUT_INVOICE_PRICE_DETAIL {
+  date: Date
+  discount: Number
+  dueDate: Date
+  grandTotal: Number
+  grandTotalForeign: Number
+  grandTotalLocal: Number
+  paymentAmount: Number
+  salesName: String
+  total: Number
+  totalAfterDiscount: Number
+  totalForeign: Number
+  totalLocal: Number
+  vat: Number
+  withHoldingTax: Number
+}
+
+input INPUT_INVOICE_PRODUCT {
+  code: String
+  exchangeRate: Number
+  id: ID
+  name: String
+  quantity: Number
+  total: Number
+  totalForeign: Number
+  totalLocal: Number
+  unit: String
+  unitId: ID
+  unitPriceForeign: Number
+  unitPriceForeignCurrency: String
+  unitPriceLocal: Number
+  unitPriceLocalCurrency: String
+}
+
+input INPUT_INVOICE_UPDATE {
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: INPUT_INVOICE_CONTACT_DETAIL
+  customerId: String
+  customerName: String
+  priceDetail: INPUT_INVOICE_PRICE_DETAIL
+  productList: [INPUT_INVOICE_PRODUCT]
+  remark: String
+  signature: [String]
+}
+
+input INPUT_LOCALE_MASTER_DATA {
+  locale: String
+  text: String
+}
+
+input INPUT_LOCALE_TEXT_FORM {
+  attribute: JSON
+  dataKey: String!
+  locale: String!
+  orgKey: String
+  searchable: ENUM_IS
+  text: String!
+}
+
+input INPUT_LOCATION {
+  attachmentList: [String]
+  code: String
+  description: String
+  globalName: String
+  image: String
+  localName: String
+  parent: ID
+  productUsage: ENUM_IS
+  type: ENUM_LOCATION_TYPE
+}
+
+input INPUT_MASTER_DATA {
+  attribute: JSON
+  dataKey: String
+  parentKey: String
+  searchable: ENUM_IS
+}
+
+input INPUT_NUMBER_ATTRIBUTE {
+  key: String
+  value: Number
+}
+
+input INPUT_PAGINATION {
+  limit: Int
+  page: Int
+}
+
+input INPUT_PERMISSION_FORM {
+  code: [String!]
+  permissionKey: String!
+  scopeList: [String!]
+}
+
+input INPUT_PERMISSION_ROLE {
+  code: String!
+  permissionName: String!
+  scpes: [String]
+}
+
+input INPUT_PRODUCT {
+  attachmentList: [String]
+  brandName: String
+  canProduce: ENUM_IS
+  cctvId: String
+  code: String
+  currency: INPUT_PRODUCT_CURRENCY
+  customsCode: String
+  description: String
+  effectiveDate: Date
+  globalName: String
+  image: String
+  localName: String
+  productCategory: ID
+  productType: ID
+  productUnit: ID
+  productWeightUnit: ID
+  productYear: String
+  statisticCode: String
+  tariffCode: String
+  tariffRate: Number
+  tariffSequence: String
+  type: ENUM_PRODUCT_TYPE
+  unitPrice: Number
+  weight: Number
+}
+
+input INPUT_PRODUCTION_ORDER {
+  attachmentList: [String]
+  billOfMaterial: ID
+  date: Date
+  endDate: Date
+  endWipDate: Date
+  location: ID
+  no: String
+  product: ID
+  remark: String
+  startDate: Date
+  step: Number
+}
+
+input INPUT_PRODUCTION_ORDER_DETAIL {
+  currency: String
+  invoiceAmountLocal: Number
+  netWeight: Number
+  netWeightUnit: ID
+  product: ID
+  productRelocation: ID
+  productionOrder: ID
+  quantity: Number
+  quantityUnit: ID
+  relocationRef: String
+  remark: String
+  status: ENUM_DECLARATION_DETAIL_STATUS
+  unitPriceLocal: Number
+}
+
+input INPUT_PRODUCT_CURRENCY {
+  currency: String
+  value: Number
+}
+
+input INPUT_PRODUCT_PROPERTY {
+  attachmentList: [String]
+  code: String
+  description: String
+  globalName: String
+  localName: String
+  parent: ID
+  type: ENUM_PRODUCT_PROPERTY_TYPE
+}
+
+input INPUT_PRODUCT_RELOCATION {
+  attachmentList: [String]
+  date: Date
+  declarationDetail: ID
+  locationList: [INPUT_PRODUCT_RELOCATION_LOCATION]
+  no: String
+  product: ID
+  productionOrder: ID
+  ref: String
+  reserve: ENUM_IS
+  status: ENUM_PRODUCT_RELOCATION_STATUS
+  transfer: ID
+  type: ENUM_PRODUCT_RELOCATION_TYPE
+}
+
+input INPUT_PRODUCT_RELOCATION_LOCATION {
+  beforeProductNumber: Number
+  declaration: ID
+  declarationDetail: ID
+  fromLocation: ID
+  productionOrder: ID
+  quantity: Number
+  remark: String
+  toLocation: ID
+  toProduct: ID
+  type: ENUM_PRODUCT_RELOCATION_LOCATION_TYPE
+}
+
+input INPUT_PROPERTY {
+  address: String
+  branch: String
+  companyEmail: String
+  companyFax: String
+  companyLogo: [String]
+  companyPhone: String
+  companyStamp: [String]
+  currency: String
+  district: String
+  freezoneArea: String
+  globalName: String
+  lostPercent: Number
+  name: String
+  province: String
+  signature: [String]
+  subDistrict: String
+  taxNo: String
+  zipCode: String
+}
+
+input INPUT_QUOTATION {
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: INPUT_QUOTATION_CONTACT_DETAIL
+  customerId: String
+  customerName: String
+  priceDetail: INPUT_QUOTATION_PRICE_DETAIL
+  productList: [INPUT_QUOTATION_PRODUCT]
+  quotationNumber: String!
+  remark: String
+  signature: [String]
+}
+
+input INPUT_QUOTATION_CONTACT_DETAIL {
+  address: String
+  branch: String
+  taxId: String
+  zipCode: String
+}
+
+input INPUT_QUOTATION_PRICE_DETAIL {
+  date: Date
+  discount: Number
+  dueDate: Date
+  grandTotal: Number
+  grandTotalForeign: Number
+  grandTotalLocal: Number
+  paymentAmount: Number
+  salesName: String
+  total: Number
+  totalAfterDiscount: Number
+  totalForeign: Number
+  totalLocal: Number
+  vat: Number
+  withHoldingTax: Number
+}
+
+input INPUT_QUOTATION_PRODUCT {
+  code: String
+  exchangeRate: Number
+  id: ID
+  name: String
+  quantity: Number
+  total: Number
+  totalForeign: Number
+  totalLocal: Number
+  unit: String
+  unitId: ID
+  unitPrice: Number
+  unitPriceCurrency: String
+  unitPriceForeign: Number
+  unitPriceForeignCurrency: String
+  unitPriceLocal: Number
+  unitPriceLocalCurrency: String
+}
+
+input INPUT_QUOTATION_UPDATE {
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: INPUT_QUOTATION_CONTACT_DETAIL
+  customerId: String
+  customerName: String
+  priceDetail: INPUT_QUOTATION_PRICE_DETAIL
+  productList: [INPUT_QUOTATION_PRODUCT]
+  remark: String
+  signature: [String]
+}
+
+input INPUT_RECEPTION_LOCATION {
+  location: ID
+  quantity: Number
+  remark: String
+}
+
+"""
+input for create new Report
+"""
+input INPUT_REPORT {
+  docTypeList: [String]
+  endDate: Date
+
+  """
+  use value from getFileType Queries
+  """
+  fileTypeKey: ENUM_REPORT_FILE_TYPE
+  locationList: [String]
+  locationType: ENUM_REPORT_SELECT
+  productAvailable: ENUM_PRODUCT_AVAILABLE
+  reportSubTypeKeyList: [ENUM_REPORT_PRODUCT_TYPE]
+
+  """
+  use value from getReportType Queries
+  """
+  reportTypeKey: ENUM_REPORT_TYPE
+  selectDate: Date
+  selectDocType: ENUM_REPORT_SELECT
+  selectSubTypeKey: ENUM_REPORT_SELECT
+  startDate: Date
+}
+
+input INPUT_ROLE_FROM {
+  isDefault: ENUM_IS
+  isReplaceable: ENUM_IS
+  name: String
+  needApproval: ENUM_IS
+  roleKey: String
+  roleType: ENUM_LRLE_TYPE
+  status: ENUM_APP_STATUS
+}
+
+input INPUT_RUNNING_NUMBER {
+  attribute: JSON
+  formatDate: ENUM_RUNNING_NUMBER_DATEFORMAT
+  lastText: String
+  name: String
+  numberRunning: ENUM_RUNNING_NUMBER
+  runningKey: String
+  text: String
+}
+
+input INPUT_S3_CONFIG {
+  ACL: String!
+  accessKeyId: String!
+  bucket: String!
+  headers: JSON
+  publicEndpoint: String!
+  region: String!
+  s3ForcePathStyle: Boolean!
+  secretAccessKey: String!
+  serviceEndpoint: String!
+  signatureExpires: Number!
+  signatureVersion: String!
+  uniquePrefix: Boolean!
+}
+
+input INPUT_SCHEMA_CCTV_TOOLKIT {
+  certID: String!
+  serialNumber: String!
+  status: ENUM_CCTV_TOOLKIT_STATUS!
+  toolkitName: String!
+}
+
+input INPUT_SCHEMA_CCTV_TOOLKIT_CONFIG {
+  """
+  default is 10 row
+  """
+  maxRowSync: Number
+  s3: INPUT_S3_CONFIG
+
+  """
+  second -> default is 1 minute
+  """
+  syncIterSec: Number
+  syncStatus: Boolean!
+}
+
+input INPUT_SCHEMA_CCTV_TOOLKIT_REGISTER {
+  certID: String
+  serialNumber: String
+  toolkitName: String
+}
+
+input INPUT_SEARCH {
+  condition: String
+  searchAttribute: [INPUT_SEARCH_ATTRIBUTE]
+}
+
+input INPUT_SEARCH_ATTRIBUTE {
+  key: String
+  value: String
+}
+
+input INPUT_TRANSFER {
+  attachmentList: [String]
+  productType: ENUM_TRANSFER_PRODUCT_TYPE
+  relocationRef: String
+  remark: String
+  step: Number
+  transferDate: Date
+  transferInDate: Date
+  transferNo: String
+  transferOut: ID
+  transferOutDate: Date
+  type: ENUM_TRANSFER_TYPE
+}
+
+input INPUT_UPDATE_APP {
+  attribute: JSON
+  name: String!
+  status: ENUM_APP_STATUS
+}
+
+input INPUT_UPDATE_REPORT {
+  docTypeList: [String]
+  endDate: Date
+
+  """
+  use value from getFileType Queries
+  """
+  fileTypeKey: ENUM_REPORT_FILE_TYPE
+  locationList: [String]
+  locationType: ENUM_REPORT_SELECT
+  productAvailable: ENUM_PRODUCT_AVAILABLE
+  reportId: ID!
+  reportSubTypeKeyList: [ENUM_REPORT_PRODUCT_TYPE]
+
+  """
+  use value from getReportType Queries
+  """
+  reportTypeKey: ENUM_REPORT_TYPE
+  selectDate: Date
+  selectDocType: ENUM_REPORT_SELECT
+  selectSubTypeKey: ENUM_REPORT_SELECT
+  startDate: Date
+
+  """
+  use value from getReportStatus Queries
+  """
+  statusKey: ENUM_REPORT_STATUS
+  url: String
+}
+
+scalar JSON
+
+scalar JSONObject
+
+type Mutation {
+  addCCTVToLocation(input: INPUT_CCTV_TO_LOCATION): TYPE_LOCATION
+  calReport(reportId: String!): TYPE_REPORT_RESPONSE
+  cancelDeclaration(declarationId: ID!): TYPE_DECLARATION
+  cancelProductionOrder(productionOrderId: ID!): TYPE_PRODUCTION_ORDER
+  cleanDataDeclarationAndReport(declarationNoList: [String!]!): TYPE_DECLARATION
+  cleanDeclarationByFileKey(declarationNoList: [String], fileKey: String!): TYPE_DECLARATION
+  confirmDeclaration(declarationId: ID!): TYPE_DECLARATION
+  confirmTransfer(transferId: ID!): TYPE_TRANSFER_RESPONSE
+  createBillOfMaterial(input: INPUT_BILL_OF_MATERIAL): TYPE_BILL_OF_MATERIAL
+  createCCTV(
+    input: INPUT_CCTV
+
+    """
+    toolkit serial number list
+    """
+    tkSerialNumberList: [String]
+  ): TYPE_CCTV
+  createContact(input: INPUT_CONTACT): TYPE_CONTACT
+  createDeclaration(input: INPUT_DECLARATION): TYPE_DECLARATION
+  createDeclarationByInvoice(invoiceId: ID!): TYPE_DECLARATION
+  createDeclarationNotFlow(input: INPUT_DECLARATION): TYPE_DECLARATION
+  createFileUpload(input: INPUT_FILEUPLOAD): TYPE_FILEUPLOAD
+  createInvoice(input: INPUT_INVOICE): TYPE_INVOICE
+  createLocaleText(input: INPUT_LOCALE_TEXT_FORM): TYPE_LOCALE
+  createLocaleTextList(inputList: [INPUT_LOCALE_TEXT_FORM!]!): TYPE_LOCALE_LIST
+  createLocation(input: INPUT_LOCATION): TYPE_LOCATION
+  createMasterData(localeInputList: [INPUT_LOCALE_MASTER_DATA], masterDataInput: INPUT_MASTER_DATA): TYPE_MASTER_DATA
+  createProduct(input: INPUT_PRODUCT): TYPE_PRODUCT
+  createProductProperty(input: INPUT_PRODUCT_PROPERTY): TYPE_PRODUCT_PROPERTY
+  createProductionOrder(input: INPUT_PRODUCTION_ORDER): TYPE_PRODUCTION_ORDER
+  createQuotation(input: INPUT_QUOTATION): TYPE_QUOTATION
+  createReport(input: INPUT_REPORT): TYPE_REPORT_RESPONSE
+  createRunningNumber(input: INPUT_RUNNING_NUMBER): TYPE_RUNNING_NUMBER
+  createTransfer(input: INPUT_TRANSFER): TYPE_TRANSFER_RESPONSE
+  deleteBillOfMaterial(billOfMaterialId: ID!): TYPE_BILL_OF_MATERIAL
+  deleteCCTV(IdList: [ID!]): TYPE_CCTV
+  deleteCCTVMotionCapture(input: INPUT_DELETE_CCTV_MOTION): TYPE_CCTV_MOTIONCAPTURE_DELETE
+  deleteCCTVToolkit(cctvToolkitID: ID!): TYPE_CCTV_TOOLKIT_PAYLOAD
+  deleteContact(contactId: ID!): TYPE_CONTACT
+  deleteDataSecurity(roleKey: String!, securityKeyList: [String!]): TYPE_ROLE_DATA_SECURITY_LIST
+  deleteDeclaration(declarationId: ID!): TYPE_DECLARATION
+  deleteDeclarationDetail(declarationDetailId: ID!, declarationId: ID!): TYPE_DECLARATION_DETAIL
+  deleteFileUpload(fileKey: String!, refId: String!): TYPE_FILEUPLOAD
+  deleteInvoice(invoiceId: ID!): TYPE_INVOICE
+  deleteLocaleText(dataKey: String!, orgKey: String): TYPE_LOCALE
+  deleteLocation(productLocationId: ID!): TYPE_LOCATION
+  deleteMasterData(dataKey: String!): TYPE_MASTER_DATA
+  deletePermission(permissionKeyList: [String!]!, roleKey: String!): TYPE_ROLE_PERMISSION_LIST
+  deleteProduct(productId: ID!): TYPE_PRODUCT
+  deleteProductProperty(productPropertyId: ID!): TYPE_PRODUCT_PROPERTY
+  deleteProductRelocation(productRelocationId: ID!): TYPE_PRODUCT_RELOCATION
+  deleteProductRelocationByRef(ref: String!): TYPE_PRODUCT_RELOCATION
+  deleteProductionOrderDetail(productionOrderDetailId: ID!, productionOrderId: ID!): TYPE_PRODUCTION_ORDER_DETAIL
+  deleteQuotation(quotationId: ID!): TYPE_QUOTATION
+  deleteReportList(input: INPUT_DELETE_REPORT_LIST): TYPE_REPORT_RESPONSE
+  deleteRunningNumber(runningId: [String!]): TYPE_RUNNING_NUMBER
+  deleteTransfer(transferId: ID): TYPE_TRANSFER_RESPONSE
+  genReoprt(reportId: String!): TYPE_REPORT_RESPONSE
+  generateRunningNumber(input: INPUT_GENERATE_RUNNING_NUMBER): TYPE_GENERATE_RUNNING_NUMBER
+  importProduct(fileKey: String!): TYPE_IMPORTDATA_PRODUCT
+  reCalReportExport(decNoArray: [String], orgKey: String): TYPE_SCRIPT
+  registerCCTV(input: INPUT_CCTV): TYPE_CCTV
+  registerCCTVToolkit(input: INPUT_SCHEMA_CCTV_TOOLKIT_REGISTER): TYPE_CCTV_TOOLKIT_PAYLOAD
+  removeCCTVFromLocation(input: INPUT_CCTV_FROM_LOCATION): TYPE_LOCATION
+  runScript(scriptKey: String): TYPE_SCRIPT
+  syncCCTVData(input: INPUT_CCTV_SYNC): TYPE_CCTV_SYNC
+  updateBillOfMaterail(billOfMaterialId: ID!, input: INPUT_BILL_OF_MATERIAL): TYPE_BILL_OF_MATERIAL
+  updateCCTV(
+    Id: ID!
+    input: INPUT_CCTV
+
+    """
+    toolkit serial number list -> replace all relation
+    """
+    tkSerialNumberList: [String]
+  ): TYPE_CCTV
+  updateCCTVToolkitConfig(
+    input: INPUT_SCHEMA_CCTV_TOOLKIT_CONFIG
+
+    """
+    toolkit serial number
+    """
+    tkSerialNumber: String!
+  ): TYPE_CCTV_TOOLKIT_CONFIG
+  updateContact(contactId: ID!, input: INPUT_CONTACT): TYPE_CONTACT
+  updateDataSecurity(roleKey: String!, securityList: [INPUT_DATA_SECURITY_FORM]): TYPE_ROLE_DATA_SECURITY_LIST
+  updateDeclaration(declarationId: ID!, input: INPUT_DECLARATION): TYPE_DECLARATION
+  updateDeclarationContact(contactId: ID!, declarationId: ID!): TYPE_DECLARATION
+  updateDeclarationControl(declarationId: ID!, input: INPUT_DECLARATION_CONTROL): TYPE_DECLARATION_CONTROL
+  updateDeclarationDetail(
+    declarationDetailId: ID
+    declarationId: ID!
+    input: INPUT_DECLARATION_DETAIL
+  ): TYPE_DECLARATION_DETAIL
+  updateDeclarationInvoice(declarationId: ID!, input: INPUT_DECLARATION_INVOICE): TYPE_DECLARATION_INVOICE
+  updateDeclarationNotFlow(declarationId: ID!, input: INPUT_DECLARATION): TYPE_DECLARATION
+  updateFileUpload(id: ID!, input: INPUT_FILEUPLOAD): TYPE_FILEUPLOAD
+  updateInvoice(input: INPUT_INVOICE_UPDATE, invoiceId: ID!): TYPE_INVOICE
+  updateLocaleText(dataInput: INPUT_LOCALE_TEXT_FORM, dataKey: String!, orgKey: String): TYPE_LOCALE
+  updateLocaleTextList(inputList: [INPUT_LOCALE_TEXT_FORM!]!): TYPE_LOCALE_LIST
+  updateLocation(input: INPUT_LOCATION, productLocationId: ID!): TYPE_LOCATION
+  updateMasterData(
+    dataKey: String!
+    localeInputList: [INPUT_LOCALE_MASTER_DATA]
+    masterDataInput: INPUT_MASTER_DATA
+  ): TYPE_MASTER_DATA
+  updateOrgProperty(input: INPUT_PROPERTY): TYPE_PROPERTY
+  updatePermission(permissionList: [INPUT_PERMISSION_FORM], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
+  updateProduct(input: INPUT_PRODUCT, productId: ID!): TYPE_PRODUCT
+  updateProductProperty(input: INPUT_PRODUCT_PROPERTY, productPropertyId: ID!): TYPE_PRODUCT_PROPERTY
+  updateProductRelocation(input: INPUT_PRODUCT_RELOCATION, productRelocationId: String): TYPE_PRODUCT_RELOCATION
+  updateProductionOrder(input: INPUT_PRODUCTION_ORDER, productionOrderId: ID!): TYPE_PRODUCTION_ORDER
+  updateProductionOrderDetail(
+    input: INPUT_PRODUCTION_ORDER_DETAIL
+    productionOrderDetailId: ID
+    productionOrderId: ID!
+  ): TYPE_PRODUCTION_ORDER_DETAIL
+  updateQuotation(input: INPUT_QUOTATION_UPDATE, quotationId: ID!): TYPE_QUOTATION
+  updateReport(input: INPUT_UPDATE_REPORT): TYPE_REPORT_RESPONSE
+  updateStatusCCTVToolkit(cctvToolkitID: ID!, status: ENUM_CCTV_TOOLKIT_STATUS_UPDATE!): TYPE_CCTV_TOOLKIT_PAYLOAD
+  updateStatusProductionOrder(productionOrderId: ID!, status: ENUM_PRODUCTION_ORDER_STATUS!): TYPE_PRODUCTION_ORDER
+  updateTransfer(input: INPUT_TRANSFER, transferId: ID!): TYPE_TRANSFER_RESPONSE
+}
+
+scalar Number
+
+type ORGANIZATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_ORGANIZATION_RESPONSE]
+}
+
+type Query {
+  CCTVInLocation(input: INPUT_FIND_DATA, locationId: String!): TYPE_CCTV_LIST
+  _dummy: String
+  checkDataBillOfMaterial(billOfMaterialId: ID!, dateCheck: String): TYPE_PRODUCT_OVERLOAD_LIST
+  checkLost(lostValue: Number!, maxValue: Number!): TYPE_PROPERTY_OVER_MAX_LOST
+  generateLocationList(
+    date: Date!
+    productId: ID!
+    quantity: Number!
+    type: [ENUM_PRODUCT_LOCATION_TYPE]!
+  ): TYPE_PRODUCT_RELOCATION_LOCATION_LIST
+  getCCTV(input: INPUT_FIND_DATA): TYPE_CCTV_LIST
+  getCCTVConfigVersion(serialNumber: String): TYPE_CCTV_TOOKIT_VERSION
+  getCCTVForReport(input: INPUT_FIND_DATA): TYPE_CCTV_LIST
+  getCCTVMotionCapture(input: INPUT_FIND_DATA): TYPE_CCTV_MOTIONCAPTURE_LIST
+  getCCTVMotionCaptureReport(input: INPUT_FIND_DATA): TYPE_CCTV_MOTIONCAPTURE_LIST
+  getCCTVRecording(input: INPUT_FIND_DATA): TYPE_CCTV_RECORDING_LIST
+  getCCTVRecordingReport(input: INPUT_FIND_DATA): TYPE_CCTV_RECORDING_LIST
+  getCCTVSync(input: INPUT_FIND_DATA): TYPE_CCTV_SYNC_DATA
+  getCCTVTookitConfig(serialNumber: String!): TYPE_CCTV_TOOLKIT_CONFIG
+  getCCTVToolkit(input: INPUT_FIND_DATA): TYPE_CCTV_TOOLKIT_PAYLOAD_LIST
+  getDataBillOfMaterial(input: INPUT_FIND_DATA): TYPE_BILL_OF_MATERIAL_LIST
+  getDataRunningNumber(input: INPUT_FIND_DATA): TYPE_RUNNING_NUMBER_LIST
+  getDataSecurityRole(roleKey: String!): TYPE_DATA_SECURITY_LIST
+  getFileUpload(input: INPUT_FIND_DATA): TYPE_FILEUPLOAD_LIST
+  getHello: String
+  getInvoice(input: INPUT_FIND_DATA): TYPE_INVOICE_LIST
+  getLocale(input: INPUT_FIND_DATA): TYPE_LOCALE_LIST
+  getLocaleText(input: INPUT_FIND_DATA): TYPE_LOCALE_TEXT_LIST
+  getMasterData(input: INPUT_FIND_DATA): TYPE_MASTER_DATA_LIST
+  getMyPermission(orgKey: String): TYPE_ROLE_PERMISSION_USER_LIST
+  getOrgContact(input: INPUT_FIND_DATA): TYPE_CONTACT_LIST
+  getOrgDeclaration(input: INPUT_FIND_DATA): TYPE_DECLARATION_LIST
+  getOrgDeclarationControl(declarationId: ID!, input: INPUT_FIND_DATA): TYPE_DECLARATION_CONTROL_LIST
+  getOrgDeclarationDetail(declarationId: ID!, input: INPUT_FIND_DATA): TYPE_DECLARATION_DETAIL_LIST
+  getOrgDeclarationInvoice(declarationId: ID!, input: INPUT_FIND_DATA): TYPE_DECLARATION_INVOICE_LIST
+  getOrgKeyLocaleText(text: String!): TYPE_ORG_KEY_LIST
+  getOrgLocation(input: INPUT_FIND_DATA): TYPE_LOCATION_LIST
+  getOrgProduct(input: INPUT_FIND_DATA): TYPE_PRODUCT_LIST
+  getOrgProductLocation(input: INPUT_FIND_DATA): TYPE_PRODUCT_LOCATION_LIST
+  getOrgProductProperty(input: INPUT_FIND_DATA): TYPE_PRODUCT_PROPERTY_LIST
+  getOrgProductRelocation(input: INPUT_FIND_DATA): TYPE_PRODUCT_RELOCATION_LIST
+  getOrgProductionOrder(input: INPUT_FIND_DATA): TYPE_PRODUCTION_ORDER_LIST
+  getOrgProductionOrderDetail(input: INPUT_FIND_DATA, productionOrderId: ID!): TYPE_PRODUCTION_ORDER_DETAIL_LIST
+  getOrgProperty: TYPE_PROPERTY
+  getOrgTransfer(input: INPUT_FIND_DATA): TYPE_TRANSFER_LIST_RESPONSE
+  getPermissionRole(roleKey: String!): TYPE_PERMISSION_LIST
+  getProductsByBOM(billOfMaterialId: String): TYPE_PRODUCT_BY_BOM_LIST
+  getQuotation(input: INPUT_FIND_DATA): TYPE_QUOTATION_LIST
+  getReportList(input: INPUT_FIND_DATA): TYPE_REPORT_LIST_RESPONSE
+  getReportStatusList: TYPE_REPORT_CONSTANT_LIST_RESPONSE
+  getReportSubTypeList: TYPE_REPORT_CONSTANT_LIST_RESPONSE
+  getReportTypeList: TYPE_REPORT_CONSTANT_LIST_RESPONSE
+  getRole: TYPE_APP_ROLE_LIST
+  getServiceInfo(serviceKey: String!): TYPE_SERVICE_INFO
+  healthCheckCCTVToolKit(serialNumber: String): TYPE_CCTV_TOOLKIT_HEALTH_CHECK_PAYLOAD
+  recalReport(secretKey: String!): TYPE_WEBHOOK
+  webhookReport(secretKey: String!): TYPE_WEBHOOK
+}
+
+type TYPE_APP {
+  code: String
+  message: String
+  payload: TYPE_APP_SCHEMA
+}
+
+type TYPE_APP_FEATURE_KEY {
+  _id: ID
+  description: String
+  enable: Boolean
+  key: String
+  serviceId: ID
+}
+
+type TYPE_APP_LIST {
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_APP_SCHEMA]
+}
+
+type TYPE_APP_ROLE {
+  code: String
+  message: String
+  payload: TYPE_APP_ROLE_PAYLOAD
+}
+
+type TYPE_APP_ROLE_LIST {
+  code: String
+  message: String
+  payload: TYPE_APP_ROLE_LIST_PAYLOAD
+}
+
+type TYPE_APP_ROLE_LIST_PAYLOAD {
+  app: TYPE_APP
+  roleList: [TYPE_ROLE]
+}
+
+type TYPE_APP_ROLE_PAYLOAD {
+  app: TYPE_APP_SCHEMA
+  roleList: [TYPE_ROLE]
+  serviceList: [TYPE_SERVICE_LIST_PAYLOAD]
+}
+
+type TYPE_APP_SCHEMA {
+  appKey: String
+  attribute: JSON
+  contactEmailList: [String]
+  name: String
+  status: ENUM_APP_STATUS
+}
+
+type TYPE_APP_SERVICE {
+  code: String
+  message: String
+  payload: TYPE_APP_SERVICE_PAYLOAD
+}
+
+type TYPE_APP_SERVICE_PAYLOAD {
+  app: TYPE_APP_SCHEMA
+  service: TYPE_SERVICE
+  syncStatus: String
+}
+
+type TYPE_ATTRIBUTE {
+  key: String
+  value: String
+}
+
+type TYPE_AWS {
+  _id: ID
+  accessKey: String
+  bucketName: String
+  cloudWatchEnable: Boolean
+  endpoint: String
+  secretKey: String
+}
+
+type TYPE_BILL_OF_MATERIAL {
+  code: String
+  message: String
+  payload: TYPE_BILL_OF_MATERIAL_SCHEMA
+}
+
+type TYPE_BILL_OF_MATERIAL_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_BILL_OF_MATERIAL_SCHEMA]
+}
+
+type TYPE_BILL_OF_MATERIAL_SCHEMA {
+  TimeSpent: Number
+  _id: ID
+  appKey: String
+  billOfMaterialDate: String
+  billOfmaterialNo: String
+  materialList: [TYPE_BOM_MATERIAL]
+  name: String
+  netWeight: Number
+  netWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  orgKey: String
+  productFinishGood: TYPE_PRODUCT_SCHEMA
+  quantity: Number
+  quantityUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  status: ENUM_BOM_STATUS
+  totalPrice: Number
+  unitPrice: Number
+}
+
+type TYPE_BOM_MATERIAL {
+  productMaterial: TYPE_PRODUCT_SCHEMA
+  quantity: Number
+}
+
+type TYPE_CCTV {
+  code: String
+  message: String
+}
+
+type TYPE_CCTV_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_CCTV]
+}
+
+type TYPE_CCTV_MOTIONCAPTURE {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_CCTV_MOTIONCAPTURE
+}
+
+type TYPE_CCTV_MOTIONCAPTURE_DELETE {
+  code: String
+  message: String
+}
+
+type TYPE_CCTV_MOTIONCAPTURE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_CCTV_MOTIONCAPTURE]
+}
+
+type TYPE_CCTV_RECORDING {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_CCTV_RECORDING
+}
+
+type TYPE_CCTV_RECORDING_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_CCTV_RECORDING]
+}
+
+type TYPE_CCTV_SYNC {
+  code: String
+  lastPartitionNumber: Number
+  message: String
+}
+
+type TYPE_CCTV_SYNC_DATA {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_CCTV_SYNC_DATA_SCHEMA]
+}
+
+type TYPE_CCTV_SYNC_DATA_SCHEMA {
+  cameraSerialNumber: String
+  createdAt: Date
+  fullSnapshotFileKey: String
+  licensePlateFileKey: String
+  licensePlateText: String
+  timestamp: Date
+  vehicleType: ENUM_VEHICLE
+}
+
+type TYPE_CCTV_TOOKIT_VERSION {
+  code: String
+  message: String
+  versionDate: Date
+}
+
+type TYPE_CCTV_TOOLKIT_CONFIG {
+  code: String
+  message: String
+  payload: TYPE_CCTV_TOOLKIT_CONFIG_SCHEMA
+}
+
+type TYPE_CCTV_TOOLKIT_CONFIG_SCHEMA {
+  _id: String
+  cctvList: [TYPE_SCHEMA_CCTV]
+  maxRowSync: Number
+  s3: TYPE_S3_CONFIG
+  syncIterSec: Number
+  syncStatus: Boolean
+}
+
+type TYPE_CCTV_TOOLKIT_HEALTH_CHECK_PAYLOAD {
+  code: String
+  lastHealthCheckTimestamp: Date
+  message: String
+}
+
+type TYPE_CCTV_TOOLKIT_PAYLOAD {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_CCTV_TOOLKIT
+}
+
+type TYPE_CCTV_TOOLKIT_PAYLOAD_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_CCTV_TOOLKIT]
+}
+
+type TYPE_CCTV_VEHICLE_OPTION {
+  car: Boolean
+  motorcycle: Boolean
+  truck: Boolean
+}
+
+type TYPE_CHECK_VERIFY_EMAIL {
+  code: String
+  message: String
+  verifyStatus: String
+}
+
+type TYPE_CONTACT {
+  code: String
+  message: String
+  payload: TYPE_CONTACT_SCHEMA
+}
+
+type TYPE_CONTACT_DECLARATION_IMPORT {
+  code: String
+  globalName: String
+  localName: String
+}
+
+type TYPE_CONTACT_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_CONTACT_SCHEMA]
+}
+
+type TYPE_CONTACT_SCHEMA {
+  _id: ID
+  accountNo: String
+  address: String
+  attachmentList: [String]
+  attn: String
+  branch: String
+  code: String
+  contactType: TYPE_MADTER_DATA_VALUE
+  country: TYPE_MADTER_DATA_VALUE
+  emailInformation: String
+  emailPerson: String
+  globalName: String
+  incoterms: TYPE_MADTER_DATA_VALUE
+  localName: String
+  name: String
+  note: String
+  officeFaxNo: String
+  officePhoneNo: String
+  phone: String
+  postcode: String
+  shippingAddress: String
+  shippingCountry: String
+  shippingPostcode: String
+  taxId: String
+  vatId: String
+  website: String
+}
+
+type TYPE_DATA_SECURITY_LIST {
+  code: String
+  message: String
+  payload: [TYPE_ROLE_DATA_SECURITY]
+}
+
+type TYPE_DECLARATION {
+  code: String
+  message: String
+  payload: TYPE_DECLARATION_SCHEMA
+}
+
+type TYPE_DECLARATION_CONTROL {
+  code: String
+  message: String
+  payload: TYPE_DECLARATION_CONTROL_SCHEMA
+}
+
+type TYPE_DECLARATION_CONTROL_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_DECLARATION_CONTROL_SCHEMA]
+}
+
+type TYPE_DECLARATION_CONTROL_SCHEMA {
+  _id: ID
+  approvalNo: String
+  approvalPort: String
+  arrivalDate: Date
+  assessmentRequestCode: String
+  bankBranchCode: String
+  bankCode: String
+  brokerBranch: String
+  cargoPackingType: TYPE_MADTER_DATA_VALUE
+  consignmentCountry: TYPE_MADTER_DATA_VALUE
+  currencyCode: TYPE_MADTER_DATA_VALUE
+  customsBankCode: String
+  customsClearanceCard: String
+  customsClearanceName: String
+  date: Date
+  dateTransmit: Date
+  declaration: TYPE_DECLARATION_SCHEMA
+  declarationNo: String
+  departureDate: Date
+  dischargePort: String
+  docType: TYPE_MADTER_DATA_VALUE
+  drokerTaxNo: String
+  establishNo: String
+  exchangeRate: String
+  factoryNo: String
+  grossWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  houseBillLading: String
+  inspectionRequestCode: String
+  managerName: String
+  managerNo: String
+  masterBillLading: String
+  netWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  originCountry: TYPE_MADTER_DATA_VALUE
+  packageUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  paymentMethod: TYPE_MADTER_DATA_VALUE
+  productType: ENUM_PRODUCT_TYPE
+  refNo: String
+  refNoCommonAccess: String
+  releasePort: String
+  rgsCode: String
+  shippingMark: String
+  timeTransmit: Date
+  totalDeposit: String
+  totalTax: String
+  transportMode: TYPE_MADTER_DATA_VALUE
+  uidTransmit: String
+  vesselName: String
+}
+
+type TYPE_DECLARATION_DETAIL {
+  code: String
+  message: String
+  payload: TYPE_DECLARATION_DETAIL_SCHEMA
+}
+
+type TYPE_DECLARATION_DETAIL_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_DECLARATION_DETAIL_SCHEMA]
+  verified: Number
+}
+
+type TYPE_DECLARATION_DETAIL_PRODUCT_UPLOAD {
+  code: String
+  globalName: String
+  localName: String
+}
+
+type TYPE_DECLARATION_DETAIL_SCHEMA {
+  _id: ID
+  ahtnCode: String
+  assessExciseQuantity: Number
+  assessQuantity: Number
+  bis19: String
+  boi: String
+  bond: String
+  currency: TYPE_MADTER_DATA_VALUE
+  declaration: TYPE_DECLARATION_SCHEMA
+  declarationDetailOut: ID
+  declarationOut: ID
+  depositReason: String
+  epz: String
+  exchangeRate: Number
+  exciseNo: String
+  exciseQuantity: Number
+  exciseQuantityUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  exemptIncotermsLocal: Number
+  exportDeclarationLineNo: String
+  exportDeclarationNo: String
+  freeZone: String
+  importTariff: String
+  incotermsValueAssess: Number
+  incotermsValueForeign: Number
+  incotermsValueLocal: Number
+  increasedPriceForeign: Number
+  increasedPriceLocal: Number
+  invoiceAmountForeign: Number
+  invoiceAmountLocal: Number
+  invoiceItem: Number
+  invoiceNo: String
+  invoiceQuantity: Number
+  invoiceQuantityUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  itemNo: Number
+  lastEntry: String
+  natureTransaction: String
+  netWeight: Number
+  netWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  originCountry: TYPE_MADTER_DATA_VALUE
+  packageAmount: Number
+  packageUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  privilegeCode: String
+  product: TYPE_PRODUCT_SCHEMA
+  productAttribute1: String
+  productAttribute2: String
+  productRelocation: TYPE_PRODUCT_RELOCATION_SCHEMA
+  productUpload: TYPE_DECLARATION_DETAIL_PRODUCT_UPLOAD
+  productYear: String
+  quantity: Number
+  quantityUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  reExport: String
+  reImportationCertificate: String
+  relocationRef: String
+  remark: String
+  serveral: String
+  shippingMark: String
+  statisticalCode: String
+  status: ENUM_DECLARATION_DETAIL_STATUS
+  tariffCode: String
+  tariffSequence: String
+  undgNumber: String
+  unitPriceForeign: Number
+  unitPriceLocal: Number
+}
+
+type TYPE_DECLARATION_INVOICE {
+  code: String
+  message: String
+  payload: TYPE_DECLARATION_INVOICE_SCHEMA
+}
+
+type TYPE_DECLARATION_INVOICE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_DECLARATION_INVOICE_SCHEMA]
+}
+
+type TYPE_DECLARATION_INVOICE_SCHEMA {
+  _id: ID
+  buyerStatus: TYPE_MADTER_DATA_VALUE
+  commercialLevel: TYPE_MADTER_DATA_VALUE
+  consigneeStatus: TYPE_MADTER_DATA_VALUE
+  declaration: TYPE_DECLARATION_SCHEMA
+  foreignInlandFreightCAF: Number
+  foreignInlandFreightCC: TYPE_MADTER_DATA_VALUE
+  forwardingCC: TYPE_MADTER_DATA_VALUE
+  forwardingCF: String
+  freightAF: String
+  freightCurrency: TYPE_MADTER_DATA_VALUE
+  insuranceAF: String
+  insuranceCurrency: TYPE_MADTER_DATA_VALUE
+  invoiceCurrency: TYPE_MADTER_DATA_VALUE
+  invoiceDate: Date
+  invoiceNo: String
+  otherCAF: Number
+  otherCC: TYPE_MADTER_DATA_VALUE
+  packingCAF: Number
+  packingCC: TYPE_MADTER_DATA_VALUE
+  purchaseOrderNumber: String
+  term: TYPE_MADTER_DATA_VALUE
+  termPayment: TYPE_MADTER_DATA_VALUE
+}
+
+type TYPE_DECLARATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_DECLARATION_SCHEMA]
+}
+
+type TYPE_DECLARATION_RECEPTION {
+  code: String
+  message: String
+  payload: TYPE_DECLARATION_RECEPTION_SCHEMA
+}
+
+type TYPE_DECLARATION_RECEPTION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_DECLARATION_RECEPTION_SCHEMA]
+}
+
+type TYPE_DECLARATION_RECEPTION_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  receptionDate: Date
+  receptionLocationList: TYPE_RECEPTION_LOCATION
+  receptionNo: String
+  status: ENUM_DECLARATION_RECEPTION_STATUS
+}
+
+type TYPE_DECLARATION_SCHEMA {
+  _id: ID
+  contact: TYPE_CONTACT_SCHEMA
+  contactUpload: TYPE_CONTACT_DECLARATION_IMPORT
+  date: Date
+  declarationControl: TYPE_DECLARATION_CONTROL_SCHEMA
+  declarationDetailList: [TYPE_DECLARATION_DETAIL_SCHEMA]
+  declarationInvoice: TYPE_DECLARATION_INVOICE_SCHEMA
+  status: ENUM_DECLARATION_STATUS
+  step: Number
+  type: ENUM_DECLARATION_TYPE
+}
+
+type TYPE_ENDPOIN_SERVICE {
+  resourceAdmin: String
+  resourceOwner: String
+  system: String
+}
+
+type TYPE_ENDPOIN_SERVICE_TYPE {
+  gql: TYPE_ENDPOIN_SERVICE
+  rest: TYPE_ENDPOIN_SERVICE
+}
+
+type TYPE_FEATURE_KEY {
+  _id: ID
+  description: String
+  enable: Boolean
+  key: String
+}
+
+type TYPE_FEATURE_LIST {
+  code: String
+  message: String
+  payload: TYPE_FEATURE_LIST_PAYLOAD
+}
+
+type TYPE_FEATURE_LIST_PAYLOAD {
+  app: TYPE_APP_SCHEMA
+  featureList: [TYPE_FEATURE_SCHEMA]
+}
+
+type TYPE_FEATURE_SCHEMA {
+  config: JSON
+  enable: Boolean
+  featureKey: String
+  name: String
+  requiredFeatureKeyList: [String]
+}
+
+type TYPE_FILEUPLOAD {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_FILEUPLOAD
+}
+
+type TYPE_FILEUPLOAD_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_FILEUPLOAD]
+}
+
+type TYPE_GENERATE_RUNNING_NUMBER {
+  code: String
+  message: String
+  payload: TYPE_RUNNING_NUMBER_NO
+}
+
+type TYPE_HELLO {
+  message: String
+}
+
+type TYPE_IMPORTDATA_PRODUCT {
+  code: String
+  message: String
+}
+
+type TYPE_INVOICE {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_INVOICE
+}
+
+type TYPE_INVOICE_CONTACT_DETAIL {
+  address: String
+  branch: String
+  taxId: String
+  zipCode: String
+}
+
+type TYPE_INVOICE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_INVOICE]
+}
+
+type TYPE_INVOICE_PRICE_DETAIL {
+  date: Date
+  discount: Number
+  dueDate: Date
+  grandTotal: Number
+  grandTotalForeign: Number
+  grandTotalLocal: Number
+  paymentAmount: Number
+  salesName: String
+  total: Number
+  totalAfterDiscount: Number
+  totalForeign: Number
+  totalLocal: Number
+  vat: Number
+  withHoldingTax: Number
+}
+
+type TYPE_INVOICE_PRODUCT {
+  code: String
+  exchangeRate: Number
+  id: ID
+  name: String
+  quantity: Number
+  total: Number
+  totalForeign: Number
+  totalLocal: Number
+  unit: String
+  unitId: ID
+  unitPrice: Number
+  unitPriceCurrency: TYPE_MADTER_DATA_VALUE
+  unitPriceForeign: Number
+  unitPriceForeignCurrency: TYPE_MADTER_DATA_VALUE
+  unitPriceLocal: Number
+  unitPriceLocalCurrency: TYPE_MADTER_DATA_VALUE
+}
+
+type TYPE_KEY {
+  _id: ID
+  code: String
+  description: String
+  value: String
+}
+
+type TYPE_LINE {
+  login: TYPE_LINE_LOGIN
+  notify: TYPE_NOTIFY
+}
+
+type TYPE_LINE_LOGIN {
+  _id: ID
+  clientId: String
+  clientSecret: String
+  redirectUri: String
+}
+
+type TYPE_LOCALE {
+  code: String
+  message: String
+  payload: TYPE_LOCALE_RESPONSE
+}
+
+type TYPE_LOCALE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_LOCALE_RESPONSE]
+}
+
+type TYPE_LOCALE_RESPONSE {
+  attribute: JSON
+  dataKey: String
+  dataType: ENUM_DATA_TYPE
+  locale: String
+  orgKey: String
+  searchable: ENUM_IS
+  text: String
+}
+
+type TYPE_LOCALE_TEXT {
+  dataKey: String
+  locale: String
+  text: String
+}
+
+type TYPE_LOCALE_TEXT_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_LOCALE_TEXT]
+}
+
+type TYPE_LOCATION {
+  code: String
+  message: String
+  payload: TYPE_LOCATION_SCHEMA
+}
+
+type TYPE_LOCATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_LOCATION_SCHEMA]
+}
+
+type TYPE_LOCATION_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  cctvList: [String]
+  code: String
+  description: String
+  globalName: String
+  image: String
+  localName: String
+  parent: TYPE_LOCATION_SCHEMA
+  productLocationList: [TYPE_PRODUCT_LOCATION_SCHEMA]
+  productUsage: ENUM_IS
+  type: ENUM_LOCATION_TYPE
+}
+
+type TYPE_LOGSYSTEM {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_LOGSYSTEM
+}
+
+type TYPE_LOGSYSTEM_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_LOGSYSTEM]
+}
+
+type TYPE_LOGSYSTEM_USER {
+  email: String
+  firstName: String
+  fullName: String
+  lastName: String
+  telephone: String
+  userId: String
+}
+
+type TYPE_MADTER_DATA_VALUE {
+  dataKey: String
+  value: TYPE_LOCALE_TEXT
+}
+
+type TYPE_MASTER_DATA {
+  code: String
+  message: String
+  payload: TYPE_MASTER_DATA_RESPONSE
+}
+
+type TYPE_MASTER_DATA_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_MASTER_DATA_RESPONSE]
+}
+
+type TYPE_MASTER_DATA_RESPONSE {
+  attribute: JSON
+  dataKey: String
+  localeText: TYPE_LOCALE_TEXT
+  localeTextList: [TYPE_LOCALE_TEXT]
+  parentKey: String
+  searchable: ENUM_IS
+}
+
+type TYPE_MESSAGE {
+  message: String
+  success: Boolean
+}
+
+type TYPE_NAME {
+  name: String
+  name_en: String
+}
+
+type TYPE_NOTIFICATION_DATA_KEY {
+  dataKey: String
+  defaultValue: String
+  isRequired: ENUM_NOTIFICATION_IS_REQUIRED
+}
+
+type TYPE_NOTIFICATION_TEMPLATE {
+  code: String
+  message: String
+  payload: TYPE_SCMEMA_NOTIFICATION_TEMPLATE
+}
+
+type TYPE_NOTIFICATION_TEMPLATE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCMEMA_NOTIFICATION_TEMPLATE]
+}
+
+type TYPE_NOTIFY {
+  _id: ID
+  isSendNotify: Boolean
+  notificationDisabled: Boolean
+  notifyToken: String
+}
+
+type TYPE_NUMBER_ATTRIBUTE {
+  _id: ID
+  key: String
+  value: Number
+}
+
+type TYPE_OK {
+  code: String
+  message: String
+}
+
+type TYPE_ORGANIZATION {
+  code: String
+  message: String
+  payload: TYPE_ORGANIZATION_RESPONSE
+}
+
+type TYPE_ORGANIZATION_RESPONSE {
+  attribute: JSON
+  contactEmailList: [String]
+  contactName: String
+  name: String
+  orgKey: String
+  status: ENUM_ORGANIZATION_STATUS
+}
+
+type TYPE_ORG_FIELD {
+  code: String
+  message: String
+  payload: [TYPE_ORG_FIELD_PAYLOAD]
+}
+
+type TYPE_ORG_FIELD_PAYLOAD {
+  fieldList: [TYPE_ORG_FIELD_PAYLOAD_FIELD_LIST]
+  orgKey: String
+}
+
+type TYPE_ORG_FIELD_PAYLOAD_FIELD_LIST {
+  content: String
+  description: String
+  fieldKey: String
+  order: Number
+  showInList: ENUM_SHOW_IN_LIST
+  title: String
+}
+
+type TYPE_ORG_KEY_LIST {
+  code: String
+  message: String
+  payload: [String]
+}
+
+type TYPE_PAGINATION {
+  limit: Int
+  page: Int
+  totalItems: Int
+  totalPages: Int
+}
+
+type TYPE_PERMISION_OPTION {
+  _id: ID
+  code: String
+  description: String
+  level: Number
+}
+
+type TYPE_PERMISSION_LIST {
+  code: String
+  message: String
+  payload: [TYPE_ROLE_PERMISSION]
+}
+
+type TYPE_PRODUCT {
+  code: String
+  message: String
+  payload: TYPE_PRODUCT_SCHEMA
+}
+
+type TYPE_PRODUCTION_ORDER {
+  code: String
+  message: String
+  payload: TYPE_PRODUCTION_ORDER_SCHEMA
+}
+
+type TYPE_PRODUCTION_ORDER_DETAIL {
+  code: String
+  message: String
+  payload: TYPE_PRODUCTION_ORDER_DETAIL_SCHEMA
+}
+
+type TYPE_PRODUCTION_ORDER_DETAIL_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCTION_ORDER_DETAIL_SCHEMA]
+}
+
+type TYPE_PRODUCTION_ORDER_DETAIL_SCHEMA {
+  _id: ID
+  currency: TYPE_MADTER_DATA_VALUE
+  invoiceAmountLocal: Number
+  netWeight: Number
+  netWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  product: TYPE_PRODUCT_SCHEMA
+  productRelocation: TYPE_PRODUCT_RELOCATION_SCHEMA
+  productionOrder: TYPE_PRODUCTION_ORDER_SCHEMA
+  quantity: Number
+  quantityUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  relocationRef: String
+  remark: String
+  status: ENUM_DECLARATION_DETAIL_STATUS
+  unitPriceLocal: Number
+}
+
+type TYPE_PRODUCTION_ORDER_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCTION_ORDER_SCHEMA]
+}
+
+type TYPE_PRODUCTION_ORDER_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  billOfMaterial: TYPE_BILL_OF_MATERIAL_SCHEMA
+  createdAt: Date
+  createdBy: String
+  date: Date
+  endDate: Date
+  endWipDate: Date
+  finishGoodsRelocationRef: String
+  location: TYPE_LOCATION_SCHEMA
+  lostRelocationRef: String
+  materialRelocationRef: String
+  no: String
+  packageRelocationRef: String
+  product: TYPE_PRODUCT_SCHEMA
+  remark: String
+  scrapRelocationRef: String
+  startDate: Date
+  startedBy: String
+  status: ENUM_PRODUCTION_ORDER_STATUS
+  step: Number
+  updatedAt: Date
+}
+
+type TYPE_PRODUCT_BY_BOM {
+  billOfMaterialId: String
+  billOfMaterialName: String
+  declarationDetailId: String
+  declarationId: String
+  declarationItem: Number
+  locationId: String
+  locationName: String
+  productCode: String
+  productId: String
+  productName: String
+  quantity: Number
+}
+
+type TYPE_PRODUCT_BY_BOM_LIST {
+  code: String
+  message: String
+  payload: [TYPE_PRODUCT_BY_BOM]
+}
+
+type TYPE_PRODUCT_CURRENCY {
+  currency: String
+  value: Number
+}
+
+type TYPE_PRODUCT_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCT_SCHEMA]
+}
+
+type TYPE_PRODUCT_LOCATION {
+  code: String
+  message: String
+  payload: TYPE_PRODUCT_LOCATION_SCHEMA
+}
+
+type TYPE_PRODUCT_LOCATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCT_LOCATION_SCHEMA]
+}
+
+type TYPE_PRODUCT_LOCATION_SCHEMA {
+  _id: ID
+  date: Date
+  declaration: TYPE_DECLARATION_SCHEMA
+  declarationDetail: TYPE_DECLARATION_DETAIL_SCHEMA
+  fromLocation: TYPE_LOCATION_SCHEMA
+  location: TYPE_LOCATION_SCHEMA
+  outStock: ENUM_IS
+  product: TYPE_PRODUCT_SCHEMA
+  productionOrder: TYPE_PRODUCTION_ORDER_SCHEMA
+  remaining: Number
+  reserveRemaining: Number
+  type: ENUM_PRODUCT_LOCATION_TYPE
+}
+
+type TYPE_PRODUCT_OVERLOAD {
+  productId: String
+  productName: String
+  quantity: Number
+}
+
+type TYPE_PRODUCT_OVERLOAD_LIST {
+  code: String
+  message: String
+  payload: [TYPE_PRODUCT_OVERLOAD]
+}
+
+type TYPE_PRODUCT_PROPERTY {
+  code: String
+  message: String
+  payload: TYPE_PRODUCT_PROPERTY_SCHEMA
+}
+
+type TYPE_PRODUCT_PROPERTY_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCT_PROPERTY_SCHEMA]
+}
+
+type TYPE_PRODUCT_PROPERTY_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  code: String
+  description: String
+  globalName: String
+  localName: String
+  parent: TYPE_PRODUCT_PROPERTY_SCHEMA
+  type: ENUM_PRODUCT_PROPERTY_TYPE
+}
+
+type TYPE_PRODUCT_RELOCATION {
+  code: String
+  message: String
+  payload: TYPE_PRODUCT_RELOCATION_SCHEMA
+}
+
+type TYPE_PRODUCT_RELOCATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_PRODUCT_RELOCATION_SCHEMA]
+  verified: Number
+}
+
+type TYPE_PRODUCT_RELOCATION_LOCATION {
+  beforeProductNumber: Number
+  declaration: TYPE_DECLARATION_SCHEMA
+  declarationDetail: TYPE_DECLARATION_DETAIL_SCHEMA
+  fromLocation: TYPE_LOCATION_SCHEMA
+  productionOrder: TYPE_PRODUCTION_ORDER_SCHEMA
+  quantity: Number
+  remark: String
+  toLocation: TYPE_LOCATION_SCHEMA
+  type: ENUM_PRODUCT_RELOCATION_LOCATION_TYPE
+}
+
+type TYPE_PRODUCT_RELOCATION_LOCATION_LIST {
+  code: String
+  message: String
+  payload: [TYPE_PRODUCT_RELOCATION_LOCATION]
+}
+
+type TYPE_PRODUCT_RELOCATION_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  date: Date
+  declaration: ID
+  declarationDetail: ID
+  locationList: [TYPE_PRODUCT_RELOCATION_LOCATION]
+  no: String
+  parent: TYPE_PRODUCT_RELOCATION_SCHEMA
+  product: TYPE_PRODUCT_SCHEMA
+  productionOrder: ID
+  ref: String
+  reserve: ENUM_IS
+  status: ENUM_PRODUCT_RELOCATION_STATUS
+  totalRawMaterialQuantity: Number
+  transfer: ID
+  type: ENUM_PRODUCT_RELOCATION_TYPE
+}
+
+type TYPE_PRODUCT_SCHEMA {
+  _id: ID
+  attachmentList: [String]
+  brandName: String
+  canProduce: ENUM_IS
+  cctvId: String
+  code: String
+  currency: TYPE_MADTER_DATA_VALUE
+  customsCode: String
+  description: String
+  effectiveDate: Date
+  globalName: String
+  image: String
+  localName: String
+  productCategory: TYPE_PRODUCT_PROPERTY_SCHEMA
+  productLocationList: [TYPE_PRODUCT_LOCATION_SCHEMA]
+  productType: TYPE_PRODUCT_PROPERTY_SCHEMA
+  productUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  productWeightUnit: TYPE_PRODUCT_PROPERTY_SCHEMA
+  productYear: String
+  remaining: Number
+  scrap: TYPE_PRODUCT_SCHEMA
+  statisticCode: String
+  tariffCode: String
+  tariffRate: Number
+  tariffSequence: String
+  type: ENUM_PRODUCT_TYPE
+  unitPrice: Number
+  weight: Number
+}
+
+type TYPE_PROPERTY {
+  code: String
+  message: String
+  payload: TYPE_PROPERTY_SCHEMA
+}
+
+type TYPE_PROPERTY_OVER_MAX_LOST {
+  code: String
+  message: String
+  payload: TYPE_PROPERTY_OVER_MAX_LOST_SCHEMA
+}
+
+type TYPE_PROPERTY_OVER_MAX_LOST_SCHEMA {
+  lostMaxPercent: Number
+  lostPercent: Number
+  overMaxLost: ENUM_IS
+}
+
+type TYPE_PROPERTY_SCHEMA {
+  address: String
+  branch: String
+  companyEmail: String
+  companyFax: String
+  companyLogo: [String]
+  companyPhone: String
+  companyStamp: [String]
+  currency: TYPE_MADTER_DATA_VALUE
+  district: TYPE_MADTER_DATA_VALUE
+  freezoneArea: String
+  globalName: String
+  lostPercent: Number
+  name: String
+  province: TYPE_MADTER_DATA_VALUE
+  signature: [String]
+  subDistrict: TYPE_MADTER_DATA_VALUE
+  taxNo: String
+  zipCode: String
+}
+
+type TYPE_QUOTATION {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_QUOTATION
+}
+
+type TYPE_QUOTATION_CONTACT_DETAIL {
+  address: String
+  branch: String
+  taxId: String
+  zipCode: String
+}
+
+type TYPE_QUOTATION_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SCHEMA_QUOTATION]
+}
+
+type TYPE_QUOTATION_PRICE_DETAIL {
+  date: Date
+  discount: Number
+  dueDate: Date
+  grandTotal: Number
+  grandTotalForeign: Number
+  grandTotalLocal: Number
+  paymentAmount: Number
+  salesName: String
+  total: Number
+  totalAfterDiscount: Number
+  totalForeign: Number
+  totalLocal: Number
+  vat: Number
+  withHoldingTax: Number
+}
+
+type TYPE_QUOTATION_PRODUCT {
+  code: String
+  exchangeRate: Number
+  id: ID
+  name: String
+  quantity: Number
+  total: Number
+  totalForeign: Number
+  totalLocal: Number
+  unit: String
+  unitId: ID
+  unitPrice: Number
+  unitPriceCurrency: TYPE_MADTER_DATA_VALUE
+  unitPriceForeign: Number
+  unitPriceForeignCurrency: TYPE_MADTER_DATA_VALUE
+  unitPriceLocal: Number
+  unitPriceLocalCurrency: TYPE_MADTER_DATA_VALUE
+}
+
+type TYPE_RECEPTION_LOCATION {
+  location: TYPE_PRODUCT_LOCATION_SCHEMA
+  quantity: Number
+  remark: String
+}
+
+type TYPE_REPORT {
+  _id: ID
+  createdAt: Date
+  createdBy: String
+  docTypeList: [String]
+  endDate: Date
+  expireDate: Date
+  fileTypeKey: ENUM_REPORT_FILE_TYPE
+  fileTypeTitle: String
+  locationList: [TYPE_LOCATION_SCHEMA]
+  locationType: ENUM_REPORT_SELECT
+  reportSubTypeKeyList: [ENUM_REPORT_PRODUCT_TYPE]
+  reportTypeKey: ENUM_REPORT_TYPE
+  reportTypeTitle: String
+  selectDocType: ENUM_REPORT_SELECT
+  selectSubTypeKey: ENUM_REPORT_SELECT
+  startDate: Date
+  statusKey: ENUM_REPORT_STATUS
+  statusTitle: String
+  taskReportAt: Date
+  url: String
+}
+
+type TYPE_REPORT_CONSTANT_LIST {
+  description: String
+  key: String
+  title: String
+}
+
+type TYPE_REPORT_CONSTANT_LIST_RESPONSE {
+  code: String
+  message: String
+  payload: [TYPE_REPORT_CONSTANT_LIST]
+}
+
+type TYPE_REPORT_LIST_RESPONSE {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_REPORT]
+}
+
+type TYPE_REPORT_RESPONSE {
+  code: String
+  message: String
+  payload: TYPE_REPORT
+}
+
+type TYPE_RESPONSE {
+  message: String
+  success: Boolean
+}
+
+type TYPE_ROLE {
+  isDefault: ENUM_IS
+  isReplaceable: ENUM_IS
+  name: String
+  roleKey: String
+  roleType: ENUM_LRLE_TYPE
+  status: ENUM_APP_STATUS
+}
+
+type TYPE_ROLE_DATA_SECURITY {
+  assign: ENUM_DATA_SECURITY
+  assignToParent: ENUM_IS
+  create: ENUM_DATA_SECURITY
+  delete: ENUM_DATA_SECURITY
+  name: String
+  read: ENUM_DATA_SECURITY
+  securityKey: String
+  write: ENUM_DATA_SECURITY
+}
+
+type TYPE_ROLE_DATA_SECURITY_LIST {
+  code: String
+  message: String
+  payload: TYPE_ROLE_DATA_SECURITY_PAYLOAD
+}
+
+type TYPE_ROLE_DATA_SECURITY_PAYLOAD {
+  dataSecurityList: [TYPE_ROLE_DATA_SECURITY]
+  role: TYPE_ROLE
+}
+
+type TYPE_ROLE_PERMISSION {
+  code: [String]
+  name: String
+  permissionKey: String
+  scopeList: [String]
+}
+
+type TYPE_ROLE_PERMISSION_LIST {
+  code: String
+  message: String
+  payload: TYPE_ROLE_PERMISSION_PAYLOAD
+}
+
+type TYPE_ROLE_PERMISSION_PAYLOAD {
+  permissionList: [TYPE_ROLE_PERMISSION]
+  role: TYPE_ROLE
+}
+
+type TYPE_ROLE_PERMISSION_SCHEMA {
+  code: [String]
+  permissionKey: String
+  scopeList: [String]
+}
+
+type TYPE_ROLE_PERMISSION_USER_LIST {
+  code: String
+  message: String
+  payload: [TYPE_ROLE_PERMISSION_SCHEMA]
+}
+
+type TYPE_RUNNING_NUMBER {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_RUNNING_NUMBER
+}
+
+type TYPE_RUNNING_NUMBER_LIST {
+  code: String
+  message: String
+  payload: [TYPE_SCHEMA_RUNNING_NUMBER]
+}
+
+type TYPE_RUNNING_NUMBER_NO {
+  runningNo: String
+}
+
+type TYPE_S3_CONFIG {
+  ACL: String
+  _id: String
+  accessKeyId: String
+  bucket: String
+  headers: JSON
+  publicEndpoint: String
+  region: String
+  s3ForcePathStyle: Boolean
+  secretAccessKey: String
+  serviceEndpoint: String
+  signatureExpires: Number
+  signatureVersion: String
+  uniquePrefix: Boolean
+}
+
+type TYPE_SCHEMA_CCTV {
+  _id: String
+  appKey: String
+  attribute: JSON @deprecated(reason: "attribute is deprecated. Use newField instead.")
+  cameraId: String @deprecated
+  cameraName: String
+  createdAt: Date
+  licensePlateDetection: TYPE_CCTV_VEHICLE_OPTION
+  localRTSP: String
+  locationId: String
+  mediaServiceEndpoint: String
+  motionDetection: Boolean
+  orgKey: String
+  remoteRTSP: String
+  secretKey: String @deprecated
+  serialNumber: String
+  serviceEndpoint: String @deprecated
+  signUrlEndpoint: String @deprecated
+  toolkitList: [String]
+  toolkitListFull: [TYPE_TOOLKIT_OPTION]
+  updatedAt: Date
+  vehicleDeteion: TYPE_CCTV_VEHICLE_OPTION
+}
+
+type TYPE_SCHEMA_CCTV_MOTIONCAPTURE {
+  _id: String
+  appKey: String
+  cameraId: String
+  cameraName: String
+  capture: TYPE_SCHEMA_CCTV_MOTIONCAPTURE_S3
+  captureTime: Date
+  motion: TYPE_SCHEMA_CCTV_MOTIONCAPTURE_S3
+  orgKey: String
+  reSize: TYPE_SCHEMA_CCTV_MOTIONCAPTURE_S3
+  registerCCTV: String
+}
+
+type TYPE_SCHEMA_CCTV_MOTIONCAPTURE_S3 {
+  s3Endpoint: String
+  s3FileKey: String
+  s3FileName: String
+}
+
+type TYPE_SCHEMA_CCTV_RECORDING {
+  _id: String
+  appKey: String
+  cameraId: String
+  cameraName: String
+  orgKey: String
+  registerCCTV: String
+  s3Endpoint: String
+  s3FileKey: String
+  s3FileName: String
+  startTime: Date
+  stopTime: Date
+}
+
+type TYPE_SCHEMA_CCTV_TOOLKIT {
+  _id: String
+  appKey: String
+  certID: String
+  createdAt: Date
+  lastHealthCheckTimestamp: Date
+  orgKey: String
+  serialNumber: String
+  status: ENUM_CCTV_TOOLKIT_STATUS
+  toolkitName: String
+  updatedAt: Date
+}
+
+type TYPE_SCHEMA_FILEUPLOAD {
+  _id: String
+  attribute: JSON
+  createBy: String
+  createdAt: Date
+  fileExtension: String
+  fileKey: String
+  fileName: String
+  fileType: String
+  refId: String
+  updateBy: String
+  updatedAt: Date
+}
+
+type TYPE_SCHEMA_INVOICE {
+  _id: ID
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: TYPE_INVOICE_CONTACT_DETAIL
+  createdAt: Date
+  createdBy: String
+  customerId: ID
+  customerName: String
+  invoiceNumber: String
+  priceDetail: TYPE_INVOICE_PRICE_DETAIL
+  productList: [TYPE_INVOICE_PRODUCT]
+  remark: String
+  signature: [String]
+  updatedAt: Date
+}
+
+type TYPE_SCHEMA_LOGSYSTEM {
+  _id: String
+  action: String
+  createdAt: Date
+  eventKey: String
+  eventName: String
+  logType: String
+  nextData: JSON
+  prevData: JSON
+  refId: [String]
+  updatedAt: Date
+  user: TYPE_LOGSYSTEM_USER
+}
+
+type TYPE_SCHEMA_QUOTATION {
+  _id: ID
+  attachFileList: [String]
+  companyStamp: [String]
+  contactDetail: TYPE_QUOTATION_CONTACT_DETAIL
+  createdAt: Date
+  createdBy: String
+  customerId: String
+  customerName: String
+  priceDetail: TYPE_QUOTATION_PRICE_DETAIL
+  productList: [TYPE_QUOTATION_PRODUCT]
+  quotationNumber: String
+  remark: String
+  signature: [String]
+  updatedAt: Date
+}
+
+type TYPE_SCHEMA_RUNNING_NUMBER {
+  attribute: JSON
+  createdBy: String
+  name: String
+  runningKey: String
+  runningNumberFormat: String
+  updatedBy: String
+}
+
+type TYPE_SCHEMA_WEBHOOK {
+  count: Int
+  total: Int
+}
+
+type TYPE_SCMEMA_NOTIFICATION_TEMPLATE {
+  channel: ENUM_NOTIFICATION_CHANNEL!
+  dataKeyList: [TYPE_NOTIFICATION_DATA_KEY]
+  locale: String!
+  templateKey: String
+  templateValue: String
+  title: String
+}
+
+type TYPE_SCRIPT {
+  code: String
+  message: String
+}
+
+type TYPE_SERVICE {
+  adminPanelEndpoint: String
+  adminPanelMetaDataUrl: String
+  dockerImageTag: String
+  endpoint: TYPE_ENDPOIN_SERVICE_TYPE
+  name: String
+  permissionList: [TYPE_SERVICE_PERMISSION]
+  serviceKey: String
+}
+
+type TYPE_SERVICE_INFO {
+  code: String
+  message: String
+  payload: TYPE_SERVICE
+}
+
+type TYPE_SERVICE_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_SERVICE]
+}
+
+type TYPE_SERVICE_LIST_PAYLOAD {
+  service: TYPE_SERVICE
+  syncStatus: String
+}
+
+type TYPE_SERVICE_PERMISSION {
+  defaultCode: String
+  name: String
+  permissionKey: String
+  scopeList: [String]
+  userType: String
+}
+
+type TYPE_SETTING {
+  _id: ID
+  description: String
+  key: String
+  value: String
+}
+
+type TYPE_SYNC_APP {
+  code: String
+  message: String
+  payload: [TYPE_SYNC_APP_PAYLOAD]
+}
+
+type TYPE_SYNC_APP_PAYLOAD {
+  app: TYPE_APP
+  serviceList: [TYPE_SERVICE_LIST_PAYLOAD]
+}
+
+type TYPE_SYNC_ORGANIZATION {
+  code: String
+  message: String
+  payload: [TYPE_SYNC_ORGANIZATION_PAYLOAD]
+}
+
+type TYPE_SYNC_ORGANIZATION_PAYLOAD {
+  organization: TYPE_ORGANIZATION_RESPONSE
+  syncStatus: String
+}
+
+type TYPE_SYNC_SERVICE_INFO {
+  code: String
+  message: String
+  payload: TYPE_SYNC_SERVICE_INFO_PAYLOAD
+}
+
+type TYPE_SYNC_SERVICE_INFO_PAYLOAD {
+  serviceList: [TYPE_SERVICE_LIST_PAYLOAD]
+}
+
+type TYPE_TEMPLATE {
+  _id: ID
+  content: String
+  keys: [TYPE_KEY]
+  name: String
+}
+
+type TYPE_TOKEN_EXPIRED {
+  accessTokenExpired: Number
+  refreshTokenExpired: Number
+}
+
+type TYPE_TOOLKIT_OPTION {
+  serialNumber: String
+  toolkitName: String
+}
+
+type TYPE_TRANSFER {
+  _id: ID
+  attachmentList: [String]
+  productRelocation: TYPE_PRODUCT_RELOCATION_SCHEMA
+  productType: ENUM_TRANSFER_PRODUCT_TYPE
+  relocationRef: String
+  remark: String
+  status: ENUM_TRANSFER_STATUS
+  step: Number
+  transferDate: Date
+  transferInDate: Date
+  transferNo: String
+  transferOut: TYPE_TRANSFER
+  transferOutDate: Date
+  type: ENUM_TRANSFER_TYPE
+}
+
+type TYPE_TRANSFER_LIST_RESPONSE {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_TRANSFER]
+}
+
+type TYPE_TRANSFER_RESPONSE {
+  code: String
+  message: String
+  payload: TYPE_TRANSFER
+}
+
+type TYPE_USER_PERMISSION {
+  defaultOption: String
+  permissionName: String
+  permissionOptions: [TYPE_PERMISION_OPTION]
+}
+
+type TYPE_VERIFY_EMAIL {
+  code: String
+  message: String
+  verifyId: String
+}
+
+type TYPE_WEBHOOK {
+  code: String
+  message: String
+  payload: TYPE_SCHEMA_WEBHOOK
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload

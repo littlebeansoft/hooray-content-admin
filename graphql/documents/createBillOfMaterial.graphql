@@ -1,0 +1,7 @@
+mutation createBillOfMaterial($input: INPUT_BILL_OF_MATERIAL) {
+  createBillOfMaterial(input: $input) {
+    payload {
+      _id
+    }
+  }
+}

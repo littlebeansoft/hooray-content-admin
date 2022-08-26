@@ -1,0 +1,37 @@
+query getDataBillOfMaterial($input: INPUT_FIND_DATA) {
+  getDataBillOfMaterial(input: $input) {
+    payload {
+      _id
+      appKey
+      orgKey
+      billOfmaterialNo
+      billOfMaterialDate
+      name
+      TimeSpent
+      productFinishGood {
+        _id
+        globalName
+      }
+      quantity
+      quantityUnit {
+        _id
+        globalName
+      }
+      netWeight
+      netWeightUnit {
+        _id
+        globalName
+      }
+      unitPrice
+      totalPrice
+      status
+      materialList {
+        productMaterial {
+          _id
+          globalName
+        }
+        quantity
+      }
+    }
+  }
+}

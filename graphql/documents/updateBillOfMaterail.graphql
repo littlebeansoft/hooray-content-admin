@@ -1,0 +1,7 @@
+mutation updateBillOfMaterail($billOfMaterialId: ID!, $input: INPUT_BILL_OF_MATERIAL) {
+  updateBillOfMaterail(billOfMaterialId: $billOfMaterialId, input: $input) {
+    payload {
+      _id
+    }
+  }
+}

@@ -1,0 +1,22 @@
+query getCCTVToolkit($input: INPUT_FIND_DATA) {
+  getCCTVToolkit(input: $input) {
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+    payload {
+      _id
+      appKey
+      orgKey
+      toolkitName
+      certID
+      serialNumber
+      status
+      lastHealthCheckTimestamp
+      createdAt
+      updatedAt
+    }
+  }
+}

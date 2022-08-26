@@ -1,0 +1,18 @@
+mutation updateStatusCCTVToolkit($cctvToolkitId: ID!, $status: ENUM_CCTV_TOOLKIT_STATUS_UPDATE!) {
+  updateStatusCCTVToolkit(cctvToolkitID: $cctvToolkitId, status: $status) {
+    message
+    code
+    payload {
+      _id
+      appKey
+      orgKey
+      toolkitName
+      certID
+      serialNumber
+      status
+      lastHealthCheckTimestamp
+      createdAt
+      updatedAt
+    }
+  }
+}

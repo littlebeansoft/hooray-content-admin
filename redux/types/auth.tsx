@@ -1,0 +1,11 @@
+export const CLEAR_TOKEN = 'CLEAR_TOKEN'
+
+export const STORE_TOKEN_APP = 'STORE_TOKEN_APP'
+
+export const STORE_TOKEN_ORG = 'STORE_TOKEN_ORG'
+
+export const REFRESH_TOKEN_ORG = 'REFRESH_TOKEN_ORG'
+
+export const REFRESH_TOKEN_APP = 'REFRESH_TOKEN_APP'
+
+export const SET_MODE = 'SET_MODE'

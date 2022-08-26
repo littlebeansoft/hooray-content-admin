@@ -1,0 +1,69 @@
+.text-primary{
+    color: $primary-color !important;
+}
+
+.text-secondary{
+    color: $secondary-color !important;
+}
+
+.text-grey {
+    color: $grey !important;
+}
+
+.text-error {
+    color : $error-color !important;
+}
+
+.text-light-grey-2 {
+    color : $light-grey-2 !important;
+}
+
+.text-info{
+    color: $info-color !important;
+}
+
+.text-warning{
+    color: $warning-color !important;
+}
+
+.text-success{
+    color: $success-color !important;
+}
+
+.text-dark-grey {
+    color: $dark-grey !important;
+}
+
+.text-light-grey{
+    color: $light-grey !important;
+}
+
+.bg-white {
+    background-color: white !important;
+}
+
+.bg-card-top-ten {
+    background-color : #F5F5F5 !important;
+}
+
+.text-caption {
+    font-size: small;
+    color: $light-grey !important;
+}
+
+.btn-secondary {
+    background-color:#F09503 !important;
+    color : white !important;
+    border-color: #F09503 !important;
+    &:hover {
+        background: lighten(#F09503, 5%) !important;
+    }
+}
+
+.card-form-app {
+    margin-top: 1.5em !important;
+    padding: 2em 5em !important;
+    width: 100%;
+}
+
+

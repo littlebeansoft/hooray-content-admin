@@ -1,0 +1,6 @@
+mutation CreateCCTV($input: INPUT_CCTV, $tkSerialNumberList: [String]) {
+  createCCTV(input: $input, tkSerialNumberList: $tkSerialNumberList) {
+    message
+    code
+  }
+}
