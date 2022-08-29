@@ -5,7 +5,6 @@ import { PlusCircleOutlined } from '@ant-design/icons'
 import { ContactFormProps } from './interface'
 import UploadImage from 'components/UploadImage'
 import { allowFileExtensionsDocument } from 'config'
-import useProductPropertyAutoComplete from 'hooks/useProductPropertyAutoComplete'
 import router from 'next/router'
 const { TextArea } = Input
 const { Text } = Typography

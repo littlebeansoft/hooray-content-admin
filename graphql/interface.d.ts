@@ -828,13 +828,21 @@ export interface VehicleOptionsInput {
   car?: boolean
   motorcycle?: boolean
 }
-export interface CreateCCTVInput {
-  remoteRTSP: string
-  localRTSP: string
-  mediaServiceEndpoint: string
-  serialNumber: string
-  cameraName?: string
-  motionDetection?: boolean
-  vehicleDeteion?: VehicleOptionsInput
-  licensePlateDetection?: VehicleOptionsInput
+export interface LeadDataAPIPayload {
+  id: string
+  prefixKey: string
+  prefixName: string
+  firstName: string
+  lastName: string
+  leadTypeKey: string
+  leadTypeName: string
+  organizationKey: string
+  organizationName: string
+  status: string
+  telephone: string
+  email: string
+  createdAt: Date
+  updatedAt: Date
+  createBy: string
+  updateBy: string
 }

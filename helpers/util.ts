@@ -3,9 +3,9 @@ import isUndefined from 'lodash/isUndefined'
 import omitBy from 'lodash/omitBy'
 
 import type { ProfileAttribute } from 'graphql/interface'
-import type { OrgProductLocationAPIPayload } from 'graphql/useGetProductLocation/interface'
+// import type { OrgProductLocationAPIPayload } from 'graphql/useGetProductLocation/interface'
 import type { MasterDataSelection } from 'hooks/useMasterData/interface'
-import type { AdminFinanceDocumentProductWithProductID } from 'components/AdminFinanceDocument/AdminFinanceDocumentTableForm'
+// import type { AdminFinanceDocumentProductWithProductID } from 'components/AdminFinanceDocument/AdminFinanceDocumentTableForm'
 
 interface SelectOption {
   label: string
@@ -49,13 +49,13 @@ export const checkDurationFallBackString = (startDate: Date | string, endDate: D
   return `${start} - ${end}`
 }
 
-export const getMaximumAllocateProductQuantity = (locationList: OrgProductLocationAPIPayload[]): number => {
-  if (locationList.length === 0) {
-    return 0
-  }
+// export const getMaximumAllocateProductQuantity = (locationList: OrgProductLocationAPIPayload[]): number => {
+//   if (locationList.length === 0) {
+//     return 0
+//   }
 
-  return locationList.reduce((prev, cur) => prev + cur.remaining, 0)
-}
+//   return locationList.reduce((prev, cur) => prev + cur.remaining, 0)
+// }
 
 export function filterUndefinedObjectValues<T extends object>(object: T): T {
   const cloneDeepObject = cloneDeep(omitBy(object, isUndefined)).valueOf() as T
@@ -83,32 +83,32 @@ export const toSelectOptions = (masterData?: MasterDataSelection): SelectOption[
     : []
 }
 
-export const createFinanceDocumentForCreateOrUpdate = (
-  values: any,
-  key?: 'quotationNumber' | 'invoiceNumber',
-  financeDocumentNumber?: string
-) => {
-  const result = {
-    ...values,
-    productList: values.productList.map(({ id, productID, ...rest }: AdminFinanceDocumentProductWithProductID) => ({
-      ...rest,
-      id: productID || id,
-    })),
-  }
+// export const createFinanceDocumentForCreateOrUpdate = (
+//   values: any,
+//   key?: 'quotationNumber' | 'invoiceNumber',
+//   financeDocumentNumber?: string
+// ) => {
+//   const result = {
+//     ...values,
+//     productList: values.productList.map(({ id, productID, ...rest }: AdminFinanceDocumentProductWithProductID) => ({
+//       ...rest,
+//       id: productID || id,
+//     })),
+//   }
 
-  if (key == null) {
-    return result
-  }
-  delete values._id
-  return {
-    ...values,
-    [key]: financeDocumentNumber,
-    productList: values.productList.map(({ id, productID, ...rest }: AdminFinanceDocumentProductWithProductID) => ({
-      ...rest,
-      id: productID || id,
-    })),
-  }
-}
+//   if (key == null) {
+//     return result
+//   }
+//   delete values._id
+//   return {
+//     ...values,
+//     [key]: financeDocumentNumber,
+//     productList: values.productList.map(({ id, productID, ...rest }: AdminFinanceDocumentProductWithProductID) => ({
+//       ...rest,
+//       id: productID || id,
+//     })),
+//   }
+// }
 
 export const isAcceptQRCodeValue = (value: string) => {
   const regex = /^(FG|MC|SC|RM|IMP|EXP|PDO):[a-f\d]{21,24}$/gi
