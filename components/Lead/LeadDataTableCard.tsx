@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { Button, Card, Typography } from 'antd'
-import { PlusCircleOutlined } from '@ant-design/icons'
+import { Button, Card, Input, Radio, Typography } from 'antd'
+import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -14,10 +14,15 @@ import { LeadDataAPIPayload } from 'graphql/interface'
 import LeadDataTableDropDown from './LeadDataTableDropDown'
 import dayjs from 'dayjs'
 
-const LeadDataTableCard: React.FC<LeadDataAPIPayload> = () => {
+const { Search } = Input
+
+
+const LeadDataTableCard: React.FC = () => {
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
+  const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
+
 
   const leadData = useGetLeadData({
     // skip: !router.isReady,
@@ -138,18 +143,42 @@ const LeadDataTableCard: React.FC<LeadDataAPIPayload> = () => {
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
     },
     {
+      fixed: 'right',
       key: 'eventAction',
       width: 100,
       render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} />,
     },
   ]
+
+  const onSelectItems = (selectedRowKeys: React.Key[]) => {
+    setSelectRowKeys(selectedRowKeys)
+  }
+
+  const hasSelected = selectedRowKeys.length > 0;
+
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-        onSearch={(value: string) => {
-          setSearch(value)
-        }}
+        rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+        rowSelectAmount={selectedRowKeys.length}
         header={[
+          <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
+            <Radio.Button value="qualify">Qualify</Radio.Button>
+            <Radio.Button value="delete">Delete</Radio.Button>
+          </Radio.Group>,
+          <Search
+            placeholder={'Input search text'}
+            allowClear
+            enterButton={
+              <Button type="primary" icon={<SearchOutlined />}>
+                Search
+              </Button>
+            }
+            size="middle"
+            onSearch={(value: string) => {
+              setSearch(value)
+            }}
+          />,
           <Button
             key="addProductType"
             type="primary"
@@ -163,7 +192,7 @@ const LeadDataTableCard: React.FC<LeadDataAPIPayload> = () => {
               })
             }}
           >
-            Create
+            Add New Lead
           </Button>,
         ]}
         rowKey="_id"
@@ -183,3 +212,5 @@ const LeadDataTableCard: React.FC<LeadDataAPIPayload> = () => {
     </Card>
   )
 }
+
+export default LeadDataTableCard

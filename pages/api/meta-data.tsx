@@ -47,7 +47,7 @@ export default async function handler(req: any, res: any) {
             menuList: [
                 {
                     name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
-                    path: 'all-lead',
+                    path: 'lead',
                     icon: 'user',
                     permissionList: [
                         {
