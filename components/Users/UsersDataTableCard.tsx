@@ -11,13 +11,12 @@ import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
 import useGetLeadData from 'graphql/useGetLeadData'
 import { LeadDataAPIPayload } from 'graphql/interface'
-import LeadDataTableDropDown from './LeadDataTableDropDown'
 import dayjs from 'dayjs'
 
 const { Search } = Input
 
 
-const LeadDataTableCard: React.FC = () => {
+const UserDataTableCard: React.FC = () => {
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
@@ -53,29 +52,29 @@ const LeadDataTableCard: React.FC = () => {
   const LeadData = leadData.data?.getDataLead.payload
   const columns: ColumnsType<LeadDataAPIPayload> = [
     {
-      title: 'Name',
-      dataIndex: 'Name',
-      key: 'Name',
+      title: 'User Name',
+      dataIndex: 'User Name',
+      key: 'UserName',
       fixed: 'left',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
     },
     {
-      title: 'Type',
-      dataIndex: 'Type',
-      key: 'Type',
+      title: 'User Type',
+      dataIndex: 'User Type',
+      key: 'UserType',
       fixed: 'left',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
     },
     {
-      title: 'Organization',
-      dataIndex: 'Organization',
+      title: 'Organization Name',
+      dataIndex: 'Organization Name',
       key: 'TOrganizationype',
       fixed: 'left',
-      width: 100,
+      width: 120,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.organizationName),
     },
@@ -89,46 +88,42 @@ const LeadDataTableCard: React.FC = () => {
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.status),
     },
     {
-      title: 'Telephone',
-      dataIndex: 'Telephone',
-      key: 'Telephone',
+      title: 'User Phone Number',
+      dataIndex: 'User Phone Number',
+      key: 'phoneNumber',
       fixed: 'left',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.telephone),
     },
     {
-      title: 'Email',
-      dataIndex: 'Email',
-      key: 'Email',
-      fixed: 'left',
+      title: 'User Email',
+      dataIndex: 'User Email',
+      key: 'userEmail',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.email),
     },
     {
-      title: 'Modify Date',
-      dataIndex: 'ModifyDate',
-      key: 'ModifyDate',
-      fixed: 'left',
+      title: 'Update At',
+      dataIndex: 'UpdateAt',
+      key: 'UpdateAt',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
     },
     {
-      title: 'Modify By',
-      dataIndex: 'ModifyBy',
-      key: 'ModifyBy',
-      fixed: 'left',
+      title: 'Update By',
+      dataIndex: 'UpdateBy',
+      key: 'UpdateBy',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
     },
     {
-      title: 'Create Date',
-      dataIndex: 'CreateDate',
-      key: 'CreateDate',
-      fixed: 'left',
+      title: 'Create At',
+      dataIndex: 'CreateAt',
+      key: 'CreateAt',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
@@ -137,17 +132,11 @@ const LeadDataTableCard: React.FC = () => {
       title: 'Create By',
       dataIndex: 'CreateBy',
       key: 'CreateBy',
-      fixed: 'left',
       width: 100,
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
     },
-    {
-      fixed: 'right',
-      key: 'eventAction',
-      width: 100,
-      render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} />,
-    },
+
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -162,16 +151,15 @@ const LeadDataTableCard: React.FC = () => {
         rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
         rowSelectAmount={selectedRowKeys.length}
         header={[
-          <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
-            <Radio.Button value="qualify">Qualify</Radio.Button>
-            <Radio.Button value="delete">Delete</Radio.Button>
-          </Radio.Group>,
+          hasSelected ? <Button danger >
+            Delete
+          </Button> : null,
           <Search
             placeholder={'Input search text'}
             allowClear
             enterButton={
               <Button  icon={<SearchOutlined />}>
-                
+         
               </Button>
             }
             size="middle"
@@ -192,7 +180,7 @@ const LeadDataTableCard: React.FC = () => {
               })
             }}
           >
-            Add New Lead
+            Add New User
           </Button>,
         ]}
         rowKey="_id"
@@ -213,4 +201,4 @@ const LeadDataTableCard: React.FC = () => {
   )
 }
 
-export default LeadDataTableCard
+export default UserDataTableCard
