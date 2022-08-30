@@ -34,7 +34,8 @@ export interface TabLayoutProps {
 export interface TableCardProps extends TableProps<any> {
   onSearch?: (value: string) => void
   header?: ReactNode[]
-  searchPlaceholder?: string
+  searchPlaceholder?: string,
+  rowSelectAmount?: number
 }
 
 export interface ActionMenu<T> {
