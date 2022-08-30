@@ -170,8 +170,8 @@ const LeadDataTableCard: React.FC = () => {
             placeholder={'Input search text'}
             allowClear
             enterButton={
-              <Button type="primary" icon={<SearchOutlined />}>
-                Search
+              <Button  icon={<SearchOutlined />}>
+                
               </Button>
             }
             size="middle"
