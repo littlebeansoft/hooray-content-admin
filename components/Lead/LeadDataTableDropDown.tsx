@@ -19,7 +19,7 @@ const menuData: EventMenu[] = [
   },
 ]
 
-const ProductCategoryTableDroupDown: React.FC<props> = ({ leadData, setPagination }) => {
+const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination }) => {
   const router = useRouter()
   const { parentKey = null } = router.query
   const handleMenuClick = (e: any) => {
@@ -72,4 +72,4 @@ const ProductCategoryTableDroupDown: React.FC<props> = ({ leadData, setPaginatio
   )
 }
 
-export default ProductCategoryTableDroupDown
+export default LeadDataTableDropDown
