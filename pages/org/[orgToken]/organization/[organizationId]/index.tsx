@@ -3,27 +3,27 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import UseDetailCard from 'components/User/UserDetail/UseDetailCard'
+import OrganizationDetailCard from 'components/Organization/OrganizationDetail/OrganizationDetailCard'
 
-const UserDetail: React.FC = () => {
+const OrganizationDetail: React.FC = () => {
     const router = useRouter()
 
     return (
-        <MainLayout breadcrumb={['Home', 'User Name']}>
+        <MainLayout breadcrumb={['Home', 'Organization']}>
             <TitleComponent
-                title="User Name"
+                title="Organization"
                 onBack={() =>
                     router.push({
-                        pathname: `/org/[orgToken]/user`,
+                        pathname: `/org/[orgToken]/organization`,
                         query: {
                             ...router.query,
                         },
                     })
                 }
             />
-            <UseDetailCard />
+            <OrganizationDetailCard />
         </MainLayout>
     )
 }
 
-export default withAuth(UserDetail)
+export default withAuth(OrganizationDetail)
