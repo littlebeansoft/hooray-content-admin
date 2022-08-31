@@ -5,7 +5,7 @@ import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
 import UseDetailCard from 'components/User/UserDetail/UseDetailCard'
 
-const LeadCreatePack: React.FC = () => {
+const UserDetail: React.FC = () => {
     const router = useRouter()
 
     return (
@@ -26,4 +26,4 @@ const LeadCreatePack: React.FC = () => {
     )
 }
 
-export default withAuth(LeadCreatePack)
+export default withAuth(UserDetail)
