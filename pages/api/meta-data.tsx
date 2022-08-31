@@ -58,7 +58,7 @@ export default async function handler(req: any, res: any) {
                 },
                 {
                     name: { en: 'All User', th: 'ผู้ใช้' },
-                    path: 'users',
+                    path: 'user',
                     icon: 'user',
                     permissionList: [
                         {

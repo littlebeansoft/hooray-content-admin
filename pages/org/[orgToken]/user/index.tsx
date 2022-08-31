@@ -2,7 +2,7 @@ import React from 'react'
 import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
-import UserDataTableCard from 'components/Users/UsersDataTableCard'
+import UserDataTableCard from 'components/User/UserDataTableCard'
 
 const AllUser: React.FC = () => {
     return (
