@@ -19,7 +19,7 @@ const ruleRequired = {
     message: 'Required',
 }
 
-const LeadCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
 
 
 
@@ -204,4 +204,4 @@ const LeadCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
     )
 }
 
-export default LeadCreateForm
+export default UserCreateForm
