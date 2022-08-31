@@ -29,7 +29,7 @@ const CustomTable: React.FunctionComponent<Omit<TableCardProps, 'children'>> = (
           onSearch={onSearch}
         /> */}
         <span>
-          เลือกแล้ว {rowSelectAmount}
+          {rowSelectAmount && `เลือกแล้ว ${rowSelectAmount}`}
         </span>
         <Space size="large">
 
