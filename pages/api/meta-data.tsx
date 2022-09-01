@@ -70,7 +70,7 @@ export default async function handler(req: any, res: any) {
                 {
                     name: { en: 'All Organization', th: 'หน่วยงาน' },
                     path: 'organization',
-                    icon: 'user',
+                    icon: 'factory',
                     permissionList: [
                         {
                             permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -81,7 +81,18 @@ export default async function handler(req: any, res: any) {
                 {
                     name: { en: 'All Product', th: 'สินค้า' },
                     path: 'product',
-                    icon: 'user',
+                    icon: 'product',
+                    permissionList: [
+                        {
+                            permissionKey: 'ORG.MASTER_DATA.LOCATION',
+                            code: ['READ'],
+                        },
+                    ],
+                },
+                {
+                    name: { en: 'All Category', th: 'หมวดหมู่สินค้า' },
+                    path: 'category',
+                    icon: 'category',
                     permissionList: [
                         {
                             permissionKey: 'ORG.MASTER_DATA.LOCATION',
