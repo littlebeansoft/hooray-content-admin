@@ -100,6 +100,17 @@ export default async function handler(req: any, res: any) {
                         },
                     ],
                 },
+                {
+                    name: { en: 'All Property', th: 'คุณสมบัติ' },
+                    path: 'property',
+                    icon: 'property',
+                    permissionList: [
+                        {
+                            permissionKey: 'ORG.MASTER_DATA.LOCATION',
+                            code: ['READ'],
+                        },
+                    ],
+                },
             ],
         },
     })
