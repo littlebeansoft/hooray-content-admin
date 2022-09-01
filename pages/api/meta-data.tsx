@@ -111,6 +111,17 @@ export default async function handler(req: any, res: any) {
                         },
                     ],
                 },
+                {
+                    name: { en: 'All Organization Label', th: 'เลเบลองค์กร' },
+                    path: 'organization-label',
+                    icon: 'factory',
+                    permissionList: [
+                        {
+                            permissionKey: 'ORG.MASTER_DATA.LOCATION',
+                            code: ['READ'],
+                        },
+                    ],
+                },
             ],
         },
     })
