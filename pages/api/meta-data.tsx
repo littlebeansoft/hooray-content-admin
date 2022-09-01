@@ -67,6 +67,28 @@ export default async function handler(req: any, res: any) {
                         },
                     ],
                 },
+                {
+                    name: { en: 'All Organization', th: 'หน่วยงาน' },
+                    path: 'organization',
+                    icon: 'user',
+                    permissionList: [
+                        {
+                            permissionKey: 'ORG.MASTER_DATA.LOCATION',
+                            code: ['READ'],
+                        },
+                    ],
+                },
+                {
+                    name: { en: 'All Product', th: 'สินค้า' },
+                    path: 'product',
+                    icon: 'user',
+                    permissionList: [
+                        {
+                            permissionKey: 'ORG.MASTER_DATA.LOCATION',
+                            code: ['READ'],
+                        },
+                    ],
+                },
             ],
         },
     })
