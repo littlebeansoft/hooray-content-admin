@@ -24,11 +24,6 @@ const data = [
 ]
 
 const ProductListSelect: React.FC = () => {
-
-
-
-
-
     return (
         <Row style={{ border: '1px solid rgba(140, 140, 140, 0.35)' }} >
             <Col span={8}>

@@ -7,6 +7,8 @@ import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
 import { ProductCreateFormProps } from '../interface'
 import ProductInformationForm from './ProductInfomationForm'
+import ProductPropertyForm from './ProductPropertyForm'
+import ProductOnePriceForm from './ProductOnePriceForm'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -36,8 +38,8 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, lo
 
     return (
         <Form
-            labelCol={{ span: 4 }}
-            wrapperCol={{ span: 20 }}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 18 }}
             id="content-pack"
             name="content-pack"
             form={form}
@@ -46,7 +48,9 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, lo
             labelAlign="left"
         >
             <ProductInformationForm />
-
+            <ProductPropertyForm />
+            <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>ตัวเลือราคาสินค้า</Title>
+            <ProductOnePriceForm />
             <Form.Item>
                 <FullWidthSpace style={{ display: 'flex' }}>
                     <Button
