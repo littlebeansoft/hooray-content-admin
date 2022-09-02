@@ -7,6 +7,7 @@ import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
 import { ProductCreateFormProps } from '../interface'
 import ProductListSelect from './ProductListSelect'
+import ProductPropertyForm from './ProductPropertyForm'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -52,11 +53,12 @@ const ProductInformationForm: React.FC = () => {
                 />
             </Form.Item>
             <Row>
-                <Col span={4}></Col>
-                <Col span={20}>
+                <Col xl={6} sm={24}></Col>
+                <Col xl={18} sm={24}>
                     <ProductListSelect />
                 </Col>
             </Row>
+           
         </>
     )
 }
