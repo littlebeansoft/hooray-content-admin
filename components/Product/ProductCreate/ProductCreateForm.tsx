@@ -9,6 +9,7 @@ import { ProductCreateFormProps } from '../interface'
 import ProductInformationForm from './ProductInfomationForm'
 import ProductPropertyForm from './ProductPropertyForm'
 import ProductOnePriceForm from './ProductOnePriceForm'
+import ProductManyPriceForm from './ProductManyPriceForm'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -24,7 +25,7 @@ const ruleRequired = {
 
 const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
 
-
+    const [choicesPrice, setChoicesPrice] = useState(false)
 
 
 
@@ -50,7 +51,10 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, lo
             <ProductInformationForm />
             <ProductPropertyForm />
             <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>ตัวเลือราคาสินค้า</Title>
-            <ProductOnePriceForm />
+            {choicesPrice ? 
+            <ProductManyPriceForm /> : 
+            <ProductOnePriceForm  setChoicesPrice={setChoicesPrice} /> }
+            
             <Form.Item>
                 <FullWidthSpace style={{ display: 'flex' }}>
                     <Button

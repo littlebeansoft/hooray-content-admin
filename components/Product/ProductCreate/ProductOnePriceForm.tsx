@@ -21,7 +21,11 @@ const ruleRequired = {
     message: 'Required',
 }
 
-const ProductOnePriceForm: React.FC = () => {
+interface ProductOnePriceFornProp {
+    setChoicesPrice: Function
+}
+
+const ProductOnePriceForm: React.FC<ProductOnePriceFornProp> = ({ setChoicesPrice }) => {
 
 
 
@@ -36,8 +40,12 @@ const ProductOnePriceForm: React.FC = () => {
                     </Typography>
                 </Col>
                 <Col xl={18} sm={24}>
-                    <Button type="dashed" icon={<PlusCircleOutlined />} 
-                    style={{ borderColor: 'rgb(38 153 251)', color: "rgb(38 153 251)", width: "50%" }}  >
+                    <Button type="dashed" icon={<PlusCircleOutlined />}
+                        style={{ borderColor: 'rgb(38 153 251)', color: "rgb(38 153 251)", width: "50%" }}
+                        onClick={() => {
+                            setChoicesPrice(true)
+                        }}
+                    >
                         เปิดใช้งานตัวเลือกสินค้า
                     </Button>
                 </Col>

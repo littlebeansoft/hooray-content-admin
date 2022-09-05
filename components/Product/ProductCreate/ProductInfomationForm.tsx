@@ -40,25 +40,8 @@ const ProductInformationForm: React.FC = () => {
                 <TextArea rows={2} style={{ width: 395 }} maxLength={5000} showCount autoSize />
             </Form.Item>
             <Form.Item name="country" label="หมวดหมู่สินค้า">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
+                <ProductListSelect />
             </Form.Item>
-            <Row>
-                <Col xl={6} sm={24}></Col>
-                <Col xl={18} sm={24}>
-                    <ProductListSelect />
-                </Col>
-            </Row>
-           
         </>
     )
 }
