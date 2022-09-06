@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button, Input, Space, Table, Typography } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 
@@ -33,9 +33,7 @@ const CustomTable: React.FunctionComponent<Omit<TableCardProps, 'children'>> = (
         </span>}
 
         <Space size="large">
-
-          {header?.map((component) => component)}
-
+          {header?.map((component, index) => <Fragment key={index} >{component}</Fragment>)}
         </Space>
       </FullWidthSpace>
 

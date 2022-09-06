@@ -839,10 +839,10 @@ export interface LeadDataAPIPayload {
   organizationKey: string
   organizationName: string
   status: string
-  telephone: string
-  email: string
-  createdAt: Date
-  updatedAt: Date
+  phone: { value: string }[]
+  email: { value: string }[]
+  createdAt: number
+  updatedAt: number
   createBy: string
   updateBy: string
 }
