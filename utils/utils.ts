@@ -1,5 +1,6 @@
 import type { ParseConfig } from 'papaparse'
 import type { RcFile } from 'antd/lib/upload'
+import moment from 'moment'
 
 import Papa from 'papaparse'
 
@@ -33,3 +34,7 @@ export const convertCSVToJSON = <T = unknown>(file: RcFile, config?: ParseConfig
       reject(event)
     }
   })
+
+export const dateUnixFormatter = (date: number) => {
+  return moment.unix(date/1000).format("DD - MM - YYYY");
+}
