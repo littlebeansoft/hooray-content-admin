@@ -1,5 +1,6 @@
-import { Card, Form } from 'antd'
+import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
+import useCreateLead from 'graphql/useCreateLead'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LeadCreateForm from './LeadCreateForm'
@@ -8,6 +9,8 @@ const LeadCreateCard: React.FC = () => {
     const router = useRouter()
 
     const [form] = Form.useForm()
+
+    
 
 
 
@@ -20,6 +23,15 @@ const LeadCreateCard: React.FC = () => {
         })
     }
 
+    const [createLead, createLeadResp] = useCreateLead({
+        onCompleted(resp) {
+            message.success('Create Transfer In Successfully')
+        },
+        onError(err) {
+            message.error(err.message)
+        },
+    })
+
     const onFinish = (values: any) => {
         console.log("value: " + values);
     }
@@ -27,9 +39,9 @@ const LeadCreateCard: React.FC = () => {
     return (
         <Card className="w-100" style={{ marginTop: '1.5em' }}>
             <FullWidthSpace direction="vertical">
-                <LeadCreateForm 
-                form={form} 
-                onFinish={onFinish}
+                <LeadCreateForm
+                    form={form}
+                    onFinish={onFinish}
                 />
             </FullWidthSpace>
         </Card>

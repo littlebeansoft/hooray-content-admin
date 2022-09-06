@@ -33,7 +33,7 @@ export interface AddressDataProp {
 }
 
 export interface LeadCreateFormProps {
-  product?: any
+  leadData?: any
   form: FormInstance<any>
   loading?: boolean
   onFinish?: (fieldValue: any) => void
