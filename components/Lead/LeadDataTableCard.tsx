@@ -26,6 +26,7 @@ const LeadDataTableCard: React.FC = () => {
 
   const leadData = useGetLeadData({
     // skip: !router.isReady,
+    context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'network-only',
     variables: {
       input: {
@@ -51,42 +52,39 @@ const LeadDataTableCard: React.FC = () => {
   })
 
   const LeadData = leadData.data?.getDataLead.payload
+  console.log("value", LeadData);
   const columns: ColumnsType<LeadDataAPIPayload> = [
     {
       title: 'Name',
-      dataIndex: 'Name',
-      key: 'Name',
+      key: 'firstName',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName)
     },
     {
-      title: 'Type',
-      dataIndex: 'Type',
+      title: 'Type Name',
       key: 'Type',
       fixed: 'left',
-      width: 100,
+      width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadTypeName),
     },
     {
       title: 'Organization',
-      dataIndex: 'Organization',
       key: 'TOrganizationype',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.organizationName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.organizationName),
     },
     {
       title: 'Status',
-      dataIndex: 'Status',
       key: 'Status',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.status),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.status),
     },
     {
       title: 'Telephone',
@@ -95,7 +93,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.telephone),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.telephone),
     },
     {
       title: 'Email',
@@ -104,7 +102,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.email),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.email),
     },
     {
       title: 'Modify Date',
@@ -113,7 +111,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
+      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dayjs(_text?.updatedAt) : '-'),
     },
     {
       title: 'Modify By',
@@ -122,7 +120,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updateBy),
     },
     {
       title: 'Create Date',
@@ -131,7 +129,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
+      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dayjs(_text?.updatedAt) : '-'),
     },
     {
       title: 'Create By',
@@ -140,7 +138,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createBy),
     },
     {
       fixed: 'right',
@@ -170,8 +168,8 @@ const LeadDataTableCard: React.FC = () => {
             placeholder={'Input search text'}
             allowClear
             enterButton={
-              <Button  icon={<SearchOutlined />}>
-                
+              <Button icon={<SearchOutlined />}>
+
               </Button>
             }
             size="middle"
