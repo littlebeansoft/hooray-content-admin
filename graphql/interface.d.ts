@@ -22,6 +22,10 @@ export type ProductRelocationType =
   | 'LOST'
 export type ProductLocationType = 'DECLARATION' | 'NOT_DECLARATION'
 
+
+
+
+
 export interface MasterData {
   dataKey: string
   value: {
@@ -828,6 +832,33 @@ export interface VehicleOptionsInput {
   car?: boolean
   motorcycle?: boolean
 }
+
+
+
+//---------------------------------- BANGBOW ---------------//
+
+
+export type Phone={
+  value: string;
+}
+
+export type Email ={
+  value: string;
+}
+
+export type RESOURCE_OWNER = "USER" | "OTHER"
+
+
+export type CREAT_LEAD_STATUS = "NORMAL" | "QUALIFY" | "DISQUALIFY"
+
+export type LEAD_TYPE_RESPONSE = "AGENT" | "FACTORY" | "RETAIL" | "ORGANIZATION" | "CUSTOMER" | "OTHER"
+
+export type ADDRESS_TYPE = "ADDRESS_CURRENT" | "ADDRESS_CARD" | "ADDRESS_REGISTER" | "ADDRESS_DOCUMENT" | "ADDRESS_OFFICE" | "NONE"
+
+export type ADDRESS_DEFAULT_SEND= "DEFAULT" | "NOT_DEFAULT"
+
+
+
 export interface LeadDataAPIPayload {
   id: string
   prefixKey: string
@@ -839,8 +870,8 @@ export interface LeadDataAPIPayload {
   organizationKey: string
   organizationName: string
   status: string
-  phone: { value: string }[]
-  email: { value: string }[]
+  phone: Phone[]
+  email: Email[]
   createdAt: number
   updatedAt: number
   createBy: string
