@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_LEAD = gql`
-  query getDataLead($input: INPUT_FIND_DATA) {
+  query getDataLead($input: FindLeadInput) {
     getDataLead(input: $input) {
       message
       code
@@ -13,21 +13,23 @@ const GET_LEAD = gql`
       }
       payload {
         _id
-        firstName
-        lastName
-        citizenId
-        passport
-        phone {
-          value
-        }
-        email {
-          value
-        }
-        dataSource
-        resourceOwner
-        status
-        image
-        organizationName
+      firstName
+      lastName
+      citizenId
+      passport
+      phone {
+        value
+      }
+      email {
+        value
+      }
+      dataSource
+      resourceOwner
+      status
+      image
+      organizationName
+      createdAt
+      updatedAt
       }
     }
   }
