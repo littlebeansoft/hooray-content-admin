@@ -900,3 +900,13 @@ export interface LeadDataAPIPayload {
   createBy: string
   updateBy: string
 }
+
+export interface LeadTypeOption {
+  label: string
+  value: LEAD_TYPE_RESPONSE
+}
+
+export interface LeadStatus {
+  label: string
+  value: CREAT_LEAD_STATUS
+}
