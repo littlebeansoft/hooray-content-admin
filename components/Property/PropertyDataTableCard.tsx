@@ -25,9 +25,12 @@ const PropertyDataTableCard: React.FC = () => {
 
 
   const productAttributeList = getProductAttributeList({
-    // skip: !router.isReady,
-    context: { clientType: 'PRODUCT' },
-    fetchPolicy: 'network-only',
+    context: { 
+      clientType: 'PRODUCT',
+      headers: {
+        credentialKey: 'BANG_BOW_ADMIN',
+      },
+    },
     variables: {
       input: {
         pagination: {

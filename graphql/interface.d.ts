@@ -858,7 +858,7 @@ export type ADDRESS_TYPE = "ADDRESS_CURRENT" | "ADDRESS_CARD" | "ADDRESS_REGISTE
 export type ADDRESS_DEFAULT_SEND = "DEFAULT" | "NOT_DEFAULT"
 
 
-
+export type ATRRIBUTE_TYPE = "CHECKBOX" | "RADIO" | "TEXT" | "NUMBER"
 
 
 export type SelfProductCategory = {
