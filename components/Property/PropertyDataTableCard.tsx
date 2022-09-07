@@ -9,8 +9,8 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import getProductAttributeList from 'graphql/useGetProductAttributeList'
+import { ProductAttributeDTO } from 'graphql/useGetProductAttributeList/interface'
 import CategoryDataTableDropDown from './PropertyDataTableDropDown'
 import dayjs from 'dayjs'
 
@@ -24,8 +24,9 @@ const PropertyDataTableCard: React.FC = () => {
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
 
-  const leadData = useGetLeadData({
+  const productAttributeList = getProductAttributeList({
     // skip: !router.isReady,
+    context: { clientType: 'PRODUCT' },
     fetchPolicy: 'network-only',
     variables: {
       input: {
@@ -33,95 +34,84 @@ const PropertyDataTableCard: React.FC = () => {
           limit: pagination.limit,
           page: pagination.page,
         },
-        search: {
-          organizationName: search,
-          firstName: search,
-          lastName: search,
-          phone: search,
-          email: search,
-          citizenId: search,
-          passport: search,
-        },
       },
     },
     onCompleted(resp: any) {
-      const { pagination } = resp.getDataLead
+      const { pagination } = resp.getProductAttributeList
       setPagination(pagination)
     },
   })
 
-  const LeadData = leadData.data?.getDataLead.payload
-  const columns: ColumnsType<LeadDataAPIPayload> = [
+  const productAttributeListData = productAttributeList.data?.getProductAttributeList.payload
+  const columns: ColumnsType<ProductAttributeDTO> = [
     {
       title: 'Property Name',
-      dataIndex: 'Name',
       key: 'Name',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
+      render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.name),
     },
     {
       title: 'Property Type',
-      dataIndex: 'Type',
       key: 'Type',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.type),
     },
-    
-    {
-      title: 'Status',
-      dataIndex: 'Status',
-      key: 'Status',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.status),
-    },
-    {
-      title: 'Modify Date',
-      dataIndex: 'ModifyDate',
-      key: 'ModifyDate',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
-    },
-    {
-      title: 'Modify By',
-      dataIndex: 'ModifyBy',
-      key: 'ModifyBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
-    },
-    {
-      title: 'Create Date',
-      dataIndex: 'CreateDate',
-      key: 'CreateDate',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-    },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
-    {
-      fixed: 'right',
-      key: 'eventAction',
-      width: 100,
-      render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
-    },
+
+    // {
+    //   title: 'Status',
+    //   dataIndex: 'Status',
+    //   key: 'Status',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.status),
+    // },
+    // {
+    //   title: 'Modify Date',
+    //   dataIndex: 'ModifyDate',
+    //   key: 'ModifyDate',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductAttributeDTO) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
+    // },
+    // {
+    //   title: 'Modify By',
+    //   dataIndex: 'ModifyBy',
+    //   key: 'ModifyBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.updateBy),
+    // },
+    // {
+    //   title: 'Create Date',
+    //   dataIndex: 'CreateDate',
+    //   key: 'CreateDate',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductAttributeDTO) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
+    // },
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.createBy),
+    // },
+    // {
+    //   fixed: 'right',
+    //   key: 'eventAction',
+    //   width: 100,
+    //   render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -144,8 +134,8 @@ const PropertyDataTableCard: React.FC = () => {
             placeholder={'Input search text'}
             allowClear
             enterButton={
-              <Button  icon={<SearchOutlined />}>
-                
+              <Button icon={<SearchOutlined />}>
+
               </Button>
             }
             size="middle"
@@ -171,7 +161,7 @@ const PropertyDataTableCard: React.FC = () => {
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 300 }}
-        loading={leadData.loading}
+        loading={productAttributeList.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -181,7 +171,7 @@ const PropertyDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={LeadData}
+        dataSource={productAttributeListData}
       />
     </Card>
   )
