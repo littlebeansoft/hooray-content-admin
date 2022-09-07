@@ -25,6 +25,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
     const handleFinished = (values: any) => {
         onFinish?.({
             ...values,
+            type: propertyType
         })
     }
 
@@ -74,21 +75,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
             labelAlign="left"
         >
             <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>ข้อมูลคุณสมบัติ</Title>
-            <Form.Item name="status" label="สถานะ">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item>
-
-            <Form.Item name="categoryName" label="ชื่อคุณสมบัติ" rules={[ruleRequired]}>
+            <Form.Item name="name" label="ชื่อคุณสมบัติ" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อคุณสมบัติ" style={{ width: 221 }} />
             </Form.Item>
             <Form.Item name="propertyType" label="Property Type">
