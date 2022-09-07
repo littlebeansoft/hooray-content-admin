@@ -9,8 +9,8 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import useGetProductCategory from 'graphql/useGetProductCategory'
+import { ProductCategoryAPIPayload } from 'graphql/interface'
 import CategoryDataTableDropDown from './CategoryDataTableDropDown'
 import dayjs from 'dayjs'
 
@@ -24,104 +24,93 @@ const CategoryDataTableCard: React.FC = () => {
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
 
-  const leadData = useGetLeadData({
+  const productCategory = useGetProductCategory({
     // skip: !router.isReady,
+    context: { clientType: 'PRODUCT' },
     fetchPolicy: 'network-only',
     variables: {
       input: {
         pagination: {
-          limit: pagination.limit,
-          page: pagination.page,
-        },
-        search: {
-          organizationName: search,
-          firstName: search,
-          lastName: search,
-          phone: search,
-          email: search,
-          citizenId: search,
-          passport: search,
-        },
+          limit: 10,
+          page: 1
+        }
       },
     },
     onCompleted(resp: any) {
-      const { pagination } = resp.getDataLead
+      const { pagination } = resp.getProductCategoryLevel
       setPagination(pagination)
     },
   })
 
-  const LeadData = leadData.data?.getDataLead.payload
-  const columns: ColumnsType<LeadDataAPIPayload> = [
+  const productCategoryData = productCategory.data?.getProductCategoryLevel.payload
+  const columns: ColumnsType<ProductCategoryAPIPayload> = [
     {
       title: 'Category Name',
-      dataIndex: 'Name',
       key: 'Name',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
+      render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.name),
     },
     {
-      title: 'Category Type',
-      dataIndex: 'Type',
+      title: 'Category Parent',
       key: 'Type',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.parent),
     },
-    
-    {
-      title: 'Status',
-      dataIndex: 'Status',
-      key: 'Status',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.status),
-    },
-    {
-      title: 'Modify Date',
-      dataIndex: 'ModifyDate',
-      key: 'ModifyDate',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
-    },
-    {
-      title: 'Modify By',
-      dataIndex: 'ModifyBy',
-      key: 'ModifyBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
-    },
-    {
-      title: 'Create Date',
-      dataIndex: 'CreateDate',
-      key: 'CreateDate',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-    },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
-    {
-      fixed: 'right',
-      key: 'eventAction',
-      width: 100,
-      render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
-    },
+
+    // {
+    //   title: 'Status',
+    //   key: 'Status',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.status),
+    // },
+    // {
+    //   title: 'Modify Date',
+    //   dataIndex: 'ModifyDate',
+    //   key: 'ModifyDate',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductCategoryAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
+    // },
+    // {
+    //   title: 'Modify By',
+    //   dataIndex: 'ModifyBy',
+    //   key: 'ModifyBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text.updateBy),
+    // },
+    // {
+    //   title: 'Create Date',
+    //   dataIndex: 'CreateDate',
+    //   key: 'CreateDate',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductCategoryAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
+    // },
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text.createBy),
+    // },
+    // {
+    //   fixed: 'right',
+    //   key: 'eventAction',
+    //   width: 100,
+    //   render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -144,8 +133,8 @@ const CategoryDataTableCard: React.FC = () => {
             placeholder={'Input search text'}
             allowClear
             enterButton={
-              <Button  icon={<SearchOutlined />}>
-                
+              <Button icon={<SearchOutlined />}>
+
               </Button>
             }
             size="middle"
@@ -170,8 +159,8 @@ const CategoryDataTableCard: React.FC = () => {
           </Button>,
         ]}
         rowKey="_id"
-        scroll={{ x: 800, y: 300 }}
-        loading={leadData.loading}
+        scroll={{ x: 800, y: 400 }}
+        loading={productCategory.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -181,7 +170,7 @@ const CategoryDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={LeadData}
+        dataSource={productCategoryData}
       />
     </Card>
   )

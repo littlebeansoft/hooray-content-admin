@@ -838,11 +838,11 @@ export interface VehicleOptionsInput {
 //---------------------------------- BANGBOW ---------------//
 
 
-export type Phone={
+export type Phone = {
   value: string;
 }
 
-export type Email ={
+export type Email = {
   value: string;
 }
 
@@ -855,7 +855,27 @@ export type LEAD_TYPE_RESPONSE = "AGENT" | "FACTORY" | "RETAIL" | "ORGANIZATION"
 
 export type ADDRESS_TYPE = "ADDRESS_CURRENT" | "ADDRESS_CARD" | "ADDRESS_REGISTER" | "ADDRESS_DOCUMENT" | "ADDRESS_OFFICE" | "NONE"
 
-export type ADDRESS_DEFAULT_SEND= "DEFAULT" | "NOT_DEFAULT"
+export type ADDRESS_DEFAULT_SEND = "DEFAULT" | "NOT_DEFAULT"
+
+
+export type SelfProductCategory = {
+  _id: string
+  key: string
+  parent: string
+  name: string
+  hasChildren: boolean
+}
+
+export interface ProductCategoryAPIPayload {
+  _id: string
+  name: string
+  key: string
+  parent: string
+  tree: string[]
+  treeFull: SelfProductCategory[]
+  attributes: string[]
+  hasChildren: boolean
+}
 
 
 
