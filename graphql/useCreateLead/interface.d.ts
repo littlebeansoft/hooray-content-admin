@@ -3,30 +3,30 @@ import { Phone, Email, RESOURCE_OWNER, CREAT_LEAD_STATUS, LEAD_TYPE_RESPONSE, AD
 
 
 interface CreateLeadInput {
-    prefixKey: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    citizenId: string
-    passport: string
-    phone: Phone[]
-    email: Email[]
-    dataSource: string
-    resourceOwner: RESOURCE_OWNER | 'OTHER'
-    status: CREAT_LEAD_STATUS | "NORMAL"
-    leadType: LEAD_TYPE_RESPONSE | "CUSTOMER"
-    image: string
-    organizationName: string
-    addressNo: string
-    subDistrict: string
-    district: string
-    province: string
-    postcode: string
-    country: string
-    latitude: string
-    longitude: string
-    addressType: ADDRESS_TYPE | "NONE"
-    defaultSend: ADDRESS_DEFAULT_SEND = "NOT_DEFAULT"
+    prefixKey?: string
+    firstName?: string
+    lastName?: string
+    dateOfBirth?: string
+    citizenId?: string
+    passport?: string
+    phone?: Phone[]
+    email?: Email[]
+    dataSource?: string
+    resourceOwner?: RESOURCE_OWNER 
+    status?: CREAT_LEAD_STATUS 
+    leadType?: LEAD_TYPE_RESPONSE 
+    image?: string
+    organizationName?: string
+    addressNo?: string
+    subDistrict?: string
+    district?: string
+    province?: string
+    postcode?: string
+    country?: string
+    latitude?: string
+    longitude?: string
+    addressType?: ADDRESS_TYPE 
+    defaultSend?: ADDRESS_DEFAULT_SEND
 }
 
 interface CreateLeadPayload {

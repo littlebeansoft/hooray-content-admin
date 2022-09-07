@@ -6,7 +6,7 @@ import CREATE_LEAD from './createLead'
 import type { GraphQLServiceMutationHook } from '../graphQL-service-hook'
 import type { LeadInput, CreateLead } from './interface'
 
-const useCreateLead: GraphQLServiceMutationHook<LeadInput, CreateLead> = (options) => {
+const useCreateLead: GraphQLServiceMutationHook<CreateLead, LeadInput> = (options) => {
     return useMutation(CREATE_LEAD, {
         onError(err) {
             message.error(err)

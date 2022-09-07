@@ -10,21 +10,10 @@ const LeadCreateCard: React.FC = () => {
 
     const [form] = Form.useForm()
 
-    
 
-
-
-    const onBack = () => {
-        router.push({
-            pathname: `/org/[orgToken]/content-pack`,
-            query: {
-                ...router.query,
-            },
-        })
-    }
 
     const [createLead, createLeadResp] = useCreateLead({
-        onCompleted(resp) {
+        onCompleted() {
             message.success('Create Transfer In Successfully')
         },
         onError(err) {
@@ -33,7 +22,9 @@ const LeadCreateCard: React.FC = () => {
     })
 
     const onFinish = (values: any) => {
-        console.log("value: " + values);
+        console.log("Value: -->" + JSON.stringify(values));
+
+        
     }
 
     return (

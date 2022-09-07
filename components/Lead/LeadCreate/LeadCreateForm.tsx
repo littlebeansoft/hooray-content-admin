@@ -6,6 +6,7 @@ import UploadFileDocument from 'components/UploadFileDocument'
 import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
 import { LeadCreateFormProps } from '../interface'
+import { leadStatusOptions, leadTypeOptions } from 'constant/option'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -45,10 +46,10 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
             labelAlign="left"
         >
             <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>ข้อมูล Lead</Title>
-            <Form.Item name="profileImage" label="Profile Image">
+            <Form.Item name="image" label="Profile Image">
                 <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} maximumUploadItems={1} />
             </Form.Item>
-            <Form.Item name="type" label="Type">
+            <Form.Item name="leadType" label="Type">
                 <Select
                     //showSearch
                     allowClear
@@ -57,8 +58,8 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                     placeholder="Please Select"
                     // onSearch={categoryProperty.onSearch}
                     filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
+                    //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
+                    options={leadTypeOptions}
                 />
             </Form.Item>
             <Form.Item name="status" label="Status">
@@ -70,8 +71,8 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                     placeholder="Please Select"
                     // onSearch={categoryProperty.onSearch}
                     filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
+                    //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
+                    options={leadStatusOptions}
                 />
             </Form.Item>
             <Form.Item name="fistname" label="First Name" rules={[ruleRequired]}>
@@ -119,7 +120,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                 // options={categoryProperty.options}
                 />
             </Form.Item>
-            <Form.Item name="factoryName" label="ชื่อโรงงาน" rules={[ruleRequired]}>
+            <Form.Item name="organizationName" label="ชื่อโรงงาน" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อโรงงาน" style={{ width: 221 }} />
             </Form.Item>
             <Form.Item name="address" label="ที่อยุ่">
