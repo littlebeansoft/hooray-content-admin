@@ -130,7 +130,7 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
                     options={getOptions(countries?.data?.getMasterData?.payload ?? null)}
                 />
             </Form.Item>
-            <Form.Item name="provice" label="จังหวัด">
+            <Form.Item name="province" label="จังหวัด">
                 <Select
                     showSearch
                     allowClear
@@ -160,7 +160,7 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
                     options={getOptions(district.data?.getMasterData.payload ?? null)}
                 />
             </Form.Item>
-            <Form.Item name="tambon" label="แขวง/ตำบล">
+            <Form.Item name="subDistrict" label="แขวง/ตำบล">
                 <Select
                     showSearch
                     allowClear
@@ -172,7 +172,7 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
                     options={getOptions(tambon.data?.getMasterData.payload ?? null)}
                 />
             </Form.Item>
-            <Form.Item name="zipCode" label="เลขที่ไปรษณีย์" rules={[ruleRequired]}>
+            <Form.Item name="postcode" label="เลขที่ไปรษณีย์" rules={[ruleRequired]}>
                 <Input placeholder="เลขที่ไปรษณีย์" style={{ width: 221 }} />
             </Form.Item>
         </>

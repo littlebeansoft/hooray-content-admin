@@ -31,6 +31,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
         onFinish?.({
             ...values,
         })
+
     }
 
 
@@ -76,26 +77,26 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                     options={leadStatusOptions}
                 />
             </Form.Item>
-            <Form.Item name="fistname" label="First Name" rules={[ruleRequired]}>
+            <Form.Item name="firstName" label="First Name" rules={[ruleRequired]}>
                 <Input placeholder="First Name" style={{ width: 221 }} />
             </Form.Item>
             <Form.Item name="lastName" label="Last Name" rules={[ruleRequired]}>
                 <Input placeholder="Last Name" style={{ width: 221 }} />
             </Form.Item>
-            <Form.Item name="phoneNumber" label="Phone Number" rules={[ruleRequired]}>
+            <Form.Item name="phone" label="Phone Number" rules={[ruleRequired]}>
                 <Input placeholder="Phone Number" style={{ width: 221 }} />
             </Form.Item>
             <Form.Item name="email" label="Email" rules={[ruleRequired]}>
                 <Input type={"email"} placeholder="Email" style={{ width: 221 }} />
             </Form.Item>
             <Title level={5} style={{ color: '#2699FB', marginBottom: 30, marginTop: 30 }}>ข้อมูลหน่วยงาน</Title>
-            <Form.Item name="factoryThumbnail" label="รูปโรงงาน">
+            <Form.Item name="factoryImages" label="รูปโรงงาน">
                 <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} />
             </Form.Item>
-            <Form.Item name="productThumbnail" label="รูปภาพ สินค้าที่ขาย">
+            <Form.Item name="productImages" label="รูปภาพ สินค้าที่ขาย">
                 <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} />
             </Form.Item>
-            <Form.Item name="orgType" label="ประเภทOrg(โรงงาน)">
+            {/* <Form.Item name="orgType" label="ประเภทOrg(โรงงาน)">
                 <Select
                     //showSearch
                     allowClear
@@ -107,8 +108,8 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                 //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
                 // options={categoryProperty.options}
                 />
-            </Form.Item>
-            <Form.Item name="productType" label="ประเภทสินค้า">
+            </Form.Item> */}
+            {/* <Form.Item name="productType" label="ประเภทสินค้า">
                 <Select
                     //showSearch
                     allowClear
@@ -120,11 +121,11 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                 //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
                 // options={categoryProperty.options}
                 />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item name="organizationName" label="ชื่อโรงงาน" rules={[ruleRequired]}>
                 <Input placeholder="ชื่อโรงงาน" style={{ width: 221 }} />
             </Form.Item>
-            <Form.Item name="address" label="ที่อยุ่">
+            <Form.Item name="addressNo" label="ที่อยุ่">
                 <TextArea rows={2} style={{ width: 395 }} />
             </Form.Item>
             <InputAddress />
