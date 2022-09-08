@@ -910,3 +910,28 @@ export interface LeadStatus {
   label: string
   value: CREAT_LEAD_STATUS
 }
+
+export interface LeadAddressRESP {
+  _id?: string
+  orgKey?: string
+  refId?: string
+  address?: String
+  subDistrict?: String
+  district?: String
+  province?: String
+  postcode?: String
+  country?: String
+  latitude?: String
+  longitude?: String
+  type?: ADDRESS_TYPE
+  defaultSend?: ADDRESS_DEFAULT_SEND
+}
+
+export interface MasterDataLocationPayload {
+  locale: string
+  text: string
+  searchable: string
+  parentKey: string
+  dataKey: string
+  attribute: string
+}
