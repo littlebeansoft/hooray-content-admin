@@ -1,3 +1,5 @@
+import { FormInstance} from 'antd'
+
 export interface UserCreateFormProps {
     product?: any
     form: FormInstance<any>

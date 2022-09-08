@@ -1,3 +1,6 @@
+import { FormInstance} from 'antd'
+
+
 export interface LeadDataProp {
   id: String
   prefixKey: String

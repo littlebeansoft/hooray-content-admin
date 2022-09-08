@@ -1,4 +1,5 @@
 
+import { FormInstance} from 'antd'
 
 export interface OrganizationCreateFormProps {
     product?: any
