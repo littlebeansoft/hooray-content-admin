@@ -7,6 +7,7 @@ import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
 import { LeadCreateFormProps } from '../interface'
 import { leadStatusOptions, leadTypeOptions } from 'constant/option'
+import InputAddress from 'components/InputAddress/InputAddress'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -126,61 +127,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
             <Form.Item name="address" label="ที่อยุ่">
                 <TextArea rows={2} style={{ width: 395 }} />
             </Form.Item>
-            <Form.Item name="country" label="ประเทศ">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item>
-            <Form.Item name="provice" label="จังหวัด">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item>
-            <Form.Item name="district" label="เขต/อำเภอ">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item>
-            <Form.Item name="tambon" label="แขวง/ตำบล">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item>
-            <Form.Item name="zipCode" label="เลขที่ไปรษณีย์" rules={[ruleRequired]}>
-                <Input placeholder="เลขที่ไปรษณีย์" style={{ width: 221 }} />
-            </Form.Item>
+            <InputAddress />
             <Title level={5} style={{ color: '#2699FB', marginBottom: 30, marginTop: 30 }}>ข้อมูลเพิ่มเติม</Title>
             <Form.Item name="remark" label="โน๊ต">
                 <TextArea rows={2} style={{ width: 395 }} />
