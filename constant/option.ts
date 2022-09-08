@@ -14,7 +14,7 @@ export const leadTypeOptions: LeadTypeOption[] = [
         value: "CUSTOMER"
     },
     {
-        label: "",
+        label: "Organization",
         value: "ORGANIZATION"
     },
     {
