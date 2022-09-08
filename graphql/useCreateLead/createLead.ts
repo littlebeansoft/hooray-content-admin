@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 const CREATE_LEAD = gql`
- mutation CreateLead($createLeadInput: CreateLeadInput) {
-  createLead(input: $createLeadInput) {
+ mutation CreateLead($input: CreateLeadInput!) {
+  createLead(input: $input) {
     code
     message
     payload {
