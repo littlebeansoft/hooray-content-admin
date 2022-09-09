@@ -7,6 +7,8 @@ import { DownOutlined, FormOutlined, DeleteOutlined, ExclamationCircleOutlined }
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import useQualifyLead from 'graphql/useQualifyLead'
+import useDeleteLead from 'graphql/useDeleteLead'
+import useUpdateLead from 'graphql/useUpdateLead'
 const { Text } = Typography
 const { confirm } = Modal;
 
@@ -61,10 +63,11 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
     const key: EventMenuKey = e.key
     switch (key) {
       case 'DISQUALIFY':
-        console.log("Click on Disqualify")
+        showConfirmDisqualify()
         break
       case 'DELETE':
         showConfirmDelete()
+        break
       default:
         break
     }
@@ -83,13 +86,27 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
 
 
   const [qualifyLead] = useQualifyLead({
-    async onCompleted() {
-      await message.success('Qualify lead was Successfully')
+    onCompleted() {
+      message.success('Qualify lead was Successfully')
       // setPagination(defaultPagination)
       refetch();
     },
     onError() {
-      message.error('Qualify lead was Error')
+      // message.error('Qualify lead was Error')
+    }
+  })
+
+  const [deleteLead] = useDeleteLead({
+    onCompleted() {
+      message.success('Delete lead was Successfully')
+      refetch();
+    }
+  })
+
+  const [disqualify] = useUpdateLead({
+    onCompleted() {
+      message.success('Disqualify lead was Successfully')
+      refetch();
     }
   })
 
@@ -113,7 +130,6 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       icon: <ExclamationCircleOutlined />,
       content: 'การอนุมัติ Lead นี้จะทำให้ type ของ Lead เปลี่ยนเป็น User เมื่อทำการอนุมัติแล้วจะไม่สามรถย้อนกลับได้',
       onOk() {
-        console.log("Lead ID", leadData._id);
         qualifyLead({
           context: { clientType: 'CUSTOMER' },
           variables: {
@@ -135,20 +151,71 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       content: 'การลบ Lead นี้จะทำให้ Lead หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
       okType: 'danger',
       onOk() {
-
+        deleteLead({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id
+          }
+        })
       },
       onCancel() {
-        
+
       },
     });
   }
+
+  const showConfirmDisqualify = () => {
+    confirm({
+      title: 'Are you sure disqualify this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การ disqualify Lead จะทำให้ status ของ Lead เปลี่ยนเป็น disqualify สามารถเปลี่ยนกับด้วยการคลิก Normal ',
+      onOk() {
+        disqualify({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
+            input: {
+              status: "DISQUALIFY"
+            }
+          },
+        })
+        //
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    });
+  };
+
+  const showConfirmNormal = () => {
+    confirm({
+      title: 'Are you sure disqualify this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การเปลี่ยนเป็น Normal จะทำให้ status ของ Lead เปลี่ยนเป็น Normal  ',
+      onOk() {
+        disqualify({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
+            input: {
+              status: "NORMAL"
+            }
+          },
+        })
+        //
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    });
+  };
 
   const renderButton = (status: string) => {
     switch (status) {
       case 'DISQUALIFY':
         return (<Dropdown.Button
           onClick={() => {
-            showConfirm()
+            showConfirmNormal();
           }}
           overlay={menu}
           trigger={['click']}
