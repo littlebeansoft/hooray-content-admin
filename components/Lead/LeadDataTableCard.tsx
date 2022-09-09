@@ -136,7 +136,7 @@ const LeadDataTableCard: React.FC = () => {
     {
       fixed: 'right',
       key: 'eventAction',
-      width: 130,
+      width: 140,
       render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} />,
     },
   ]

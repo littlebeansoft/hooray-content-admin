@@ -4,9 +4,9 @@ import useCreateLead from 'graphql/useCreateLead'
 import { CreateLeadInput } from 'graphql/useCreateLead/interface'
 import { useRouter } from 'next/router'
 import React from 'react'
-import LeadCreateForm from './LeadCreateForm'
+import LeadCreateForm from './LeadCreate/LeadCreateForm'
 
-const LeadCreateCard: React.FC = () => {
+const LeadUpdateCard: React.FC = () => {
     const router = useRouter()
 
     const [form] = Form.useForm()
@@ -16,12 +16,6 @@ const LeadCreateCard: React.FC = () => {
     const [createLead, createLeadResp] = useCreateLead({
         onCompleted() {
             message.success('Create Transfer In Successfully')
-            router.push({
-                pathname: `/org/[orgToken]/lead`,
-                query: {
-                    ...router.query,
-                },
-            })
         },
         onError(err) {
             message.error(err.message)
@@ -29,7 +23,7 @@ const LeadCreateCard: React.FC = () => {
     })
 
     const onFinish = (values: any) => {
-        //console.log("Value: -->" + JSON.stringify(values));
+        console.log("Value: -->" + JSON.stringify(values));
 
         createLead({
             context: { clientType: 'CUSTOMER' },
@@ -44,10 +38,7 @@ const LeadCreateCard: React.FC = () => {
                         { value: values.email }
                     ]
                 }
-            },
-            refetchQueries: [
-                "GET_LEAD"
-            ]
+            }
         })
     }
 
@@ -63,4 +54,4 @@ const LeadCreateCard: React.FC = () => {
     )
 }
 
-export default LeadCreateCard
+export default LeadUpdateCard
