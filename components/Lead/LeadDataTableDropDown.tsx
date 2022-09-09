@@ -7,6 +7,7 @@ import { DownOutlined, FormOutlined, DeleteOutlined, ExclamationCircleOutlined }
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import useQualifyLead from 'graphql/useQualifyLead'
+import useDeleteLead from 'graphql/useDeleteLead'
 const { Text } = Typography
 const { confirm } = Modal;
 
@@ -83,13 +84,20 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
 
 
   const [qualifyLead] = useQualifyLead({
-    async onCompleted() {
-      await message.success('Qualify lead was Successfully')
+     onCompleted() {
+       message.success('Qualify lead was Successfully')
       // setPagination(defaultPagination)
       refetch();
     },
     onError() {
-      message.error('Qualify lead was Error')
+      // message.error('Qualify lead was Error')
+    }
+  })
+
+  const [deleteLead] = useDeleteLead({
+      onCompleted() {
+       message.success('Delete lead was Successfully')
+      refetch();
     }
   })
 
@@ -135,10 +143,15 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       content: 'การลบ Lead นี้จะทำให้ Lead หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
       okType: 'danger',
       onOk() {
-
+        deleteLead({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id
+          }
+        })
       },
       onCancel() {
-        
+
       },
     });
   }
