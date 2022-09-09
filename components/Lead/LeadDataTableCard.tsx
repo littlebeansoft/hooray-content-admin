@@ -17,6 +17,7 @@ import { formatDate } from 'helpers/formatter'
 import { dateUnixFormatter } from 'utils/utils'
 
 const { Search } = Input
+const { Text } = Typography
 
 
 const LeadDataTableCard: React.FC = () => {
@@ -29,7 +30,7 @@ const LeadDataTableCard: React.FC = () => {
   const leadData = useGetLeadData({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
-    fetchPolicy: 'network-only',
+    fetchPolicy: "cache-first",
     variables: {
       input: {
         pagination: {
@@ -85,7 +86,33 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.status),
+      render: (text: LeadDataAPIPayload, record) => {
+        let _tColor
+        let _iCon
+        let _text
+        switch (text.status) {
+          default:
+          case 'NORMAL':
+            _tColor = '#FFB200'
+            _text = 'Normal'
+            break
+          case 'DISQUALIFY':
+            _tColor = '#A30404'
+            _text = 'Disqualify'
+            break
+          case 'QUALIFY':
+            _tColor = '#34B53A'
+            _text = 'Qualify'
+            break
+        }
+        return (
+          <>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>
+              {_text}
+            </Text>
+          </>
+        ) // just for decoration
+      },
     },
     {
       title: 'Telephone',
@@ -137,7 +164,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'right',
       key: 'eventAction',
       width: 140,
-      render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} />,
+      render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />,
     },
   ]
 

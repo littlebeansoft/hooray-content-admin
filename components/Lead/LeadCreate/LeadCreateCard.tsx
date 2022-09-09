@@ -5,6 +5,7 @@ import { CreateLeadInput } from 'graphql/useCreateLead/interface'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LeadCreateForm from './LeadCreateForm'
+import QUERY_LEAD from 'graphql/useGetLeadData/getLeadData'
 
 const LeadCreateCard: React.FC = () => {
     const router = useRouter()
@@ -15,16 +16,13 @@ const LeadCreateCard: React.FC = () => {
 
     const [createLead, createLeadResp] = useCreateLead({
         onCompleted() {
-            message.success('Create Transfer In Successfully')
+            message.success('Created Lead was Successfully')
             router.push({
                 pathname: `/org/[orgToken]/lead`,
                 query: {
                     ...router.query,
                 },
             })
-        },
-        onError(err) {
-            message.error(err.message)
         },
     })
 
@@ -46,7 +44,20 @@ const LeadCreateCard: React.FC = () => {
                 }
             },
             refetchQueries: [
-                "GET_LEAD"
+                {
+                    query: QUERY_LEAD,
+                    context: { clientType: 'CUSTOMER' },
+                    fetchPolicy: 'network-only',
+                    variables: {
+                        input: {
+                            pagination: {
+                                limit: 10,
+                                page: 1,
+                            }
+                        }
+                    }
+
+                }
             ]
         })
     }

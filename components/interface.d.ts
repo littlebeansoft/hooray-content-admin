@@ -4,7 +4,7 @@ import { RandomStatus, StatusType } from 'graphql/interface'
 
 
 export type MenuKey = 'EDIT_DETAIL' | 'EDIT_TEST' | 'REVIEW' | 'ATTENDEES' | 'ENABLED' | 'DISABLED'
-export type EventMenuKey = 'DISQUALIFY' | 'CODE' | 'VIEW' | 'DELETE' | 'PRINT' | 'ENABLED' | 'DISABLED'
+export type EventMenuKey = 'DISQUALIFY' | 'CODE' | 'VIEW' | 'DELETE' | 'PRINT' | 'ENABLED' | 'DISABLED' | 'EDIT' 
 export type CodeMenuKey = 'CREATE_CODE' | 'UPLOAD_CODE'
 export type QuestionStatus = 'ADD' | 'EDIT'
 export type EFormStatus = 'ADD' | 'EDIT'

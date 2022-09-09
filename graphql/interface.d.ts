@@ -883,7 +883,7 @@ export interface ProductCategoryAPIPayload {
 
 
 export interface LeadDataAPIPayload {
-  id: string
+  _id: string
   prefixKey: string
   prefixName: string
   firstName: string
