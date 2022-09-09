@@ -16,6 +16,12 @@ const LeadCreateCard: React.FC = () => {
     const [createLead, createLeadResp] = useCreateLead({
         onCompleted() {
             message.success('Create Transfer In Successfully')
+            router.push({
+                pathname: `/org/[orgToken]/lead`,
+                query: {
+                    ...router.query,
+                },
+            })
         },
         onError(err) {
             message.error(err.message)
@@ -23,23 +29,26 @@ const LeadCreateCard: React.FC = () => {
     })
 
     const onFinish = (values: any) => {
-        console.log("Value: -->" + JSON.stringify(values));
+        //console.log("Value: -->" + JSON.stringify(values));
 
-         createLead({
-          context: { clientType: 'CUSTOMER' },
-          variables: {
-            input: {
-                ...values,
-                image: values?.image[0],
-                phone: [
-                    {value: values.phone}
-                ],
-                email: [
-                    {value: values.email}
-                ]
-            }
-          }
-         })
+        createLead({
+            context: { clientType: 'CUSTOMER' },
+            variables: {
+                input: {
+                    ...values,
+                    image: values?.image[0],
+                    phone: [
+                        { value: values.phone }
+                    ],
+                    email: [
+                        { value: values.email }
+                    ]
+                }
+            },
+            refetchQueries: [
+                "GET_LEAD"
+            ]
+        })
     }
 
     return (
