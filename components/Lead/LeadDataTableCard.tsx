@@ -38,11 +38,8 @@ const LeadDataTableCard: React.FC = () => {
           page: pagination.page,
         },
         search: {
-          organizationName: search,
           firstName: search,
           lastName: search,
-          phone: search,
-          email: search,
           citizenId: search,
           passport: search,
         },
@@ -177,13 +174,13 @@ const LeadDataTableCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-        rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-        rowSelectAmount={selectedRowKeys.length}
+        // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+        rowSelectAmount={undefined}
         header={[
-          <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
-            <Radio.Button value="qualify">Qualify</Radio.Button>
-            <Radio.Button value="delete">Delete</Radio.Button>
-          </Radio.Group>,
+          // <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
+          //   <Radio.Button value="qualify">Qualify</Radio.Button>
+          //   <Radio.Button value="delete">Delete</Radio.Button>
+          // </Radio.Group>,
           <Search
             placeholder={'Input search text'}
             allowClear
