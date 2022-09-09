@@ -1,13 +1,13 @@
 import { useMutation } from '@apollo/client'
 import { message } from 'antd'
 
-import CREATE_LEAD from './createLead'
+import QUERY_DOCUMENT from './createLead'
 
 import type { GraphQLServiceMutationHook } from '../graphQL-service-hook'
 import type { LeadInput, CreateLead } from './interface'
 
 const useCreateLead: GraphQLServiceMutationHook<CreateLead, LeadInput> = (options) => {
-    return useMutation(CREATE_LEAD, {
+    return useMutation(QUERY_DOCUMENT, {
         onError(err) {
             message.error(err)
         },
