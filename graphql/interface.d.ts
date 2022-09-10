@@ -904,6 +904,7 @@ export interface LeadDataAPIPayload {
 export interface LeadTypeOption {
   label: string
   value: LEAD_TYPE_RESPONSE
+  text: string
 }
 
 export interface LeadStatus {
