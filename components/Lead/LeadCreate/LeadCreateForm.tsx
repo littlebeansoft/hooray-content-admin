@@ -1,5 +1,5 @@
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Form, Input, Select, Spin, Typography } from 'antd'
+import { Button, Col, DatePicker, Form, Input, Row, Select, Spin, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import UploadImage from 'components/UploadImage'
 import UploadFileDocument from 'components/UploadFileDocument'
@@ -23,7 +23,7 @@ const ruleRequired = {
 
 const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading, onFinish, onCancel }) => {
 
-
+    const [leadType, setLeadType] = useState('')
 
 
 
@@ -62,6 +62,9 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
                     filterOption={false}
                     //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
                     options={leadTypeOptions}
+                    onSelect={(value: string, values: any) => {
+                        setLeadType(values.text);
+                    }}
                 />
             </Form.Item>
             <Form.Item name="status" label="Status">
@@ -96,19 +99,15 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
             <Form.Item name="productImages" label="รูปภาพ สินค้าที่ขาย">
                 <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} />
             </Form.Item>
-            {/* <Form.Item name="orgType" label="ประเภทOrg(โรงงาน)">
-                <Select
-                    //showSearch
-                    allowClear
-                    showArrow
-                    style={{ width: 207 }}
-                    placeholder="Please Select"
-                    // onSearch={categoryProperty.onSearch}
-                    filterOption={false}
-                //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-                // options={categoryProperty.options}
-                />
-            </Form.Item> */}
+            <Row style={{ marginBottom: 20 }}>
+                <Col span={4}>
+                    <Typography>ประเภทโรงงาน</Typography>
+                </Col>
+                <Col span={20}>
+                    {leadType}
+                </Col>
+            </Row>
+
             {/* <Form.Item name="productType" label="ประเภทสินค้า">
                 <Select
                     //showSearch

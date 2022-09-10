@@ -30,7 +30,7 @@ const LeadDataTableCard: React.FC = () => {
   const leadData = useGetLeadData({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "cache-and-network",
     variables: {
       input: {
         pagination: {
