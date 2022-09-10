@@ -4,26 +4,32 @@ export const leadTypeOptions: LeadTypeOption[] = [
     {
         label: 'Factory',
         value: 'FACTORY',
+        text: 'โรงงาน'
     },
     {
         label: "Agent",
-        value: "AGENT"
+        value: "AGENT",
+        text: "เอเจน"
     },
     {
         label: "Customer",
-        value: "CUSTOMER"
+        value: "CUSTOMER",
+        text: "ลูกค้า"
     },
     {
         label: "Organization",
-        value: "ORGANIZATION"
+        value: "ORGANIZATION",
+        text: "องค์กร"
     },
     {
         label: "Retail",
-        value: "RETAIL"
+        value: "RETAIL",
+        text: "ขายปลีก"
     },
     {
         label: "Other",
-        value: "OTHER"
+        value: "OTHER",
+        text: "อื่นๆ"
     }
 ]
 
