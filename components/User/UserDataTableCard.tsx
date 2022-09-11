@@ -12,8 +12,10 @@ import type { Pagination } from 'graphql/graphQL-service-hook'
 import useGetLeadData from 'graphql/useGetLeadData'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import dayjs from 'dayjs'
+import { dateUnixFormatter } from 'utils/utils'
 
 const { Search } = Input
+const { Text } = Typography
 
 
 const UserDataTableCard: React.FC = () => {
@@ -25,19 +27,20 @@ const UserDataTableCard: React.FC = () => {
 
   const leadData = useGetLeadData({
     // skip: !router.isReady,
-    fetchPolicy: 'network-only',
+    context: { clientType: 'CUSTOMER' },
+    fetchPolicy: "cache-and-network",
     variables: {
       input: {
         pagination: {
           limit: pagination.limit,
           page: pagination.page,
         },
+        query: {
+          status: "QUALIFY"
+        },
         search: {
-          organizationName: search,
           firstName: search,
           lastName: search,
-          phone: search,
-          email: search,
           citizenId: search,
           passport: search,
         },
@@ -53,90 +56,114 @@ const UserDataTableCard: React.FC = () => {
   const columns: ColumnsType<LeadDataAPIPayload> = [
     {
       title: 'User Name',
-      dataIndex: 'User Name',
-      key: 'UserName',
+      key: 'firstName',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName)
     },
     {
       title: 'User Type',
-      dataIndex: 'User Type',
-      key: 'UserType',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
-    },
-    {
-      title: 'Organization Name',
-      dataIndex: 'Organization Name',
-      key: 'TOrganizationype',
+      key: 'Type',
       fixed: 'left',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.organizationName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadTypeName),
+    },
+    {
+      title: 'Organization Name',
+      key: 'TOrganizationype',
+      fixed: 'left',
+      width: 160,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.organizationName),
     },
     {
       title: 'Status',
-      dataIndex: 'Status',
       key: 'Status',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.status),
+      render: (text: LeadDataAPIPayload, record) => {
+        let _tColor
+        let _iCon
+        let _text
+        switch (text.status) {
+          default:
+          case 'NORMAL':
+            _tColor = '#FFB200'
+            _text = 'Normal'
+            break
+          case 'DISQUALIFY':
+            _tColor = '#A30404'
+            _text = 'Disqualify'
+            break
+          case 'QUALIFY':
+            _tColor = '#34B53A'
+            _text = 'Qualify'
+            break
+        }
+        return (
+          <>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>
+              {_text}
+            </Text>
+          </>
+        ) // just for decoration
+      },
     },
     {
-      title: 'User Phone Number',
-      dataIndex: 'User Phone Number',
-      key: 'phoneNumber',
-      fixed: 'left',
-      width: 100,
+      title: 'Telephone',
+      key: 'Telephone',
+      width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.telephone),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value)
     },
     {
-      title: 'User Email',
-      dataIndex: 'User Email',
-      key: 'userEmail',
-      width: 100,
+      title: 'Email',
+      key: 'Email',
+      width: 180,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.email),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.email[0]?.value),
     },
     {
-      title: 'Update At',
-      dataIndex: 'UpdateAt',
-      key: 'UpdateAt',
-      width: 100,
+      title: 'Modify Date',
+      key: 'ModifyDate',
+      width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
+      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dateUnixFormatter(_text?.updatedAt) : '-'),
     },
+    // {
+    //   title: 'Modify By',
+    //   dataIndex: 'ModifyBy',
+    //   key: 'ModifyBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updateBy),
+    // },
     {
-      title: 'Update By',
-      dataIndex: 'UpdateBy',
-      key: 'UpdateBy',
-      width: 100,
+      title: 'Create Date',
+      key: 'CreateDate',
+      width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
+      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dateUnixFormatter(_text?.createdAt) : '-'),
     },
-    {
-      title: 'Create At',
-      dataIndex: 'CreateAt',
-      key: 'CreateAt',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-    },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
-
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createBy),
+    // },
+    // {
+    //   fixed: 'right',
+    //   key: 'eventAction',
+    //   width: 140,
+    //   render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />,
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -148,8 +175,8 @@ const UserDataTableCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-        rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-        rowSelectAmount={selectedRowKeys.length}
+       // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+       // rowSelectAmount={selectedRowKeys.length}
         header={[
           hasSelected ? <Button danger >
             Delete
@@ -158,8 +185,8 @@ const UserDataTableCard: React.FC = () => {
             placeholder={'Input search text'}
             allowClear
             enterButton={
-              <Button  icon={<SearchOutlined />}>
-         
+              <Button icon={<SearchOutlined />}>
+
               </Button>
             }
             size="middle"
@@ -167,24 +194,24 @@ const UserDataTableCard: React.FC = () => {
               setSearch(value)
             }}
           />,
-          <Button
-            key="addProductType"
-            type="primary"
-            icon={<PlusCircleOutlined />}
-            onClick={() => {
-              router.push({
-                pathname: `${router.pathname}/create`,
-                query: {
-                  ...router.query,
-                },
-              })
-            }}
-          >
-            Add New User
-          </Button>,
+          // <Button
+          //   key="addProductType"
+          //   type="primary"
+          //   icon={<PlusCircleOutlined />}
+          //   onClick={() => {
+          //     router.push({
+          //       pathname: `${router.pathname}/create`,
+          //       query: {
+          //         ...router.query,
+          //       },
+          //     })
+          //   }}
+          // >
+          //   Add New User
+          // </Button>,
         ]}
         rowKey="_id"
-        scroll={{ x: 800, y: 300 }}
+        scroll={{ x: 800, y: 400 }}
         loading={leadData.loading}
         pagination={{
           current: pagination?.page,
