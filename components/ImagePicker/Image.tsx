@@ -14,6 +14,7 @@ const Image: FC<ImageProps> = ({ isSelected, src, onClick }) => {
         onClick={onClick}
         className={`thumbnail${isSelected ? ' selected' : ''}`}
         style={{ width: '100%', objectFit: 'cover' }}
+        alt=""
       />
       <div className="checked">
         <div className="icon" />
