@@ -1,10 +1,10 @@
-import { Cascader } from 'antd';
-import React from 'react';
+import { Cascader } from 'antd'
+import React from 'react'
 
 interface Option {
-  value: string | number;
-  label: string;
-  children?: Option[];
+  value: string | number
+  label: string
+  children?: Option[]
 }
 
 const options: Option[] = [
@@ -40,14 +40,14 @@ const options: Option[] = [
       },
     ],
   },
-];
+]
 
 const onChange = (value: string[]) => {
-  console.log(value);
-};
+  console.log(value)
+}
 
 const ProductListSelect: React.FC = () => (
-  <Cascader options={options} onChange={()=>onChange} placeholder="Please select"   />
-);
+  <Cascader options={options} onChange={() => onChange} placeholder="Please select" />
+)
 
-export default ProductListSelect;
+export default ProductListSelect

@@ -1,6 +1,6 @@
 import { APIPayloadResponseWithPagination, Pagination } from 'graphql/graphQL-service-hook'
 
-type ATRRIBUTE_TYPE = "CHECKBOX" | "RADIO" | "TEXT" | "NUMBER"
+type ATRRIBUTE_TYPE = 'CHECKBOX' | 'RADIO' | 'TEXT' | 'NUMBER'
 
 type GetProductAttribute = {
   type: ATRRIBUTE_TYPE[]
@@ -17,13 +17,13 @@ type GetProductAttributeSort = {
   value: string
 }
 
-type SORT_ORDER = "ASC" | "DESC"
+type SORT_ORDER = 'ASC' | 'DESC'
 
 type GetProductAttributeSort = {
   createdAt: SORT_ORDER
 }
 
-type AttributeStatus = "ENABLED" | "DISABLED"
+type AttributeStatus = 'ENABLED' | 'DISABLED'
 
 export interface ProductAttributeDTO {
   type: ATRRIBUTE_TYPE
@@ -33,7 +33,6 @@ export interface ProductAttributeDTO {
   _id: string
   status: AttributeStatus
 }
-
 
 export interface GetProductAttributeInput {
   filter?: GetProductAttribute

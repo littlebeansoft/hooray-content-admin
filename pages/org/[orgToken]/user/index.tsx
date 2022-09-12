@@ -5,12 +5,12 @@ import withAuth from 'middlewares/withAuth'
 import UserDataTableCard from 'components/User/UserDataTableCard'
 
 const AllUser: React.FC = () => {
-    return (
-        <MainLayout breadcrumb={['Home', '']}>
-            <TitleComponent title="All User" />
-            <UserDataTableCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', '']}>
+      <TitleComponent title="All User" />
+      <UserDataTableCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(AllUser)

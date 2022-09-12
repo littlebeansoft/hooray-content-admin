@@ -13,23 +13,23 @@ const GET_LEAD = gql`
       }
       payload {
         _id
-      firstName
-      lastName
-      citizenId
-      passport
-      phone {
-        value
-      }
-      email {
-        value
-      }
-      dataSource
-      resourceOwner
-      status
-      image
-      organizationName
-      createdAt
-      updatedAt
+        firstName
+        lastName
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        resourceOwner
+        status
+        image
+        organizationName
+        createdAt
+        updatedAt
       }
     }
   }

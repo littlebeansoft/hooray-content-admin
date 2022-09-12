@@ -6,12 +6,11 @@ type GetProductCategoryLevel = {
   keyLang: string
 }
 
-type SORT_ORDER = "ASC" | "DESC"
+type SORT_ORDER = 'ASC' | 'DESC'
 
 type GetProductCategoryLevelSortInput = {
   createdAt: SORT_ORDER
 }
-
 
 export interface GetProductCategoryLevelInput {
   filter?: GetProductCategoryLevel

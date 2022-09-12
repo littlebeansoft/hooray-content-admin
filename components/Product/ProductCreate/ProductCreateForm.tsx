@@ -16,60 +16,53 @@ const { Option } = Select
 
 const { Title } = Typography
 
-
-
 const ruleRequired = {
-    required: true,
-    message: 'Required',
+  required: true,
+  message: 'Required',
 }
 
 const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+  const [choicesPrice, setChoicesPrice] = useState(false)
 
-    const [choicesPrice, setChoicesPrice] = useState(false)
+  const handleFinished = (values: any) => {
+    onFinish?.({
+      ...values,
+    })
+  }
 
+  return (
+    <Form
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 18 }}
+      id="content-pack"
+      name="content-pack"
+      form={form}
+      onFinish={handleFinished}
+      onValuesChange={() => {}}
+      labelAlign="left"
+    >
+      <ProductInformationForm />
+      <ProductPropertyForm />
+      <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>
+        ตัวเลือราคาสินค้า
+      </Title>
+      {choicesPrice ? <ProductManyPriceForm /> : <ProductOnePriceForm setChoicesPrice={setChoicesPrice} />}
 
-
-    const handleFinished = (values: any) => {
-        onFinish?.({
-            ...values,
-        })
-    }
-
-
-
-    return (
-        <Form
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 18 }}
-            id="content-pack"
-            name="content-pack"
-            form={form}
-            onFinish={handleFinished}
-            onValuesChange={() => { }}
-            labelAlign="left"
-        >
-            <ProductInformationForm />
-            <ProductPropertyForm />
-            <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>ตัวเลือราคาสินค้า</Title>
-            {choicesPrice ? 
-            <ProductManyPriceForm /> : 
-            <ProductOnePriceForm  setChoicesPrice={setChoicesPrice} /> }
-            
-            <Form.Item>
-                <FullWidthSpace style={{ display: 'flex' }}>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        loading={loading}
-                        style={{ minWidth: '10em' }}
-                        icon={<PlusCircleOutlined />}
-                    >
-                        Save
-                    </Button>
-                </FullWidthSpace>
-            </Form.Item>
-        </Form>
-    )
+      <Form.Item>
+        <FullWidthSpace style={{ display: 'flex' }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            style={{ minWidth: '10em' }}
+            icon={<PlusCircleOutlined />}
+          >
+            Save
+          </Button>
+        </FullWidthSpace>
+      </Form.Item>
+    </Form>
+  )
 }
 
 export default ProductCreateForm

@@ -3,7 +3,7 @@ const domain = {
   customer: process.env.NEXT_PUBLIC_API_HOORAY_CUSTOMER_DOMAIN || 'https://kara-customer-service.hooray.site',
   location: process.env.NEXT_PUBLIC_API_HOORAY_LOCATION_DOMAIN || 'https://kara-location-service.hooray.site',
   product: process.env.NEXT_PUBLIC_API_HOORAY_PRODUCT_DOMAIN || 'https://kara-product-service.hooray.site',
-  order: process.env.NEXT_PUBLIC_API_HOORAY_ORDER_DOMAIN || 'https://kara-order-service.hooray.site'
+  order: process.env.NEXT_PUBLIC_API_HOORAY_ORDER_DOMAIN || 'https://kara-order-service.hooray.site',
 }
 const path = {
   graphql: '/graphql',

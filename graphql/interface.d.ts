@@ -22,10 +22,6 @@ export type ProductRelocationType =
   | 'LOST'
 export type ProductLocationType = 'DECLARATION' | 'NOT_DECLARATION'
 
-
-
-
-
 export interface MasterData {
   dataKey: string
   value: {
@@ -833,33 +829,33 @@ export interface VehicleOptionsInput {
   motorcycle?: boolean
 }
 
-
-
 //---------------------------------- BANGBOW ---------------//
 
-
 export type Phone = {
-  value: string;
+  value: string
 }
 
 export type Email = {
-  value: string;
+  value: string
 }
 
-export type RESOURCE_OWNER = "USER" | "OTHER"
+export type RESOURCE_OWNER = 'USER' | 'OTHER'
 
+export type CREAT_LEAD_STATUS = 'NORMAL' | 'QUALIFY' | 'DISQUALIFY'
 
-export type CREAT_LEAD_STATUS = "NORMAL" | "QUALIFY" | "DISQUALIFY"
+export type LEAD_TYPE_RESPONSE = 'AGENT' | 'FACTORY' | 'RETAIL' | 'ORGANIZATION' | 'CUSTOMER' | 'OTHER'
 
-export type LEAD_TYPE_RESPONSE = "AGENT" | "FACTORY" | "RETAIL" | "ORGANIZATION" | "CUSTOMER" | "OTHER"
+export type ADDRESS_TYPE =
+  | 'ADDRESS_CURRENT'
+  | 'ADDRESS_CARD'
+  | 'ADDRESS_REGISTER'
+  | 'ADDRESS_DOCUMENT'
+  | 'ADDRESS_OFFICE'
+  | 'NONE'
 
-export type ADDRESS_TYPE = "ADDRESS_CURRENT" | "ADDRESS_CARD" | "ADDRESS_REGISTER" | "ADDRESS_DOCUMENT" | "ADDRESS_OFFICE" | "NONE"
+export type ADDRESS_DEFAULT_SEND = 'DEFAULT' | 'NOT_DEFAULT'
 
-export type ADDRESS_DEFAULT_SEND = "DEFAULT" | "NOT_DEFAULT"
-
-
-export type ATRRIBUTE_TYPE = "CHECKBOX" | "RADIO" | "TEXT" | "NUMBER"
-
+export type ATRRIBUTE_TYPE = 'CHECKBOX' | 'RADIO' | 'TEXT' | 'NUMBER'
 
 export type SelfProductCategory = {
   _id: string
@@ -879,8 +875,6 @@ export interface ProductCategoryAPIPayload {
   attributes: string[]
   hasChildren: boolean
 }
-
-
 
 export interface LeadDataAPIPayload {
   _id: string

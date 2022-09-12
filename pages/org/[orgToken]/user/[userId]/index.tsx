@@ -6,24 +6,24 @@ import { useRouter } from 'next/router'
 import UseDetailCard from 'components/User/UserDetail/UseDetailCard'
 
 const UserDetail: React.FC = () => {
-    const router = useRouter()
+  const router = useRouter()
 
-    return (
-        <MainLayout breadcrumb={['Home', 'User Name']}>
-            <TitleComponent
-                title="User Name"
-                onBack={() =>
-                    router.push({
-                        pathname: `/org/[orgToken]/user`,
-                        query: {
-                            ...router.query,
-                        },
-                    })
-                }
-            />
-            <UseDetailCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', 'User Name']}>
+      <TitleComponent
+        title="User Name"
+        onBack={() =>
+          router.push({
+            pathname: `/org/[orgToken]/user`,
+            query: {
+              ...router.query,
+            },
+          })
+        }
+      />
+      <UseDetailCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(UserDetail)

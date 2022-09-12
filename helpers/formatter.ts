@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import numeral from 'numeral'
 
-
 export function isVideoSource(src: string) {
   return /^.*\.(mp4|mov|mkv)$/.test(src)
 }

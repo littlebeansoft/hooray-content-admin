@@ -15,107 +15,102 @@ import dayjs from 'dayjs'
 
 const { Search } = Input
 
-
 const UserRelationship: React.FC = () => {
-    const router = useRouter()
-    const [pagination, setPagination] = useState<Pagination>(defaultPagination)
-    const [search, setSearch] = useState<string>()
-    const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
+  const router = useRouter()
+  const [pagination, setPagination] = useState<Pagination>(defaultPagination)
+  const [search, setSearch] = useState<string>()
+  const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-
-    const leadData = useGetLeadData({
-        // skip: !router.isReady,
-        fetchPolicy: 'network-only',
-        variables: {
-            input: {
-                pagination: {
-                    limit: pagination.limit,
-                    page: pagination.page,
-                },
-                search: {
-                    organizationName: search,
-                    firstName: search,
-                    lastName: search,
-                    phone: search,
-                    email: search,
-                    citizenId: search,
-                    passport: search,
-                },
-            },
+  const leadData = useGetLeadData({
+    // skip: !router.isReady,
+    fetchPolicy: 'network-only',
+    variables: {
+      input: {
+        pagination: {
+          limit: pagination.limit,
+          page: pagination.page,
         },
-        onCompleted(resp: any) {
-            const { pagination } = resp.getDataLead
-            setPagination(pagination)
+        search: {
+          organizationName: search,
+          firstName: search,
+          lastName: search,
+          phone: search,
+          email: search,
+          citizenId: search,
+          passport: search,
         },
-    })
+      },
+    },
+    onCompleted(resp: any) {
+      const { pagination } = resp.getDataLead
+      setPagination(pagination)
+    },
+  })
 
-    const LeadData = leadData.data?.getDataLead.payload
-    const columns: ColumnsType<LeadDataAPIPayload> = [
-        {
-            title: 'User Name',
-            dataIndex: 'User Name',
-            key: 'UserName',
-            fixed: 'left',
-            width: 100,
-            ellipsis: true,
-            render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
-        },
-        {
-            title: 'User Type',
-            dataIndex: 'User Type',
-            key: 'UserType',
-            fixed: 'left',
-            width: 100,
-            ellipsis: true,
-            render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
-        },
-        {
-            title: 'Create At',
-            dataIndex: 'CreateAt',
-            key: 'CreateAt',
-            width: 100,
-            ellipsis: true,
-            render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-        },
-        {
-            title: 'Create By',
-            dataIndex: 'CreateBy',
-            key: 'CreateBy',
-            width: 100,
-            ellipsis: true,
-            render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-        },
+  const LeadData = leadData.data?.getDataLead.payload
+  const columns: ColumnsType<LeadDataAPIPayload> = [
+    {
+      title: 'User Name',
+      dataIndex: 'User Name',
+      key: 'UserName',
+      fixed: 'left',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.firstName + (_text.lastName || '')),
+    },
+    {
+      title: 'User Type',
+      dataIndex: 'User Type',
+      key: 'UserType',
+      fixed: 'left',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+    },
+    {
+      title: 'Create At',
+      dataIndex: 'CreateAt',
+      key: 'CreateAt',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
+    },
+    {
+      title: 'Create By',
+      dataIndex: 'CreateBy',
+      key: 'CreateBy',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
+    },
+  ]
 
-    ]
+  const onSelectItems = (selectedRowKeys: React.Key[]) => {
+    setSelectRowKeys(selectedRowKeys)
+  }
 
-    const onSelectItems = (selectedRowKeys: React.Key[]) => {
-        setSelectRowKeys(selectedRowKeys)
-    }
+  const hasSelected = selectedRowKeys.length > 0
 
-    const hasSelected = selectedRowKeys.length > 0;
-
-    return (
-        <div style={{ marginTop: -32 }}>
-            <CustomTable
-                header={[
-
-                ]}
-                rowKey="_id"
-                scroll={{ x: 800, y: 300 }}
-                loading={leadData.loading}
-                pagination={{
-                    current: pagination?.page,
-                    pageSize: pagination?.limit,
-                    total: pagination?.totalItems,
-                    onChange: (page: number) => {
-                        setPagination({ ...pagination, page })
-                    },
-                }}
-                columns={columns}
-                dataSource={LeadData}
-            />
-        </div>
-    )
+  return (
+    <div style={{ marginTop: -32 }}>
+      <CustomTable
+        header={[]}
+        rowKey="_id"
+        scroll={{ x: 800, y: 300 }}
+        loading={leadData.loading}
+        pagination={{
+          current: pagination?.page,
+          pageSize: pagination?.limit,
+          total: pagination?.totalItems,
+          onChange: (page: number) => {
+            setPagination({ ...pagination, page })
+          },
+        }}
+        columns={columns}
+        dataSource={LeadData}
+      />
+    </div>
+  )
 }
 
 export default UserRelationship

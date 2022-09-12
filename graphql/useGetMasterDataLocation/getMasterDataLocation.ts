@@ -24,4 +24,3 @@ const GET_MASTER_DATA_LOCATION = gql`
 `
 
 export default GET_MASTER_DATA_LOCATION
-

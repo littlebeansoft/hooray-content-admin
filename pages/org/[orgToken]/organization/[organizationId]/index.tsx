@@ -6,24 +6,24 @@ import { useRouter } from 'next/router'
 import OrganizationDetailCard from 'components/Organization/OrganizationDetail/OrganizationDetailCard'
 
 const OrganizationDetail: React.FC = () => {
-    const router = useRouter()
+  const router = useRouter()
 
-    return (
-        <MainLayout breadcrumb={['Home', 'Organization']}>
-            <TitleComponent
-                title="Organization"
-                onBack={() =>
-                    router.push({
-                        pathname: `/org/[orgToken]/organization`,
-                        query: {
-                            ...router.query,
-                        },
-                    })
-                }
-            />
-            <OrganizationDetailCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', 'Organization']}>
+      <TitleComponent
+        title="Organization"
+        onBack={() =>
+          router.push({
+            pathname: `/org/[orgToken]/organization`,
+            query: {
+              ...router.query,
+            },
+          })
+        }
+      />
+      <OrganizationDetailCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(OrganizationDetail)

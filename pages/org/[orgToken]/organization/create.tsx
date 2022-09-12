@@ -6,24 +6,24 @@ import { useRouter } from 'next/router'
 import OrganizationCreateCard from 'components/Organization/OrganizationCreate/OrganizationCreateCard'
 
 const OrganizationCreate: React.FC = () => {
-    const router = useRouter()
+  const router = useRouter()
 
-    return (
-        <MainLayout breadcrumb={['Home', 'Add New Organization']}>
-            <TitleComponent
-                title="Add New Organization"
-                onBack={() =>
-                    router.push({
-                        pathname: `/org/[orgToken]/organization`,
-                        query: {
-                            ...router.query,
-                        },
-                    })
-                }
-            />
-            <OrganizationCreateCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', 'Add New Organization']}>
+      <TitleComponent
+        title="Add New Organization"
+        onBack={() =>
+          router.push({
+            pathname: `/org/[orgToken]/organization`,
+            query: {
+              ...router.query,
+            },
+          })
+        }
+      />
+      <OrganizationCreateCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(OrganizationCreate)

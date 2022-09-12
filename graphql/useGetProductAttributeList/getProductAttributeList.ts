@@ -13,13 +13,13 @@ const GET_PRODUCT_ATTRIBUTE_LIST = gql`
       }
       payload {
         _id
-      type
-      name
-      rules
-      options {
+        type
         name
-        _id
-      }
+        rules
+        options {
+          name
+          _id
+        }
       }
     }
   }

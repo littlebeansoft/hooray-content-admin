@@ -43,14 +43,13 @@ const DangerZone: React.FC<Props> = ({ topic, buttonLabel, loading, onDelete }) 
         <Row>
           <Col span={16}>{text}</Col>
           <Col span={8} className="d-flex justify-end" style={{ alignItems: 'center' }}>
-
             <Popconfirm
               title="Are you sure?"
               onConfirm={handleOk}
               okButtonProps={{ loading }}
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             >
-              <Button danger type="primary" size="large" icon={<CloseSquareOutlined />}  >
+              <Button danger type="primary" size="large" icon={<CloseSquareOutlined />}>
                 {buttonLabel}
               </Button>
             </Popconfirm>

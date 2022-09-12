@@ -5,12 +5,12 @@ import withAuth from 'middlewares/withAuth'
 import ProductDataTableCard from 'components/Product/ProductDataTableCard'
 
 const AllProduct: React.FC = () => {
-    return (
-        <MainLayout breadcrumb={['Home', '']}>
-            <TitleComponent title="All Product" />
-            <ProductDataTableCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', '']}>
+      <TitleComponent title="All Product" />
+      <ProductDataTableCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(AllProduct)

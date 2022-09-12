@@ -14,21 +14,21 @@ interface props {
 }
 const menuStatusNormal: EventMenu[] = [
   {
-    key: "DELETE",
-    value: "Delete",
+    key: 'DELETE',
+    value: 'Delete',
   },
   {
-    key: "DISABLED",
+    key: 'DISABLED',
     value: 'Disabled',
   },
 ]
 
 const menuStatusDisqualify: EventMenu[] = [
   {
-    key: "DELETE",
-    value: "Delete",
-  }
-];
+    key: 'DELETE',
+    value: 'Delete',
+  },
+]
 
 const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => {
   const router = useRouter()
@@ -38,7 +38,6 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
     const key: EventMenuKey = e.key
     switch (key) {
       case 'DISABLED':
-
         break
       default:
         break
@@ -51,14 +50,13 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
     }
   }, [data])
 
-
   const menu = (
     <Menu onClick={handleMenuClick} style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
       {menuData.map((menu) => (
         <Menu.Item key={menu.key}>
           <Space>
             {menu.icons}
-            <Text >{menu.value}</Text>
+            <Text>{menu.value}</Text>
           </Space>
         </Menu.Item>
       ))}
@@ -79,7 +77,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
       overlay={menu}
       trigger={['click']}
     >
-      {data.status === "ENABLED" ? "ENABLED" : "DISABLED"}
+      {data.status === 'ENABLED' ? 'ENABLED' : 'DISABLED'}
     </Dropdown.Button>
   )
 }

@@ -6,27 +6,27 @@ import { useRouter } from 'next/router'
 import LeadCreateCard from 'components/Lead/LeadCreate/LeadCreateCard'
 
 const LeadCreatePack: React.FC = () => {
-    const router = useRouter()
-    const { leadId = '' } = router.query
+  const router = useRouter()
+  const { leadId = '' } = router.query
 
-    console.log("Lead id", leadId)
+  console.log('Lead id', leadId)
 
-    return (
-        <MainLayout breadcrumb={['Home', '']}>
-            <TitleComponent
-                title="Lead NAME"
-                onBack={() =>
-                    router.push({
-                        pathname: `/org/[orgToken]/lead`,
-                        query: {
-                            ...router.query,
-                        },
-                    })
-                }
-            />
-            <LeadCreateCard />
-        </MainLayout>
-    )
+  return (
+    <MainLayout breadcrumb={['Home', '']}>
+      <TitleComponent
+        title="Lead NAME"
+        onBack={() =>
+          router.push({
+            pathname: `/org/[orgToken]/lead`,
+            query: {
+              ...router.query,
+            },
+          })
+        }
+      />
+      <LeadCreateCard />
+    </MainLayout>
+  )
 }
 
 export default withAuth(LeadCreatePack)

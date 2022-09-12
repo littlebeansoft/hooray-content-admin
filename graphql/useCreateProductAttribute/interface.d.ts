@@ -24,6 +24,3 @@ export interface CreateProductAttributeInput {
 export interface CreateProductAttributeData {
   createProductAttribute: APIPayloadResponse<ProductAttributeDTO>
 }
-
-
-

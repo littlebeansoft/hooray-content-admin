@@ -1,6 +1,13 @@
 import { APIPayloadResponse } from 'graphql/graphQL-service-hook'
-import { Phone, Email, RESOURCE_OWNER, CREAT_LEAD_STATUS, LEAD_TYPE_RESPONSE, ADDRESS_TYPE, ADDRESS_DEFAULT_SEND } from 'graphql/interface'
-
+import {
+  Phone,
+  Email,
+  RESOURCE_OWNER,
+  CREAT_LEAD_STATUS,
+  LEAD_TYPE_RESPONSE,
+  ADDRESS_TYPE,
+  ADDRESS_DEFAULT_SEND,
+} from 'graphql/interface'
 
 interface CreateLeadInput {
   prefixKey?: string
@@ -41,6 +48,3 @@ export interface LeadInput {
 export interface UpdateLead {
   createLead: APIPayloadResponse<CreateLeadPayload>
 }
-
-
-

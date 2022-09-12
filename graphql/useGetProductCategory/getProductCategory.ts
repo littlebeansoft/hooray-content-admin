@@ -13,18 +13,18 @@ const GET_PRODUCT_CATEGORY_LEVEL = gql`
       }
       payload {
         name
-      parent
-      key
-      _id
-      tree
-      hasChildren
-      treeFull {
-        _id
-        key
         parent
-        name
+        key
+        _id
+        tree
         hasChildren
-      }
+        treeFull {
+          _id
+          key
+          parent
+          name
+          hasChildren
+        }
       }
     }
   }

@@ -10,7 +10,7 @@ import useQualifyLead from 'graphql/useQualifyLead'
 import useDeleteLead from 'graphql/useDeleteLead'
 import useUpdateLead from 'graphql/useUpdateLead'
 const { Text } = Typography
-const { confirm } = Modal;
+const { confirm } = Modal
 
 interface props {
   leadData: LeadDataAPIPayload
@@ -19,40 +19,39 @@ interface props {
 }
 const menuStatusNormal: EventMenu[] = [
   {
-    key: "EDIT",
-    value: "Edit"
-  },
-  {
-    key: "DISQUALIFY",
-    value: 'Disqualify',
-  },
-  {
-    key: "DELETE",
-    value: "Delete",
-  },
-
-]
-
-const menuStatusDisqualify: EventMenu[] = [
-  {
-    key: "DELETE",
-    value: "Delete",
-  }
-];
-
-const menuStatusQualify: EventMenu[] = [
-  {
-    key: "EDIT",
-    value: "Edit"
+    key: 'EDIT',
+    value: 'Edit',
   },
   {
     key: 'DISQUALIFY',
-    value: 'Disqualify'
+    value: 'Disqualify',
   },
   {
     key: 'DELETE',
     value: 'Delete',
-  }
+  },
+]
+
+const menuStatusDisqualify: EventMenu[] = [
+  {
+    key: 'DELETE',
+    value: 'Delete',
+  },
+]
+
+const menuStatusQualify: EventMenu[] = [
+  {
+    key: 'EDIT',
+    value: 'Edit',
+  },
+  {
+    key: 'DISQUALIFY',
+    value: 'Disqualify',
+  },
+  {
+    key: 'DELETE',
+    value: 'Delete',
+  },
 ]
 
 const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refetch }) => {
@@ -81,35 +80,32 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
     } else if (leadData.status === 'QUALIFY') {
       setMenuData(menuStatusQualify)
     }
-
   }, [leadData])
-
 
   const [qualifyLead] = useQualifyLead({
     onCompleted() {
       message.success('Qualify lead was Successfully')
       // setPagination(defaultPagination)
-      refetch();
+      refetch()
     },
     onError() {
       // message.error('Qualify lead was Error')
-    }
+    },
   })
 
   const [deleteLead] = useDeleteLead({
     onCompleted() {
       message.success('Delete lead was Successfully')
-      refetch();
-    }
+      refetch()
+    },
   })
 
   const [disqualify] = useUpdateLead({
     onCompleted() {
       message.success('Disqualify lead was Successfully')
-      refetch();
-    }
+      refetch()
+    },
   })
-
 
   const menu = (
     <Menu onClick={handleMenuClick} style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
@@ -117,7 +113,7 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
         <Menu.Item key={menu.key}>
           <Space>
             {menu.icons}
-            <Text >{menu.value}</Text>
+            <Text>{menu.value}</Text>
           </Space>
         </Menu.Item>
       ))}
@@ -141,8 +137,8 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       onCancel() {
         //console.log('Cancel');
       },
-    });
-  };
+    })
+  }
 
   const showConfirmDelete = () => {
     confirm({
@@ -154,14 +150,12 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
         deleteLead({
           context: { clientType: 'CUSTOMER' },
           variables: {
-            leadId: leadData._id
-          }
+            leadId: leadData._id,
+          },
         })
       },
-      onCancel() {
-
-      },
-    });
+      onCancel() {},
+    })
   }
 
   const showConfirmDisqualify = () => {
@@ -175,8 +169,8 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
           variables: {
             leadId: leadData._id,
             input: {
-              status: "DISQUALIFY"
-            }
+              status: 'DISQUALIFY',
+            },
           },
         })
         //
@@ -184,8 +178,8 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       onCancel() {
         //console.log('Cancel');
       },
-    });
-  };
+    })
+  }
 
   const showConfirmNormal = () => {
     confirm({
@@ -198,8 +192,8 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
           variables: {
             leadId: leadData._id,
             input: {
-              status: "NORMAL"
-            }
+              status: 'NORMAL',
+            },
           },
         })
         //
@@ -207,30 +201,26 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       onCancel() {
         //console.log('Cancel');
       },
-    });
-  };
+    })
+  }
 
   const renderButton = (status: string) => {
     switch (status) {
       case 'DISQUALIFY':
-        return (<Dropdown.Button
-          onClick={() => {
-            showConfirmNormal();
-          }}
-          overlay={menu}
-          trigger={['click']}
-        >
-          Normal
-        </Dropdown.Button>)
-      case 'QUALIFY':
         return (
           <Dropdown.Button
             onClick={() => {
-
+              showConfirmNormal()
             }}
             overlay={menu}
             trigger={['click']}
           >
+            Normal
+          </Dropdown.Button>
+        )
+      case 'QUALIFY':
+        return (
+          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
             Qualify
           </Dropdown.Button>
         )
@@ -247,16 +237,11 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
           </Dropdown.Button>
         )
       default:
-        break;
+        break
     }
   }
 
-
-  return (
-    <>
-      {renderButton(leadData.status)}
-    </>
-  )
+  return <>{renderButton(leadData.status)}</>
 }
 
 export default LeadDataTableDropDown

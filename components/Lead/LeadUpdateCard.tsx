@@ -7,51 +7,42 @@ import React from 'react'
 import LeadCreateForm from './LeadCreate/LeadCreateForm'
 
 const LeadUpdateCard: React.FC = () => {
-    const router = useRouter()
+  const router = useRouter()
 
-    const [form] = Form.useForm()
+  const [form] = Form.useForm()
 
+  const [createLead, createLeadResp] = useCreateLead({
+    onCompleted() {
+      message.success('Create Transfer In Successfully')
+    },
+    onError(err) {
+      message.error(err.message)
+    },
+  })
 
+  const onFinish = (values: any) => {
+    console.log('Value: -->' + JSON.stringify(values))
 
-    const [createLead, createLeadResp] = useCreateLead({
-        onCompleted() {
-            message.success('Create Transfer In Successfully')
+    createLead({
+      context: { clientType: 'CUSTOMER' },
+      variables: {
+        input: {
+          ...values,
+          image: values?.image[0],
+          phone: [{ value: values.phone }],
+          email: [{ value: values.email }],
         },
-        onError(err) {
-            message.error(err.message)
-        },
+      },
     })
+  }
 
-    const onFinish = (values: any) => {
-        console.log("Value: -->" + JSON.stringify(values));
-
-        createLead({
-            context: { clientType: 'CUSTOMER' },
-            variables: {
-                input: {
-                    ...values,
-                    image: values?.image[0],
-                    phone: [
-                        { value: values.phone }
-                    ],
-                    email: [
-                        { value: values.email }
-                    ]
-                }
-            }
-        })
-    }
-
-    return (
-        <Card className="w-100" style={{ marginTop: '1.5em' }}>
-            <FullWidthSpace direction="vertical">
-                <LeadCreateForm
-                    form={form}
-                    onFinish={onFinish}
-                />
-            </FullWidthSpace>
-        </Card>
-    )
+  return (
+    <Card className="w-100" style={{ marginTop: '1.5em' }}>
+      <FullWidthSpace direction="vertical">
+        <LeadCreateForm form={form} onFinish={onFinish} />
+      </FullWidthSpace>
+    </Card>
+  )
 }
 
 export default LeadUpdateCard
