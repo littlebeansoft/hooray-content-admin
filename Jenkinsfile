@@ -1,10 +1,15 @@
 pipeline {
-  agent none
-  stages {
-    stage('Build') {
-      when {
-        expression {
-          env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main'
+    environment {
+        REGISTRY = "registry.hooray.site"
+        REGISTRY_CREDENTIAL = 'komphet-hooray-registry-credentials'
+        DOCKER_IMAGE = 'hooray/bangbow/admin'
+        DOCKER_BUILDKIT = '1'
+    }
+    agent any
+    stages {
+      stage('Build') {
+        when {
+            expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main' }
         }
 
       }
@@ -36,10 +41,5 @@ pipeline {
     }
 
   }
-  environment {
-    REGISTRY = 'registry.hooray.site'
-    REGISTRY_CREDENTIAL = 'komphet-hooray-registry-credentials'
-    DOCKER_IMAGE = 'hooray/wisdomv/admin'
-    DOCKER_BUILDKIT = '1'
-  }
+
 }
