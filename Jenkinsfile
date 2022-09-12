@@ -12,7 +12,7 @@ pipeline {
             expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main' }
         }
 
-      }
+      
       steps {
         script {
           docker.withRegistry("https://${REGISTRY}", "${REGISTRY_CREDENTIAL}") {
@@ -39,6 +39,7 @@ pipeline {
 
       }
     }
+  }
 
 }
 
