@@ -19,18 +19,16 @@ import { dateUnixFormatter } from 'utils/utils'
 const { Search } = Input
 const { Text } = Typography
 
-
 const LeadDataTableCard: React.FC = () => {
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-
   const leadData = useGetLeadData({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
     variables: {
       input: {
         pagination: {
@@ -59,7 +57,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName)
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
     },
     {
       title: 'Lead Type',
@@ -104,9 +102,7 @@ const LeadDataTableCard: React.FC = () => {
         }
         return (
           <>
-            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>
-              {_text}
-            </Text>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>{_text}</Text>
           </>
         ) // just for decoration
       },
@@ -116,7 +112,7 @@ const LeadDataTableCard: React.FC = () => {
       key: 'Telephone',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value)
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value),
     },
     {
       title: 'Email',
@@ -161,7 +157,9 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'right',
       key: 'eventAction',
       width: 140,
-      render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />,
+      render: (_text, record) => (
+        <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
+      ),
     },
   ]
 
@@ -169,7 +167,7 @@ const LeadDataTableCard: React.FC = () => {
     setSelectRowKeys(selectedRowKeys)
   }
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
@@ -182,13 +180,10 @@ const LeadDataTableCard: React.FC = () => {
           //   <Radio.Button value="delete">Delete</Radio.Button>
           // </Radio.Group>,
           <Search
+            key="searchButton"
             placeholder={'Input search text'}
             allowClear
-            enterButton={
-              <Button icon={<SearchOutlined />}>
-
-              </Button>
-            }
+            enterButton={<Button icon={<SearchOutlined />}></Button>}
             size="middle"
             onSearch={(value: string) => {
               setSearch(value)

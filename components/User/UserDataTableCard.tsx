@@ -17,18 +17,16 @@ import { dateUnixFormatter } from 'utils/utils'
 const { Search } = Input
 const { Text } = Typography
 
-
 const UserDataTableCard: React.FC = () => {
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-
   const leadData = useGetLeadData({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
     variables: {
       input: {
         pagination: {
@@ -36,7 +34,7 @@ const UserDataTableCard: React.FC = () => {
           page: pagination.page,
         },
         query: {
-          status: "QUALIFY"
+          status: 'QUALIFY',
         },
         search: {
           firstName: search,
@@ -60,7 +58,7 @@ const UserDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName)
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
     },
     {
       title: 'User Type',
@@ -105,9 +103,7 @@ const UserDataTableCard: React.FC = () => {
         }
         return (
           <>
-            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>
-              {_text}
-            </Text>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>{_text}</Text>
           </>
         ) // just for decoration
       },
@@ -117,7 +113,7 @@ const UserDataTableCard: React.FC = () => {
       key: 'Telephone',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value)
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value),
     },
     {
       title: 'Email',
@@ -170,25 +166,24 @@ const UserDataTableCard: React.FC = () => {
     setSelectRowKeys(selectedRowKeys)
   }
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-       // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-       // rowSelectAmount={selectedRowKeys.length}
+        // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+        // rowSelectAmount={selectedRowKeys.length}
         header={[
-          hasSelected ? <Button danger >
-            Delete
-          </Button> : null,
+          hasSelected ? (
+            <Button key="deleteButton" danger>
+              Delete
+            </Button>
+          ) : null,
           <Search
+            key="searchButton"
             placeholder={'Input search text'}
             allowClear
-            enterButton={
-              <Button icon={<SearchOutlined />}>
-
-              </Button>
-            }
+            enterButton={<Button icon={<SearchOutlined />}></Button>}
             size="middle"
             onSearch={(value: string) => {
               setSearch(value)

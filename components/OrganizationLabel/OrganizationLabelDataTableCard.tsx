@@ -16,13 +16,11 @@ import dayjs from 'dayjs'
 
 const { Search } = Input
 
-
 const OrganizationLabelDataTableCard: React.FC = () => {
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
-
 
   const leadData = useGetLeadData({
     // skip: !router.isReady,
@@ -70,7 +68,7 @@ const OrganizationLabelDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
     },
-    
+
     {
       title: 'Status',
       dataIndex: 'Status',
@@ -128,7 +126,7 @@ const OrganizationLabelDataTableCard: React.FC = () => {
     setSelectRowKeys(selectedRowKeys)
   }
 
-  const hasSelected = selectedRowKeys.length > 0;
+  const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
@@ -136,18 +134,19 @@ const OrganizationLabelDataTableCard: React.FC = () => {
         rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
         rowSelectAmount={selectedRowKeys.length}
         header={[
-          <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
-            <Radio.Button value="qualify">Qualify</Radio.Button>
-            <Radio.Button value="delete">Delete</Radio.Button>
+          <Radio.Group key="radioButton" disabled={!hasSelected} onChange={() => {}} defaultValue="a" style={{}}>
+            <Radio.Button key="radioButton1" value="qualify">
+              Qualify
+            </Radio.Button>
+            <Radio.Button key="radioButton2" value="delete">
+              Delete
+            </Radio.Button>
           </Radio.Group>,
           <Search
+            key="searchButton"
             placeholder={'Input search text'}
             allowClear
-            enterButton={
-              <Button  icon={<SearchOutlined />}>
-                
-              </Button>
-            }
+            enterButton={<Button icon={<SearchOutlined />}></Button>}
             size="middle"
             onSearch={(value: string) => {
               setSearch(value)
