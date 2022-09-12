@@ -828,8 +828,56 @@ export interface VehicleOptionsInput {
   car?: boolean
   motorcycle?: boolean
 }
+
+//---------------------------------- BANGBOW ---------------//
+
+export type Phone = {
+  value: string
+}
+
+export type Email = {
+  value: string
+}
+
+export type RESOURCE_OWNER = 'USER' | 'OTHER'
+
+export type CREAT_LEAD_STATUS = 'NORMAL' | 'QUALIFY' | 'DISQUALIFY'
+
+export type LEAD_TYPE_RESPONSE = 'AGENT' | 'FACTORY' | 'RETAIL' | 'ORGANIZATION' | 'CUSTOMER' | 'OTHER'
+
+export type ADDRESS_TYPE =
+  | 'ADDRESS_CURRENT'
+  | 'ADDRESS_CARD'
+  | 'ADDRESS_REGISTER'
+  | 'ADDRESS_DOCUMENT'
+  | 'ADDRESS_OFFICE'
+  | 'NONE'
+
+export type ADDRESS_DEFAULT_SEND = 'DEFAULT' | 'NOT_DEFAULT'
+
+export type ATRRIBUTE_TYPE = 'CHECKBOX' | 'RADIO' | 'TEXT' | 'NUMBER'
+
+export type SelfProductCategory = {
+  _id: string
+  key: string
+  parent: string
+  name: string
+  hasChildren: boolean
+}
+
+export interface ProductCategoryAPIPayload {
+  _id: string
+  name: string
+  key: string
+  parent: string
+  tree: string[]
+  treeFull: SelfProductCategory[]
+  attributes: string[]
+  hasChildren: boolean
+}
+
 export interface LeadDataAPIPayload {
-  id: string
+  _id: string
   prefixKey: string
   prefixName: string
   firstName: string
@@ -839,10 +887,46 @@ export interface LeadDataAPIPayload {
   organizationKey: string
   organizationName: string
   status: string
-  telephone: string
-  email: string
-  createdAt: Date
-  updatedAt: Date
+  phone: Phone[]
+  email: Email[]
+  createdAt: number
+  updatedAt: number
   createBy: string
   updateBy: string
+}
+
+export interface LeadTypeOption {
+  label: string
+  value: LEAD_TYPE_RESPONSE
+  text: string
+}
+
+export interface LeadStatus {
+  label: string
+  value: CREAT_LEAD_STATUS
+}
+
+export interface LeadAddressRESP {
+  _id?: string
+  orgKey?: string
+  refId?: string
+  address?: String
+  subDistrict?: String
+  district?: String
+  province?: String
+  postcode?: String
+  country?: String
+  latitude?: String
+  longitude?: String
+  type?: ADDRESS_TYPE
+  defaultSend?: ADDRESS_DEFAULT_SEND
+}
+
+export interface MasterDataLocationPayload {
+  locale: string
+  text: string
+  searchable: string
+  parentKey: string
+  dataKey: string
+  attribute: string
 }

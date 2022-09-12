@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_LEAD = gql`
-  query getDataLead($input: INPUT_FIND_DATA) {
+  query getDataLead($input: FindLeadInput) {
     getDataLead(input: $input) {
       message
       code
@@ -28,6 +28,8 @@ const GET_LEAD = gql`
         status
         image
         organizationName
+        createdAt
+        updatedAt
       }
     }
   }

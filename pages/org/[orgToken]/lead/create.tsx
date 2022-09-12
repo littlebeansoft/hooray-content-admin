@@ -3,27 +3,27 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import ContentCreateCard from 'components/ContentPackComponent/ContentCreateCard'
+import LeadCreateCard from 'components/Lead/LeadCreate/LeadCreateCard'
 
-const CreateContentPack: React.FC = () => {
+const LeadCreatePack: React.FC = () => {
   const router = useRouter()
 
   return (
-    <MainLayout breadcrumb={['Content Pack ', 'สร้างผู้มุ่งหวังใหม่']}>
+    <MainLayout breadcrumb={['Home', 'Add New Lead']}>
       <TitleComponent
-        title="สร้างผู้มุ่งหวังใหม่"
+        title="Add New Lead"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/content-pack`,
+            pathname: `/org/[orgToken]/lead`,
             query: {
               ...router.query,
             },
           })
         }
       />
-      <ContentCreateCard />
+      <LeadCreateCard />
     </MainLayout>
   )
 }
 
-export default withAuth(CreateContentPack)
+export default withAuth(LeadCreatePack)

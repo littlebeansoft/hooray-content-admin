@@ -1,75 +1,247 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Menu, Dropdown, Button, Typography, Space } from 'antd'
+import { Menu, Dropdown, Button, Typography, Space, message, Popconfirm, Modal } from 'antd'
 
 import { defaultPagination } from 'config/paginationConfig'
-import { DownOutlined, FormOutlined } from '@ant-design/icons'
+import { DownOutlined, FormOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { LeadDataAPIPayload } from 'graphql/interface'
+import useQualifyLead from 'graphql/useQualifyLead'
+import useDeleteLead from 'graphql/useDeleteLead'
+import useUpdateLead from 'graphql/useUpdateLead'
 const { Text } = Typography
+const { confirm } = Modal
 
 interface props {
   leadData: LeadDataAPIPayload
   setPagination: any
+  refetch: Function
 }
-const menuData: EventMenu[] = [
+const menuStatusNormal: EventMenu[] = [
   {
-    key: 'EDIT_DETAIL',
+    key: 'EDIT',
     value: 'Edit',
+  },
+  {
+    key: 'DISQUALIFY',
+    value: 'Disqualify',
+  },
+  {
+    key: 'DELETE',
+    value: 'Delete',
   },
 ]
 
-const ProductCategoryTableDroupDown: React.FC<props> = ({ leadData, setPagination }) => {
+const menuStatusDisqualify: EventMenu[] = [
+  {
+    key: 'DELETE',
+    value: 'Delete',
+  },
+]
+
+const menuStatusQualify: EventMenu[] = [
+  {
+    key: 'EDIT',
+    value: 'Edit',
+  },
+  {
+    key: 'DISQUALIFY',
+    value: 'Disqualify',
+  },
+  {
+    key: 'DELETE',
+    value: 'Delete',
+  },
+]
+
+const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refetch }) => {
   const router = useRouter()
+  const [menuData, setMenuData] = useState<EventMenu[]>([])
   const { parentKey = null } = router.query
   const handleMenuClick = (e: any) => {
     const key: EventMenuKey = e.key
     switch (key) {
-      case 'EDIT_DETAIL':
-        router.push({
-          pathname: `${router.pathname}/[leadId]`,
-          query: {
-            ...router.query,
-          },
-        })
+      case 'DISQUALIFY':
+        showConfirmDisqualify()
+        break
+      case 'DELETE':
+        showConfirmDelete()
         break
       default:
         break
     }
   }
 
+  useEffect(() => {
+    if (leadData.status === 'NORMAL') {
+      setMenuData(menuStatusNormal)
+    } else if (leadData.status === 'DISQUALIFY') {
+      setMenuData(menuStatusDisqualify)
+    } else if (leadData.status === 'QUALIFY') {
+      setMenuData(menuStatusQualify)
+    }
+  }, [leadData])
+
+  const [qualifyLead] = useQualifyLead({
+    onCompleted() {
+      message.success('Qualify lead was Successfully')
+      // setPagination(defaultPagination)
+      refetch()
+    },
+    onError() {
+      // message.error('Qualify lead was Error')
+    },
+  })
+
+  const [deleteLead] = useDeleteLead({
+    onCompleted() {
+      message.success('Delete lead was Successfully')
+      refetch()
+    },
+  })
+
+  const [disqualify] = useUpdateLead({
+    onCompleted() {
+      message.success('Disqualify lead was Successfully')
+      refetch()
+    },
+  })
+
   const menu = (
     <Menu onClick={handleMenuClick} style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
       {menuData.map((menu) => (
         <Menu.Item key={menu.key}>
           <Space>
-            <FormOutlined style={{ color: '#4fb3ff' }} />
-            <Text style={{ color: '#4fb3ff' }}>{menu.value}</Text>
+            {menu.icons}
+            <Text>{menu.value}</Text>
           </Space>
         </Menu.Item>
       ))}
     </Menu>
   )
 
-  return (
-    <Dropdown.Button
-      onClick={() => {
-        setPagination(defaultPagination)
-        router.push({
-          pathname: `${router.pathname}`,
-          query: {
-            ...router.query,
+  const showConfirm = () => {
+    confirm({
+      title: 'Are you sure qualify this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การอนุมัติ Lead นี้จะทำให้ type ของ Lead เปลี่ยนเป็น User เมื่อทำการอนุมัติแล้วจะไม่สามรถย้อนกลับได้',
+      onOk() {
+        qualifyLead({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
           },
         })
-      }}
-      overlay={menu}
-      trigger={['click']}
-    >
-      <Button style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
-        Action <DownOutlined />
-      </Button>
-    </Dropdown.Button>
-  )
+        //
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
+  const showConfirmDelete = () => {
+    confirm({
+      title: 'Are you sure delete this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การลบ Lead นี้จะทำให้ Lead หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
+      okType: 'danger',
+      onOk() {
+        deleteLead({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
+          },
+        })
+      },
+      onCancel() {},
+    })
+  }
+
+  const showConfirmDisqualify = () => {
+    confirm({
+      title: 'Are you sure disqualify this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การ disqualify Lead จะทำให้ status ของ Lead เปลี่ยนเป็น disqualify สามารถเปลี่ยนกับด้วยการคลิก Normal ',
+      onOk() {
+        disqualify({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
+            input: {
+              status: 'DISQUALIFY',
+            },
+          },
+        })
+        //
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
+  const showConfirmNormal = () => {
+    confirm({
+      title: 'Are you sure disqualify this lead ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การเปลี่ยนเป็น Normal จะทำให้ status ของ Lead เปลี่ยนเป็น Normal  ',
+      onOk() {
+        disqualify({
+          context: { clientType: 'CUSTOMER' },
+          variables: {
+            leadId: leadData._id,
+            input: {
+              status: 'NORMAL',
+            },
+          },
+        })
+        //
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
+  const renderButton = (status: string) => {
+    switch (status) {
+      case 'DISQUALIFY':
+        return (
+          <Dropdown.Button
+            onClick={() => {
+              showConfirmNormal()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
+            Normal
+          </Dropdown.Button>
+        )
+      case 'QUALIFY':
+        return (
+          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+            Qualify
+          </Dropdown.Button>
+        )
+      case 'NORMAL':
+        return (
+          <Dropdown.Button
+            onClick={() => {
+              showConfirm()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
+            Qualify
+          </Dropdown.Button>
+        )
+      default:
+        break
+    }
+  }
+
+  return <>{renderButton(leadData.status)}</>
 }
 
-export default ProductCategoryTableDroupDown
+export default LeadDataTableDropDown

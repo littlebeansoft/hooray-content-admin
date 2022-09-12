@@ -9,9 +9,17 @@ export default withApollo(({ initialState, ctx }: any) => {
   const getClientURI = (type: string) => {
     switch (type) {
       default:
-        return API.WMS.GRAPHQL.ADMIN['1.0']
+        return API.CORE.GRAPHQL.ADMIN['1.0']
       case 'CORE':
         return API.CORE.GRAPHQL.ADMIN['1.0']
+      case 'CUSTOMER':
+        return API.CUSTOMER.GRAPHQL.ADMIN['1.0']
+      case 'PRODUCT':
+        return API.PRODUCT.GRAPHQL.ADMIN['1.0']
+      case 'LOCATION':
+        return API.LOCATION.GRAPHQL.ADMIN['1.0']
+      case 'ORDER':
+        return API.ORDER.GRAPHQL.ADMIN['1.0']
     }
   }
   const link = createHttpLink({

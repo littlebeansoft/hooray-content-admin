@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Collapse, Row, Typography, Button, Popconfirm } from 'antd'
-import { QuestionCircleOutlined } from '@ant-design/icons'
+import { QuestionCircleOutlined, CloseSquareOutlined } from '@ant-design/icons'
 const { Panel } = Collapse
 const { Text, Title } = Typography
 interface Props {
@@ -13,6 +13,9 @@ interface Props {
 const DangerZone: React.FC<Props> = ({ topic, buttonLabel, loading, onDelete }) => {
   const text = (
     <>
+      <Text strong type="danger" style={{ paddingLeft: 24 }}>
+        Danger Zone
+      </Text>
       <Title level={5} style={{ paddingLeft: 24 }}>
         Delete this {topic}
       </Title>
@@ -46,7 +49,7 @@ const DangerZone: React.FC<Props> = ({ topic, buttonLabel, loading, onDelete }) 
               okButtonProps={{ loading }}
               icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
             >
-              <Button danger type="primary" size="large">
+              <Button danger type="primary" size="large" icon={<CloseSquareOutlined />}>
                 {buttonLabel}
               </Button>
             </Popconfirm>

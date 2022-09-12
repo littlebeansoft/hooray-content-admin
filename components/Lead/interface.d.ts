@@ -1,3 +1,5 @@
+import { FormInstance } from 'antd'
+
 export interface LeadDataProp {
   id: String
   prefixKey: String
@@ -30,4 +32,12 @@ export interface AddressDataProp {
   longitude: String
   addressType: String
   defaultSend: String
+}
+
+export interface LeadCreateFormProps {
+  leadData?: any
+  form: FormInstance<any>
+  loading?: boolean
+  onFinish?: (fieldValue: any) => void
+  onCancel?: () => void
 }

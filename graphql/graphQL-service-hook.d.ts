@@ -35,6 +35,14 @@ export interface Pagination {
   totalPages?: number
 }
 
+export interface QUERY {
+  parentKey?: string
+  dataKey?: string
+  attribute?: any
+  locale?: string
+  text?: string
+}
+
 export interface APIPayloadResponseWithPagination<T> extends APIPayloadResponse<T> {
   pagination: Pagination
 }
@@ -92,4 +100,11 @@ export interface Credential {
   type: CredentialType
   credentialKey: string
   status: Status
+}
+
+export interface FindMasterDataInput {
+  pagination?: Pagination
+  query?: QUERY
+  search?: QUERY
+  filter?: QUERY
 }
