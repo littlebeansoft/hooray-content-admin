@@ -126,7 +126,9 @@ const PropertyDataTableCard: React.FC = () => {
       fixed: 'right',
       key: 'eventAction',
       width: 150,
-      render: (_text, record) => <CategoryDataTableDropDown data={record} setPagination={setPagination} />,
+      render: (_text, record) => (
+        <CategoryDataTableDropDown data={record} setPagination={setPagination} refetch={attributeList.refetch} />
+      ),
     },
   ]
 
