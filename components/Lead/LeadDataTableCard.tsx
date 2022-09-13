@@ -35,6 +35,9 @@ const LeadDataTableCard: React.FC = () => {
           limit: pagination.limit,
           page: pagination.page,
         },
+        query: {
+          // status: { '$in': ['NORMAL', 'DISQOALIFY'] }
+        },
         search: {
           firstName: search,
           lastName: search,
