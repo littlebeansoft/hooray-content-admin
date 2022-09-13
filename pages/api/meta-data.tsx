@@ -49,12 +49,12 @@ export default async function handler(req: any, res: any) {
           name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
           path: 'lead',
           icon: 'user',
-          // permissionList: [
-          //   // {
-          //   //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
-          //   //   code: ['READ'],
-          //   // },
-          // ],
+          permissionList: [
+            // {
+            //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
+            //   code: ['READ'],
+            // },
+          ],
         },
         {
           name: { en: 'All User', th: 'ผู้ใช้' },
