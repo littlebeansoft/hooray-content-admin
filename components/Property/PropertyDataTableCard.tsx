@@ -9,12 +9,14 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import getProductAttributeList from 'graphql/useGetProductAttributeList'
-import { ProductAttributeDTO } from 'graphql/useGetProductAttributeList/interface'
+import getAttribute from 'graphql/useGetAttribute'
+import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 import CategoryDataTableDropDown from './PropertyDataTableDropDown'
 import dayjs from 'dayjs'
+import { formatDate } from 'helpers/formatter'
 
 const { Search } = Input
+const { Text } = Typography
 
 const PropertyDataTableCard: React.FC = () => {
   const router = useRouter()
@@ -22,9 +24,9 @@ const PropertyDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const productAttributeList = getProductAttributeList({
+  const attributeList = getAttribute({
     context: {
-      clientType: 'PRODUCT',
+      clientType: 'LABEL',
       headers: {
         credentialKey: 'BANG_BOW_ADMIN',
       },
@@ -38,20 +40,20 @@ const PropertyDataTableCard: React.FC = () => {
       },
     },
     onCompleted(resp: any) {
-      const { pagination } = resp.getProductAttributeList
+      const { pagination } = resp.getAttribute
       setPagination(pagination)
     },
   })
 
-  const productAttributeListData = productAttributeList.data?.getProductAttributeList.payload
-  const columns: ColumnsType<ProductAttributeDTO> = [
+  const attributeListData = attributeList.data?.getAttribute.payload
+  const columns: ColumnsType<GetAttributeResp> = [
     {
       title: 'Property Name',
       key: 'Name',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.name),
+      render: (_text: GetAttributeResp) => fallBackValueTable(_text?.name),
     },
     {
       title: 'Property Type',
@@ -59,27 +61,44 @@ const PropertyDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.type),
+      render: (_text: GetAttributeResp) => fallBackValueTable(_text?.type),
     },
 
-    // {
-    //   title: 'Status',
-    //   dataIndex: 'Status',
-    //   key: 'Status',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.status),
-    // },
-    // {
-    //   title: 'Modify Date',
-    //   dataIndex: 'ModifyDate',
-    //   key: 'ModifyDate',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductAttributeDTO) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
-    // },
+    {
+      title: 'Status',
+      key: 'Status',
+      fixed: 'left',
+      width: 100,
+      ellipsis: true,
+      render: (text: GetAttributeResp, record) => {
+        let _tColor
+        let _iCon
+        let _text
+        switch (text.status) {
+          default:
+          case 'DISABLED':
+            _tColor = '#A30404'
+            _text = 'Disabled'
+            break
+          case 'ENABLED':
+            _tColor = '#34B53A'
+            _text = 'Enabled'
+            break
+        }
+        return (
+          <>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>{_text}</Text>
+          </>
+        ) // just for decoration
+      },
+    },
+    {
+      title: 'Modify Date',
+      key: 'ModifyDate',
+      width: 100,
+      ellipsis: true,
+      render: (_text: GetAttributeResp) => (_text.updatedAt ? formatDate(_text?.updatedAt) : '-'),
+    },
     // {
     //   title: 'Modify By',
     //   dataIndex: 'ModifyBy',
@@ -89,15 +108,13 @@ const PropertyDataTableCard: React.FC = () => {
     //   ellipsis: true,
     //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.updateBy),
     // },
-    // {
-    //   title: 'Create Date',
-    //   dataIndex: 'CreateDate',
-    //   key: 'CreateDate',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductAttributeDTO) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-    // },
+    {
+      title: 'Create Date',
+      key: 'CreateDate',
+      width: 100,
+      ellipsis: true,
+      render: (_text: GetAttributeResp) => (_text.createdAt ? formatDate(_text?.createdAt) : '-'),
+    },
     // {
     //   title: 'Create By',
     //   dataIndex: 'CreateBy',
@@ -107,12 +124,12 @@ const PropertyDataTableCard: React.FC = () => {
     //   ellipsis: true,
     //   render: (_text: ProductAttributeDTO) => fallBackValueTable(_text.createBy),
     // },
-    // {
-    //   fixed: 'right',
-    //   key: 'eventAction',
-    //   width: 100,
-    //   render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
-    // },
+    {
+      fixed: 'right',
+      key: 'eventAction',
+      width: 150,
+      render: (_text, record) => <CategoryDataTableDropDown data={record} setPagination={setPagination} />,
+    },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -124,13 +141,13 @@ const PropertyDataTableCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-        rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-        rowSelectAmount={selectedRowKeys.length}
+        //  rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+        // rowSelectAmount={selectedRowKeys.length}
         header={[
-          <Radio.Group key="radioButton1" disabled={!hasSelected} onChange={() => {}} defaultValue="a" style={{}}>
-            <Radio.Button value="qualify">Qualify</Radio.Button>
-            <Radio.Button value="delete">Delete</Radio.Button>
-          </Radio.Group>,
+          // <Radio.Group key="radioButton1" disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
+          //   <Radio.Button value="qualify">Qualify</Radio.Button>
+          //   <Radio.Button value="delete">Delete</Radio.Button>
+          // </Radio.Group>,
           <Search
             key="searchButton"
             placeholder={'Input search text'}
@@ -159,7 +176,7 @@ const PropertyDataTableCard: React.FC = () => {
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 300 }}
-        loading={productAttributeList.loading}
+        loading={attributeList.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -169,7 +186,7 @@ const PropertyDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={productAttributeListData}
+        dataSource={attributeListData}
       />
     </Card>
   )

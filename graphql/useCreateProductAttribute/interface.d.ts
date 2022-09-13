@@ -1,13 +1,13 @@
 import { APIPayloadResponse } from 'graphql/graphQL-service-hook'
 import { ATRRIBUTE_TYPE } from 'graphql/interface'
-import { ProductAttributeDTO } from '../useGetProductAttributeList/interface'
+import { ProductAttributeDTO } from '../useGetAttribute/interface'
 
 type Options = {
   name: string
 }
 
 interface CreateProductAttribute {
-  type?: ATRRIBUTE_TYPE!
+  type?: !ATRRIBUTE_TYPE
   name?: string
   rules?: string[]
   options?: Options[]

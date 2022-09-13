@@ -5,21 +5,21 @@ import { Menu, Dropdown, Button, Typography, Space } from 'antd'
 import { defaultPagination } from 'config/paginationConfig'
 import { DownOutlined, FormOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
-import { ProductAttributeDTO } from 'graphql/useGetProductAttributeList/interface'
+import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 const { Text } = Typography
 
 interface props {
-  data: ProductAttributeDTO
+  data: GetAttributeResp
   setPagination: any
 }
 const menuStatusNormal: EventMenu[] = [
   {
-    key: 'DELETE',
-    value: 'Delete',
+    key: 'EDIT',
+    value: 'Edit',
   },
   {
-    key: 'DISABLED',
-    value: 'Disabled',
+    key: 'DELETE',
+    value: 'Delete',
   },
 ]
 
@@ -47,6 +47,8 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
   useEffect(() => {
     if (data.status === 'ENABLED') {
       setMenuData(menuStatusNormal)
+    } else {
+      setMenuData(menuStatusDisqualify)
     }
   }, [data])
 
@@ -77,7 +79,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
       overlay={menu}
       trigger={['click']}
     >
-      {data.status === 'ENABLED' ? 'ENABLED' : 'DISABLED'}
+      {data.status === 'ENABLED' ? 'Disabled' : 'Enabled'}
     </Dropdown.Button>
   )
 }
