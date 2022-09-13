@@ -41,17 +41,9 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
   const switchPorperty = (id: string) => {
     switch (id) {
       case 'TEXT':
-        return (
-          <>
-            <Input style={{ width: 221 }} />
-          </>
-        )
+        return <>{/* <Input style={{ width: 221 }} /> */}</>
       case 'NUMBER':
-        return (
-          <>
-            <Input type={'number'} style={{ width: 221 }} />
-          </>
-        )
+        return <>{/* <Input type={'number'} style={{ width: 221 }} /> */}</>
       case 'RADIO':
         return (
           <>

@@ -37,7 +37,9 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
   const handleMenuClick = (e: any) => {
     const key: EventMenuKey = e.key
     switch (key) {
-      case 'DISABLED':
+      case 'EDIT':
+        break
+      case 'DELETE':
         break
       default:
         break
@@ -65,23 +67,26 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination }) => 
     </Menu>
   )
 
-  return (
-    <Dropdown.Button
-      onClick={() => {
-        setPagination(defaultPagination)
-        router.push({
-          pathname: `${router.pathname}`,
-          query: {
-            ...router.query,
-          },
-        })
-      }}
-      overlay={menu}
-      trigger={['click']}
-    >
-      {data.status === 'ENABLED' ? 'Disabled' : 'Enabled'}
-    </Dropdown.Button>
-  )
+  const renderButton = (status: string) => {
+    switch (status) {
+      case 'DISABLED':
+        return (
+          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+            Enabled
+          </Dropdown.Button>
+        )
+      case 'ENABLED':
+        return (
+          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+            Disabled
+          </Dropdown.Button>
+        )
+      default:
+        break
+    }
+  }
+
+  return <>{renderButton(data.status)}</>
 }
 
 export default CategoryDataTableDropDown
