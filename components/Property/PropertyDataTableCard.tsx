@@ -27,10 +27,8 @@ const PropertyDataTableCard: React.FC = () => {
   const attributeList = getAttribute({
     context: {
       clientType: 'LABEL',
-      headers: {
-        credentialKey: 'BANG_BOW_ADMIN',
-      },
     },
+    fetchPolicy: 'network-only',
     variables: {
       input: {
         pagination: {
@@ -132,11 +130,11 @@ const PropertyDataTableCard: React.FC = () => {
     },
   ]
 
-  const onSelectItems = (selectedRowKeys: React.Key[]) => {
-    setSelectRowKeys(selectedRowKeys)
-  }
+  // const onSelectItems = (selectedRowKeys: React.Key[]) => {
+  //   setSelectRowKeys(selectedRowKeys)
+  // }
 
-  const hasSelected = selectedRowKeys.length > 0
+  // const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
@@ -175,7 +173,7 @@ const PropertyDataTableCard: React.FC = () => {
           </Button>,
         ]}
         rowKey="_id"
-        scroll={{ x: 800, y: 300 }}
+        scroll={{ x: 800, y: 400 }}
         loading={attributeList.loading}
         pagination={{
           current: pagination?.page,
