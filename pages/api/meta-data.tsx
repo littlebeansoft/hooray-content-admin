@@ -49,78 +49,78 @@ export default async function handler(req: any, res: any) {
           name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
           path: 'lead',
           icon: 'user',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   // {
+          //   //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //   //   code: ['READ'],
+          //   // },
+          // ],
         },
         {
           name: { en: 'All User', th: 'ผู้ใช้' },
           path: 'user',
           icon: 'user',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
         {
           name: { en: 'All Organization', th: 'หน่วยงาน' },
           path: 'organization',
           icon: 'factory',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
         {
           name: { en: 'All Product', th: 'สินค้า' },
           path: 'product',
           icon: 'product',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
         {
           name: { en: 'All Category', th: 'หมวดหมู่สินค้า' },
           path: 'category',
           icon: 'category',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
         {
           name: { en: 'All Property', th: 'คุณสมบัติ' },
           path: 'property',
           icon: 'property',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
         {
           name: { en: 'All Organization Label', th: 'เลเบลองค์กร' },
           path: 'organization-label',
           icon: 'factory',
-          permissionList: [
-            {
-              permissionKey: 'ORG.MASTER_DATA.LOCATION',
-              code: ['READ'],
-            },
-          ],
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
         },
       ],
     },
