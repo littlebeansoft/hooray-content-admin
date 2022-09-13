@@ -20,6 +20,8 @@ const getClientURI = (type: string) => {
       return API.PRODUCT.GRAPHQL.ADMIN['1.0']
     case 'ORDER':
       return API.ORDER.GRAPHQL.ADMIN['1.0']
+    case 'LABEL':
+      return API.LABEL.GRAPHQL.ADMIN['1.0']
   }
 }
 

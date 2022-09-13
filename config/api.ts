@@ -4,6 +4,7 @@ const domain = {
   location: process.env.NEXT_PUBLIC_API_HOORAY_LOCATION_DOMAIN || 'https://kara-location-service.hooray.site',
   product: process.env.NEXT_PUBLIC_API_HOORAY_PRODUCT_DOMAIN || 'https://kara-product-service.hooray.site',
   order: process.env.NEXT_PUBLIC_API_HOORAY_ORDER_DOMAIN || 'https://kara-order-service.hooray.site',
+  label: process.env.NEXR_PUBLIC_API_HOORAY_LABEL_DOMAIN || 'https://kara-label-service.hooray.site',
 }
 const path = {
   graphql: '/graphql',
@@ -58,6 +59,14 @@ export const API = {
     },
     REST: {
       ADMIN: { ['1.0']: domain.order + path.rest + type.admin + version['1.0'] },
+    },
+  },
+  LABEL: {
+    GRAPHQL: {
+      ADMIN: { ['1.0']: domain.label + path.graphql + type.admin + version['1.0'] },
+    },
+    REST: {
+      ADMIN: { ['1.0']: domain.label + path.rest + type.admin + version['1.0'] },
     },
   },
 }
