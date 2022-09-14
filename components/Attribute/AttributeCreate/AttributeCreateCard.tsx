@@ -3,7 +3,7 @@ import FullWidthSpace from 'components/FullWidthSpace'
 import useCreateProductAttribute from 'graphql/useCreateAttribute'
 import { useRouter } from 'next/router'
 import React from 'react'
-import CategoryCreateForm from './PropertyCreateForm'
+import CategoryCreateForm from './AttributeCreateForm'
 import GET_ATTRIBUTE from 'graphql/useGetAttribute/getAttribute'
 
 const PropertyCreateCard: React.FC = () => {
@@ -16,7 +16,7 @@ const PropertyCreateCard: React.FC = () => {
     onCompleted: () => {
       message.success('Create Product Property success')
       router.push({
-        pathname: `/org/[orgToken]/property`,
+        pathname: `/org/[orgToken]/attribute`,
         query: {
           ...router.query,
         },

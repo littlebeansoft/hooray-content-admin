@@ -7,6 +7,7 @@ import { DownOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-desi
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 import useDeleteAttribute from 'graphql/useDeleteAttribute'
+import useUpdateAttribute from 'graphql/useUpdateAttribute'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -45,6 +46,13 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     },
   })
 
+  const [updateStatus] = useUpdateAttribute({
+    onCompleted() {
+      message.success('Update lead status was Successfully')
+      refetch()
+    },
+  })
+
   const showConfirmDelete = () => {
     confirm({
       title: 'Are you sure delete this Attribute ?',
@@ -65,10 +73,67 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     })
   }
 
+  const showConfirmDisabled = () => {
+    confirm({
+      title: 'Are you sure disabled this attribute ?',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'การ Disabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Disabled สามารถเปลี่ยนกับด้วยการคลิก Enabled',
+      onOk() {
+        updateStatus({
+          context: {
+            clientType: 'LABEL',
+          },
+          variables: {
+            updateAttributeId: data._id,
+            input: {
+              status: 'DISABLED',
+            },
+          },
+        })
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
+  const showConfirmEnable = () => {
+    confirm({
+      title: 'Are you sure enabled this attribute ?',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'การ Enabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Enabled สามารถเปลี่ยนกับด้วยการคลิก Disabled',
+      onOk() {
+        updateStatus({
+          context: {
+            clientType: 'LABEL',
+          },
+          variables: {
+            updateAttributeId: data._id,
+            input: {
+              status: 'ENABLED',
+            },
+          },
+        })
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
   const handleMenuClick = (e: any) => {
     const key: EventMenuKey = e.key
     switch (key) {
       case 'EDIT':
+        router.push({
+          pathname: `${router.pathname}/[attributeId]`,
+          query: {
+            ...router.query,
+            attributeId: data._id,
+          },
+        })
         break
       case 'DELETE':
         showConfirmDelete()
@@ -103,13 +168,25 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     switch (status) {
       case 'DISABLED':
         return (
-          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+          <Dropdown.Button
+            onClick={() => {
+              showConfirmEnable()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
             Enabled
           </Dropdown.Button>
         )
       case 'ENABLED':
         return (
-          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+          <Dropdown.Button
+            onClick={() => {
+              showConfirmDisabled()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
             Disabled
           </Dropdown.Button>
         )
