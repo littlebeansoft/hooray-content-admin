@@ -4,13 +4,26 @@ import { ProductCategoryAPIPayload } from 'graphql/interface'
 type TOGGLE_STATUS = 'ENABLED' | 'DISABLED'
 
 type GetCategoryQuery = {
-  categoryId: string
+  categoryId?: string
+  categoryKey?: string
+  path?: string
+  pathRegex?: string
+  name?: string
+  descriptions?: string
+  status?: string
+}
+
+type ParentCategoryRes = {
+  _id: string
   categoryKey: string
   path: string
-  pathRegex: string
   name: string
   descriptions: string
-  status: string
+  status: TOGGLE_STATUS
+  createdAt: string
+  updatedAt: string
+  createdBy: string
+  updatedBy: string
 }
 
 type GetCategoryResp = {
@@ -24,6 +37,7 @@ type GetCategoryResp = {
   updatedAt: string
   createdBy: string
   updatedBy: string
+  parentCategory: ParentCategoryRes
 }
 
 type SORT_ORDER = 'ASC' | 'DESC'
@@ -33,6 +47,7 @@ type GetProductCategoryLevelSortInput = {
 }
 
 export interface GetCategoryInPut {
+  query?: GetCategoryQuery
   filter?: GetProductCategoryLevel
   sort?: JSON
   pagination?: Pagination

@@ -15,6 +15,10 @@ const GET_CATEGORY = gql`
         _id
         categoryKey
         path
+        parentCategory {
+          _id
+          name
+        }
         name
         descriptions
         status
