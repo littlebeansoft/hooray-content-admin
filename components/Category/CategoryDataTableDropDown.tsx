@@ -1,75 +1,201 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Menu, Dropdown, Button, Typography, Space } from 'antd'
+import { Menu, Dropdown, Button, Typography, Space, Modal, message } from 'antd'
 
 import { defaultPagination } from 'config/paginationConfig'
-import { DownOutlined, FormOutlined } from '@ant-design/icons'
+import { DownOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+import useDeleteAttribute from 'graphql/useDeleteAttribute'
+import useUpdateAttribute from 'graphql/useUpdateAttribute'
 const { Text } = Typography
+const { confirm } = Modal
 
 interface props {
-  leadData: LeadDataAPIPayload
+  data: GetCategoryResp
   setPagination: any
+  refetch: Function
 }
-const menuData: EventMenu[] = [
+const menuStatusNormal: EventMenu[] = [
   {
-    key: 'EDIT_DETAIL',
+    key: 'EDIT',
     value: 'Edit',
+  },
+  {
+    key: 'DELETE',
+    value: 'Delete',
   },
 ]
 
-const CategoryDataTableDropDown: React.FC<props> = ({ leadData, setPagination }) => {
+const menuStatusDisqualify: EventMenu[] = [
+  {
+    key: 'DELETE',
+    value: 'Delete',
+  },
+]
+
+const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refetch }) => {
   const router = useRouter()
+  const [menuData, setMenuData] = useState<EventMenu[]>([])
   const { parentKey = null } = router.query
+
+  const [deleteAttribute] = useDeleteAttribute({
+    onCompleted() {
+      message.success('Delete lead was Successfully')
+      refetch()
+    },
+  })
+
+  const [updateStatus] = useUpdateAttribute({
+    onCompleted() {
+      message.success('Update lead status was Successfully')
+      refetch()
+    },
+  })
+
+  const showConfirmDelete = () => {
+    confirm({
+      title: 'Are you sure delete this Attribute ?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'การลบ Attribute นี้จะทำให้ Attribute หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
+      okType: 'danger',
+      onOk() {
+        deleteAttribute({
+          context: {
+            clientType: 'LABEL',
+          },
+          variables: {
+            deleteAttributeId: data._id,
+          },
+        })
+      },
+      onCancel() {},
+    })
+  }
+
+  const showConfirmDisabled = () => {
+    confirm({
+      title: 'Are you sure disabled this attribute ?',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'การ Disabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Disabled สามารถเปลี่ยนกับด้วยการคลิก Enabled',
+      onOk() {
+        updateStatus({
+          context: {
+            clientType: 'LABEL',
+          },
+          variables: {
+            updateAttributeId: data._id,
+            input: {
+              status: 'DISABLED',
+            },
+          },
+        })
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
+  const showConfirmEnable = () => {
+    confirm({
+      title: 'Are you sure enabled this attribute ?',
+      icon: <ExclamationCircleOutlined />,
+      content:
+        'การ Enabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Enabled สามารถเปลี่ยนกับด้วยการคลิก Disabled',
+      onOk() {
+        updateStatus({
+          context: {
+            clientType: 'LABEL',
+          },
+          variables: {
+            updateAttributeId: data._id,
+            input: {
+              status: 'ENABLED',
+            },
+          },
+        })
+      },
+      onCancel() {
+        //console.log('Cancel');
+      },
+    })
+  }
+
   const handleMenuClick = (e: any) => {
     const key: EventMenuKey = e.key
     switch (key) {
-      case 'EDIT_DETAIL':
+      case 'EDIT':
         router.push({
-          pathname: `${router.pathname}/[leadId]`,
+          pathname: `${router.pathname}/[attributeId]`,
           query: {
             ...router.query,
+            attributeId: data._id,
           },
         })
+        break
+      case 'DELETE':
+        showConfirmDelete()
         break
       default:
         break
     }
   }
 
+  useEffect(() => {
+    if (data.status === 'ENABLED') {
+      setMenuData(menuStatusNormal)
+    } else {
+      setMenuData(menuStatusDisqualify)
+    }
+  }, [data])
+
   const menu = (
     <Menu onClick={handleMenuClick} style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
       {menuData.map((menu) => (
         <Menu.Item key={menu.key}>
           <Space>
-            <FormOutlined style={{ color: '#4fb3ff' }} />
-            <Text style={{ color: '#4fb3ff' }}>{menu.value}</Text>
+            {menu.icons}
+            <Text>{menu.value}</Text>
           </Space>
         </Menu.Item>
       ))}
     </Menu>
   )
 
-  return (
-    <Dropdown.Button
-      onClick={() => {
-        setPagination(defaultPagination)
-        router.push({
-          pathname: `${router.pathname}`,
-          query: {
-            ...router.query,
-          },
-        })
-      }}
-      overlay={menu}
-      trigger={['click']}
-    >
-      <Button style={{ color: '#4fb3ff', borderColor: '#4fb3ff' }}>
-        Action <DownOutlined />
-      </Button>
-    </Dropdown.Button>
-  )
+  const renderButton = (status: string) => {
+    switch (status) {
+      case 'DISABLED':
+        return (
+          <Dropdown.Button
+            onClick={() => {
+              showConfirmEnable()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
+            Enabled
+          </Dropdown.Button>
+        )
+      case 'ENABLED':
+        return (
+          <Dropdown.Button
+            onClick={() => {
+              showConfirmDisabled()
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
+            Disabled
+          </Dropdown.Button>
+        )
+      default:
+        break
+    }
+  }
+
+  return <>{renderButton(data.status)}</>
 }
 
 export default CategoryDataTableDropDown
