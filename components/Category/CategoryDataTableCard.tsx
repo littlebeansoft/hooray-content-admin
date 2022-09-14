@@ -48,19 +48,18 @@ const CategoryDataTableCard: React.FC = () => {
       title: 'Category Name',
       key: 'Name',
       fixed: 'left',
-      width: 150,
+      width: 130,
       ellipsis: true,
       render: (_text: GetCategoryResp) => fallBackValueTable(_text?.name),
     },
-    // {
-    //   title: 'Category Parent',
-    //   key: 'Type',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: GetCategoryResp) => fallBackValueTable(_text?.path),
-    // },
-
+    {
+      title: 'Category Parent',
+      key: 'Type',
+      fixed: 'left',
+      width: 130,
+      ellipsis: true,
+      render: (_text: GetCategoryResp) => fallBackValueTable(_text?.parentCategory?.name),
+    },
     {
       title: 'Status',
       key: 'Status',

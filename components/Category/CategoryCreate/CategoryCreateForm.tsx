@@ -1,11 +1,13 @@
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Form, Input, Select, Spin, Typography } from 'antd'
+import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Select, Spin, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import UploadImage from 'components/UploadImage'
-import UploadFileDocument from 'components/UploadFileDocument'
-import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LeadCreateFormProps } from '../interface'
+import useGetCategory from 'graphql/useGetCategory'
+import { CategoryData, GetCategoryResp } from 'graphql/useGetCategory/interface'
+import _ from 'lodash'
+import useGetParentCategory from 'graphql/useGetParentCategory'
+import { GetParentCategoryResp } from 'graphql/useGetParentCategory/interface'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -18,11 +20,49 @@ const ruleRequired = {
 }
 
 const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+  const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
+  const [parentId, setParentId] = useState<string | ''>('')
+  const [parentCategoryKey, setParentCategoryKey] = useState<string | undefined>(undefined)
+  const timer = useRef<ReturnType<typeof setTimeout>>()
+
   const handleFinished = (values: any) => {
     onFinish?.({
       ...values,
+      parentCategoryKey,
     })
   }
+
+  const onSearch = (value: string) => {
+    clearTimeout(timer.current!)
+
+    timer.current = setTimeout(() => {
+      setSearchValue(value)
+    }, 500)
+  }
+
+  const categoryList = useGetCategory({
+    context: { clientType: 'LABEL' },
+    fetchPolicy: 'cache-first',
+    variables: {
+      input: {
+        query: {
+          name: searchValue,
+        },
+        pagination: {
+          limit: 30,
+          page: 1,
+        },
+      },
+    },
+  })
+
+  const parentCategoryList = useGetParentCategory({
+    context: { clientType: 'LABEL' },
+    fetchPolicy: 'cache-first',
+    variables: {
+      getParentCategoryId: parentId,
+    },
+  })
 
   const children: React.ReactNode[] = []
   for (let i = 10; i < 36; i++) {
@@ -33,6 +73,20 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
     console.log(`selected ${value}`)
   }
 
+  const getOptions = (payload: GetCategoryResp[] | null) => {
+    if (!payload) {
+      return
+    }
+    let options = payload.map((item: GetCategoryResp) => {
+      return {
+        key: item._id,
+        value: item.name,
+        categoryKey: item.categoryKey,
+      }
+    })
+    return options
+  }
+
   return (
     <Form
       labelCol={{ span: 4 }}
@@ -41,27 +95,12 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
       name="content-pack"
       form={form}
       onFinish={handleFinished}
-      onValuesChange={() => {}}
       labelAlign="left"
     >
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>
-        ข้อมูล Lead
+        ข้อมูลประเภทสินค้า
       </Title>
-      <Form.Item name="status" label="Status">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-
-      <Form.Item name="categoryName" label="ชื่อหมวดหมู่" rules={[ruleRequired]}>
+      <Form.Item name="name" label="ชื่อหมวดหมู่" rules={[ruleRequired]}>
         <Input placeholder="ชื่อหมวดหมู่" style={{ width: 221 }} />
       </Form.Item>
       <Form.Item name="categoryParent" label="Category Parent">
@@ -71,12 +110,26 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
           showArrow
           style={{ width: 207 }}
           placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
+          onSearch={onSearch}
           filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
+          notFoundContent={categoryList.loading ? <Spin size="small" /> : null}
+          options={getOptions(categoryList.data?.getCategory.payload ?? null)}
+          onSelect={(value: string, values: any) => {
+            setParentId(values.key)
+            setParentCategoryKey(values.categoryKey)
+          }}
         />
       </Form.Item>
+      <Row style={{ marginBottom: 20 }}>
+        <Col span={4}></Col>
+        <Col span={20}>
+          <Breadcrumb>
+            {parentCategoryList.data?.getParentCategory?.payload?.map((item: GetParentCategoryResp) => {
+              return <Breadcrumb.Item key={item._id}>{item.name}</Breadcrumb.Item>
+            }) ?? null}
+          </Breadcrumb>
+        </Col>
+      </Row>
       <Form.Item name="property" label="property">
         <Select
           mode="multiple"
