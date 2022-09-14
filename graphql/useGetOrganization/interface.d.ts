@@ -1,4 +1,4 @@
-import type { CateogoryAPIPayload } from 'graphql/useGetProductCategory/interface'
+import type { CateogoryAPIPayload } from 'graphql/useGetCategory/interface'
 
 type OrganizationStatusType =
   | 'APPROVED'
