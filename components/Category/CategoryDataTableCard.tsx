@@ -9,12 +9,14 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetProductCategory from 'graphql/useGetProductCategory'
-import { ProductCategoryAPIPayload } from 'graphql/interface'
+import useGetCategory from 'graphql/useGetCategory'
+import { GetCategoryResp } from 'graphql/useGetCategory/interface'
 import CategoryDataTableDropDown from './CategoryDataTableDropDown'
 import dayjs from 'dayjs'
+import { formatDate } from 'helpers/formatter'
 
 const { Search } = Input
+const { Text } = Typography
 
 const CategoryDataTableCard: React.FC = () => {
   const router = useRouter()
@@ -22,60 +24,79 @@ const CategoryDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const productCategory = useGetProductCategory({
+  const categoryList = useGetCategory({
     // skip: !router.isReady,
-    context: { clientType: 'PRODUCT' },
+    context: { clientType: 'LABEL' },
     fetchPolicy: 'network-only',
     variables: {
       input: {
         pagination: {
-          limit: 10,
-          page: 1,
+          limit: pagination.limit,
+          page: pagination.page,
         },
       },
     },
     onCompleted(resp: any) {
-      const { pagination } = resp.getProductCategoryLevel
+      const { pagination } = resp.getCategory
       setPagination(pagination)
     },
   })
 
-  const productCategoryData = productCategory.data?.getProductCategoryLevel.payload
-  const columns: ColumnsType<ProductCategoryAPIPayload> = [
+  const categoryData = categoryList.data?.getCategory.payload
+  const columns: ColumnsType<GetCategoryResp> = [
     {
       title: 'Category Name',
       key: 'Name',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
-      render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.name),
+      render: (_text: GetCategoryResp) => fallBackValueTable(_text?.name),
     },
+    // {
+    //   title: 'Category Parent',
+    //   key: 'Type',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: GetCategoryResp) => fallBackValueTable(_text?.path),
+    // },
+
     {
-      title: 'Category Parent',
-      key: 'Type',
+      title: 'Status',
+      key: 'Status',
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.parent),
+      render: (text: GetCategoryResp, record) => {
+        let _tColor
+        let _iCon
+        let _text
+        switch (text.status) {
+          default:
+          case 'DISABLED':
+            _tColor = '#A30404'
+            _text = 'Disabled'
+            break
+          case 'ENABLED':
+            _tColor = '#34B53A'
+            _text = 'Enabled'
+            break
+        }
+        return (
+          <>
+            <Text style={{ color: _tColor }} /* type={_tColor || 'warning'} */>{_text}</Text>
+          </>
+        ) // just for decoration
+      },
     },
-
-    // {
-    //   title: 'Status',
-    //   key: 'Status',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text?.status),
-    // },
-    // {
-    //   title: 'Modify Date',
-    //   dataIndex: 'ModifyDate',
-    //   key: 'ModifyDate',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductCategoryAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
-    // },
+    {
+      title: 'Modify Date',
+      key: 'ModifyDate',
+      fixed: 'left',
+      width: 100,
+      ellipsis: true,
+      render: (_text: GetCategoryResp) => (_text.updatedAt ? formatDate(_text.updatedAt) : '-'),
+    },
     // {
     //   title: 'Modify By',
     //   dataIndex: 'ModifyBy',
@@ -85,15 +106,14 @@ const CategoryDataTableCard: React.FC = () => {
     //   ellipsis: true,
     //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text.updateBy),
     // },
-    // {
-    //   title: 'Create Date',
-    //   dataIndex: 'CreateDate',
-    //   key: 'CreateDate',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: ProductCategoryAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
-    // },
+    {
+      title: 'Create Date',
+      key: 'CreateDate',
+      fixed: 'left',
+      width: 100,
+      ellipsis: true,
+      render: (_text: GetCategoryResp) => (_text.createdAt ? formatDate(_text.updatedAt) : '-'),
+    },
     // {
     //   title: 'Create By',
     //   dataIndex: 'CreateBy',
@@ -103,30 +123,32 @@ const CategoryDataTableCard: React.FC = () => {
     //   ellipsis: true,
     //   render: (_text: ProductCategoryAPIPayload) => fallBackValueTable(_text.createBy),
     // },
-    // {
-    //   fixed: 'right',
-    //   key: 'eventAction',
-    //   width: 100,
-    //   render: (_text, record) => <CategoryDataTableDropDown leadData={record} setPagination={setPagination} />,
-    // },
+    {
+      fixed: 'right',
+      key: 'eventAction',
+      width: 100,
+      render: (_text, record) => (
+        <CategoryDataTableDropDown data={record} setPagination={setPagination} refetch={categoryList.refetch} />
+      ),
+    },
   ]
 
-  const onSelectItems = (selectedRowKeys: React.Key[]) => {
-    setSelectRowKeys(selectedRowKeys)
-  }
+  // const onSelectItems = (selectedRowKeys: React.Key[]) => {
+  //   setSelectRowKeys(selectedRowKeys)
+  // }
 
-  const hasSelected = selectedRowKeys.length > 0
+  // const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
-        rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-        rowSelectAmount={selectedRowKeys.length}
+        //rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
+        // rowSelectAmount={selectedRowKeys.length}
         header={[
-          <Radio.Group key="radioButton" disabled={!hasSelected} onChange={() => {}} defaultValue="a" style={{}}>
-            <Radio.Button value="qualify">Qualify</Radio.Button>
-            <Radio.Button value="delete">Delete</Radio.Button>
-          </Radio.Group>,
+          // <Radio.Group key="radioButton" disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
+          //   <Radio.Button value="qualify">Qualify</Radio.Button>
+          //   <Radio.Button value="delete">Delete</Radio.Button>
+          // </Radio.Group>,
           <Search
             key="searchInput"
             placeholder={'Input search text'}
@@ -155,7 +177,7 @@ const CategoryDataTableCard: React.FC = () => {
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}
-        loading={productCategory.loading}
+        loading={categoryList.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -165,7 +187,7 @@ const CategoryDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={productCategoryData}
+        dataSource={categoryData}
       />
     </Card>
   )
