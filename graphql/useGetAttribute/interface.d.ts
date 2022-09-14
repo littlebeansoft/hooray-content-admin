@@ -3,8 +3,8 @@ import { APIPayloadResponseWithPagination, Pagination } from 'graphql/graphQL-se
 type ATRRIBUTE_TYPE = 'CHECKBOX' | 'RADIO' | 'TEXT' | 'NUMBER'
 
 type GetProductAttribute = {
-  type: ATRRIBUTE_TYPE[]
-  name: GetProductAttributeSort
+  type?: ATRRIBUTE_TYPE[]
+  name?: GetProductAttributeSort
 }
 
 type OptionsResponse = {
@@ -26,12 +26,12 @@ type GetProductAttributeSort = {
 type TOGGLE_STATUS = 'ENABLED' | 'DISABLED'
 
 type GetAttributeQuery = {
-  attributeId: string
-  attributeKey: string
-  name: string
-  descriptions: string
-  type: ATRRIBUTE_TYPE
-  status: TOGGLE_STATUS
+  attributeId?: string
+  attributeKey?: string
+  name?: string
+  descriptions?: string
+  type?: ATRRIBUTE_TYPE
+  status?: TOGGLE_STATUS
 }
 
 type AttributeOptions = {
@@ -41,12 +41,12 @@ type AttributeOptions = {
 }
 
 export interface GetAttributeResp {
-  _id: string
-  attributeKey: string
-  name: string
-  descriptions: string
+  _id?: string
+  attributeKey?: string
+  name?: string
+  descriptions?: string
   type: ATRRIBUTE_TYPE
-  optionList: AttributeOptions
+  optionList: AttributeOptions[]
   ruleRegExpList: string[]
   status: TOGGLE_STATUS
   createdAt: string
@@ -59,7 +59,7 @@ export interface GetAttributeInPut {
   filter?: GetProductAttribute
   sort?: JSON
   query?: GetAttributeQuery
-  pagination: PaginationConfig
+  pagination?: PaginationConfig
 }
 
 export interface AttributeListVars {

@@ -5,7 +5,7 @@ interface DeleteLeadPayload {
 }
 
 export interface DeleteAttributeInput {
-  deleteAttributeId: string
+  deleteAttributeId?: string
 }
 
 export interface DeleteAttributeData {
