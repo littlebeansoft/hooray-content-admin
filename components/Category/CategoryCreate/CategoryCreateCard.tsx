@@ -1,5 +1,6 @@
-import { Card, Form } from 'antd'
+import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
+import useCreateCategory from 'graphql/useCreateCategory'
 import { useRouter } from 'next/router'
 import React from 'react'
 import CategoryCreateForm from './CategoryCreateForm'
@@ -9,17 +10,31 @@ const LeadCreateCard: React.FC = () => {
 
   const [form] = Form.useForm()
 
-  const onBack = () => {
-    router.push({
-      pathname: `/org/[orgToken]/content-pack`,
-      query: {
-        ...router.query,
-      },
-    })
-  }
+  const [createCategory] = useCreateCategory({
+    context: { clientType: 'LABEL' },
+    onCompleted() {
+      message.success('Create Category was Successfully')
+      router.push({
+        pathname: `/org/[orgToken]/category`,
+        query: {
+          ...router.query,
+        },
+      })
+    },
+  })
 
   const onFinish = (values: any) => {
-    console.log('value: ' + values)
+    //console.log('value: ', values)
+    createCategory({
+      variables: {
+        input: {
+          name: values.name,
+          status: 'ENABLED',
+          descriptions: '',
+          parentCategoryKey: values.parentCategoryKey,
+        },
+      },
+    })
   }
 
   return (

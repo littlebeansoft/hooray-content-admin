@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_CATEGORY = gql`
-  query GetCategory($input: GetCategoryInPut!) {
-    getCategory(input: $input) {
+const GET_PARENT_CATEGORY = gql`
+  query GetParentCategory($getParentCategoryId: String!) {
+    getParentCategory(id: $getParentCategoryId) {
       message
       code
       pagination {
@@ -17,18 +17,13 @@ const GET_CATEGORY = gql`
         path
         parentCategory {
           _id
-          name
         }
         name
         descriptions
         status
-        createdAt
-        updatedAt
-        createdBy
-        updatedBy
       }
     }
   }
 `
 
-export default GET_CATEGORY
+export default GET_PARENT_CATEGORY

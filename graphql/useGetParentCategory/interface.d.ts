@@ -26,18 +26,14 @@ type ParentCategoryRes = {
   updatedBy: string
 }
 
-type GetCategoryResp = {
+type GetParentCategoryResp = {
   _id: string
   categoryKey: string
   path: string
   name: string
-  descriptions: string
-  status: TOGGLE_STATUS
-  createdAt: string
-  updatedAt: string
-  createdBy: string
-  updatedBy: string
-  parentCategory: ParentCategoryRes
+  descriptions?: string
+  status?: TOGGLE_STATUS
+  parentCategory?: ParentCategoryRes
 }
 
 type SORT_ORDER = 'ASC' | 'DESC'
@@ -46,17 +42,10 @@ type GetProductCategoryLevelSortInput = {
   createdAt: SORT_ORDER
 }
 
-export interface GetCategoryInPut {
-  query?: GetCategoryQuery
-  filter?: GetProductCategoryLevel
-  sort?: JSON
-  pagination?: Pagination
+export interface GetParentCategoryInPut {
+  getParentCategoryId: string
 }
 
-export interface CategoryDataVars {
-  input?: GetCategoryInPut
-}
-
-export interface CategoryData {
-  getCategory: APIPayloadResponseWithPagination<GetCategoryResp[]>
+export interface ParentCategoryData {
+  getParentCategory: APIPayloadResponseWithPagination<GetParentCategoryResp[]>
 }
