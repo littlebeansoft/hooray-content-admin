@@ -8,6 +8,7 @@ import type { EventMenu, EventMenuKey } from 'components/interface'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
 import useDeleteAttribute from 'graphql/useDeleteAttribute'
 import useUpdateAttribute from 'graphql/useUpdateAttribute'
+import useUpdateCategory from 'graphql/useUpdateCategory'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -46,9 +47,9 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     },
   })
 
-  const [updateStatus] = useUpdateAttribute({
+  const [updateStatus] = useUpdateCategory({
     onCompleted() {
-      message.success('Update lead status was Successfully')
+      message.success('Update Category status was Successfully')
       refetch()
     },
   })
@@ -75,17 +76,17 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
 
   const showConfirmDisabled = () => {
     confirm({
-      title: 'Are you sure disabled this attribute ?',
+      title: 'Are you sure disabled this category ?',
       icon: <ExclamationCircleOutlined />,
       content:
-        'การ Disabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Disabled สามารถเปลี่ยนกับด้วยการคลิก Enabled',
+        'การ Disabled Category จะทำให้ status ของ Category เปลี่ยนเป็น Disabled สามารถเปลี่ยนกับด้วยการคลิก Enabled',
       onOk() {
         updateStatus({
           context: {
             clientType: 'LABEL',
           },
           variables: {
-            updateAttributeId: data._id,
+            updateCategoryId: data._id,
             input: {
               status: 'DISABLED',
             },
@@ -100,17 +101,17 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
 
   const showConfirmEnable = () => {
     confirm({
-      title: 'Are you sure enabled this attribute ?',
+      title: 'Are you sure enabled this category ?',
       icon: <ExclamationCircleOutlined />,
       content:
-        'การ Enabled Attribute จะทำให้ status ของ Attribute เปลี่ยนเป็น Enabled สามารถเปลี่ยนกับด้วยการคลิก Disabled',
+        'การ Enabled Category จะทำให้ status ของ Category เปลี่ยนเป็น Enabled สามารถเปลี่ยนกับด้วยการคลิก Disabled',
       onOk() {
         updateStatus({
           context: {
             clientType: 'LABEL',
           },
           variables: {
-            updateAttributeId: data._id,
+            updateCategoryId: data._id,
             input: {
               status: 'ENABLED',
             },
@@ -128,10 +129,10 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     switch (key) {
       case 'EDIT':
         router.push({
-          pathname: `${router.pathname}/[attributeId]`,
+          pathname: `${router.pathname}/[categoryId]`,
           query: {
             ...router.query,
-            attributeId: data._id,
+            categoryId: data._id,
           },
         })
         break
