@@ -1,4 +1,5 @@
 import { FormInstance } from 'antd'
+import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 
 export interface LeadDataProp {
   id: String
@@ -34,10 +35,15 @@ export interface AddressDataProp {
   defaultSend: String
 }
 
-export interface LeadCreateFormProps {
-  product?: any
+export interface AttributeCreateFormProps {
+  attribute?: GetAttributeResp
   form: FormInstance<any>
   loading?: boolean
   onFinish?: (fieldValue: any) => void
   onCancel?: () => void
+}
+
+export interface AttributeUpdateProps {
+  attribute?: GetAttributeResp
+  loading?: boolean
 }

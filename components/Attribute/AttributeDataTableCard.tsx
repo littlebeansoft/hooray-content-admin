@@ -11,7 +11,7 @@ import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
 import getAttribute from 'graphql/useGetAttribute'
 import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
-import CategoryDataTableDropDown from './PropertyDataTableDropDown'
+import CategoryDataTableDropDown from './AttributeDataTableDropDown'
 import dayjs from 'dayjs'
 import { formatDate } from 'helpers/formatter'
 
@@ -49,7 +49,7 @@ const PropertyDataTableCard: React.FC = () => {
       title: 'Property Name',
       key: 'Name',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
       render: (_text: GetAttributeResp) => fallBackValueTable(_text?.name),
     },
@@ -57,7 +57,7 @@ const PropertyDataTableCard: React.FC = () => {
       title: 'Property Type',
       key: 'Type',
       fixed: 'left',
-      width: 100,
+      width: 150,
       ellipsis: true,
       render: (_text: GetAttributeResp) => fallBackValueTable(_text?.type),
     },
@@ -125,7 +125,7 @@ const PropertyDataTableCard: React.FC = () => {
     {
       fixed: 'right',
       key: 'eventAction',
-      width: 150,
+      width: 100,
       render: (_text, record) => (
         <CategoryDataTableDropDown data={record} setPagination={setPagination} refetch={attributeList.refetch} />
       ),

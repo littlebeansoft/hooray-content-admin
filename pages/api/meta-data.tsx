@@ -101,9 +101,9 @@ export default async function handler(req: any, res: any) {
           // ],
         },
         {
-          name: { en: 'All Property', th: 'คุณสมบัติ' },
-          path: 'property',
-          icon: 'property',
+          name: { en: 'Attribute', th: 'คุณสมบัติ' },
+          path: 'attribute',
+          icon: 'book',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',

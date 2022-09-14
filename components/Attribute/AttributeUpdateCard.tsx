@@ -1,22 +1,22 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useCreateProductAttribute from 'graphql/useCreateAttribute'
+import useUpdateAttribute from 'graphql/useUpdateAttribute'
 import { useRouter } from 'next/router'
 import React from 'react'
-import CategoryCreateForm from './PropertyCreateForm'
-import GET_ATTRIBUTE from 'graphql/useGetAttribute/getAttribute'
+import CategoryCreateForm from './AttributeCreate/AttributeCreateForm'
+import { AttributeUpdateProps } from './interface'
 
-const PropertyCreateCard: React.FC = () => {
+const AttributeCreateCard: React.FC<AttributeUpdateProps> = ({ attribute, loading }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [createProductAttribute, createProductAttributeRes] = useCreateProductAttribute({
+  const [updateAttribute] = useUpdateAttribute({
     context: { clientType: 'LABEL' },
     onCompleted: () => {
-      message.success('Create Product Property success')
+      message.success('Update Attribute success')
       router.push({
-        pathname: `/org/[orgToken]/property`,
+        pathname: `/org/[orgToken]/attribute`,
         query: {
           ...router.query,
         },
@@ -48,8 +48,9 @@ const PropertyCreateCard: React.FC = () => {
 
     console.log('value: ', values.array)
 
-    createProductAttribute({
+    updateAttribute({
       variables: {
+        updateAttributeId: attribute?._id,
         input: {
           name: values.name,
           descriptions: '',
@@ -65,10 +66,10 @@ const PropertyCreateCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <CategoryCreateForm form={form} onFinish={onFinish} />
+        <CategoryCreateForm form={form} onFinish={onFinish} loading={loading} attribute={attribute} />
       </FullWidthSpace>
     </Card>
   )
 }
 
-export default PropertyCreateCard
+export default AttributeCreateCard

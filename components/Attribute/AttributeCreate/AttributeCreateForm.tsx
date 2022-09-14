@@ -2,7 +2,7 @@ import { PlusCircleOutlined, DeleteOutlined, PlusOutlined, DragOutlined } from '
 import { Button, Col, Form, Input, List, Row, Select, Space, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import React, { useEffect, useState } from 'react'
-import { LeadCreateFormProps } from '../interface'
+import { AttributeCreateFormProps } from '../interface'
 import ReactDragListView from 'react-drag-listview'
 import { FormListFieldData } from 'antd/lib/form/FormList'
 import { move } from 'utils/utils'
@@ -16,9 +16,57 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+const LeadCreateForm: React.FC<AttributeCreateFormProps> = ({ attribute, form, loading, onFinish, onCancel }) => {
   const [propertyType, setPropertyType] = useState('TEXT')
-  const [formData, setFormDate] = useState<any>([])
+  const [formData, setFormData] = useState<any>([])
+
+  useEffect(() => {
+    if (attribute) {
+      setPropertyType(attribute.type)
+      if (attribute.type === 'TEXT' || attribute.type === 'NUMBER') {
+        form.setFieldsValue({
+          name: attribute.name,
+          propertyType: attribute.type,
+        })
+      }
+      if (attribute.type === 'RADIO') {
+        form.setFieldsValue({
+          name: attribute.name,
+          propertyType: attribute.type,
+          radios: attribute.optionList.map((item: any) => {
+            return {
+              radio: item.name,
+            }
+          }),
+        })
+        const array = attribute.optionList.map((item: any) => {
+          return {
+            radio: item.name,
+          }
+        })
+
+        setFormData(array)
+      }
+    }
+    if (attribute?.type === 'CHECKBOX') {
+      form.setFieldsValue({
+        name: attribute.name,
+        propertyType: attribute.type,
+        checkboxs: attribute.optionList.map((item: any) => {
+          return {
+            checkbox: item.name,
+          }
+        }),
+      })
+      const array = attribute.optionList.map((item: any) => {
+        return {
+          checkbox: item.name,
+        }
+      })
+      console.log('array: ->', array)
+      setFormData(array)
+    }
+  }, [attribute])
 
   const handleFinished = (values: any) => {
     onFinish?.({
@@ -28,14 +76,18 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
   }
 
   const onDragEnd = (fromIndex: any, toIndex: any, index: number) => {
-    // console.log("Form Index:", fromIndex);
-    // console.log("To Index:", toIndex);
-    // console.log("Values", formData);
     if (toIndex < 0) return
     const newData = move(formData, fromIndex, toIndex)
-    form.setFieldsValue({
-      radios: newData,
-    })
+    if (propertyType === 'RADIO') {
+      form.setFieldsValue({
+        radios: newData,
+      })
+    }
+    if (propertyType === 'CHECKBOX') {
+      form.setFieldsValue({
+        checkboxs: newData,
+      })
+    }
   }
 
   const switchPorperty = (id: string) => {
@@ -147,10 +199,10 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading,
       onFinish={handleFinished}
       onFieldsChange={(values) => {
         if (propertyType === 'RADIO') {
-          setFormDate(form.getFieldValue('radios'))
+          setFormData(form.getFieldValue('radios'))
         }
         if (propertyType === 'CHECKBOX') {
-          setFormDate(form.getFieldValue('checkboxs'))
+          setFormData(form.getFieldValue('checkboxs'))
         }
       }}
       labelAlign="left"
