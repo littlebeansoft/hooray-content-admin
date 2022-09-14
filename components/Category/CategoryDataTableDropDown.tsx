@@ -6,9 +6,8 @@ import { defaultPagination } from 'config/paginationConfig'
 import { DownOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
-import useDeleteAttribute from 'graphql/useDeleteAttribute'
-import useUpdateAttribute from 'graphql/useUpdateAttribute'
 import useUpdateCategory from 'graphql/useUpdateCategory'
+import useDeleteCategory from 'graphql/useDeleteCategory'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -40,7 +39,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
   const [menuData, setMenuData] = useState<EventMenu[]>([])
   const { parentKey = null } = router.query
 
-  const [deleteAttribute] = useDeleteAttribute({
+  const [deleteCategory] = useDeleteCategory({
     onCompleted() {
       message.success('Delete lead was Successfully')
       refetch()
@@ -56,17 +55,17 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
 
   const showConfirmDelete = () => {
     confirm({
-      title: 'Are you sure delete this Attribute ?',
+      title: 'Are you sure delete this category ?',
       icon: <ExclamationCircleOutlined />,
-      content: 'การลบ Attribute นี้จะทำให้ Attribute หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
+      content: 'การลบ Category นี้จะทำให้ Category หายไปจากรายชื่อ เมื่อทำการลบแล้วจะไม่สามรถย้อนกลับได้',
       okType: 'danger',
       onOk() {
-        deleteAttribute({
+        deleteCategory({
           context: {
             clientType: 'LABEL',
           },
           variables: {
-            deleteAttributeId: data._id,
+            deleteCategoryId: data._id,
           },
         })
       },
