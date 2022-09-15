@@ -63,7 +63,7 @@ const LeadCreateForm: React.FC<AttributeCreateFormProps> = ({ attribute, form, l
           checkbox: item.name,
         }
       })
-      console.log('array: ->', array)
+      // console.log('array: ->', array)
       setFormData(array)
     }
   }, [attribute])

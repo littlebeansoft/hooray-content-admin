@@ -1,28 +1,17 @@
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { Button, DatePicker, Form, Input, Select, Spin, Typography } from 'antd'
+import { Button, Form, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import UploadImage from 'components/UploadImage'
-import UploadFileDocument from 'components/UploadFileDocument'
-import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
 import { ProductCreateFormProps } from '../interface'
 import ProductInformationForm from './ProductInfomationForm'
 import ProductPropertyForm from './ProductPropertyForm'
-import ProductOnePriceForm from './ProductOnePriceForm'
-import ProductManyPriceForm from './ProductManyPriceForm'
 
-const { TextArea } = Input
-const { Option } = Select
+import ProductManyPriceChoice from './ProducManyPriceChoice'
 
 const { Title } = Typography
 
-const ruleRequired = {
-  required: true,
-  message: 'Required',
-}
-
 const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
-  const [choicesPrice, setChoicesPrice] = useState(false)
+  const [choices, setChoices] = useState<any>([])
 
   const handleFinished = (values: any) => {
     onFinish?.({
@@ -40,14 +29,17 @@ const ProductCreateForm: React.FC<ProductCreateFormProps> = ({ product, form, lo
       onFinish={handleFinished}
       onValuesChange={() => {}}
       labelAlign="left"
+      onFieldsChange={() => {
+        //console.log("Choices", form.getFieldValue('choices'));
+        setChoices(form.getFieldValue('choices'))
+      }}
     >
       <ProductInformationForm />
       <ProductPropertyForm />
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>
         ตัวเลือราคาสินค้า
       </Title>
-      {choicesPrice ? <ProductManyPriceForm /> : <ProductOnePriceForm setChoicesPrice={setChoicesPrice} />}
-
+      <ProductManyPriceChoice form={form} choices={choices} />
       <Form.Item>
         <FullWidthSpace style={{ display: 'flex' }}>
           <Button
