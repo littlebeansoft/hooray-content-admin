@@ -1,16 +1,17 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useCreateCategory from 'graphql/useCreateCategory'
+import useUpdateCategory from 'graphql/useUpdateCategory'
 import { useRouter } from 'next/router'
-import React from 'react'
-import CategoryCreateForm from './CategoryCreateForm'
+import React, { useEffect } from 'react'
+import CategoryCreateForm from './CategoryCreate/CategoryCreateForm'
+import { CategoryUpdateProps } from './interface'
 
-const CategoryCreateCard: React.FC = () => {
+const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [createCategory] = useCreateCategory({
+  const [createCategory] = useUpdateCategory({
     context: { clientType: 'LABEL' },
     onCompleted() {
       message.success('Create Category was Successfully')
@@ -27,6 +28,7 @@ const CategoryCreateCard: React.FC = () => {
     //console.log('value: ', values)
     createCategory({
       variables: {
+        updateCategoryId: category?._id,
         input: {
           name: values.name,
           status: 'ENABLED',
@@ -40,7 +42,7 @@ const CategoryCreateCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <CategoryCreateForm form={form} onFinish={onFinish} />
+        <CategoryCreateForm category={category} form={form} onFinish={onFinish} loading={loading} />
       </FullWidthSpace>
     </Card>
   )

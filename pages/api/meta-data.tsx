@@ -48,7 +48,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
           path: 'lead',
-          icon: 'user',
+          icon: 'user-clock',
           permissionList: [
             // {
             //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -70,7 +70,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Organization', th: 'หน่วยงาน' },
           path: 'organization',
-          icon: 'factory',
+          icon: 'users',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -81,7 +81,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Product', th: 'สินค้า' },
           path: 'product',
-          icon: 'product',
+          icon: 'box-archive',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -92,7 +92,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Category', th: 'หมวดหมู่สินค้า' },
           path: 'category',
-          icon: 'category',
+          icon: 'grid-2-plus',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -114,7 +114,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Organization Label', th: 'เลเบลองค์กร' },
           path: 'organization-label',
-          icon: 'factory',
+          icon: 'tag',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',

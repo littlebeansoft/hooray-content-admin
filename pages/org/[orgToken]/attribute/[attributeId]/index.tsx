@@ -3,7 +3,7 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import AttributeCreateCard from 'components/Attribute/AttributeUpdateCard'
+import AttributeUpdateCard from 'components/Attribute/AttributeUpdateCard'
 import getAttribute from 'graphql/useGetAttribute'
 import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 
@@ -45,7 +45,7 @@ const AttributeUpdate: React.FC = () => {
           })
         }
       />
-      <AttributeCreateCard attribute={attribute} loading={attributeList.loading} />
+      <AttributeUpdateCard attribute={attribute} loading={attributeList.loading} />
     </MainLayout>
   )
 }
