@@ -1,68 +1,78 @@
-import { MinusCircleOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
-import { Button, Col, Form, Input, Row, Space, Typography } from 'antd'
-import React, { useEffect, useState } from 'react'
-import ProductManyPriceChoice from './ProducManyPriceChoice'
-import { v4 as uuidv4 } from 'uuid'
+import { MinusCircleOutlined, PlusOutlined, DeleteOutlined, DragOutlined } from '@ant-design/icons'
+import { Button, Col, Form, FormInstance, Input, List, Row, Space, Typography } from 'antd'
+import React, { Fragment, useEffect, useState } from 'react'
+import ReactDragListView from 'react-drag-listview'
+import { move } from 'utils/utils'
 
-const ProductManyPriceForm: React.FC = () => {
-  const [count, setCount] = useState(0)
-  const [formList, setFormList] = useState<{ id: any }[]>([])
+interface ProductManyPriceFormProps {
+  name: number
+  form: FormInstance
+  choice: any
+}
+
+const ProductManyPriceForm: React.FC<ProductManyPriceFormProps> = ({ name, form, choice }) => {
+  const [formData, setFormData] = useState<any>([])
+
+  const onDragEnd = (fromIndex: any, toIndex: any, index: number) => {
+    if (toIndex < 0) return
+    if (!choice) return
+    // console.log("formData", choice)
+    const newData = move(choice, fromIndex, toIndex)
+    form.setFieldsValue({
+      radios: newData,
+    })
+  }
 
   return (
     <>
-      {formList.map((item, index) => {
-        return (
-          <Row key={index} style={{ width: '100%' }}>
-            <Col xl={6} md={4} sm={24}>
-              <Typography>ตัวเลือก</Typography>
-            </Col>
-            <Col xl={18} md={20} sm={24}>
-              <Space style={{ display: 'flex', marginBottom: 8, flexDirection: 'column' }} align="start">
-                <Space
-                  style={{ display: 'flex', marginBottom: 8, flexDirection: 'row', width: '100%' }}
-                  align="baseline"
-                >
-                  <Form.Item name="nameChoices" label={'ชื่อตัวเลือก'} labelCol={{ span: 8 }}>
-                    <Input placeholder="ชื่อตัวเลือก" style={{ width: '100%' }} />
-                  </Form.Item>
-                  <DeleteOutlined
-                    onClick={() => {
-                      setFormList(formList.filter((i) => i.id === item.id))
-                    }}
-                    style={{ fontSize: '20px', textAlign: 'center' }}
-                  />
-                </Space>
-                <ProductManyPriceChoice key={index} />
-              </Space>
-            </Col>
-          </Row>
-        )
-      })}
-
-      <Row>
-        <Col xl={6} md={4} sm={24}>
-          <Typography>ตัวเลือก</Typography>
-        </Col>
-        <Col xl={18} md={20} sm={24}>
-          <Form.Item>
-            <Button
-              type="dashed"
-              block
-              icon={<PlusOutlined />}
-              style={{
-                borderColor: 'rgb(38 153 251)',
-                color: 'rgb(38 153 251)',
-                width: '50%',
-              }}
-              onClick={() => {
-                setFormList([...formList, { id: uuidv4() }])
-              }}
+      <Form.List name={[name, 'choice']}>
+        {(fields, { add, remove }) => (
+          <Fragment key={name}>
+            <ReactDragListView
+              nodeSelector=".ant-list-item.draggable-item"
+              lineClassName="dragLine"
+              onDragEnd={(fromIndex, toIndex) => onDragEnd(fromIndex, toIndex, fromIndex)}
+              key={name}
             >
-              เพิ่ม
-            </Button>
-          </Form.Item>
-        </Col>
-      </Row>
+              {fields.map((field, index) => (
+                <List.Item key={index} style={{}} className="draggable-item">
+                  <Space key={field.key} align="baseline">
+                    <Form.Item
+                      {...field}
+                      label="ตัวเลือก"
+                      fieldKey={[field.key, 'item']}
+                      name={[field.name, 'item']}
+                      className="form-item"
+                    >
+                      <Input style={{ marginLeft: 25 }} />
+                    </Form.Item>
+                    <DragOutlined style={{ marginLeft: 30 }} className="icon" />
+                    <DeleteOutlined onClick={() => remove(field.name)} />
+                  </Space>
+                </List.Item>
+              ))}
+            </ReactDragListView>
+            <Space style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  block
+                  icon={<PlusOutlined />}
+                  style={{
+                    borderColor: 'rgb(38 153 251)',
+                    color: 'rgb(38 153 251)',
+                    width: 210,
+                    marginLeft: 90,
+                  }}
+                  onClick={() => add()}
+                >
+                  เพิ่มตัวเลือก
+                </Button>
+              </Form.Item>
+            </Space>
+          </Fragment>
+        )}
+      </Form.List>
     </>
   )
 }

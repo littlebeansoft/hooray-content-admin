@@ -254,3 +254,20 @@ $spacer: 1rem;
 .form-item {
   padding: 0px 0px !important;
 }
+
+.tabs-extra-demo-button {
+  margin-right: 16px;
+}
+
+.ant-row-rtl .tabs-extra-demo-button {
+  margin-right: 0;
+  //margin-left: 16px;
+}
+
+.ant-tabs-tabpane {
+  padding-left: 0px !important;
+}
+
+// .ant-tabs-left {
+//   padding: 8px 8px 0px 0px !important;
+// }
