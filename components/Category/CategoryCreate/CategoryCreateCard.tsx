@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import CategoryCreateForm from './CategoryCreateForm'
 
-const LeadCreateCard: React.FC = () => {
+const CategoryCreateCard: React.FC = () => {
   const router = useRouter()
 
   const [form] = Form.useForm()
@@ -46,4 +46,4 @@ const LeadCreateCard: React.FC = () => {
   )
 }
 
-export default LeadCreateCard
+export default CategoryCreateCard

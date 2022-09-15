@@ -2,7 +2,7 @@ import { PlusCircleOutlined } from '@ant-design/icons'
 import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Select, Spin, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import React, { useEffect, useRef, useState } from 'react'
-import { LeadCreateFormProps } from '../interface'
+import { CategoryCreateFormProps } from '../interface'
 import useGetCategory from 'graphql/useGetCategory'
 import { CategoryData, GetCategoryResp } from 'graphql/useGetCategory/interface'
 import _ from 'lodash'
@@ -19,11 +19,22 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loading, onFinish, onCancel }) => {
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [parentId, setParentId] = useState<string | ''>('')
   const [parentCategoryKey, setParentCategoryKey] = useState<string | undefined>(undefined)
   const timer = useRef<ReturnType<typeof setTimeout>>()
+
+  useEffect(() => {
+    if (category) {
+      form.setFieldsValue({
+        name: category.name,
+        categoryParent: category.parentCategory.name,
+      })
+      setParentId(category.parentCategory._id)
+      setParentCategoryKey(category.parentCategory.categoryKey)
+    }
+  }, [category])
 
   const handleFinished = (values: any) => {
     onFinish?.({

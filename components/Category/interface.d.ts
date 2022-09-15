@@ -1,3 +1,6 @@
+import { FormInstance } from 'antd'
+import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+
 export interface LeadDataProp {
   id: String
   prefixKey: String
@@ -32,10 +35,15 @@ export interface AddressDataProp {
   defaultSend: String
 }
 
-export interface LeadCreateFormProps {
-  product?: any
+export interface CategoryCreateFormProps {
+  category?: GetCategoryResp
   form: FormInstance<any>
   loading?: boolean
   onFinish?: (fieldValue: any) => void
   onCancel?: () => void
+}
+
+export interface CategoryUpdateProps {
+  category?: GetCategoryResp
+  loading?: boolean
 }
