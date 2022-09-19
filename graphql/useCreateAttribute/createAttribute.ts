@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const CREATE_ATTRIBUTE = gql`
-  mutation CreateAttribute($input: CreateAttributeInput!) {
+  mutation CreateAttribute($input: INPUT_ATTRIBUTE!) {
     createAttribute(input: $input) {
       code
       message

@@ -14,7 +14,7 @@ const CategoryCreatePack: React.FC = () => {
         title="Add New Property"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/property`,
+            pathname: `/org/[orgToken]/attribute`,
             query: {
               ...router.query,
             },

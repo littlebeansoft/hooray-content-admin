@@ -1,15 +1,19 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
+import useGetCategoryAttribute from 'graphql/useGetCategoryAttribute'
+import { TYPE_CATEGORY_ATTRIBUTE_RESPONSE } from 'graphql/useGetCategoryAttribute/interface'
 import useUpdateCategory from 'graphql/useUpdateCategory'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CategoryCreateForm from './CategoryCreate/CategoryCreateForm'
 import { CategoryUpdateProps } from './interface'
 
-const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading }) => {
+const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading, categoryId }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
+
+  const [categoryAttribute, setCategoryAttribute] = useState<TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]>()
 
   const [createCategory] = useUpdateCategory({
     context: { clientType: 'LABEL' },
@@ -39,10 +43,30 @@ const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading }
     })
   }
 
+  const getCategoryAttributes = useGetCategoryAttribute({
+    context: { clientType: 'LABEL' },
+    variables: {
+      input: {
+        query: {
+          categoryId: categoryId,
+        },
+      },
+    },
+    onCompleted: (res) => {
+      setCategoryAttribute(res?.getCategoryAttribute?.payload)
+    },
+  })
+
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <CategoryCreateForm category={category} form={form} onFinish={onFinish} loading={loading} />
+        <CategoryCreateForm
+          category={category}
+          form={form}
+          onFinish={onFinish}
+          loading={loading}
+          categoryAttribute={categoryAttribute}
+        />
       </FullWidthSpace>
     </Card>
   )
