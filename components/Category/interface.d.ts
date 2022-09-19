@@ -1,5 +1,6 @@
 import { FormInstance } from 'antd'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
+import { TYPE_CATEGORY_ATTRIBUTE_RESPONSE } from 'graphql/useGetCategoryAttribute/interface'
 
 export interface LeadDataProp {
   id: String
@@ -41,9 +42,11 @@ export interface CategoryCreateFormProps {
   loading?: boolean
   onFinish?: (fieldValue: any) => void
   onCancel?: () => void
+  categoryAttribute?: TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]
 }
 
 export interface CategoryUpdateProps {
   category?: GetCategoryResp
   loading?: boolean
+  categoryId?: string
 }

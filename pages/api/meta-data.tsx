@@ -18,6 +18,17 @@ export default async function handler(req: any, res: any) {
       pattern: '${endpoint}/app/${authorization_code}/${path}?credentialKey=${credentialKey}',
       menuList: [
         {
+          name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
+          path: 'lead',
+          icon: 'user-clock',
+          permissionList: [
+            // {
+            //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
+            //   code: ['READ'],
+            // },
+          ],
+        },
+        {
           name: { en: 'Setting', th: 'ตั้งค่า' },
           icon: 'box',
           permissionList: [

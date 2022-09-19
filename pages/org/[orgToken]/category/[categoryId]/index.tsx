@@ -43,7 +43,7 @@ const CategoryUpdate: React.FC = () => {
           })
         }
       />
-      <CategoryUpdateCard category={category} loading={attributeList.loading} />
+      <CategoryUpdateCard category={category} loading={attributeList.loading} categoryId={categoryId as string} />
     </MainLayout>
   )
 }

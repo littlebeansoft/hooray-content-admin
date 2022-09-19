@@ -23,6 +23,7 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [parentId, setParentId] = useState<string | ''>('')
   const [parentCategoryKey, setParentCategoryKey] = useState<string | undefined>(undefined)
+  const [hideAttribute, setHideAttribute] = useState<boolean>(false)
   const timer = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
@@ -33,6 +34,8 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
       })
       setParentId(category.parentCategory._id)
       setParentCategoryKey(category.parentCategory.categoryKey)
+
+      setHideAttribute(true)
     }
   }, [category])
 
@@ -141,22 +144,25 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
           </Breadcrumb>
         </Col>
       </Row>
-      <Form.Item name="property" label="property">
-        <Select
-          mode="multiple"
-          allowClear
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          onChange={handleChange}
-          showSearch
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        >
-          {children}
-        </Select>
-      </Form.Item>
+      {hideAttribute ? (
+        <Form.Item name="attribute" label="Attribute">
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: 207 }}
+            placeholder="Please Select"
+            onChange={handleChange}
+            showSearch
+            // onSearch={categoryProperty.onSearch}
+            filterOption={false}
+            //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
+            // options={categoryProperty.options}
+          >
+            {children}
+          </Select>
+        </Form.Item>
+      ) : null}
+
       <Form.Item>
         <FullWidthSpace style={{ display: 'flex' }}>
           <Button

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const UPDATE_ATTRIBUTE = gql`
-  mutation UpdateAttribute($updateAttributeId: String!, $input: CreateAttributeInput!) {
+  mutation UpdateAttribute($updateAttributeId: String!, $input: INPUT_ATTRIBUTE!) {
     updateAttribute(id: $updateAttributeId, input: $input) {
       code
       message
