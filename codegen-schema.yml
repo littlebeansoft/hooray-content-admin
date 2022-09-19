@@ -1,0 +1,8 @@
+schema:
+  - https://kara-core-service.hooray.site/graphql/admin/v1.0
+  - https://kara-core-service.hooray.site/graphql/system-admin/v1.0
+  - https://kara-customer-service.hooray.site/graphql/admin/v1.0
+generates:
+  ./graphql/schema.graphql:
+    plugins:
+      - schema-ast

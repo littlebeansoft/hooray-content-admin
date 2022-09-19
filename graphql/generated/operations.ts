@@ -14,6 +14,8 @@ export type Scalars = {
   Int: number
   Float: number
   Date: any
+  FileUpload: any
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any
   JSONObject: any
   Number: any
@@ -26,28 +28,110 @@ export enum CacheControlScope {
   Public = 'PUBLIC',
 }
 
-export enum EnumAppStatus {
+export type CreateLeadInput = {
+  /** บ้านเลขที่ */
+  addressNo?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  addressType?: InputMaybe<Enum_Address_Type>
+  citizenId?: InputMaybe<Scalars['String']>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** แหล่งที่มา */
+  dataSource?: InputMaybe<Scalars['String']>
+  dateOfBirth?: InputMaybe<Scalars['String']>
+  /** ที่อยู่จัดส่งตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ/เขต */
+  district?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Array<Email>>
+  /** รูปภาพโรงงาน */
+  factoryImages?: InputMaybe<Array<Scalars['String']>>
+  firstName?: InputMaybe<Scalars['String']>
+  /** รูปภาพ */
+  image?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  latitude?: InputMaybe<Scalars['String']>
+  /** ประเภท */
+  leadType?: InputMaybe<Lead_Type_Response>
+  longitude?: InputMaybe<Scalars['String']>
+  /** ชื่อหน่วยงาน */
+  organizationName?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  phone?: InputMaybe<Array<Phone>>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  prefixKey?: InputMaybe<Scalars['String']>
+  /** รูปภาพสินค้า */
+  productImages?: InputMaybe<Array<Scalars['String']>>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Enum_Resource_Owner>
+  /** สถานะ */
+  status?: InputMaybe<Enum_Creat_Lead_Status>
+  /** ตำบล/แขวง */
+  subDistrict?: InputMaybe<Scalars['String']>
+}
+
+export type Data_Migration_Input = {
+  appKey: Scalars['String']
+  dbUri: Scalars['String']
+}
+
+export type Data_Migration_Result = {
+  appKey: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+}
+
+export enum Enum_Address_Default_Send {
+  Default = 'DEFAULT',
+  NotDefault = 'NOT_DEFAULT',
+}
+
+export enum Enum_Address_Type {
+  AddressCard = 'ADDRESS_CARD',
+  AddressCurrent = 'ADDRESS_CURRENT',
+  AddressDocument = 'ADDRESS_DOCUMENT',
+  AddressOffice = 'ADDRESS_OFFICE',
+  AddressRegister = 'ADDRESS_REGISTER',
+  None = 'NONE',
+}
+
+export enum Enum_App_Status {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
 }
 
-export enum EnumBomStatus {
+export enum Enum_Auth_Type {
+  AuthCode = 'AUTH_CODE',
+  AuthToken = 'AUTH_TOKEN',
+}
+
+export enum Enum_Category_Status {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
 }
 
-export enum EnumCctvToolkitStatus {
-  Active = 'ACTIVE',
-  InActive = 'IN_ACTIVE',
-  PreRegister = 'PRE_REGISTER',
+export enum Enum_Config_Privacy {
+  /** ไม่ระบุตัวตน */
+  Anonymous = 'ANONYMOUS',
+  /** ยืนยันตัวตน */
+  AuthUser = 'AUTH_USER',
+  /** ระบบ */
+  System = 'SYSTEM',
 }
 
-export enum EnumCctvToolkitStatusUpdate {
-  Active = 'ACTIVE',
-  InActive = 'IN_ACTIVE',
+export enum Enum_Creat_Lead_Status {
+  Disqualify = 'DISQUALIFY',
+  Normal = 'NORMAL',
+  Qualify = 'QUALIFY',
 }
 
-export enum EnumDataSecurity {
+export enum Enum_Credential_Type {
+  ResourceAdmin = 'RESOURCE_ADMIN',
+  ResourceOwner = 'RESOURCE_OWNER',
+}
+
+export enum Enum_Data_Security {
   None = 'NONE',
   Organization = 'ORGANIZATION',
   ParentChild = 'PARENT_CHILD',
@@ -55,182 +139,145 @@ export enum EnumDataSecurity {
   User = 'USER',
 }
 
-export enum EnumDataType {
-  Locale = 'LOCALE',
-  MasterData = 'MASTER_DATA',
-  Tag = 'TAG',
+export enum Enum_Gateway_Api_Type {
+  Gql = 'GQL',
+  Rest = 'REST',
 }
 
-export enum EnumDeclarationDetailStatus {
-  Review = 'REVIEW',
-  Verified = 'VERIFIED',
+export enum Enum_Gateway_Method {
+  Delete = 'DELETE',
+  Get = 'GET',
+  Mutation = 'MUTATION',
+  Post = 'POST',
+  Put = 'PUT',
+  Query = 'QUERY',
 }
 
-export enum EnumDeclarationReceptionStatus {
-  Review = 'REVIEW',
-  Verified = 'VERIFIED',
+export enum Enum_Gateway_Res_Type {
+  Json = 'JSON',
+  String = 'STRING',
 }
 
-export enum EnumDeclarationStatus {
-  Cancel = 'CANCEL',
-  Checked = 'CHECKED',
-  Finished = 'FINISHED',
-  NotFinished = 'NOT_FINISHED',
+export enum Enum_Gateway_Status {
+  Disable = 'DISABLE',
+  Enabled = 'ENABLED',
 }
 
-export enum EnumDeclarationType {
-  InBound = 'IN_BOUND',
-  OutBound = 'OUT_BOUND',
-}
-
-export enum EnumIs {
-  No = 'NO',
-  Yes = 'YES',
-}
-
-export enum EnumLocationType {
-  FinishGoods = 'FINISH_GOODS',
-  Machine = 'MACHINE',
-  RawMaterial = 'RAW_MATERIAL',
-  Scrap = 'SCRAP',
-  Wip = 'WIP',
-}
-
-export enum EnumLrleType {
+export enum Enum_Gateway_User_Role {
+  Aninymous = 'ANINYMOUS',
   ResourceAdmin = 'RESOURCE_ADMIN',
   ResourceOwner = 'RESOURCE_OWNER',
   SystemAdmin = 'SYSTEM_ADMIN',
 }
 
-export enum EnumNotificationChannel {
+export enum Enum_Generate_Key_Capitalization {
+  Lowercase = 'LOWERCASE',
+  Uppercase = 'UPPERCASE',
+}
+
+export enum Enum_Invite_Status {
+  Active = 'ACTIVE',
+  Deleted = 'DELETED',
+  Inactive = 'INACTIVE',
+}
+
+export enum Enum_Is {
+  No = 'NO',
+  Yes = 'YES',
+}
+
+export enum Enum_Lrle_Type {
+  ResourceAdmin = 'RESOURCE_ADMIN',
+  ResourceOwner = 'RESOURCE_OWNER',
+  SystemAdmin = 'SYSTEM_ADMIN',
+}
+
+export enum Enum_Notification_Channel {
   Email = 'EMAIL',
   MobileNotification = 'MOBILE_NOTIFICATION',
   Sms = 'SMS',
 }
 
-export enum EnumNotificationIsRequired {
+export enum Enum_Notification_Is_Required {
   No = 'NO',
   Yes = 'YES',
 }
 
-export enum EnumOrganizationStatus {
+export enum Enum_Notification_Message_Channel_Condition {
+  AllUser = 'ALL_USER',
+  CustomApplication = 'CUSTOM_APPLICATION',
+  CustomEmail = 'CUSTOM_EMAIL',
+  CustomPhoneNumber = 'CUSTOM_PHONE_NUMBER',
+  UserRole = 'USER_ROLE',
+  UserSelected = 'USER_SELECTED',
+}
+
+export enum Enum_Notification_Message_Channel_Key {
+  Application = 'APPLICATION',
+  Email = 'EMAIL',
+  Sms = 'SMS',
+}
+
+export enum Enum_Notification_Message_Sendtype {
+  System = 'SYSTEM',
+  User = 'USER',
+}
+
+export enum Enum_Notification_Message_Status {
+  Cancelled = 'CANCELLED',
+  Prepare = 'PREPARE',
+  Sent = 'SENT',
+}
+
+export enum Enum_Notification_Read {
+  No = 'NO',
+  Yes = 'YES',
+}
+
+export enum Enum_Notification_User_Type {
+  Admin = 'ADMIN',
+  Client = 'CLIENT',
+  System = 'SYSTEM',
+}
+
+export enum Enum_Organization_Approval_Status {
+  Editable = 'EDITABLE',
+  Locked = 'LOCKED',
+}
+
+export enum Enum_Organization_Label_Status {
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+}
+
+export enum Enum_Organization_Status {
   Approved = 'APPROVED',
   Blocked = 'BLOCKED',
   Closed = 'CLOSED',
   Declined = 'DECLINED',
+  NeedMoreInformation = 'NEED_MORE_INFORMATION',
+  Preparing = 'PREPARING',
+  Rejected = 'REJECTED',
   Reviewing = 'REVIEWING',
+  Suspended = 'SUSPENDED',
 }
 
-export enum EnumProductionOrderStatus {
-  Cancel = 'CANCEL',
-  Checked = 'CHECKED',
-  Finished = 'FINISHED',
-  InProgress = 'IN_PROGRESS',
-  InWip = 'IN_WIP',
-  NotFinished = 'NOT_FINISHED',
+export enum Enum_Organization_Type_Status {
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
 }
 
-export enum EnumProductAvailable {
-  All = 'ALL',
-  Available = 'AVAILABLE',
-  Scrap = 'SCRAP',
+export enum Enum_Resource_Owner {
+  Other = 'OTHER',
+  User = 'USER',
 }
 
-export enum EnumProductLocationType {
-  Declaration = 'DECLARATION',
-  Lost = 'LOST',
-  ProductionOrder = 'PRODUCTION_ORDER',
-  Scrap = 'SCRAP',
+export enum Enum_Role_Aproval_Attribute_Ststus {
+  Editable = 'EDITABLE',
+  Locked = 'LOCKED',
 }
 
-export enum EnumProductPropertyType {
-  Category = 'CATEGORY',
-  Type = 'TYPE',
-  Unit = 'UNIT',
-}
-
-export enum EnumProductRelocationLocationType {
-  Declaration = 'DECLARATION',
-  None = 'NONE',
-  ProductionOrder = 'PRODUCTION_ORDER',
-}
-
-export enum EnumProductRelocationStatus {
-  Review = 'REVIEW',
-  Verified = 'VERIFIED',
-}
-
-export enum EnumProductRelocationType {
-  InBound = 'IN_BOUND',
-  InPdo = 'IN_PDO',
-  Lost = 'LOST',
-  OutBound = 'OUT_BOUND',
-  OutPdo = 'OUT_PDO',
-  Scrap = 'SCRAP',
-  TransferIn = 'TRANSFER_IN',
-  TransferLocation = 'TRANSFER_LOCATION',
-  TransferOut = 'TRANSFER_OUT',
-}
-
-export enum EnumProductType {
-  FinishGoods = 'FINISH_GOODS',
-  Machine = 'MACHINE',
-  RawMaterial = 'RAW_MATERIAL',
-  Scrap = 'SCRAP',
-}
-
-export enum EnumReportFileType {
-  /**  EXCEL  */
-  Excel = 'EXCEL',
-  /**  PDF  */
-  Pdf = 'PDF',
-}
-
-export enum EnumReportProductType {
-  /**  สินค้าสำเร็จรูป  */
-  FinishGoods = 'FINISH_GOODS',
-  /**  เครื่องจักร  */
-  Machine = 'MACHINE',
-  /**  วัตถุดิบ  */
-  RawMaterial = 'RAW_MATERIAL',
-}
-
-export enum EnumReportSelect {
-  All = 'ALL',
-  Select = 'SELECT',
-}
-
-export enum EnumReportStatus {
-  /**  ยกเลิก  */
-  Canceled = 'CANCELED',
-  /**  หมดอายุ  */
-  Expired = 'EXPIRED',
-  /**  ล้มแหลว  */
-  Failed = 'FAILED',
-  /**  กำลังประมวลผล  */
-  Processing = 'PROCESSING',
-  /**  อยู่ในคิว  */
-  Queued = 'QUEUED',
-  /**  พร้อมดาวน์โหลด  */
-  ReadyToDownload = 'READY_TO_DOWNLOAD',
-}
-
-export enum EnumReportType {
-  /**  รายงานสินค้าคงเหลือ  */
-  ReportBalance = 'REPORT_BALANCE',
-  /**  รายงานสินค้านำออก  */
-  ReportExportList = 'REPORT_EXPORT_LIST',
-  /**  รายงานสินค้านำเข้า  */
-  ReportImportList = 'REPORT_IMPORT_LIST',
-  /**  รายงานวัตถุดิบในกระบวนการผลิต  */
-  ReportInProgressRawMaterials = 'REPORT_IN_PROGRESS_RAW_MATERIALS',
-  /**  รายงานปริมาณการสูญเสีย  */
-  ReportLostVolume = 'REPORT_LOST_VOLUME',
-  /**  รายงานสินค้าเคลื่อนไหว  */
-  ReportMovement = 'REPORT_MOVEMENT',
-}
-
-export enum EnumRunningNumber {
+export enum Enum_Running_Number {
   X = 'X',
   Xx = 'XX',
   Xxx = 'XXX',
@@ -238,1115 +285,1091 @@ export enum EnumRunningNumber {
   Xxxxx = 'XXXXX',
 }
 
-export enum EnumRunningNumberDateformat {
+export enum Enum_Running_Number_Dateformat {
   Yymm = 'YYMM',
   Yyyymm = 'YYYYMM',
   Yyyymmdd = 'YYYYMMDD',
   YyyymmdDhhmmss = 'YYYYMMDDhhmmss',
 }
 
-export enum EnumServiceEndpoinType {
+export enum Enum_S3_Acl {
+  Private = 'PRIVATE',
+  Public = 'PUBLIC',
+}
+
+export enum Enum_Service_Endpoin_Type {
   Gql = 'GQL',
   Rest = 'REST',
 }
 
-export enum EnumShowInList {
-  No = 'NO',
-  Yes = 'YES',
-}
-
-export enum EnumSyncService {
+export enum Enum_Sync_Service {
   Failed = 'FAILED',
   Success = 'SUCCESS',
 }
 
-export enum EnumTransferProductType {
-  FinishGoods = 'FINISH_GOODS',
-  Machine = 'MACHINE',
-  RawMaterial = 'RAW_MATERIAL',
-  Scrap = 'SCRAP',
+export enum Enum_Theme_Default_Status {
+  No = 'NO',
+  Yes = 'YES',
 }
 
-export enum EnumTransferStatus {
-  Finished = 'FINISHED',
-  NotFinished = 'NOT_FINISHED',
+export enum Enum_Theme_Replaceable_Status {
+  No = 'NO',
+  Yes = 'YES',
 }
 
-export enum EnumTransferType {
-  TransferIn = 'TRANSFER_IN',
-  TransferLocation = 'TRANSFER_LOCATION',
-  TransferOut = 'TRANSFER_OUT',
+export enum Enum_Theme_Status {
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
 }
 
-export enum EnumVehicle {
-  Car = 'CAR',
-  Motorcycle = 'MOTORCYCLE',
-  Truck = 'TRUCK',
+export enum Enum_Theme_Type {
+  Admin = 'ADMIN',
+  Client = 'CLIENT',
 }
 
-export type HoorayServerServiceInfo = {
-  featureKeys: Maybe<Array<Maybe<HoorayServerServiceInfoFeature>>>
+export enum Enum_Usability {
+  Disable = 'DISABLE',
+  Enabled = 'ENABLED',
+}
+
+export enum Enum_User_Role_Status {
+  Approved = 'APPROVED',
+  Blocked = 'BLOCKED',
+  Declined = 'DECLINED',
+  Preparing = 'PREPARING',
+  Reviewing = 'REVIEWING',
+}
+
+export enum Enum_Verify_Status {
+  NotVerify = 'NOT_VERIFY',
+  Verified = 'VERIFIED',
+}
+
+export type Email = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type EmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type File = {
+  encoding: Scalars['String']
+  filename: Scalars['String']
+  mimetype: Scalars['String']
+}
+
+export type FindLeadInput = {
+  filter?: InputMaybe<QueryLeadInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryLeadInput>
+  search?: InputMaybe<QueryLeadInput>
+}
+
+export type Get_App_By_Email = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Get_App_By_Email_Credential_Payload>>>
+}
+
+export type Get_App_By_Email_Credential_Payload = {
+  app: Maybe<Type_App_Schema>
+  credential: Maybe<Get_App_By_Email_Credential_Schema>
+}
+
+export type Get_App_By_Email_Credential_Schema = {
+  credentialKey: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  status: Maybe<Enum_App_Status>
+  type: Maybe<Enum_Credential_Type>
+}
+
+export type Get_App_Credential_Expiration = {
+  access: Maybe<Scalars['String']>
+  refresh: Maybe<Scalars['String']>
+}
+
+export type Get_App_Credential_Host = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Get_App_By_Email_Credential_Payload>
+}
+
+export type Get_App_Credential_List = {
+  credentialKey: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  type: Maybe<Scalars['String']>
+}
+
+export type Hooray_Server_Service_Info = {
+  featureKeys: Maybe<Array<Maybe<Hooray_Server_Service_Info_Feature>>>
   graphqlEndpointAdmin: Maybe<Scalars['String']>
   graphqlEndpointClient: Maybe<Scalars['String']>
   graphqlEndpointSuperAdmin: Maybe<Scalars['String']>
   logo: Maybe<Scalars['String']>
   methodUpdate: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
-  permissions: Maybe<Array<Maybe<HoorayServerServiceInfoPermission>>>
+  permissions: Maybe<Array<Maybe<Hooray_Server_Service_Info_Permission>>>
   restEndpointAdmin: Maybe<Scalars['String']>
   restEndpointClient: Maybe<Scalars['String']>
   restEndpointSuperAdmin: Maybe<Scalars['String']>
   serviceKey: Maybe<Scalars['String']>
 }
 
-export type HoorayServerServiceInfoFeature = {
+export type Hooray_Server_Service_Info_Feature = {
   description: Maybe<Scalars['String']>
   enable: Maybe<Scalars['Boolean']>
   key: Maybe<Scalars['String']>
 }
 
-export type HoorayServerServiceInfoPermission = {
+export type Hooray_Server_Service_Info_Permission = {
   code: Maybe<Array<Maybe<Scalars['String']>>>
   defaultCode: Maybe<Scalars['String']>
   description: Maybe<Scalars['String']>
   permissionName: Maybe<Scalars['String']>
 }
 
-export type InputActive = {
+export type Input_Active = {
   isActive: Scalars['Boolean']
 }
 
-export type InputAdditinalInformation = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  note?: InputMaybe<Scalars['String']>
+export type Input_Add_Email = {
+  email?: InputMaybe<Scalars['String']>
 }
 
-export type InputAppForm = {
+export type Input_Admin = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  email: Scalars['String']
+}
+
+export type Input_App_Form = {
   appKey: Scalars['String']
   attribute?: InputMaybe<Scalars['JSON']>
   name: Scalars['String']
-  status?: InputMaybe<EnumAppStatus>
+  status?: InputMaybe<Enum_App_Status>
 }
 
-export type InputAttribute = {
+export type Input_Attribute = {
+  _id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
 }
 
-export type InputBillOfMaterial = {
-  TimeSpent?: InputMaybe<Scalars['Number']>
-  materialList?: InputMaybe<Array<InputMaybe<InputBomMaterial>>>
+export type Input_Category = {
   name?: InputMaybe<Scalars['String']>
-  netWeight?: InputMaybe<Scalars['Number']>
-  netWeightUnit?: InputMaybe<Scalars['ID']>
-  orgKey?: InputMaybe<Scalars['String']>
-  productFinishGood?: InputMaybe<Scalars['ID']>
-  quantity?: InputMaybe<Scalars['Number']>
-  quantityUnit?: InputMaybe<Scalars['ID']>
-  status?: InputMaybe<EnumBomStatus>
-  totalPrice?: InputMaybe<Scalars['Number']>
-  unitPrice?: InputMaybe<Scalars['Number']>
+  status?: InputMaybe<Enum_Category_Status>
 }
 
-export type InputBomMaterial = {
-  productMaterial?: InputMaybe<Scalars['ID']>
-  quantity?: InputMaybe<Scalars['Number']>
+export type Input_Config_Form = {
+  configKey?: InputMaybe<Scalars['String']>
+  configName?: InputMaybe<Scalars['String']>
+  isGlobal?: InputMaybe<Scalars['Boolean']>
+  privacy?: InputMaybe<Enum_Config_Privacy>
+  relatedConfig?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  value?: InputMaybe<Scalars['JSON']>
 }
 
-export type InputCctv = {
-  cameraName?: InputMaybe<Scalars['String']>
-  licensePlateDetection?: InputMaybe<InputCctvVehicleOption>
-  localRTSP?: InputMaybe<Scalars['String']>
-  mediaServiceEndpoint?: InputMaybe<Scalars['String']>
-  motionDetection?: InputMaybe<Scalars['Boolean']>
-  remoteRTSP?: InputMaybe<Scalars['String']>
-  serialNumber?: InputMaybe<Scalars['String']>
-  vehicleDeteion?: InputMaybe<InputCctvVehicleOption>
-}
-
-export type InputCctvFromLocation = {
-  cctvIdList?: InputMaybe<Array<Scalars['String']>>
-  locationId: Scalars['String']
-}
-
-export type InputCctvSync = {
-  cameraDetailCount: Scalars['Number']
-  cameraDetailList?: InputMaybe<Array<InputMaybe<InputCctvSyncCameraSchema>>>
-  partitionNumber: Scalars['Number']
-  tkSerialNumber: Scalars['Number']
-}
-
-export type InputCctvSyncCameraSchema = {
-  cameraSerialNumber?: InputMaybe<Scalars['String']>
-  fullSnapshotFileKey?: InputMaybe<Scalars['String']>
-  licensePlateFileKey?: InputMaybe<Scalars['String']>
-  licensePlateText?: InputMaybe<Scalars['String']>
-  timestamp?: InputMaybe<Scalars['Date']>
-  vehicleType?: InputMaybe<EnumVehicle>
-}
-
-export type InputCctvToLocation = {
-  cctvIdList?: InputMaybe<Array<Scalars['String']>>
-  locationId: Scalars['String']
-}
-
-export type InputCctvVehicleOption = {
-  car?: InputMaybe<Scalars['Boolean']>
-  motorcycle?: InputMaybe<Scalars['Boolean']>
-  truck?: InputMaybe<Scalars['Boolean']>
-}
-
-export type InputContact = {
-  accountNo?: InputMaybe<Scalars['String']>
-  address?: InputMaybe<Scalars['String']>
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  attn?: InputMaybe<Scalars['String']>
-  branch?: InputMaybe<Scalars['String']>
-  code?: InputMaybe<Scalars['String']>
-  contactType?: InputMaybe<Scalars['String']>
-  country?: InputMaybe<Scalars['String']>
-  emailInformation?: InputMaybe<Scalars['String']>
-  emailPerson?: InputMaybe<Scalars['String']>
-  globalName?: InputMaybe<Scalars['String']>
-  incoterms?: InputMaybe<Scalars['String']>
-  localName?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
-  note?: InputMaybe<Scalars['String']>
-  officeFaxNo?: InputMaybe<Scalars['String']>
-  officePhoneNo?: InputMaybe<Scalars['String']>
-  phone?: InputMaybe<Scalars['String']>
-  postcode?: InputMaybe<Scalars['String']>
-  shippingAddress?: InputMaybe<Scalars['String']>
-  shippingCountry?: InputMaybe<Scalars['String']>
-  shippingPostcode?: InputMaybe<Scalars['String']>
-  taxId?: InputMaybe<Scalars['String']>
-  vatId?: InputMaybe<Scalars['String']>
-  website?: InputMaybe<Scalars['String']>
-}
-
-export type InputContactInformation = {
-  OfficePhoneNo?: InputMaybe<Scalars['String']>
-  accountNo?: InputMaybe<Scalars['String']>
-  address?: InputMaybe<Scalars['String']>
-  attn?: InputMaybe<Scalars['String']>
-  branch?: InputMaybe<Scalars['String']>
-  code?: InputMaybe<Scalars['String']>
-  contactType?: InputMaybe<Scalars['String']>
-  country?: InputMaybe<Scalars['String']>
-  email?: InputMaybe<Scalars['String']>
-  globalName?: InputMaybe<Scalars['String']>
-  incoterms?: InputMaybe<Scalars['String']>
-  localName?: InputMaybe<Scalars['String']>
-  officeFaxNo?: InputMaybe<Scalars['String']>
-  postcode?: InputMaybe<Scalars['String']>
-  shippingCountry?: InputMaybe<Scalars['String']>
-  shippingPostcode?: InputMaybe<Scalars['String']>
-  taxId?: InputMaybe<Scalars['String']>
-  vatId?: InputMaybe<Scalars['String']>
-  website?: InputMaybe<Scalars['String']>
-}
-
-export type InputContactPerson = {
-  email?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
-  phone?: InputMaybe<Scalars['String']>
-}
-
-export type InputCreateService = {
-  endpointType: EnumServiceEndpoinType
+export type Input_Create_Service = {
+  endpointType: Enum_Service_Endpoin_Type
   serviceKey: Scalars['String']
   systemEndpoint: Scalars['String']
 }
 
-export type InputDataSecurityForm = {
-  assign: EnumDataSecurity
-  assignToParent: EnumIs
-  create: EnumDataSecurity
-  delete: EnumDataSecurity
+export type Input_Credential_Form = {
+  credentialKey?: InputMaybe<Scalars['String']>
+  expiration?: InputMaybe<Input_Expiration>
+  hostList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  isAdminCredential?: InputMaybe<Enum_Is>
+  name?: InputMaybe<Scalars['String']>
+  secretKey?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Enum_App_Status>
+  type?: InputMaybe<Enum_Credential_Type>
+}
+
+export type Input_Credential_Form_Update = {
+  expiration?: InputMaybe<Input_Expiration>
+  hostList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Enum_App_Status>
+  type?: InputMaybe<Enum_Credential_Type>
+}
+
+export type Input_Data_Security_Form = {
+  assign: Enum_Data_Security
+  assignToParent: Enum_Is
+  create: Enum_Data_Security
+  delete: Enum_Data_Security
   name: Scalars['String']
-  read: EnumDataSecurity
+  read: Enum_Data_Security
   securityKey: Scalars['String']
-  write: EnumDataSecurity
+  write: Enum_Data_Security
 }
 
-export type InputDate = {
-  endDate: Scalars['Date']
-  startDate: Scalars['Date']
+export type Input_Email_Register_Input = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  confirmPassword: Scalars['String']
+  email: Scalars['String']
+  inviteCode?: InputMaybe<Scalars['String']>
+  password: Scalars['String']
+  roleKey?: InputMaybe<Scalars['String']>
 }
 
-export type InputDeclaration = {
-  contactId?: InputMaybe<Scalars['ID']>
-  date?: InputMaybe<Scalars['Date']>
-  declarationControlObj?: InputMaybe<InputDeclarationControl>
-  declarationDetailList?: InputMaybe<Array<InputMaybe<InputDeclarationDetail>>>
-  declarationInvoiceObj?: InputMaybe<InputDeclarationInvoice>
-  status?: InputMaybe<EnumDeclarationStatus>
-  step?: InputMaybe<Scalars['Number']>
-  type?: InputMaybe<EnumDeclarationType>
-}
-
-export type InputDeclarationControl = {
-  approvalNo?: InputMaybe<Scalars['String']>
-  approvalPort?: InputMaybe<Scalars['String']>
-  arrivalDate?: InputMaybe<Scalars['String']>
-  assessmentRequestCode?: InputMaybe<Scalars['String']>
-  bankBranchCode?: InputMaybe<Scalars['String']>
-  bankCode?: InputMaybe<Scalars['String']>
-  brokerBranch?: InputMaybe<Scalars['String']>
-  cargoPackingType?: InputMaybe<Scalars['String']>
-  consignmentCountry?: InputMaybe<Scalars['String']>
-  currencyCode?: InputMaybe<Scalars['String']>
-  customsBankCode?: InputMaybe<Scalars['String']>
-  customsClearanceCard?: InputMaybe<Scalars['String']>
-  customsClearanceName?: InputMaybe<Scalars['String']>
-  date?: InputMaybe<Scalars['Date']>
-  dateTransmit?: InputMaybe<Scalars['Date']>
-  declarationControlId?: InputMaybe<Scalars['ID']>
-  declarationNo?: InputMaybe<Scalars['String']>
-  departureDate?: InputMaybe<Scalars['Date']>
-  dischargePort?: InputMaybe<Scalars['String']>
-  docType?: InputMaybe<Scalars['String']>
-  drokerTaxNo?: InputMaybe<Scalars['String']>
-  establishNo?: InputMaybe<Scalars['String']>
-  exchangeRate?: InputMaybe<Scalars['String']>
-  factoryNo?: InputMaybe<Scalars['String']>
-  grossWeightUnit?: InputMaybe<Scalars['ID']>
-  houseBillLading?: InputMaybe<Scalars['String']>
-  inspectionRequestCode?: InputMaybe<Scalars['String']>
-  managerName?: InputMaybe<Scalars['String']>
-  managerNo?: InputMaybe<Scalars['String']>
-  masterBillLading?: InputMaybe<Scalars['String']>
-  netWeightUnit?: InputMaybe<Scalars['ID']>
-  originCountry?: InputMaybe<Scalars['String']>
-  packageUnit?: InputMaybe<Scalars['ID']>
-  paymentMethod?: InputMaybe<Scalars['String']>
-  productType?: InputMaybe<EnumProductType>
-  refNo?: InputMaybe<Scalars['String']>
-  refNoCommonAccess?: InputMaybe<Scalars['String']>
-  releasePort?: InputMaybe<Scalars['String']>
-  rgsCode?: InputMaybe<Scalars['String']>
-  shippingMark?: InputMaybe<Scalars['String']>
-  timeTransmit?: InputMaybe<Scalars['Date']>
-  totalDeposit?: InputMaybe<Scalars['String']>
-  totalTax?: InputMaybe<Scalars['String']>
-  transportMode?: InputMaybe<Scalars['String']>
-  uidTransmit?: InputMaybe<Scalars['String']>
-  vesselName?: InputMaybe<Scalars['String']>
-}
-
-export type InputDeclarationDetail = {
-  ahtnCode?: InputMaybe<Scalars['String']>
-  assessExciseQuantity?: InputMaybe<Scalars['Number']>
-  assessQuantity?: InputMaybe<Scalars['Number']>
-  bis19?: InputMaybe<Scalars['String']>
-  boi?: InputMaybe<Scalars['String']>
-  bond?: InputMaybe<Scalars['String']>
-  currency?: InputMaybe<Scalars['String']>
-  declarationDetailId?: InputMaybe<Scalars['ID']>
-  declarationDetailOut?: InputMaybe<Scalars['ID']>
-  declarationOut?: InputMaybe<Scalars['ID']>
-  depositReason?: InputMaybe<Scalars['String']>
-  epz?: InputMaybe<Scalars['String']>
-  exchangeRate?: InputMaybe<Scalars['Number']>
-  exciseNo?: InputMaybe<Scalars['String']>
-  exciseQuantity?: InputMaybe<Scalars['Number']>
-  exciseQuantityUnit?: InputMaybe<Scalars['ID']>
-  exemptIncotermsLocal?: InputMaybe<Scalars['Number']>
-  exportDeclarationLineNo?: InputMaybe<Scalars['String']>
-  exportDeclarationNo?: InputMaybe<Scalars['String']>
-  freeZone?: InputMaybe<Scalars['String']>
-  importTariff?: InputMaybe<Scalars['String']>
-  incotermsValueAssess?: InputMaybe<Scalars['Number']>
-  incotermsValueForeign?: InputMaybe<Scalars['Number']>
-  incotermsValueLocal?: InputMaybe<Scalars['Number']>
-  increasedPriceForeign?: InputMaybe<Scalars['Number']>
-  increasedPriceLocal?: InputMaybe<Scalars['Number']>
-  invoiceAmountForeign?: InputMaybe<Scalars['Number']>
-  invoiceAmountLocal?: InputMaybe<Scalars['Number']>
-  invoiceItem?: InputMaybe<Scalars['Number']>
-  invoiceNo?: InputMaybe<Scalars['String']>
-  invoiceQuantity?: InputMaybe<Scalars['Number']>
-  invoiceQuantityUnit?: InputMaybe<Scalars['ID']>
-  itemNo?: InputMaybe<Scalars['Number']>
-  lastEntry?: InputMaybe<Scalars['String']>
-  natureTransaction?: InputMaybe<Scalars['String']>
-  netWeight?: InputMaybe<Scalars['Number']>
-  netWeightUnit?: InputMaybe<Scalars['ID']>
-  originCountry?: InputMaybe<Scalars['String']>
-  packageAmount?: InputMaybe<Scalars['Number']>
-  packageUnit?: InputMaybe<Scalars['ID']>
-  privilegeCode?: InputMaybe<Scalars['String']>
-  product?: InputMaybe<Scalars['ID']>
-  productAttribute1?: InputMaybe<Scalars['String']>
-  productAttribute2?: InputMaybe<Scalars['String']>
-  productYear?: InputMaybe<Scalars['String']>
-  quantity?: InputMaybe<Scalars['Number']>
-  quantityUnit?: InputMaybe<Scalars['ID']>
-  reExport?: InputMaybe<Scalars['String']>
-  reImportationCertificate?: InputMaybe<Scalars['String']>
-  remark?: InputMaybe<Scalars['String']>
-  serveral?: InputMaybe<Scalars['String']>
-  shippingMark?: InputMaybe<Scalars['String']>
-  statisticalCode?: InputMaybe<Scalars['String']>
-  status?: InputMaybe<EnumDeclarationDetailStatus>
-  tariffCode?: InputMaybe<Scalars['String']>
-  tariffSequence?: InputMaybe<Scalars['String']>
-  undgNumber?: InputMaybe<Scalars['String']>
-  unitPriceForeign?: InputMaybe<Scalars['Number']>
-  unitPriceLocal?: InputMaybe<Scalars['Number']>
-}
-
-export type InputDeclarationInvoice = {
-  buyerStatus?: InputMaybe<Scalars['String']>
-  commercialLevel?: InputMaybe<Scalars['String']>
-  consigneeStatus?: InputMaybe<Scalars['String']>
-  declarationInvoiceId?: InputMaybe<Scalars['ID']>
-  foreignInlandFreightCAF?: InputMaybe<Scalars['Number']>
-  foreignInlandFreightCC?: InputMaybe<Scalars['String']>
-  forwardingCC?: InputMaybe<Scalars['String']>
-  forwardingCF?: InputMaybe<Scalars['String']>
-  freightAF?: InputMaybe<Scalars['String']>
-  freightCurrency?: InputMaybe<Scalars['String']>
-  insuranceAF?: InputMaybe<Scalars['String']>
-  insuranceCurrency?: InputMaybe<Scalars['String']>
-  invoiceCurrency?: InputMaybe<Scalars['String']>
-  invoiceDate?: InputMaybe<Scalars['Date']>
-  invoiceNo?: InputMaybe<Scalars['String']>
-  otherCAF?: InputMaybe<Scalars['Number']>
-  otherCC?: InputMaybe<Scalars['String']>
-  packingCAF?: InputMaybe<Scalars['Number']>
-  packingCC?: InputMaybe<Scalars['String']>
-  purchaseOrderNumber?: InputMaybe<Scalars['String']>
-  term?: InputMaybe<Scalars['String']>
-  termPayment?: InputMaybe<Scalars['String']>
-}
-
-export type InputDeclarationReception = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  receptionDate?: InputMaybe<Scalars['Date']>
-  receptionLocationList?: InputMaybe<InputReceptionLocation>
-  receptionNo?: InputMaybe<Scalars['String']>
-  status?: InputMaybe<EnumDeclarationReceptionStatus>
-}
-
-export type InputDeleteCctvMotion = {
-  idList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-/**  can delete multiple report  */
-export type InputDeleteReportList = {
-  reportIds: Array<Scalars['ID']>
-}
-
-export type InputExpiration = {
+export type Input_Expiration = {
   access?: InputMaybe<Scalars['String']>
   refresh?: InputMaybe<Scalars['String']>
 }
 
-export type InputFeatureForm = {
+export type Input_Feature_Form = {
   config?: InputMaybe<Scalars['JSON']>
   featureKey: Scalars['String']
 }
 
-export type InputFileupload = {
-  attribute?: InputMaybe<Scalars['JSON']>
-  fileExtension?: InputMaybe<Scalars['String']>
-  fileKey: Scalars['String']
-  fileName: Scalars['String']
-  fileType?: InputMaybe<Scalars['String']>
-  refId: Scalars['String']
-}
-
-export type InputFilter = {
+export type Input_Filter = {
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
 }
 
-export type InputFilterDate = {
+export type Input_Filter_Date = {
   endDate?: InputMaybe<Scalars['String']>
   startDate?: InputMaybe<Scalars['String']>
 }
 
-export type InputFindCctvSync = {
-  camSerialNumber: Scalars['String']
-}
-
-export type InputFindData = {
+export type Input_Find_Data = {
   filter?: InputMaybe<Scalars['JSON']>
   findManyById?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   findOneById?: InputMaybe<Scalars['ID']>
-  pagination?: InputMaybe<InputPagination>
+  pagination?: InputMaybe<Input_Pagination>
   query?: InputMaybe<Scalars['JSON']>
   search?: InputMaybe<Scalars['JSON']>
   sort?: InputMaybe<Scalars['JSON']>
 }
 
-export type InputGenerateRunningNumber = {
+export type Input_Gateway = {
+  apiType?: InputMaybe<Enum_Gateway_Api_Type>
+  destination?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  endpont?: InputMaybe<Scalars['String']>
+  header?: InputMaybe<Scalars['JSON']>
+  key?: InputMaybe<Scalars['String']>
+  method?: InputMaybe<Enum_Gateway_Method>
+  name?: InputMaybe<Scalars['String']>
+  queryString?: InputMaybe<Scalars['JSON']>
+  resType?: InputMaybe<Enum_Gateway_Res_Type>
+  schema?: InputMaybe<Scalars['JSON']>
+  source?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  status?: InputMaybe<Enum_Gateway_Status>
+  userRole?: InputMaybe<Enum_Gateway_User_Role>
+  variable?: InputMaybe<Scalars['JSON']>
+}
+
+export type Input_Generate_Running_Number = {
   runningKey?: InputMaybe<Scalars['String']>
 }
 
-export type InputInvoice = {
-  attachFileList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  companyStamp?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  contactDetail?: InputMaybe<InputInvoiceContactDetail>
-  customerId?: InputMaybe<Scalars['String']>
-  customerName?: InputMaybe<Scalars['String']>
-  invoiceNumber: Scalars['String']
-  priceDetail?: InputMaybe<InputInvoicePriceDetail>
-  productList?: InputMaybe<Array<InputMaybe<InputInvoiceProduct>>>
-  remark?: InputMaybe<Scalars['String']>
-  signature?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+export type Input_Invite_Email_List = {
+  email?: InputMaybe<Scalars['String']>
+  roleKey?: InputMaybe<Scalars['String']>
 }
 
-export type InputInvoiceContactDetail = {
-  address?: InputMaybe<Scalars['String']>
-  branch?: InputMaybe<Scalars['String']>
-  taxId?: InputMaybe<Scalars['String']>
-  zipCode?: InputMaybe<Scalars['String']>
-}
-
-export type InputInvoicePriceDetail = {
-  date?: InputMaybe<Scalars['Date']>
-  discount?: InputMaybe<Scalars['Number']>
-  dueDate?: InputMaybe<Scalars['Date']>
-  grandTotal?: InputMaybe<Scalars['Number']>
-  grandTotalForeign?: InputMaybe<Scalars['Number']>
-  grandTotalLocal?: InputMaybe<Scalars['Number']>
-  paymentAmount?: InputMaybe<Scalars['Number']>
-  salesName?: InputMaybe<Scalars['String']>
-  total?: InputMaybe<Scalars['Number']>
-  totalAfterDiscount?: InputMaybe<Scalars['Number']>
-  totalForeign?: InputMaybe<Scalars['Number']>
-  totalLocal?: InputMaybe<Scalars['Number']>
-  vat?: InputMaybe<Scalars['Number']>
-  withHoldingTax?: InputMaybe<Scalars['Number']>
-}
-
-export type InputInvoiceProduct = {
-  code?: InputMaybe<Scalars['String']>
-  exchangeRate?: InputMaybe<Scalars['Number']>
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  quantity?: InputMaybe<Scalars['Number']>
-  total?: InputMaybe<Scalars['Number']>
-  totalForeign?: InputMaybe<Scalars['Number']>
-  totalLocal?: InputMaybe<Scalars['Number']>
-  unit?: InputMaybe<Scalars['String']>
-  unitId?: InputMaybe<Scalars['ID']>
-  unitPriceForeign?: InputMaybe<Scalars['Number']>
-  unitPriceForeignCurrency?: InputMaybe<Scalars['String']>
-  unitPriceLocal?: InputMaybe<Scalars['Number']>
-  unitPriceLocalCurrency?: InputMaybe<Scalars['String']>
-}
-
-export type InputInvoiceUpdate = {
-  attachFileList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  companyStamp?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  contactDetail?: InputMaybe<InputInvoiceContactDetail>
-  customerId?: InputMaybe<Scalars['String']>
-  customerName?: InputMaybe<Scalars['String']>
-  priceDetail?: InputMaybe<InputInvoicePriceDetail>
-  productList?: InputMaybe<Array<InputMaybe<InputInvoiceProduct>>>
-  remark?: InputMaybe<Scalars['String']>
-  signature?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type InputLocaleMasterData = {
-  locale?: InputMaybe<Scalars['String']>
-  text?: InputMaybe<Scalars['String']>
-}
-
-export type InputLocaleTextForm = {
-  attribute?: InputMaybe<Scalars['JSON']>
+export type Input_Locale_Text_Form = {
+  attributes?: InputMaybe<Scalars['JSON']>
   dataKey: Scalars['String']
   locale: Scalars['String']
   orgKey?: InputMaybe<Scalars['String']>
-  searchable?: InputMaybe<EnumIs>
   text: Scalars['String']
 }
 
-export type InputLocation = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  code?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-  globalName?: InputMaybe<Scalars['String']>
-  image?: InputMaybe<Scalars['String']>
-  localName?: InputMaybe<Scalars['String']>
-  parent?: InputMaybe<Scalars['ID']>
-  productUsage?: InputMaybe<EnumIs>
-  type?: InputMaybe<EnumLocationType>
+export type Input_Login_Auth_Code = {
+  email: Scalars['String']
+  password: Scalars['String']
+  redirectUrl: Scalars['String']
 }
 
-export type InputMasterData = {
+export type Input_Master_Data = {
+  attributes?: InputMaybe<Scalars['JSON']>
+  dataKey: Scalars['String']
+  locale: Scalars['String']
+  parent?: InputMaybe<Scalars['String']>
+  text: Scalars['String']
+}
+
+export type Input_Notification = {
   attribute?: InputMaybe<Scalars['JSON']>
-  dataKey?: InputMaybe<Scalars['String']>
-  parentKey?: InputMaybe<Scalars['String']>
-  searchable?: InputMaybe<EnumIs>
+  content?: InputMaybe<Scalars['String']>
+  icon?: InputMaybe<Scalars['String']>
+  title?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<Enum_Notification_User_Type>
 }
 
-export type InputNumberAttribute = {
+export type Input_Notification_Data_Key = {
+  dataKey?: InputMaybe<Scalars['String']>
+  defaultValue?: InputMaybe<Scalars['String']>
+  isRequired?: InputMaybe<Enum_Notification_Is_Required>
+}
+
+export type Input_Notification_Message = {
+  content?: InputMaybe<Scalars['String']>
+  title?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Notification_Message_Channel = {
+  condition: Enum_Notification_Message_Channel_Condition
+  key: Enum_Notification_Message_Channel_Key
+}
+
+export type Input_Number_Attribute = {
+  _id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['Number']>
 }
 
-export type InputPagination = {
+export type Input_Organization_Approval_Form = {
+  approvalAttribute?: InputMaybe<Scalars['JSON']>
+  orgKey: Scalars['String']
+}
+
+export type Input_Organization_Form = {
+  address?: InputMaybe<Scalars['JSON']>
+  attribute?: InputMaybe<Scalars['JSON']>
+  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  contactName?: InputMaybe<Scalars['String']>
+  location?: InputMaybe<Input_Organization_Location>
+  name?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  organizationLabelList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  organizationType?: InputMaybe<Scalars['ID']>
+  parentOrgKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organization_Local_List = {
+  dataKey?: InputMaybe<Scalars['String']>
+  masterKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organization_Location = {
+  coordinates?: InputMaybe<Array<InputMaybe<Scalars['Number']>>>
+}
+
+export type Input_Organization_Master_Detail_List = {
+  dataKey?: InputMaybe<Scalars['String']>
+  masterKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organization_Tag_List = {
+  masterKey?: InputMaybe<Scalars['String']>
+  tagKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organization_Update = {
+  address?: InputMaybe<Scalars['JSON']>
+  attribute?: InputMaybe<Scalars['JSON']>
+  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  contactName?: InputMaybe<Scalars['String']>
+  location?: InputMaybe<Input_Organization_Location>
+  name?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  organizationLabelList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  organizationType?: InputMaybe<Scalars['ID']>
+  parentOrgKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organiztion_Label = {
+  orgLabelDescription?: InputMaybe<Scalars['String']>
+  orgLabelIcon?: InputMaybe<Scalars['String']>
+  orgLabelName?: InputMaybe<Scalars['String']>
+  orgLabelStatus?: InputMaybe<Enum_Organization_Label_Status>
+  orgLabelTitle?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Organiztion_Type = {
+  needApprove?: InputMaybe<Enum_Is>
+  orgFieldList?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>
+  orgTypeKey?: InputMaybe<Scalars['String']>
+  orgTypeName?: InputMaybe<Scalars['String']>
+  orgTypeStatus?: InputMaybe<Enum_Organization_Type_Status>
+}
+
+export type Input_Org_Admin_Register_Input = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  confirmPassword: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
+  verifyToken?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Org_Approval_Attribute_Status = {
+  note?: InputMaybe<Scalars['String']>
+  orgKey: Scalars['String']
+  status: Enum_Organization_Approval_Status
+}
+
+export type Input_Org_Status = {
+  note?: InputMaybe<Scalars['String']>
+  orgKey: Scalars['String']
+  status: Enum_Organization_Status
+}
+
+export type Input_O_Auth_Form = {
+  loginStatus?: InputMaybe<Enum_Usability>
+  reauthentication?: InputMaybe<Enum_Usability>
+  redirectUrlList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type Input_Pagination = {
   limit?: InputMaybe<Scalars['Int']>
   page?: InputMaybe<Scalars['Int']>
 }
 
-export type InputPermissionForm = {
+export type Input_Permission_Form = {
   code?: InputMaybe<Array<Scalars['String']>>
   permissionKey: Scalars['String']
   scopeList?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type InputPermissionRole = {
+export type Input_Permission_Role = {
   code: Scalars['String']
   permissionName: Scalars['String']
   scpes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type InputProduct = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  brandName?: InputMaybe<Scalars['String']>
-  canProduce?: InputMaybe<EnumIs>
-  cctvId?: InputMaybe<Scalars['String']>
-  code?: InputMaybe<Scalars['String']>
-  currency?: InputMaybe<InputProductCurrency>
-  customsCode?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-  effectiveDate?: InputMaybe<Scalars['Date']>
-  globalName?: InputMaybe<Scalars['String']>
-  image?: InputMaybe<Scalars['String']>
-  localName?: InputMaybe<Scalars['String']>
-  productCategory?: InputMaybe<Scalars['ID']>
-  productType?: InputMaybe<Scalars['ID']>
-  productUnit?: InputMaybe<Scalars['ID']>
-  productWeightUnit?: InputMaybe<Scalars['ID']>
-  productYear?: InputMaybe<Scalars['String']>
-  statisticCode?: InputMaybe<Scalars['String']>
-  tariffCode?: InputMaybe<Scalars['String']>
-  tariffRate?: InputMaybe<Scalars['Number']>
-  tariffSequence?: InputMaybe<Scalars['String']>
-  type?: InputMaybe<EnumProductType>
-  unitPrice?: InputMaybe<Scalars['Number']>
-  weight?: InputMaybe<Scalars['Number']>
-}
-
-export type InputProductionOrder = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  billOfMaterial?: InputMaybe<Scalars['ID']>
-  date?: InputMaybe<Scalars['Date']>
-  endDate?: InputMaybe<Scalars['Date']>
-  endWipDate?: InputMaybe<Scalars['Date']>
-  location?: InputMaybe<Scalars['ID']>
-  no?: InputMaybe<Scalars['String']>
-  product?: InputMaybe<Scalars['ID']>
-  remark?: InputMaybe<Scalars['String']>
-  startDate?: InputMaybe<Scalars['Date']>
-  step?: InputMaybe<Scalars['Number']>
-}
-
-export type InputProductionOrderDetail = {
-  currency?: InputMaybe<Scalars['String']>
-  invoiceAmountLocal?: InputMaybe<Scalars['Number']>
-  netWeight?: InputMaybe<Scalars['Number']>
-  netWeightUnit?: InputMaybe<Scalars['ID']>
-  product?: InputMaybe<Scalars['ID']>
-  productRelocation?: InputMaybe<Scalars['ID']>
-  productionOrder?: InputMaybe<Scalars['ID']>
-  quantity?: InputMaybe<Scalars['Number']>
-  quantityUnit?: InputMaybe<Scalars['ID']>
-  relocationRef?: InputMaybe<Scalars['String']>
-  remark?: InputMaybe<Scalars['String']>
-  status?: InputMaybe<EnumDeclarationDetailStatus>
-  unitPriceLocal?: InputMaybe<Scalars['Number']>
-}
-
-export type InputProductCurrency = {
-  currency?: InputMaybe<Scalars['String']>
-  value?: InputMaybe<Scalars['Number']>
-}
-
-export type InputProductProperty = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  code?: InputMaybe<Scalars['String']>
-  description?: InputMaybe<Scalars['String']>
-  globalName?: InputMaybe<Scalars['String']>
-  localName?: InputMaybe<Scalars['String']>
-  parent?: InputMaybe<Scalars['ID']>
-  type?: InputMaybe<EnumProductPropertyType>
-}
-
-export type InputProductRelocation = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  date?: InputMaybe<Scalars['Date']>
-  declarationDetail?: InputMaybe<Scalars['ID']>
-  locationList?: InputMaybe<Array<InputMaybe<InputProductRelocationLocation>>>
-  no?: InputMaybe<Scalars['String']>
-  product?: InputMaybe<Scalars['ID']>
-  productionOrder?: InputMaybe<Scalars['ID']>
-  ref?: InputMaybe<Scalars['String']>
-  reserve?: InputMaybe<EnumIs>
-  status?: InputMaybe<EnumProductRelocationStatus>
-  transfer?: InputMaybe<Scalars['ID']>
-  type?: InputMaybe<EnumProductRelocationType>
-}
-
-export type InputProductRelocationLocation = {
-  beforeProductNumber?: InputMaybe<Scalars['Number']>
-  declaration?: InputMaybe<Scalars['ID']>
-  declarationDetail?: InputMaybe<Scalars['ID']>
-  fromLocation?: InputMaybe<Scalars['ID']>
-  productionOrder?: InputMaybe<Scalars['ID']>
-  quantity?: InputMaybe<Scalars['Number']>
-  remark?: InputMaybe<Scalars['String']>
-  toLocation?: InputMaybe<Scalars['ID']>
-  toProduct?: InputMaybe<Scalars['ID']>
-  type?: InputMaybe<EnumProductRelocationLocationType>
-}
-
-export type InputProperty = {
-  address?: InputMaybe<Scalars['String']>
-  branch?: InputMaybe<Scalars['String']>
-  companyEmail?: InputMaybe<Scalars['String']>
-  companyFax?: InputMaybe<Scalars['String']>
-  companyLogo?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  companyPhone?: InputMaybe<Scalars['String']>
-  companyStamp?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  currency?: InputMaybe<Scalars['String']>
-  district?: InputMaybe<Scalars['String']>
-  freezoneArea?: InputMaybe<Scalars['String']>
-  globalName?: InputMaybe<Scalars['String']>
-  lostPercent?: InputMaybe<Scalars['Number']>
-  name?: InputMaybe<Scalars['String']>
-  province?: InputMaybe<Scalars['String']>
-  signature?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  subDistrict?: InputMaybe<Scalars['String']>
-  taxNo?: InputMaybe<Scalars['String']>
-  zipCode?: InputMaybe<Scalars['String']>
-}
-
-export type InputQuotation = {
-  attachFileList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  companyStamp?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  contactDetail?: InputMaybe<InputQuotationContactDetail>
-  customerId?: InputMaybe<Scalars['String']>
-  customerName?: InputMaybe<Scalars['String']>
-  priceDetail?: InputMaybe<InputQuotationPriceDetail>
-  productList?: InputMaybe<Array<InputMaybe<InputQuotationProduct>>>
-  quotationNumber: Scalars['String']
-  remark?: InputMaybe<Scalars['String']>
-  signature?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type InputQuotationContactDetail = {
-  address?: InputMaybe<Scalars['String']>
-  branch?: InputMaybe<Scalars['String']>
-  taxId?: InputMaybe<Scalars['String']>
-  zipCode?: InputMaybe<Scalars['String']>
-}
-
-export type InputQuotationPriceDetail = {
-  date?: InputMaybe<Scalars['Date']>
-  discount?: InputMaybe<Scalars['Number']>
-  dueDate?: InputMaybe<Scalars['Date']>
-  grandTotal?: InputMaybe<Scalars['Number']>
-  grandTotalForeign?: InputMaybe<Scalars['Number']>
-  grandTotalLocal?: InputMaybe<Scalars['Number']>
-  paymentAmount?: InputMaybe<Scalars['Number']>
-  salesName?: InputMaybe<Scalars['String']>
-  total?: InputMaybe<Scalars['Number']>
-  totalAfterDiscount?: InputMaybe<Scalars['Number']>
-  totalForeign?: InputMaybe<Scalars['Number']>
-  totalLocal?: InputMaybe<Scalars['Number']>
-  vat?: InputMaybe<Scalars['Number']>
-  withHoldingTax?: InputMaybe<Scalars['Number']>
-}
-
-export type InputQuotationProduct = {
-  code?: InputMaybe<Scalars['String']>
-  exchangeRate?: InputMaybe<Scalars['Number']>
-  id?: InputMaybe<Scalars['ID']>
-  name?: InputMaybe<Scalars['String']>
-  quantity?: InputMaybe<Scalars['Number']>
-  total?: InputMaybe<Scalars['Number']>
-  totalForeign?: InputMaybe<Scalars['Number']>
-  totalLocal?: InputMaybe<Scalars['Number']>
-  unit?: InputMaybe<Scalars['String']>
-  unitId?: InputMaybe<Scalars['ID']>
-  unitPrice?: InputMaybe<Scalars['Number']>
-  unitPriceCurrency?: InputMaybe<Scalars['String']>
-  unitPriceForeign?: InputMaybe<Scalars['Number']>
-  unitPriceForeignCurrency?: InputMaybe<Scalars['String']>
-  unitPriceLocal?: InputMaybe<Scalars['Number']>
-  unitPriceLocalCurrency?: InputMaybe<Scalars['String']>
-}
-
-export type InputQuotationUpdate = {
-  attachFileList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  companyStamp?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  contactDetail?: InputMaybe<InputQuotationContactDetail>
-  customerId?: InputMaybe<Scalars['String']>
-  customerName?: InputMaybe<Scalars['String']>
-  priceDetail?: InputMaybe<InputQuotationPriceDetail>
-  productList?: InputMaybe<Array<InputMaybe<InputQuotationProduct>>>
-  remark?: InputMaybe<Scalars['String']>
-  signature?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-}
-
-export type InputReceptionLocation = {
-  location?: InputMaybe<Scalars['ID']>
-  quantity?: InputMaybe<Scalars['Number']>
-  remark?: InputMaybe<Scalars['String']>
-}
-
-/**  input for create new Report  */
-export type InputReport = {
-  docTypeList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  endDate?: InputMaybe<Scalars['Date']>
-  /**  use value from getFileType Queries */
-  fileTypeKey?: InputMaybe<EnumReportFileType>
-  locationList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  locationType?: InputMaybe<EnumReportSelect>
-  productAvailable?: InputMaybe<EnumProductAvailable>
-  reportSubTypeKeyList?: InputMaybe<Array<InputMaybe<EnumReportProductType>>>
-  /**  use value from getReportType Queries  */
-  reportTypeKey?: InputMaybe<EnumReportType>
-  selectDate?: InputMaybe<Scalars['Date']>
-  selectDocType?: InputMaybe<EnumReportSelect>
-  selectSubTypeKey?: InputMaybe<EnumReportSelect>
-  startDate?: InputMaybe<Scalars['Date']>
-}
-
-export type InputRoleFrom = {
-  isDefault?: InputMaybe<EnumIs>
-  isReplaceable?: InputMaybe<EnumIs>
-  name?: InputMaybe<Scalars['String']>
-  needApproval?: InputMaybe<EnumIs>
-  roleKey?: InputMaybe<Scalars['String']>
-  roleType?: InputMaybe<EnumLrleType>
-  status?: InputMaybe<EnumAppStatus>
-}
-
-export type InputRunningNumber = {
+export type Input_Phone_Number_Register_Input = {
   attribute?: InputMaybe<Scalars['JSON']>
-  formatDate?: InputMaybe<EnumRunningNumberDateformat>
+  inviteCode?: InputMaybe<Scalars['String']>
+  phoneNumber: Scalars['String']
+  roleKey?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Request_Otp = {
+  countryCode: Scalars['String']
+  phoneNumber: Scalars['Number']
+}
+
+export type Input_Role_Approval_Attribute_Status = {
+  note?: InputMaybe<Scalars['String']>
+  roleKey: Scalars['String']
+  status?: InputMaybe<Enum_Role_Aproval_Attribute_Ststus>
+  userId: Scalars['String']
+}
+
+export type Input_Role_From = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  isDefault?: InputMaybe<Enum_Is>
+  isInvite?: InputMaybe<Enum_Is>
+  isReplaceable?: InputMaybe<Enum_Is>
+  name?: InputMaybe<Scalars['String']>
+  needApproval?: InputMaybe<Enum_Is>
+  regisable?: InputMaybe<Enum_Is>
+  roleKey?: InputMaybe<Scalars['String']>
+  roleType?: InputMaybe<Enum_Lrle_Type>
+  status?: InputMaybe<Enum_App_Status>
+  userField?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>
+}
+
+export type Input_Running_Number = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  formatDate?: InputMaybe<Enum_Running_Number_Dateformat>
   lastText?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
-  numberRunning?: InputMaybe<EnumRunningNumber>
+  numberRunning?: InputMaybe<Enum_Running_Number>
   runningKey?: InputMaybe<Scalars['String']>
   text?: InputMaybe<Scalars['String']>
 }
 
-export type InputS3Config = {
-  ACL: Scalars['String']
-  accessKeyId: Scalars['String']
-  bucket: Scalars['String']
-  headers?: InputMaybe<Scalars['JSON']>
-  publicEndpoint: Scalars['String']
-  region: Scalars['String']
-  s3ForcePathStyle: Scalars['Boolean']
-  secretAccessKey: Scalars['String']
-  serviceEndpoint: Scalars['String']
-  signatureExpires: Scalars['Number']
-  signatureVersion: Scalars['String']
-  uniquePrefix: Scalars['Boolean']
+export type Input_S3_Put_Object_Signed_Url = {
+  acl?: InputMaybe<Enum_S3_Acl>
+  contentType?: InputMaybe<Scalars['String']>
+  objectName?: InputMaybe<Scalars['String']>
+  path?: InputMaybe<Scalars['String']>
 }
 
-export type InputSchemaCctvToolkit = {
-  certID: Scalars['String']
-  serialNumber: Scalars['String']
-  status: EnumCctvToolkitStatus
-  toolkitName: Scalars['String']
+export type Input_Schema_Custom_Menu = {
+  actionColor?: InputMaybe<Scalars['String']>
+  icon?: InputMaybe<Scalars['String']>
+  menuKey?: InputMaybe<Scalars['String']>
+  permissionList?: InputMaybe<Array<InputMaybe<Input_Schema_Custom_Menu_Permission_List>>>
+  status?: InputMaybe<Enum_Usability>
+  target?: InputMaybe<Scalars['String']>
+  title?: InputMaybe<Scalars['JSON']>
+  url?: InputMaybe<Scalars['String']>
 }
 
-export type InputSchemaCctvToolkitConfig = {
-  /**  default is 10 row  */
-  maxRowSync?: InputMaybe<Scalars['Number']>
-  s3?: InputMaybe<InputS3Config>
-  /**  second -> default is 1 minute  */
-  syncIterSec?: InputMaybe<Scalars['Number']>
-  syncStatus: Scalars['Boolean']
+export type Input_Schema_Custom_Menu_Permission_List = {
+  code?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  permissionKey?: InputMaybe<Scalars['String']>
 }
 
-export type InputSchemaCctvToolkitRegister = {
-  certID?: InputMaybe<Scalars['String']>
-  serialNumber?: InputMaybe<Scalars['String']>
-  toolkitName?: InputMaybe<Scalars['String']>
+export type Input_Scmema_Notification_Template = {
+  channel?: InputMaybe<Enum_Notification_Channel>
+  dataKeyList?: InputMaybe<Array<InputMaybe<Input_Notification_Data_Key>>>
+  locale?: InputMaybe<Scalars['String']>
+  templateKey: Scalars['String']
+  templateValue: Scalars['String']
+  title?: InputMaybe<Scalars['String']>
 }
 
-export type InputSearch = {
+export type Input_Search = {
   condition?: InputMaybe<Scalars['String']>
-  searchAttribute?: InputMaybe<Array<InputMaybe<InputSearchAttribute>>>
+  searchAttribute?: InputMaybe<Array<InputMaybe<Input_Search_Attribute>>>
 }
 
-export type InputSearchAttribute = {
+export type Input_Search_Attribute = {
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
 }
 
-export type InputTransfer = {
-  attachmentList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  productType?: InputMaybe<EnumTransferProductType>
-  relocationRef?: InputMaybe<Scalars['String']>
-  remark?: InputMaybe<Scalars['String']>
-  step?: InputMaybe<Scalars['Number']>
-  transferDate?: InputMaybe<Scalars['Date']>
-  transferInDate?: InputMaybe<Scalars['Date']>
-  transferNo?: InputMaybe<Scalars['String']>
-  transferOut?: InputMaybe<Scalars['ID']>
-  transferOutDate?: InputMaybe<Scalars['Date']>
-  type?: InputMaybe<EnumTransferType>
+export type Input_Sender_List = {
+  email?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
 }
 
-export type InputUpdateApp = {
+export type Input_Send_Mail_Form = {
+  email?: InputMaybe<Array<Scalars['String']>>
+  name?: InputMaybe<Scalars['String']>
+  subject?: InputMaybe<Scalars['String']>
+  text: Scalars['String']
+}
+
+export type Input_Smtp_Form = {
+  host?: InputMaybe<Scalars['String']>
+  password?: InputMaybe<Scalars['String']>
+  port?: InputMaybe<Scalars['Number']>
+  securedConnection?: InputMaybe<Scalars['Boolean']>
+  senderEmail?: InputMaybe<Scalars['String']>
+  senderName?: InputMaybe<Scalars['String']>
+  username?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Theme_Form = {
+  color?: InputMaybe<Scalars['JSON']>
+  credentialKey?: InputMaybe<Scalars['String']>
+  custom?: InputMaybe<Scalars['JSON']>
+  image?: InputMaybe<Scalars['JSON']>
+  isDefault?: InputMaybe<Enum_Theme_Default_Status>
+  isReplaceable?: InputMaybe<Enum_Theme_Replaceable_Status>
+  name: Scalars['String']
+  status: Enum_Theme_Status
+  text?: InputMaybe<Scalars['JSON']>
+  themeKey: Scalars['String']
+  themeType?: InputMaybe<Enum_Theme_Type>
+}
+
+export type Input_Theme_Form_Color = {
+  navAuthBg?: InputMaybe<Scalars['String']>
+  navAuthText?: InputMaybe<Scalars['String']>
+  navBg?: InputMaybe<Scalars['String']>
+  navText?: InputMaybe<Scalars['String']>
+  primary?: InputMaybe<Scalars['String']>
+  secondary?: InputMaybe<Scalars['String']>
+  titleText?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Theme_Form_Image = {
+  favIcon?: InputMaybe<Scalars['String']>
+  navAuthCollapsedLogo?: InputMaybe<Scalars['String']>
+  navAuthLogo?: InputMaybe<Scalars['String']>
+  navLogo?: InputMaybe<Scalars['String']>
+  webLogo?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Theme_Form_Text = {
+  description?: InputMaybe<Scalars['String']>
+  navTitle?: InputMaybe<Scalars['String']>
+  webTitle?: InputMaybe<Scalars['String']>
+}
+
+export type Input_Update_App = {
   attribute?: InputMaybe<Scalars['JSON']>
   name: Scalars['String']
-  status?: InputMaybe<EnumAppStatus>
+  status?: InputMaybe<Enum_App_Status>
 }
 
-export type InputUpdateReport = {
-  docTypeList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  endDate?: InputMaybe<Scalars['Date']>
-  /**  use value from getFileType Queries */
-  fileTypeKey?: InputMaybe<EnumReportFileType>
-  locationList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  locationType?: InputMaybe<EnumReportSelect>
-  productAvailable?: InputMaybe<EnumProductAvailable>
-  reportId: Scalars['ID']
-  reportSubTypeKeyList?: InputMaybe<Array<InputMaybe<EnumReportProductType>>>
-  /**  use value from getReportType Queries  */
-  reportTypeKey?: InputMaybe<EnumReportType>
-  selectDate?: InputMaybe<Scalars['Date']>
-  selectDocType?: InputMaybe<EnumReportSelect>
-  selectSubTypeKey?: InputMaybe<EnumReportSelect>
-  startDate?: InputMaybe<Scalars['Date']>
-  /**  use value from getReportStatus Queries  */
-  statusKey?: InputMaybe<EnumReportStatus>
-  url?: InputMaybe<Scalars['String']>
+export type Input_Update_Profile = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  roleList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  setting?: InputMaybe<Scalars['JSON']>
+}
+
+export type Input_Username_Register = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  confirmPassword: Scalars['String']
+  password: Scalars['String']
+  roleKey?: InputMaybe<Scalars['String']>
+  username: Scalars['String']
+}
+
+export type Input_User_Role_Status = {
+  note?: InputMaybe<Scalars['String']>
+  roleKey: Scalars['String']
+  status?: InputMaybe<Enum_User_Role_Status>
+  userId?: InputMaybe<Scalars['ID']>
+}
+
+export type Input_Verify_Email = {
+  email: Scalars['String']
+  verifyToken: Scalars['String']
+}
+
+export type Input_Verify_Password_Email = {
+  confirmPassword: Scalars['String']
+  email: Scalars['String']
+  newPassword: Scalars['String']
+  verifyToken: Scalars['String']
+}
+
+export type Input_Verify_Password_Otp = {
+  confirmPassword: Scalars['String']
+  countryCode: Scalars['String']
+  newPassword: Scalars['String']
+  otp: Scalars['Number']
+  phoneNumber: Scalars['Number']
+  ref: Scalars['String']
+}
+
+export type Input_Verify_Password_System_Admin_Email = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  confirmPassword: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
+  verifyToken: Scalars['String']
+}
+
+export enum Lead_Type_Response {
+  Agent = 'AGENT',
+  Customer = 'CUSTOMER',
+  Factory = 'FACTORY',
+  Organization = 'ORGANIZATION',
+  Other = 'OTHER',
+  Retail = 'RETAIL',
+}
+
+export type Lead = {
+  _id: Scalars['String']
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['String']
+  /** ชื่อ */
+  firstName: Scalars['String']
+  /** นามสกุล */
+  lastName: Scalars['String']
+  /** ประเภทของลูกค้า */
+  leadType: Lead_Type_Response
+  /** เบอร์โทรศัพท์ */
+  phoneNumber: Scalars['String']
+  /** สถานะของลูกค้า */
+  status: Enum_Creat_Lead_Status
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['String']
+}
+
+export type LeadPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<LeadResp>>
+}
+
+export type LeadResp = {
+  _id: Maybe<Scalars['ID']>
+  citizenId: Maybe<Scalars['String']>
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['String']
+  createdAtBy: Maybe<User>
+  dataSource: Maybe<Scalars['String']>
+  email: Maybe<Array<EmailResp>>
+  firstName: Maybe<Scalars['String']>
+  image: Maybe<Scalars['String']>
+  lastName: Maybe<Scalars['String']>
+  leadType: Maybe<Scalars['String']>
+  organizationName: Maybe<Scalars['String']>
+  passport: Maybe<Scalars['String']>
+  phone: Maybe<Array<PhoneResp>>
+  resourceOwner: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['String']
+  updatedAtBy: Maybe<User>
+}
+
+export type LeadResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Lead>
 }
 
 export type Mutation = {
-  addCCTVToLocation: Maybe<TypeLocation>
-  calReport: Maybe<TypeReportResponse>
-  cancelDeclaration: Maybe<TypeDeclaration>
-  cancelProductionOrder: Maybe<TypeProductionOrder>
-  cleanDataDeclarationAndReport: Maybe<TypeDeclaration>
-  cleanDeclarationByFileKey: Maybe<TypeDeclaration>
-  confirmDeclaration: Maybe<TypeDeclaration>
-  confirmTransfer: Maybe<TypeTransferResponse>
-  createBillOfMaterial: Maybe<TypeBillOfMaterial>
-  createCCTV: Maybe<TypeCctv>
-  createContact: Maybe<TypeContact>
-  createDeclaration: Maybe<TypeDeclaration>
-  createDeclarationByInvoice: Maybe<TypeDeclaration>
-  createDeclarationNotFlow: Maybe<TypeDeclaration>
-  createFileUpload: Maybe<TypeFileupload>
-  createInvoice: Maybe<TypeInvoice>
-  createLocaleText: Maybe<TypeLocale>
-  createLocaleTextList: Maybe<TypeLocaleList>
-  createLocation: Maybe<TypeLocation>
-  createMasterData: Maybe<TypeMasterData>
-  createProduct: Maybe<TypeProduct>
-  createProductProperty: Maybe<TypeProductProperty>
-  createProductionOrder: Maybe<TypeProductionOrder>
-  createQuotation: Maybe<TypeQuotation>
-  createReport: Maybe<TypeReportResponse>
-  createRunningNumber: Maybe<TypeRunningNumber>
-  createTransfer: Maybe<TypeTransferResponse>
-  deleteBillOfMaterial: Maybe<TypeBillOfMaterial>
-  deleteCCTV: Maybe<TypeCctv>
-  deleteCCTVMotionCapture: Maybe<TypeCctvMotioncaptureDelete>
-  deleteCCTVToolkit: Maybe<TypeCctvToolkitPayload>
-  deleteContact: Maybe<TypeContact>
-  deleteDataSecurity: Maybe<TypeRoleDataSecurityList>
-  deleteDeclaration: Maybe<TypeDeclaration>
-  deleteDeclarationDetail: Maybe<TypeDeclarationDetail>
-  deleteFileUpload: Maybe<TypeFileupload>
-  deleteInvoice: Maybe<TypeInvoice>
-  deleteLocaleText: Maybe<TypeLocale>
-  deleteLocation: Maybe<TypeLocation>
-  deleteMasterData: Maybe<TypeMasterData>
-  deletePermission: Maybe<TypeRolePermissionList>
-  deleteProduct: Maybe<TypeProduct>
-  deleteProductProperty: Maybe<TypeProductProperty>
-  deleteProductRelocation: Maybe<TypeProductRelocation>
-  deleteProductRelocationByRef: Maybe<TypeProductRelocation>
-  deleteProductionOrderDetail: Maybe<TypeProductionOrderDetail>
-  deleteQuotation: Maybe<TypeQuotation>
-  deleteReportList: Maybe<TypeReportResponse>
-  deleteRunningNumber: Maybe<TypeRunningNumber>
-  deleteTransfer: Maybe<TypeTransferResponse>
-  genReoprt: Maybe<TypeReportResponse>
-  generateRunningNumber: Maybe<TypeGenerateRunningNumber>
-  importProduct: Maybe<TypeImportdataProduct>
-  reCalReportExport: Maybe<TypeScript>
-  registerCCTV: Maybe<TypeCctv>
-  registerCCTVToolkit: Maybe<TypeCctvToolkitPayload>
-  removeCCTVFromLocation: Maybe<TypeLocation>
-  runScript: Maybe<TypeScript>
-  syncCCTVData: Maybe<TypeCctvSync>
-  updateBillOfMaterail: Maybe<TypeBillOfMaterial>
-  updateCCTV: Maybe<TypeCctv>
-  updateCCTVToolkitConfig: Maybe<TypeCctvToolkitConfig>
-  updateContact: Maybe<TypeContact>
-  updateDataSecurity: Maybe<TypeRoleDataSecurityList>
-  updateDeclaration: Maybe<TypeDeclaration>
-  updateDeclarationContact: Maybe<TypeDeclaration>
-  updateDeclarationControl: Maybe<TypeDeclarationControl>
-  updateDeclarationDetail: Maybe<TypeDeclarationDetail>
-  updateDeclarationInvoice: Maybe<TypeDeclarationInvoice>
-  updateDeclarationNotFlow: Maybe<TypeDeclaration>
-  updateFileUpload: Maybe<TypeFileupload>
-  updateInvoice: Maybe<TypeInvoice>
-  updateLocaleText: Maybe<TypeLocale>
-  updateLocaleTextList: Maybe<TypeLocaleList>
-  updateLocation: Maybe<TypeLocation>
-  updateMasterData: Maybe<TypeMasterData>
-  updateOrgProperty: Maybe<TypeProperty>
-  updatePermission: Maybe<TypeRolePermissionList>
-  updateProduct: Maybe<TypeProduct>
-  updateProductProperty: Maybe<TypeProductProperty>
-  updateProductRelocation: Maybe<TypeProductRelocation>
-  updateProductionOrder: Maybe<TypeProductionOrder>
-  updateProductionOrderDetail: Maybe<TypeProductionOrderDetail>
-  updateQuotation: Maybe<TypeQuotation>
-  updateReport: Maybe<TypeReportResponse>
-  updateStatusCCTVToolkit: Maybe<TypeCctvToolkitPayload>
-  updateStatusProductionOrder: Maybe<TypeProductionOrder>
-  updateTransfer: Maybe<TypeTransferResponse>
+  _dummy: Maybe<Scalars['String']>
+  addAppSystemAdmin: Maybe<Type_Profile>
+  addContactEmail: Maybe<Type_App>
+  addEmailGlobal: Maybe<Type_Ok>
+  addGateway: Maybe<Type_Gateway_List>
+  addOrgAdmin: Maybe<Type_Profile>
+  addService: Maybe<Type_Service>
+  addServiceToApp: Maybe<Type_App_Service>
+  addSystemAdmin: Maybe<Type_Profile>
+  cancelNotificationMessage: Maybe<Type_Notification_Message>
+  changeOrgApprovalAttributeStatus: Maybe<Type_Organization_Approval_Response>
+  changeOrgStatus: Maybe<Type_Organization>
+  changePassword: Maybe<Type_Profile>
+  changeResourceAdminRoleApprovalAttributeStatus: Maybe<Type_Role_Aproval_Attribute>
+  changeResourceAdminRoleStatus: Maybe<Type_Role_Aproval_Attribute>
+  changeResourceOwnerRoleApprovalAttributeStatus: Maybe<Type_Role_Aproval_Attribute>
+  changeResourceOwnerRoleStatus: Maybe<Type_Role_Aproval_Attribute>
+  changeSystemAdminRoleApprovalAttributeStatus: Maybe<Type_Role_Aproval_Attribute>
+  changeSystemAdminRoleStatus: Maybe<Type_Role_Aproval_Attribute>
+  checkVerifyEmailOrg: Maybe<Type_Check_Verify_Email>
+  confirmOrgAdmin: Maybe<Type_Profile>
+  confirmPhoneNumberUser: Maybe<Type_Json>
+  confirmSystemAdmin: Maybe<Type_Reset_Password_Email>
+  createApp: Maybe<Type_App>
+  createCategory: Maybe<Type_Category>
+  createCredential: Maybe<Type_Credential>
+  createCustomMenu: Maybe<Type_Custom_Menu>
+  createLead: LeadResponse
+  createLeadNonAuthen: LeadResponse
+  createLeadToUser: LeadResponse
+  createLocaleText: Maybe<Type_Locale_Text>
+  createLocaleTextList: Maybe<Type_Locale_Text_List>
+  createMasterData: Maybe<Type_Master_Data>
+  createNotification: Maybe<Type_Notification_List>
+  createNotificationMessage: Maybe<Type_Notification_Message_Count_Payload>
+  createNotificationMessageForService: Maybe<Type_Notification_Message_Count_Payload>
+  createNotificationTemplate: Maybe<Type_Notification_Template>
+  createOrganization: Maybe<Type_Organization>
+  createOrganizationLabel: Maybe<Type_Organization_Label>
+  createOrganizationType: Maybe<Type_Organization_Type>
+  createRole: Maybe<Type_App_Role>
+  createRunningNumber: Maybe<Type_Running_Number>
+  deleteApp: Maybe<Type_App>
+  deleteCategory: Maybe<Type_Category>
+  deleteContactEmail: Maybe<Type_App>
+  deleteCredential: Maybe<Type_Credential>
+  deleteCustomMenu: Maybe<Type_Custom_Menu_List>
+  deleteDataSecurity: Maybe<Type_Role_Data_Security_List>
+  deleteEmailContact: Maybe<Type_Organization>
+  deleteGateway: Maybe<Type_Gateway_List>
+  deleteInvite: Maybe<Type_Invite>
+  deleteLead: LeadResponse
+  deleteLocaleText: Maybe<Type_Locale_Text>
+  deleteMasterData: Maybe<Type_Master_Data>
+  deleteMyUser: Maybe<Type_Profile>
+  deleteNotificationTemplate: Maybe<Type_Notification_Template>
+  deleteOrgAdmin: Maybe<Type_Profile>
+  deleteOrganization: Maybe<Type_Organization>
+  deleteOrganizationLabel: Maybe<Type_Organization_Label>
+  deleteOrganizationType: Maybe<Type_Organization_Type>
+  deletePermission: Maybe<Type_Role_Permission_List>
+  deleteResourceAdmin: Maybe<Type_Profile>
+  deleteResourceAdminPermission: Maybe<Type_Role_Permission_List>
+  deleteResourceOwnerPermission: Maybe<Type_Role_Permission_List>
+  deleteRole: Maybe<Type_App_Role>
+  deleteRunningNumber: Maybe<Type_Running_Number>
+  deleteService: Maybe<Type_Service>
+  deleteSystemAdmin: Maybe<Type_Profile>
+  deleteSystemAdminPermission: Maybe<Type_Role_Permission_List>
+  deleteTheme: Maybe<Type_Theme_Response>
+  deleteUserOrganization: Maybe<Type_Invite>
+  deleteUserOrganizationByUserId: Maybe<Type_Invite>
+  deleteVersionControl: Maybe<Type_Version_Control>
+  disableServiceFeature: Maybe<Type_Feature_List>
+  enableServiceFeature: Maybe<Type_Feature_List>
+  generateAuthCode: Maybe<Type_Login>
+  generateRunningNumber: Maybe<Type_Generate_Running_Number>
+  getAppAccessToken: Maybe<Type_App_Accees_Token>
+  getOrgAccessToken: Maybe<Type_Org_Accees_Token>
+  getS3GetObjectSignedUrl: Maybe<Type_S3_Signed_Url>
+  getS3PutObjectSignedUrl: Maybe<Type_S3_Signed_Url>
+  getTokenAuthCode: Maybe<Type_Login>
+  inviteOrganizationCode: Maybe<Type_Organization>
+  inviteUserOrganization: Maybe<Type_Invite>
+  kafkaCreateTopics: Maybe<Type_Json>
+  kafkaTopicsAddData: Maybe<Type_Json>
+  logOutUser: Maybe<Type_Logout>
+  loginApple: Maybe<Type_Login>
+  loginEmail: Maybe<Type_Login>
+  loginFacebook: Maybe<Type_Login>
+  loginGoogle: Maybe<Type_Login>
+  loginLine: Maybe<Type_Login>
+  loginPhoneNumber: Maybe<Type_Otp_Token_Payload>
+  loginPhoneNumberConfirm: Maybe<Type_Login>
+  loginPhoneNumberConfirmOrg: Maybe<Type_Login>
+  loginUsername: Maybe<Type_Login>
+  loginWithAuthCode: Maybe<Type_Auth_Code>
+  pinConfirm: Maybe<Type_Ok>
+  qualifyLead: LeadResponse
+  readAllNotification: Maybe<Type_Notification_List>
+  readNotification: Maybe<Type_Notification_List>
+  refreshAccessToken: Maybe<Type_Refresh_Access_Token>
+  refreshOrgAccessToken: Maybe<Type_Org_Accees_Token>
+  registerEmail: Maybe<Type_Email_Register>
+  registerOrgAdmin: Maybe<Type_Email_Register>
+  registerPhoneNumber: Maybe<Type_Email_Register>
+  registerUsername: Maybe<Type_Username_Register>
+  removeConfig: Maybe<Type_Remove_Config>
+  removePermissionRole: Maybe<Type_Role_Permission_List>
+  removeServiceFromApp: Maybe<Type_App_Service>
+  requestOtp: Maybe<Type_Json>
+  resendRegisterEmail: Maybe<Type_Email_Register>
+  resetPasswordEmail: Maybe<Type_Reset_Password_Email>
+  resetPasswordOtp: Maybe<Type_Reset_Password_Email>
+  s3UploadFile: Maybe<Type_S3_Signed_Url>
+  sendContactMail: Maybe<Type_Ok>
+  sendToVerifyEmailOrg: Maybe<Type_Ok>
+  singleUpload: File
+  syncAllUserData: Maybe<Type_Login>
+  syncApp: Maybe<Type_App_Service>
+  syncAppToService: Maybe<Type_Sync_App>
+  syncOrganization: Maybe<Type_Sync_Organization>
+  syncService: Maybe<Type_Sync_Service_Info>
+  updateApp: Maybe<Type_App>
+  updateAppAttribute: Maybe<Type_App>
+  updateCategory: Maybe<Type_Category>
+  updateConfig: Maybe<Type_Config>
+  updateCredential: Maybe<Type_Credential>
+  updateCredentialKey: Maybe<Type_Credential>
+  updateCustomMenu: Maybe<Type_Custom_Menu>
+  updateDataSecurity: Maybe<Type_Role_Data_Security_List>
+  updateGateway: Maybe<Type_Gateway_List>
+  updateLead: LeadResponse
+  updateLocaleText: Maybe<Type_Locale_Text>
+  updateMasterData: Maybe<Type_Master_Data>
+  updateMyProfile: Maybe<Type_Profile>
+  updateMyRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute>
+  updateNotificationTemplate: Maybe<Type_Notification_Template>
+  updateOAuth: Maybe<Type_O_Auth>
+  updateOrgAdminRole: Maybe<Type_Profile>
+  updateOrgApprovalAttribute: Maybe<Type_Organization_Approval_Response>
+  updateOrgKey: Maybe<Type_Organization>
+  updateOrgStatus: Maybe<Type_Organization>
+  updateOrganization: Maybe<Type_Organization>
+  updateOrganizationLabel: Maybe<Type_Organization_Label>
+  updateOrganizationType: Maybe<Type_Organization_Type>
+  updatePermission: Maybe<Type_Role_Permission_List>
+  updatePermissionRole: Maybe<Type_Role_Permission_List>
+  updateResourceAdmin: Maybe<Type_Profile>
+  updateResourceAdminPermission: Maybe<Type_Role_Permission_List>
+  updateResourceOwnerPermission: Maybe<Type_Role_Permission_List>
+  updateResourceOwnerProfile: Maybe<Type_Profile>
+  updateRole: Maybe<Type_App_Role>
+  updateSecretKey: Maybe<Type_Credential>
+  updateSystemAdminPermission: Maybe<Type_Role_Permission_List>
+  updateSystemAdminProfile: Maybe<Type_Profile>
+  updateTheme: Maybe<Type_Theme_Response>
+  updateVersionControl: Maybe<Type_Version_Control>
+  verifyEmail: Maybe<Type_Email_Register>
+  verifyEmailGlobal: Maybe<Type_Ok>
+  verifyEmailOrganization: Maybe<Type_Organization>
+  verifyInviteOrganization: Maybe<Type_Invite>
+  verifyOtp: Maybe<Type_Json>
+  verifyPasswordEmail: Maybe<Type_Reset_Password_Email>
+  verifyPhoneNumberUser: Maybe<Type_Json>
 }
 
-export type MutationAddCctvToLocationArgs = {
-  input?: InputMaybe<InputCctvToLocation>
+export type MutationAddAppSystemAdminArgs = {
+  appKey: Scalars['String']
+  input?: InputMaybe<Input_Email_Register_Input>
 }
 
-export type MutationCalReportArgs = {
-  reportId: Scalars['String']
+export type MutationAddContactEmailArgs = {
+  appKey: Scalars['String']
+  emailList?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type MutationCancelDeclarationArgs = {
-  declarationId: Scalars['ID']
+export type MutationAddEmailGlobalArgs = {
+  input?: InputMaybe<Input_Add_Email>
 }
 
-export type MutationCancelProductionOrderArgs = {
-  productionOrderId: Scalars['ID']
+export type MutationAddGatewayArgs = {
+  input: Input_Gateway
 }
 
-export type MutationCleanDataDeclarationAndReportArgs = {
-  declarationNoList: Array<Scalars['String']>
+export type MutationAddOrgAdminArgs = {
+  email: Scalars['String']
+  orgKey: Scalars['String']
+  roleList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type MutationCleanDeclarationByFileKeyArgs = {
-  declarationNoList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  fileKey: Scalars['String']
+export type MutationAddServiceArgs = {
+  input?: InputMaybe<Input_Create_Service>
 }
 
-export type MutationConfirmDeclarationArgs = {
-  declarationId: Scalars['ID']
+export type MutationAddServiceToAppArgs = {
+  serviceKey: Scalars['String']
 }
 
-export type MutationConfirmTransferArgs = {
-  transferId: Scalars['ID']
+export type MutationAddSystemAdminArgs = {
+  input?: InputMaybe<Input_Admin>
 }
 
-export type MutationCreateBillOfMaterialArgs = {
-  input?: InputMaybe<InputBillOfMaterial>
+export type MutationCancelNotificationMessageArgs = {
+  notificationMessageIds: Array<Scalars['ID']>
 }
 
-export type MutationCreateCctvArgs = {
-  input?: InputMaybe<InputCctv>
-  tkSerialNumberList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+export type MutationChangeOrgApprovalAttributeStatusArgs = {
+  input?: InputMaybe<Input_Org_Approval_Attribute_Status>
 }
 
-export type MutationCreateContactArgs = {
-  input?: InputMaybe<InputContact>
+export type MutationChangeOrgStatusArgs = {
+  input: Input_Org_Status
 }
 
-export type MutationCreateDeclarationArgs = {
-  input?: InputMaybe<InputDeclaration>
+export type MutationChangePasswordArgs = {
+  confirmPassword: Scalars['String']
+  newPassword: Scalars['String']
+  password: Scalars['String']
 }
 
-export type MutationCreateDeclarationByInvoiceArgs = {
-  invoiceId: Scalars['ID']
+export type MutationChangeResourceAdminRoleApprovalAttributeStatusArgs = {
+  input?: InputMaybe<Input_Role_Approval_Attribute_Status>
 }
 
-export type MutationCreateDeclarationNotFlowArgs = {
-  input?: InputMaybe<InputDeclaration>
+export type MutationChangeResourceAdminRoleStatusArgs = {
+  input?: InputMaybe<Input_User_Role_Status>
 }
 
-export type MutationCreateFileUploadArgs = {
-  input?: InputMaybe<InputFileupload>
+export type MutationChangeResourceOwnerRoleApprovalAttributeStatusArgs = {
+  input?: InputMaybe<Input_Role_Approval_Attribute_Status>
 }
 
-export type MutationCreateInvoiceArgs = {
-  input?: InputMaybe<InputInvoice>
+export type MutationChangeResourceOwnerRoleStatusArgs = {
+  input?: InputMaybe<Input_User_Role_Status>
+}
+
+export type MutationChangeSystemAdminRoleApprovalAttributeStatusArgs = {
+  input?: InputMaybe<Input_Role_Approval_Attribute_Status>
+}
+
+export type MutationChangeSystemAdminRoleStatusArgs = {
+  input?: InputMaybe<Input_User_Role_Status>
+}
+
+export type MutationCheckVerifyEmailOrgArgs = {
+  email: Scalars['String']
+}
+
+export type MutationConfirmOrgAdminArgs = {
+  email: Scalars['String']
+  verifyToken?: InputMaybe<Scalars['String']>
+}
+
+export type MutationConfirmPhoneNumberUserArgs = {
+  otpCode: Scalars['String']
+  phoneNumber: Scalars['String']
+}
+
+export type MutationConfirmSystemAdminArgs = {
+  input?: InputMaybe<Input_Verify_Password_System_Admin_Email>
+}
+
+export type MutationCreateAppArgs = {
+  input?: InputMaybe<Input_App_Form>
+}
+
+export type MutationCreateCategoryArgs = {
+  input?: InputMaybe<Input_Category>
+}
+
+export type MutationCreateCredentialArgs = {
+  credentialInput?: InputMaybe<Input_Credential_Form>
+}
+
+export type MutationCreateCustomMenuArgs = {
+  input?: InputMaybe<Input_Schema_Custom_Menu>
+}
+
+export type MutationCreateLeadArgs = {
+  input: CreateLeadInput
+}
+
+export type MutationCreateLeadNonAuthenArgs = {
+  input: CreateLeadInput
+}
+
+export type MutationCreateLeadToUserArgs = {
+  input: CreateLeadInput
 }
 
 export type MutationCreateLocaleTextArgs = {
-  input?: InputMaybe<InputLocaleTextForm>
+  input?: InputMaybe<Input_Locale_Text_Form>
 }
 
 export type MutationCreateLocaleTextListArgs = {
-  inputList: Array<InputLocaleTextForm>
-}
-
-export type MutationCreateLocationArgs = {
-  input?: InputMaybe<InputLocation>
+  inputList: Array<Input_Locale_Text_Form>
 }
 
 export type MutationCreateMasterDataArgs = {
-  localeInputList?: InputMaybe<Array<InputMaybe<InputLocaleMasterData>>>
-  masterDataInput?: InputMaybe<InputMasterData>
+  input?: InputMaybe<Input_Master_Data>
 }
 
-export type MutationCreateProductArgs = {
-  input?: InputMaybe<InputProduct>
+export type MutationCreateNotificationArgs = {
+  from: Scalars['String']
+  input: Input_Notification
+  to: Array<Scalars['String']>
 }
 
-export type MutationCreateProductPropertyArgs = {
-  input?: InputMaybe<InputProductProperty>
+export type MutationCreateNotificationMessageArgs = {
+  channel?: InputMaybe<Input_Notification_Message_Channel>
+  input?: InputMaybe<Input_Notification_Message>
+  sendAt: Scalars['Date']
+  serviceKey: Scalars['String']
+  to: Array<Scalars['String']>
 }
 
-export type MutationCreateProductionOrderArgs = {
-  input?: InputMaybe<InputProductionOrder>
+export type MutationCreateNotificationMessageForServiceArgs = {
+  appKey: Scalars['String']
+  channel?: InputMaybe<Input_Notification_Message_Channel>
+  input?: InputMaybe<Input_Notification_Message>
+  sendAt: Scalars['Date']
+  serviceKey: Scalars['String']
+  to: Array<Scalars['String']>
 }
 
-export type MutationCreateQuotationArgs = {
-  input?: InputMaybe<InputQuotation>
+export type MutationCreateNotificationTemplateArgs = {
+  input?: InputMaybe<Input_Scmema_Notification_Template>
 }
 
-export type MutationCreateReportArgs = {
-  input?: InputMaybe<InputReport>
+export type MutationCreateOrganizationArgs = {
+  input?: InputMaybe<Input_Organization_Form>
+}
+
+export type MutationCreateOrganizationLabelArgs = {
+  input?: InputMaybe<Input_Organiztion_Label>
+}
+
+export type MutationCreateOrganizationTypeArgs = {
+  input?: InputMaybe<Input_Organiztion_Type>
+}
+
+export type MutationCreateRoleArgs = {
+  roleInput?: InputMaybe<Input_Role_From>
 }
 
 export type MutationCreateRunningNumberArgs = {
-  input?: InputMaybe<InputRunningNumber>
+  input?: InputMaybe<Input_Running_Number>
 }
 
-export type MutationCreateTransferArgs = {
-  input?: InputMaybe<InputTransfer>
+export type MutationDeleteAppArgs = {
+  appKey: Scalars['String']
 }
 
-export type MutationDeleteBillOfMaterialArgs = {
-  billOfMaterialId: Scalars['ID']
+export type MutationDeleteCategoryArgs = {
+  categoryId: Scalars['String']
 }
 
-export type MutationDeleteCctvArgs = {
-  IdList?: InputMaybe<Array<Scalars['ID']>>
+export type MutationDeleteContactEmailArgs = {
+  appKey: Scalars['String']
+  emailList?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type MutationDeleteCctvMotionCaptureArgs = {
-  input?: InputMaybe<InputDeleteCctvMotion>
+export type MutationDeleteCredentialArgs = {
+  credentialKey: Scalars['String']
 }
 
-export type MutationDeleteCctvToolkitArgs = {
-  cctvToolkitID: Scalars['ID']
-}
-
-export type MutationDeleteContactArgs = {
-  contactId: Scalars['ID']
+export type MutationDeleteCustomMenuArgs = {
+  customMenuIdList: Array<InputMaybe<Scalars['ID']>>
 }
 
 export type MutationDeleteDataSecurityArgs = {
@@ -1354,22 +1377,22 @@ export type MutationDeleteDataSecurityArgs = {
   securityKeyList?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type MutationDeleteDeclarationArgs = {
-  declarationId: Scalars['ID']
+export type MutationDeleteEmailContactArgs = {
+  email: Scalars['String']
+  orgKey: Scalars['String']
 }
 
-export type MutationDeleteDeclarationDetailArgs = {
-  declarationDetailId: Scalars['ID']
-  declarationId: Scalars['ID']
+export type MutationDeleteGatewayArgs = {
+  gatewayId: Scalars['ID']
 }
 
-export type MutationDeleteFileUploadArgs = {
-  fileKey: Scalars['String']
-  refId: Scalars['String']
+export type MutationDeleteInviteArgs = {
+  inviteId: Scalars['ID']
+  orgKey: Scalars['String']
 }
 
-export type MutationDeleteInvoiceArgs = {
-  invoiceId: Scalars['ID']
+export type MutationDeleteLeadArgs = {
+  leadId: Scalars['String']
 }
 
 export type MutationDeleteLocaleTextArgs = {
@@ -1377,12 +1400,30 @@ export type MutationDeleteLocaleTextArgs = {
   orgKey?: InputMaybe<Scalars['String']>
 }
 
-export type MutationDeleteLocationArgs = {
-  productLocationId: Scalars['ID']
+export type MutationDeleteMasterDataArgs = {
+  changeTo?: InputMaybe<Scalars['String']>
+  dataKey: Scalars['String']
 }
 
-export type MutationDeleteMasterDataArgs = {
-  dataKey: Scalars['String']
+export type MutationDeleteNotificationTemplateArgs = {
+  templateKey: Scalars['String']
+}
+
+export type MutationDeleteOrgAdminArgs = {
+  orgKey: Scalars['String']
+  userId: Scalars['ID']
+}
+
+export type MutationDeleteOrganizationArgs = {
+  orgKey: Scalars['String']
+}
+
+export type MutationDeleteOrganizationLabelArgs = {
+  orgLabelId: Scalars['ID']
+}
+
+export type MutationDeleteOrganizationTypeArgs = {
+  orgTypeId: Scalars['ID']
 }
 
 export type MutationDeletePermissionArgs = {
@@ -1390,486 +1431,932 @@ export type MutationDeletePermissionArgs = {
   roleKey: Scalars['String']
 }
 
-export type MutationDeleteProductArgs = {
-  productId: Scalars['ID']
+export type MutationDeleteResourceAdminArgs = {
+  userId: Scalars['ID']
 }
 
-export type MutationDeleteProductPropertyArgs = {
-  productPropertyId: Scalars['ID']
+export type MutationDeleteResourceAdminPermissionArgs = {
+  appKey: Scalars['String']
+  permissionKeyList?: InputMaybe<Array<Scalars['String']>>
+  roleKey: Scalars['String']
 }
 
-export type MutationDeleteProductRelocationArgs = {
-  productRelocationId: Scalars['ID']
+export type MutationDeleteResourceOwnerPermissionArgs = {
+  appKey: Scalars['String']
+  permissionKeyList?: InputMaybe<Array<Scalars['String']>>
+  roleKey: Scalars['String']
 }
 
-export type MutationDeleteProductRelocationByRefArgs = {
-  ref: Scalars['String']
-}
-
-export type MutationDeleteProductionOrderDetailArgs = {
-  productionOrderDetailId: Scalars['ID']
-  productionOrderId: Scalars['ID']
-}
-
-export type MutationDeleteQuotationArgs = {
-  quotationId: Scalars['ID']
-}
-
-export type MutationDeleteReportListArgs = {
-  input?: InputMaybe<InputDeleteReportList>
+export type MutationDeleteRoleArgs = {
+  roleKeyToDelete: Scalars['String']
+  roleKeyToMove: Scalars['String']
 }
 
 export type MutationDeleteRunningNumberArgs = {
   runningId?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type MutationDeleteTransferArgs = {
-  transferId?: InputMaybe<Scalars['ID']>
+export type MutationDeleteServiceArgs = {
+  serviceKey: Scalars['String']
 }
 
-export type MutationGenReoprtArgs = {
-  reportId: Scalars['String']
+export type MutationDeleteSystemAdminArgs = {
+  userId: Scalars['ID']
+}
+
+export type MutationDeleteSystemAdminPermissionArgs = {
+  appKey: Scalars['String']
+  permissionKeyList?: InputMaybe<Array<Scalars['String']>>
+  roleKey: Scalars['String']
+}
+
+export type MutationDeleteThemeArgs = {
+  themeKey: Scalars['String']
+}
+
+export type MutationDeleteUserOrganizationArgs = {
+  inviteId: Scalars['ID']
+  orgKey: Scalars['String']
+}
+
+export type MutationDeleteUserOrganizationByUserIdArgs = {
+  orgKey: Scalars['String']
+  userId: Scalars['ID']
+}
+
+export type MutationDeleteVersionControlArgs = {
+  versionKey?: InputMaybe<Scalars['String']>
+}
+
+export type MutationDisableServiceFeatureArgs = {
+  featureKeyList?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type MutationEnableServiceFeatureArgs = {
+  featureKeyList?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type MutationGenerateRunningNumberArgs = {
-  input?: InputMaybe<InputGenerateRunningNumber>
+  input?: InputMaybe<Input_Generate_Running_Number>
 }
 
-export type MutationImportProductArgs = {
-  fileKey: Scalars['String']
+export type MutationGetAppAccessTokenArgs = {
+  appKey: Scalars['String']
 }
 
-export type MutationReCalReportExportArgs = {
-  decNoArray?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  orgKey?: InputMaybe<Scalars['String']>
+export type MutationGetOrgAccessTokenArgs = {
+  accessToken: Scalars['String']
+  orgKey: Scalars['String']
 }
 
-export type MutationRegisterCctvArgs = {
-  input?: InputMaybe<InputCctv>
+export type MutationGetS3GetObjectSignedUrlArgs = {
+  fileKeys?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type MutationRegisterCctvToolkitArgs = {
-  input?: InputMaybe<InputSchemaCctvToolkitRegister>
+export type MutationGetS3PutObjectSignedUrlArgs = {
+  inputs?: InputMaybe<Array<InputMaybe<Input_S3_Put_Object_Signed_Url>>>
+  userId?: InputMaybe<Scalars['ID']>
 }
 
-export type MutationRemoveCctvFromLocationArgs = {
-  input?: InputMaybe<InputCctvFromLocation>
+export type MutationGetTokenAuthCodeArgs = {
+  code: Scalars['String']
 }
 
-export type MutationRunScriptArgs = {
-  scriptKey?: InputMaybe<Scalars['String']>
+export type MutationInviteOrganizationCodeArgs = {
+  inviteCode: Scalars['String']
 }
 
-export type MutationSyncCctvDataArgs = {
-  input?: InputMaybe<InputCctvSync>
+export type MutationInviteUserOrganizationArgs = {
+  emailList?: InputMaybe<Array<InputMaybe<Input_Invite_Email_List>>>
+  orgKey: Scalars['String']
 }
 
-export type MutationUpdateBillOfMaterailArgs = {
-  billOfMaterialId: Scalars['ID']
-  input?: InputMaybe<InputBillOfMaterial>
+export type MutationKafkaCreateTopicsArgs = {
+  numPartitions: Scalars['Number']
+  replicationFactor: Scalars['Number']
+  topicName: Scalars['String']
 }
 
-export type MutationUpdateCctvArgs = {
-  Id: Scalars['ID']
-  input?: InputMaybe<InputCctv>
-  tkSerialNumberList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+export type MutationKafkaTopicsAddDataArgs = {
+  data?: InputMaybe<Scalars['JSON']>
+  serviceList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  topicName: Scalars['String']
 }
 
-export type MutationUpdateCctvToolkitConfigArgs = {
-  input?: InputMaybe<InputSchemaCctvToolkitConfig>
-  tkSerialNumber: Scalars['String']
+export type MutationLogOutUserArgs = {
+  userId: Scalars['String']
 }
 
-export type MutationUpdateContactArgs = {
-  contactId: Scalars['ID']
-  input?: InputMaybe<InputContact>
+export type MutationLoginAppleArgs = {
+  appleToken: Scalars['String']
+  userId: Scalars['String']
+}
+
+export type MutationLoginEmailArgs = {
+  authType: Enum_Auth_Type
+  email: Scalars['String']
+  password: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginFacebookArgs = {
+  authType: Enum_Auth_Type
+  facebookToken: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginGoogleArgs = {
+  authType: Enum_Auth_Type
+  googleToken: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginLineArgs = {
+  authType: Enum_Auth_Type
+  lineToken: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginPhoneNumberArgs = {
+  phoneNumber: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginPhoneNumberConfirmArgs = {
+  otpCode: Scalars['String']
+  phoneNumber: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginPhoneNumberConfirmOrgArgs = {
+  otpCode: Scalars['String']
+  phoneNumber: Scalars['String']
+  redirectUrl?: InputMaybe<Scalars['String']>
+}
+
+export type MutationLoginUsernameArgs = {
+  password: Scalars['String']
+  username: Scalars['String']
+}
+
+export type MutationLoginWithAuthCodeArgs = {
+  input: Input_Login_Auth_Code
+}
+
+export type MutationPinConfirmArgs = {
+  pin: Scalars['String']
+}
+
+export type MutationQualifyLeadArgs = {
+  leadId: Scalars['String']
+}
+
+export type MutationReadNotificationArgs = {
+  notificationIdList: Array<Scalars['String']>
+}
+
+export type MutationRefreshAccessTokenArgs = {
+  refreshToken: Scalars['String']
+}
+
+export type MutationRefreshOrgAccessTokenArgs = {
+  refreshOrgToken: Scalars['String']
+}
+
+export type MutationRegisterEmailArgs = {
+  input?: InputMaybe<Input_Email_Register_Input>
+}
+
+export type MutationRegisterOrgAdminArgs = {
+  input?: InputMaybe<Input_Org_Admin_Register_Input>
+}
+
+export type MutationRegisterPhoneNumberArgs = {
+  input?: InputMaybe<Input_Phone_Number_Register_Input>
+}
+
+export type MutationRegisterUsernameArgs = {
+  input?: InputMaybe<Input_Username_Register>
+}
+
+export type MutationRemoveConfigArgs = {
+  configKey: Scalars['String']
+}
+
+export type MutationRemovePermissionRoleArgs = {
+  appKey: Scalars['String']
+  permissionKeyList?: InputMaybe<Array<Scalars['String']>>
+  roleKey: Scalars['String']
+}
+
+export type MutationRemoveServiceFromAppArgs = {
+  appKey: Scalars['String']
+  serviceKey: Scalars['String']
+}
+
+export type MutationRequestOtpArgs = {
+  phoneNumber: Scalars['String']
+}
+
+export type MutationResendRegisterEmailArgs = {
+  email: Scalars['String']
+}
+
+export type MutationResetPasswordEmailArgs = {
+  email: Scalars['String']
+}
+
+export type MutationResetPasswordOtpArgs = {
+  input?: InputMaybe<Input_Request_Otp>
+}
+
+export type MutationS3UploadFileArgs = {
+  file?: InputMaybe<Scalars['FileUpload']>
+  userId?: InputMaybe<Scalars['ID']>
+}
+
+export type MutationSendContactMailArgs = {
+  input?: InputMaybe<Input_Send_Mail_Form>
+}
+
+export type MutationSendToVerifyEmailOrgArgs = {
+  email: Scalars['String']
+}
+
+export type MutationSingleUploadArgs = {
+  file: Scalars['FileUpload']
+}
+
+export type MutationSyncAppArgs = {
+  appKey: Scalars['String']
+  serviceKey?: InputMaybe<Scalars['String']>
+}
+
+export type MutationSyncAppToServiceArgs = {
+  appKeyList?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type MutationSyncOrganizationArgs = {
+  orgKeyList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type MutationSyncServiceArgs = {
+  serviceKeyList?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type MutationUpdateAppArgs = {
+  appInput?: InputMaybe<Input_Update_App>
+  appKey: Scalars['String']
+}
+
+export type MutationUpdateAppAttributeArgs = {
+  attributeInput: Scalars['JSON']
+}
+
+export type MutationUpdateCategoryArgs = {
+  categoryId: Scalars['String']
+  input?: InputMaybe<Input_Category>
+}
+
+export type MutationUpdateConfigArgs = {
+  input?: InputMaybe<Input_Config_Form>
+}
+
+export type MutationUpdateCredentialArgs = {
+  credentialInput?: InputMaybe<Input_Credential_Form_Update>
+  credentialKey: Scalars['String']
+}
+
+export type MutationUpdateCredentialKeyArgs = {
+  credentialKey: Scalars['String']
+  newCredentialKey: Scalars['String']
+}
+
+export type MutationUpdateCustomMenuArgs = {
+  customMenuId: Scalars['ID']
+  input?: InputMaybe<Input_Schema_Custom_Menu>
 }
 
 export type MutationUpdateDataSecurityArgs = {
   roleKey: Scalars['String']
-  securityList?: InputMaybe<Array<InputMaybe<InputDataSecurityForm>>>
+  securityList?: InputMaybe<Array<InputMaybe<Input_Data_Security_Form>>>
 }
 
-export type MutationUpdateDeclarationArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputDeclaration>
+export type MutationUpdateGatewayArgs = {
+  gatewayId: Scalars['ID']
+  input: Input_Gateway
 }
 
-export type MutationUpdateDeclarationContactArgs = {
-  contactId: Scalars['ID']
-  declarationId: Scalars['ID']
-}
-
-export type MutationUpdateDeclarationControlArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputDeclarationControl>
-}
-
-export type MutationUpdateDeclarationDetailArgs = {
-  declarationDetailId?: InputMaybe<Scalars['ID']>
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputDeclarationDetail>
-}
-
-export type MutationUpdateDeclarationInvoiceArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputDeclarationInvoice>
-}
-
-export type MutationUpdateDeclarationNotFlowArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputDeclaration>
-}
-
-export type MutationUpdateFileUploadArgs = {
-  id: Scalars['ID']
-  input?: InputMaybe<InputFileupload>
-}
-
-export type MutationUpdateInvoiceArgs = {
-  input?: InputMaybe<InputInvoiceUpdate>
-  invoiceId: Scalars['ID']
+export type MutationUpdateLeadArgs = {
+  input: CreateLeadInput
+  leadId: Scalars['String']
 }
 
 export type MutationUpdateLocaleTextArgs = {
-  dataInput?: InputMaybe<InputLocaleTextForm>
+  dataInput?: InputMaybe<Input_Locale_Text_Form>
   dataKey: Scalars['String']
   orgKey?: InputMaybe<Scalars['String']>
 }
 
-export type MutationUpdateLocaleTextListArgs = {
-  inputList: Array<InputLocaleTextForm>
-}
-
-export type MutationUpdateLocationArgs = {
-  input?: InputMaybe<InputLocation>
-  productLocationId: Scalars['ID']
-}
-
 export type MutationUpdateMasterDataArgs = {
+  dataInput?: InputMaybe<Input_Master_Data>
   dataKey: Scalars['String']
-  localeInputList?: InputMaybe<Array<InputMaybe<InputLocaleMasterData>>>
-  masterDataInput?: InputMaybe<InputMasterData>
 }
 
-export type MutationUpdateOrgPropertyArgs = {
-  input?: InputMaybe<InputProperty>
+export type MutationUpdateMyProfileArgs = {
+  input?: InputMaybe<Input_Update_Profile>
+}
+
+export type MutationUpdateMyRoleApprovalAttributeArgs = {
+  roleKey: Scalars['String']
+  secureAttibute?: InputMaybe<Scalars['JSON']>
+}
+
+export type MutationUpdateNotificationTemplateArgs = {
+  templateInput?: InputMaybe<Input_Scmema_Notification_Template>
+  templateKey: Scalars['String']
+}
+
+export type MutationUpdateOAuthArgs = {
+  input?: InputMaybe<Input_O_Auth_Form>
+}
+
+export type MutationUpdateOrgAdminRoleArgs = {
+  orgKey: Scalars['String']
+  roleList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  userId: Scalars['ID']
+}
+
+export type MutationUpdateOrgApprovalAttributeArgs = {
+  input?: InputMaybe<Input_Organization_Approval_Form>
+}
+
+export type MutationUpdateOrgKeyArgs = {
+  newOrgKey: Scalars['String']
+  orgKey: Scalars['String']
+}
+
+export type MutationUpdateOrgStatusArgs = {
+  note?: InputMaybe<Scalars['String']>
+  orgKey: Scalars['String']
+  status?: InputMaybe<Enum_Organization_Status>
+}
+
+export type MutationUpdateOrganizationArgs = {
+  input?: InputMaybe<Input_Organization_Update>
+  orgKey: Scalars['String']
+  parentOrgKey?: InputMaybe<Scalars['String']>
+}
+
+export type MutationUpdateOrganizationLabelArgs = {
+  input?: InputMaybe<Input_Organiztion_Label>
+  orgLabelId: Scalars['ID']
+}
+
+export type MutationUpdateOrganizationTypeArgs = {
+  input?: InputMaybe<Input_Organiztion_Type>
+  orgTypeId: Scalars['ID']
 }
 
 export type MutationUpdatePermissionArgs = {
-  permissionList?: InputMaybe<Array<InputMaybe<InputPermissionForm>>>
+  permissionList?: InputMaybe<Array<InputMaybe<Input_Permission_Form>>>
   roleKey: Scalars['String']
 }
 
-export type MutationUpdateProductArgs = {
-  input?: InputMaybe<InputProduct>
-  productId: Scalars['ID']
+export type MutationUpdatePermissionRoleArgs = {
+  appKey: Scalars['String']
+  permissionList?: InputMaybe<Array<Input_Permission_Form>>
+  roleKey: Scalars['String']
 }
 
-export type MutationUpdateProductPropertyArgs = {
-  input?: InputMaybe<InputProductProperty>
-  productPropertyId: Scalars['ID']
+export type MutationUpdateResourceAdminArgs = {
+  adminInput?: InputMaybe<Input_Update_Profile>
+  userId: Scalars['ID']
 }
 
-export type MutationUpdateProductRelocationArgs = {
-  input?: InputMaybe<InputProductRelocation>
-  productRelocationId?: InputMaybe<Scalars['String']>
+export type MutationUpdateResourceAdminPermissionArgs = {
+  appKey: Scalars['String']
+  permissionList?: InputMaybe<Array<InputMaybe<Input_Permission_Form>>>
+  roleKey: Scalars['String']
 }
 
-export type MutationUpdateProductionOrderArgs = {
-  input?: InputMaybe<InputProductionOrder>
-  productionOrderId: Scalars['ID']
+export type MutationUpdateResourceOwnerPermissionArgs = {
+  appKey: Scalars['String']
+  permissionList?: InputMaybe<Array<InputMaybe<Input_Permission_Form>>>
+  roleKey: Scalars['String']
 }
 
-export type MutationUpdateProductionOrderDetailArgs = {
-  input?: InputMaybe<InputProductionOrderDetail>
-  productionOrderDetailId?: InputMaybe<Scalars['ID']>
-  productionOrderId: Scalars['ID']
+export type MutationUpdateResourceOwnerProfileArgs = {
+  input?: InputMaybe<Input_Update_Profile>
+  resourceOwnerId: Scalars['ID']
 }
 
-export type MutationUpdateQuotationArgs = {
-  input?: InputMaybe<InputQuotationUpdate>
-  quotationId: Scalars['ID']
+export type MutationUpdateRoleArgs = {
+  roleInput?: InputMaybe<Input_Role_From>
+  roleKey: Scalars['String']
 }
 
-export type MutationUpdateReportArgs = {
-  input?: InputMaybe<InputUpdateReport>
+export type MutationUpdateSecretKeyArgs = {
+  credentialKey: Scalars['String']
+  newSecretKey: Scalars['String']
 }
 
-export type MutationUpdateStatusCctvToolkitArgs = {
-  cctvToolkitID: Scalars['ID']
-  status: EnumCctvToolkitStatusUpdate
+export type MutationUpdateSystemAdminPermissionArgs = {
+  appKey: Scalars['String']
+  permissionList?: InputMaybe<Array<InputMaybe<Input_Permission_Form>>>
+  roleKey: Scalars['String']
 }
 
-export type MutationUpdateStatusProductionOrderArgs = {
-  productionOrderId: Scalars['ID']
-  status: EnumProductionOrderStatus
+export type MutationUpdateSystemAdminProfileArgs = {
+  input?: InputMaybe<Input_Update_Profile>
+  systemAdminId: Scalars['ID']
 }
 
-export type MutationUpdateTransferArgs = {
-  input?: InputMaybe<InputTransfer>
-  transferId: Scalars['ID']
+export type MutationUpdateThemeArgs = {
+  input?: InputMaybe<Input_Theme_Form>
 }
 
-export type OrganizationList = {
+export type MutationUpdateVersionControlArgs = {
+  attribute?: InputMaybe<Scalars['JSON']>
+  versionKey?: InputMaybe<Scalars['String']>
+}
+
+export type MutationVerifyEmailArgs = {
+  input?: InputMaybe<Input_Verify_Email>
+}
+
+export type MutationVerifyEmailGlobalArgs = {
+  input?: InputMaybe<Input_Verify_Email>
+}
+
+export type MutationVerifyEmailOrganizationArgs = {
+  email: Scalars['String']
+  verifyToken?: InputMaybe<Scalars['String']>
+}
+
+export type MutationVerifyInviteOrganizationArgs = {
+  code: Scalars['String']
+}
+
+export type MutationVerifyOtpArgs = {
+  otpCode: Scalars['String']
+  phoneNumber: Scalars['String']
+}
+
+export type MutationVerifyPasswordEmailArgs = {
+  input?: InputMaybe<Input_Verify_Password_Email>
+}
+
+export type MutationVerifyPhoneNumberUserArgs = {
+  phoneNumber: Scalars['String']
+}
+
+export type Organization_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeOrganizationResponse>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Organization_Response>>>
+}
+
+export type PaginatedFindType = {
+  /** จำนวนสูงสุดที่ดึงใน 1 หน้า */
+  limit?: InputMaybe<Scalars['Int']>
+  /** หน้าที่เลือก */
+  page?: InputMaybe<Scalars['Int']>
+}
+
+export type PaginatedType = {
+  /** จำนวนสูงสุดที่ดึงใน 1 หน้า */
+  limit: Scalars['Int']
+  /** หมายเลขหน้า */
+  page: Scalars['Int']
+  /** จำนวน item ทั้งหมด */
+  totalItems: Scalars['Int']
+  /** จำนวนหน้าทั้งหมด */
+  totalPages: Scalars['Int']
+}
+
+export type Phone = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type PhoneResp = {
+  value: Scalars['String']
 }
 
 export type Query = {
-  CCTVInLocation: Maybe<TypeCctvList>
   _dummy: Maybe<Scalars['String']>
-  checkDataBillOfMaterial: Maybe<TypeProductOverloadList>
-  checkLost: Maybe<TypePropertyOverMaxLost>
-  generateLocationList: Maybe<TypeProductRelocationLocationList>
-  getCCTV: Maybe<TypeCctvList>
-  getCCTVConfigVersion: Maybe<TypeCctvTookitVersion>
-  getCCTVForReport: Maybe<TypeCctvList>
-  getCCTVMotionCapture: Maybe<TypeCctvMotioncaptureList>
-  getCCTVMotionCaptureReport: Maybe<TypeCctvMotioncaptureList>
-  getCCTVRecording: Maybe<TypeCctvRecordingList>
-  getCCTVRecordingReport: Maybe<TypeCctvRecordingList>
-  getCCTVSync: Maybe<TypeCctvSyncData>
-  getCCTVTookitConfig: Maybe<TypeCctvToolkitConfig>
-  getCCTVToolkit: Maybe<TypeCctvToolkitPayloadList>
-  getDataBillOfMaterial: Maybe<TypeBillOfMaterialList>
-  getDataRunningNumber: Maybe<TypeRunningNumberList>
-  getDataSecurityRole: Maybe<TypeDataSecurityList>
-  getFileUpload: Maybe<TypeFileuploadList>
-  getHello: Maybe<Scalars['String']>
-  getInvoice: Maybe<TypeInvoiceList>
-  getLocale: Maybe<TypeLocaleList>
-  getLocaleText: Maybe<TypeLocaleTextList>
-  getMasterData: Maybe<TypeMasterDataList>
-  getMyPermission: Maybe<TypeRolePermissionUserList>
-  getOrgContact: Maybe<TypeContactList>
-  getOrgDeclaration: Maybe<TypeDeclarationList>
-  getOrgDeclarationControl: Maybe<TypeDeclarationControlList>
-  getOrgDeclarationDetail: Maybe<TypeDeclarationDetailList>
-  getOrgDeclarationInvoice: Maybe<TypeDeclarationInvoiceList>
-  getOrgKeyLocaleText: Maybe<TypeOrgKeyList>
-  getOrgLocation: Maybe<TypeLocationList>
-  getOrgProduct: Maybe<TypeProductList>
-  getOrgProductLocation: Maybe<TypeProductLocationList>
-  getOrgProductProperty: Maybe<TypeProductPropertyList>
-  getOrgProductRelocation: Maybe<TypeProductRelocationList>
-  getOrgProductionOrder: Maybe<TypeProductionOrderList>
-  getOrgProductionOrderDetail: Maybe<TypeProductionOrderDetailList>
-  getOrgProperty: Maybe<TypeProperty>
-  getOrgTransfer: Maybe<TypeTransferListResponse>
-  getPermissionRole: Maybe<TypePermissionList>
-  getProductsByBOM: Maybe<TypeProductByBomList>
-  getQuotation: Maybe<TypeQuotationList>
-  getReportList: Maybe<TypeReportListResponse>
-  getReportStatusList: Maybe<TypeReportConstantListResponse>
-  getReportSubTypeList: Maybe<TypeReportConstantListResponse>
-  getReportTypeList: Maybe<TypeReportConstantListResponse>
-  getRole: Maybe<TypeAppRoleList>
-  getServiceInfo: Maybe<TypeServiceInfo>
-  healthCheckCCTVToolKit: Maybe<TypeCctvToolkitHealthCheckPayload>
-  recalReport: Maybe<TypeWebhook>
-  webhookReport: Maybe<TypeWebhook>
+  exportUser: Maybe<Type_Type_Role_Permission_User_List>
+  generateKey: Maybe<Type_Generate_Key_Response>
+  generateOrgTokenRef: Maybe<Type_Org_Token_Ref>
+  getAllOrganization: Maybe<Organization_List>
+  getApp: Maybe<Type_App_List>
+  getAppByCredential: Maybe<Get_App_Credential_Host>
+  getAppByEmail: Maybe<Get_App_By_Email>
+  getAppService: Maybe<Type_App_Service_List>
+  getAppTheme: Maybe<Type_Theme_Response_List>
+  getCategory: Maybe<Type_Category_List>
+  getConfig: Maybe<Type_Config_List>
+  getCredential: Maybe<Type_Credential_List>
+  getCredentialByHost: Maybe<Get_App_Credential_Host>
+  getCustomMenu: Maybe<Type_Custom_Menu_List>
+  getDataLead: LeadPaginateResponse
+  getDataRunningNumber: Maybe<Type_Running_Number_List>
+  getDataSecurityRole: Maybe<Type_Data_Security_List>
+  getGateway: Maybe<Type_Gateway>
+  getHello: Maybe<Type_Hello>
+  getInviteOrgRole: Maybe<Type_App_Role_List>
+  getInviteRole: Maybe<Type_App_Role_List>
+  getInviteUserOrganization: Maybe<Type_Invite_List>
+  getLocaleText: Maybe<Type_Locale_Text_List>
+  getLog: Maybe<Type_Log_List>
+  getMasterData: Maybe<Type_Master_Data_List>
+  getMemberOrganization: Maybe<Type_Profile_List>
+  getMyAppRole: Maybe<Type_My_Org_Role>
+  getMyNotification: Maybe<Type_Notification_List>
+  getMyOrgRole: Maybe<Type_My_Org_Role>
+  getMyOrganization: Maybe<Type_Organization>
+  getMyPermission: Maybe<Type_Type_Role_Permission_User_List>
+  getMyProfile: Maybe<Type_Profile>
+  getMyRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute>
+  getNotificationMessage: Maybe<Type_Notification_Message_List>
+  getNotificationTemplate: Maybe<Type_Notification_Template_List>
+  getOAuth: Maybe<Type_O_Auth>
+  getOrgAccessTokenWithRef: Maybe<Type_Org_Accees_Token>
+  getOrgAdmin: Maybe<Type_Profile_List>
+  getOrgAndUser: Maybe<Type_Profile_Org>
+  getOrgApprovalAttribute: Maybe<Type_Organization_Approval_List>
+  getOrgByPhoneNumber: Maybe<Type_Profile_Org>
+  getOrgChildren: Maybe<Type_Org_Children>
+  getOrganization: Maybe<Organization_List>
+  getOrganizationApproval: Maybe<Organization_List>
+  getOrganizationByCoordinates: Maybe<Organization_List>
+  getOrganizationByName: Maybe<Organization_List>
+  getOrganizationLabel: Maybe<Type_Organization_Label_List>
+  getOrganizationType: Maybe<Type_Organization_Type_List>
+  getPermissionRole: Maybe<Type_Permission_List>
+  getProfile: Maybe<Type_Profile_List>
+  getPublicAppConfig: Maybe<Type_Config_List>
+  getPublicProfile: Maybe<Type_Profile_List>
+  getResourceAdmin: Maybe<Type_Profile_List>
+  getResourceAdminPermission: Maybe<Type_Type_Role_Permission_User_List>
+  getResourceAdminRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute_List>
+  getResourceOwnerPermission: Maybe<Type_Type_Role_Permission_User_List>
+  getResourceOwnerProfile: Maybe<Type_Profile_List>
+  getResourceOwnerRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute_List>
+  getRole: Maybe<Type_App_Role_List>
+  getRoleRegisable: Maybe<Type_App_Role_List>
+  getS3GetObjectSignedUrl: Maybe<Type_S3_Signed_Url>
+  getS3PutObjectSignedUrl: Maybe<Type_S3_Signed_Url>
+  getSecretAppConfig: Maybe<Type_Config_List>
+  getService: Maybe<Type_Service_List>
+  getServiceFeature: Maybe<Type_Feature_List>
+  getServiceInfo: Maybe<Type_Service_Info>
+  getSystemAdminPermission: Maybe<Type_Type_Role_Permission_User_List>
+  getSystemAdminProfile: Maybe<Type_Profile_List>
+  getSystemAdminRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute_List>
+  getTheme: Maybe<Type_Theme_Response_List>
+  getTokenAuthCode: Maybe<Type_Login>
+  getVersionControl: Maybe<Type_Version_Control_List>
+  kafkaListTopics: Maybe<Type_Json>
+  migrateData: Maybe<Data_Migration_Result>
+  otherFields: Scalars['Boolean']
+  webhookRunTaskAppNotification: Maybe<Type_Webhook>
+  webhookRunTaskEmail: Maybe<Type_Webhook>
 }
 
-export type QueryCctvInLocationArgs = {
-  input?: InputMaybe<InputFindData>
-  locationId: Scalars['String']
+export type QueryGenerateKeyArgs = {
+  capitalization?: InputMaybe<Enum_Generate_Key_Capitalization>
+  charset?: InputMaybe<Scalars['String']>
+  length?: InputMaybe<Scalars['Int']>
+  readable?: InputMaybe<Scalars['Boolean']>
 }
 
-export type QueryCheckDataBillOfMaterialArgs = {
-  billOfMaterialId: Scalars['ID']
-  dateCheck?: InputMaybe<Scalars['String']>
+export type QueryGenerateOrgTokenRefArgs = {
+  orgKey: Scalars['String']
 }
 
-export type QueryCheckLostArgs = {
-  lostValue: Scalars['Number']
-  maxValue: Scalars['Number']
+export type QueryGetAllOrganizationArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGenerateLocationListArgs = {
-  date: Scalars['Date']
-  productId: Scalars['ID']
-  quantity: Scalars['Number']
-  type: Array<InputMaybe<EnumProductLocationType>>
+export type QueryGetAppArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCctvArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetAppByCredentialArgs = {
+  credentialKey: Scalars['String']
 }
 
-export type QueryGetCctvConfigVersionArgs = {
-  serialNumber?: InputMaybe<Scalars['String']>
+export type QueryGetAppByEmailArgs = {
+  email: Scalars['String']
 }
 
-export type QueryGetCctvForReportArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetAppThemeArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCctvMotionCaptureArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetCategoryArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCctvMotionCaptureReportArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetConfigArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCctvRecordingArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetCredentialByHostArgs = {
+  host: Scalars['String']
 }
 
-export type QueryGetCctvRecordingReportArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetCustomMenuArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetCctvSyncArgs = {
-  input?: InputMaybe<InputFindData>
-}
-
-export type QueryGetCctvTookitConfigArgs = {
-  serialNumber: Scalars['String']
-}
-
-export type QueryGetCctvToolkitArgs = {
-  input?: InputMaybe<InputFindData>
-}
-
-export type QueryGetDataBillOfMaterialArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetDataLeadArgs = {
+  input?: InputMaybe<FindLeadInput>
 }
 
 export type QueryGetDataRunningNumberArgs = {
-  input?: InputMaybe<InputFindData>
+  input?: InputMaybe<Input_Find_Data>
 }
 
 export type QueryGetDataSecurityRoleArgs = {
   roleKey: Scalars['String']
 }
 
-export type QueryGetFileUploadArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetGatewayArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetInvoiceArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetInviteRoleArgs = {
+  orgKey: Scalars['String']
 }
 
-export type QueryGetLocaleArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetInviteUserOrganizationArgs = {
+  input?: InputMaybe<Input_Find_Data>
+  orgKey: Scalars['String']
 }
 
 export type QueryGetLocaleTextArgs = {
-  input?: InputMaybe<InputFindData>
+  input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetLogArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
 export type QueryGetMasterDataArgs = {
-  input?: InputMaybe<InputFindData>
+  input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetMemberOrganizationArgs = {
+  input?: InputMaybe<Input_Find_Data>
+  orgKey: Scalars['String']
+}
+
+export type QueryGetMyNotificationArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetMyOrgRoleArgs = {
+  orgKey: Scalars['String']
 }
 
 export type QueryGetMyPermissionArgs = {
   orgKey?: InputMaybe<Scalars['String']>
 }
 
-export type QueryGetOrgContactArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetNotificationMessageArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgDeclarationArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetNotificationTemplateArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgDeclarationControlArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrgAccessTokenWithRefArgs = {
+  tokenRef: Scalars['String']
 }
 
-export type QueryGetOrgDeclarationDetailArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrgAdminArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgDeclarationInvoiceArgs = {
-  declarationId: Scalars['ID']
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrgAndUserArgs = {
+  orgKey: Scalars['String']
 }
 
-export type QueryGetOrgKeyLocaleTextArgs = {
-  text: Scalars['String']
+export type QueryGetOrgApprovalAttributeArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgLocationArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrgByPhoneNumberArgs = {
+  phoneNumber: Scalars['String']
 }
 
-export type QueryGetOrgProductArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrgChildrenArgs = {
+  orgKey?: InputMaybe<Scalars['String']>
 }
 
-export type QueryGetOrgProductLocationArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrganizationArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgProductPropertyArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrganizationApprovalArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgProductRelocationArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrganizationByCoordinatesArgs = {
+  coordinates: Array<InputMaybe<Scalars['Number']>>
+  distance: Scalars['Number']
+  limit?: InputMaybe<Scalars['Number']>
 }
 
-export type QueryGetOrgProductionOrderArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrganizationByNameArgs = {
+  input?: InputMaybe<Input_Find_Data>
+  name?: InputMaybe<Scalars['String']>
 }
 
-export type QueryGetOrgProductionOrderDetailArgs = {
-  input?: InputMaybe<InputFindData>
-  productionOrderId: Scalars['ID']
+export type QueryGetOrganizationLabelArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
-export type QueryGetOrgTransferArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetOrganizationTypeArgs = {
+  find?: InputMaybe<Input_Find_Data>
 }
 
 export type QueryGetPermissionRoleArgs = {
   roleKey: Scalars['String']
 }
 
-export type QueryGetProductsByBomArgs = {
-  billOfMaterialId?: InputMaybe<Scalars['String']>
+export type QueryGetProfileArgs = {
+  userIdList: Array<Scalars['ID']>
 }
 
-export type QueryGetQuotationArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetPublicAppConfigArgs = {
+  configKeyList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
 }
 
-export type QueryGetReportListArgs = {
-  input?: InputMaybe<InputFindData>
+export type QueryGetPublicProfileArgs = {
+  find?: InputMaybe<Input_Find_Data>
+  userIdList: Array<InputMaybe<Scalars['ID']>>
+}
+
+export type QueryGetResourceAdminArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetResourceAdminPermissionArgs = {
+  roleKeyList?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type QueryGetResourceAdminRoleApprovalAttributeArgs = {
+  input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetResourceOwnerPermissionArgs = {
+  roleKeyList?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type QueryGetResourceOwnerProfileArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetResourceOwnerRoleApprovalAttributeArgs = {
+  input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetRoleRegisableArgs = {
+  roleKey?: InputMaybe<Scalars['String']>
+}
+
+export type QueryGetS3GetObjectSignedUrlArgs = {
+  fileKeys?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type QueryGetS3PutObjectSignedUrlArgs = {
+  inputs?: InputMaybe<Array<InputMaybe<Input_S3_Put_Object_Signed_Url>>>
+  userId?: InputMaybe<Scalars['ID']>
+}
+
+export type QueryGetSecretAppConfigArgs = {
+  configKeyList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+}
+
+export type QueryGetServiceArgs = {
+  input?: InputMaybe<Input_Find_Data>
 }
 
 export type QueryGetServiceInfoArgs = {
   serviceKey: Scalars['String']
 }
 
-export type QueryHealthCheckCctvToolKitArgs = {
-  serialNumber?: InputMaybe<Scalars['String']>
+export type QueryGetSystemAdminPermissionArgs = {
+  appKey: Scalars['String']
+  roleKeyList?: InputMaybe<Array<Scalars['String']>>
 }
 
-export type QueryRecalReportArgs = {
+export type QueryGetSystemAdminProfileArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetSystemAdminRoleApprovalAttributeArgs = {
+  input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetThemeArgs = {
+  credentialKey?: InputMaybe<Scalars['String']>
+  find?: InputMaybe<Input_Find_Data>
+  host: Scalars['String']
+}
+
+export type QueryGetTokenAuthCodeArgs = {
+  code: Scalars['String']
+}
+
+export type QueryGetVersionControlArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryMigrateDataArgs = {
+  appKey: Scalars['String']
+  destinationDb: Scalars['String']
+  destinationUri: Scalars['String']
+  exceptList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  includeList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  limit: Scalars['Number']
+  originDb: Scalars['String']
+  originUri: Scalars['String']
+  version: Scalars['String']
+}
+
+export type QueryWebhookRunTaskAppNotificationArgs = {
   secretKey: Scalars['String']
 }
 
-export type QueryWebhookReportArgs = {
+export type QueryWebhookRunTaskEmailArgs = {
   secretKey: Scalars['String']
 }
 
-export type TypeApp = {
+export type QueryLeadInput = {
+  citizenId?: InputMaybe<Scalars['String']>
+  dataSource?: InputMaybe<Scalars['String']>
+  firstName?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Scalars['String']>
+}
+
+export type RespCreate = {
+  _id: Maybe<Scalars['String']>
+}
+
+export type Subscription = {
+  _dummy: Maybe<Scalars['String']>
+  getHello: Maybe<Type_Hello>
+  getMyNotification: Maybe<Type_Notification_List>
+}
+
+export type SubscriptionGetMyNotificationArgs = {
+  find?: InputMaybe<Input_Find_Data>
+}
+
+export type Type_App = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeAppSchema>
+  payload: Maybe<Type_App_Schema>
 }
 
-export type TypeAppFeatureKey = {
+export type Type_App_Accees_Token = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_App_Accees_Token_Payload>
+}
+
+export type Type_App_Accees_Token_Payload = {
+  app: Maybe<Type_Organization_Response>
+  profile: Maybe<Type_User_Profile>
+  token: Maybe<Type_App_Accees_Token_Payload_Token>
+}
+
+export type Type_App_Accees_Token_Payload_Token = {
+  appAccessToken: Maybe<Scalars['String']>
+  appRefreshToken: Maybe<Scalars['String']>
+}
+
+export type Type_App_Credential = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Type_App_Credential_Payload>>>
+}
+
+export type Type_App_Credential_Payload = {
+  app: Maybe<Type_App_Schema>
+  credential: Maybe<Type_Credential_Schema>
+}
+
+export type Type_App_Feature_Key = {
   _id: Maybe<Scalars['ID']>
   description: Maybe<Scalars['String']>
   enable: Maybe<Scalars['Boolean']>
@@ -1877,60 +2364,89 @@ export type TypeAppFeatureKey = {
   serviceId: Maybe<Scalars['ID']>
 }
 
-export type TypeAppList = {
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeAppSchema>>>
+export type Type_App_List = {
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_App_Schema>>>
 }
 
-export type TypeAppRole = {
+export type Type_App_Role = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeAppRolePayload>
+  payload: Maybe<Type_App_Role_Payload>
 }
 
-export type TypeAppRoleList = {
+export type Type_App_Role_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeAppRoleListPayload>
+  payload: Maybe<Type_App_Role_List_Payload>
 }
 
-export type TypeAppRoleListPayload = {
-  app: Maybe<TypeApp>
-  roleList: Maybe<Array<Maybe<TypeRole>>>
+export type Type_App_Role_List_Payload = {
+  app: Maybe<Type_App_Schema>
+  roleList: Maybe<Array<Maybe<Type_Role>>>
 }
 
-export type TypeAppRolePayload = {
-  app: Maybe<TypeAppSchema>
-  roleList: Maybe<Array<Maybe<TypeRole>>>
-  serviceList: Maybe<Array<Maybe<TypeServiceListPayload>>>
+export type Type_App_Role_Payload = {
+  app: Maybe<Type_App_Schema>
+  roleList: Maybe<Array<Maybe<Type_Role>>>
+  serviceList: Maybe<Array<Maybe<Type_Service_List_Payload>>>
 }
 
-export type TypeAppSchema = {
+export type Type_App_Schema = {
   appKey: Maybe<Scalars['String']>
   attribute: Maybe<Scalars['JSON']>
+  configurationList: Maybe<Array<Maybe<Type_Config_Global>>>
   contactEmailList: Maybe<Array<Maybe<Scalars['String']>>>
+  featureList: Maybe<Array<Maybe<Type_Feature_Schema>>>
   name: Maybe<Scalars['String']>
-  status: Maybe<EnumAppStatus>
+  orgFieldList: Maybe<Array<Maybe<Scalars['JSON']>>>
+  roleList: Maybe<Array<Maybe<Scalars['JSON']>>>
+  status: Maybe<Enum_App_Status>
 }
 
-export type TypeAppService = {
+export type Type_App_Service = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeAppServicePayload>
+  payload: Maybe<Type_App_Service_Payload>
 }
 
-export type TypeAppServicePayload = {
-  app: Maybe<TypeAppSchema>
-  service: Maybe<TypeService>
+export type Type_App_Service_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_App_Service_List_Payload>
+}
+
+export type Type_App_Service_List_Payload = {
+  app: Maybe<Type_App_Schema>
+  serviceList: Maybe<Array<Maybe<Type_Service>>>
+}
+
+export type Type_App_Service_Payload = {
+  app: Maybe<Type_App_Schema>
+  service: Maybe<Type_Service>
   syncStatus: Maybe<Scalars['String']>
 }
 
-export type TypeAttribute = {
+export type Type_Attribute = {
+  _id: Maybe<Scalars['ID']>
   key: Maybe<Scalars['String']>
   value: Maybe<Scalars['String']>
 }
 
-export type TypeAws = {
+export type Type_Auth_Code = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Auth_Code_Payload>
+}
+
+export type Type_Auth_Code_Payload = {
+  authType: Maybe<Scalars['String']>
+  code: Maybe<Scalars['String']>
+  email: Maybe<Scalars['String']>
+  redirectUrl: Maybe<Scalars['String']>
+}
+
+export type Type_Aws = {
   _id: Maybe<Scalars['ID']>
   accessKey: Maybe<Scalars['String']>
   bucketName: Maybe<Scalars['String']>
@@ -1939,481 +2455,157 @@ export type TypeAws = {
   secretKey: Maybe<Scalars['String']>
 }
 
-export type TypeBillOfMaterial = {
+export type Type_Category = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeBillOfMaterialSchema>
+  payload: Maybe<Type_Category_Schema>
 }
 
-export type TypeBillOfMaterialList = {
+export type Type_Category_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeBillOfMaterialSchema>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Category_Schema>>>
 }
 
-export type TypeBillOfMaterialSchema = {
-  TimeSpent: Maybe<Scalars['Number']>
+export type Type_Category_Schema = {
   _id: Maybe<Scalars['ID']>
-  appKey: Maybe<Scalars['String']>
-  billOfMaterialDate: Maybe<Scalars['String']>
-  billOfmaterialNo: Maybe<Scalars['String']>
-  materialList: Maybe<Array<Maybe<TypeBomMaterial>>>
-  name: Maybe<Scalars['String']>
-  netWeight: Maybe<Scalars['Number']>
-  netWeightUnit: Maybe<TypeProductPropertySchema>
-  orgKey: Maybe<Scalars['String']>
-  productFinishGood: Maybe<TypeProductSchema>
-  quantity: Maybe<Scalars['Number']>
-  quantityUnit: Maybe<TypeProductPropertySchema>
-  status: Maybe<EnumBomStatus>
-  totalPrice: Maybe<Scalars['Number']>
-  unitPrice: Maybe<Scalars['Number']>
-}
-
-export type TypeBomMaterial = {
-  productMaterial: Maybe<TypeProductSchema>
-  quantity: Maybe<Scalars['Number']>
-}
-
-export type TypeCctv = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-}
-
-export type TypeCctvList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaCctv>>>
-}
-
-export type TypeCctvMotioncapture = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaCctvMotioncapture>
-}
-
-export type TypeCctvMotioncaptureDelete = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-}
-
-export type TypeCctvMotioncaptureList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaCctvMotioncapture>>>
-}
-
-export type TypeCctvRecording = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaCctvRecording>
-}
-
-export type TypeCctvRecordingList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaCctvRecording>>>
-}
-
-export type TypeCctvSync = {
-  code: Maybe<Scalars['String']>
-  lastPartitionNumber: Maybe<Scalars['Number']>
-  message: Maybe<Scalars['String']>
-}
-
-export type TypeCctvSyncData = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeCctvSyncDataSchema>>>
-}
-
-export type TypeCctvSyncDataSchema = {
-  cameraSerialNumber: Maybe<Scalars['String']>
   createdAt: Maybe<Scalars['Date']>
-  fullSnapshotFileKey: Maybe<Scalars['String']>
-  licensePlateFileKey: Maybe<Scalars['String']>
-  licensePlateText: Maybe<Scalars['String']>
-  timestamp: Maybe<Scalars['Date']>
-  vehicleType: Maybe<EnumVehicle>
+  createdBy: Maybe<Type_User_Profile>
+  name: Maybe<Scalars['String']>
+  status: Maybe<Enum_Category_Status>
+  updatedAt: Maybe<Scalars['Date']>
+  updatedBy: Maybe<Type_User_Profile>
 }
 
-export type TypeCctvTookitVersion = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  versionDate: Maybe<Scalars['Date']>
-}
-
-export type TypeCctvToolkitConfig = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeCctvToolkitConfigSchema>
-}
-
-export type TypeCctvToolkitConfigSchema = {
-  _id: Maybe<Scalars['String']>
-  cctvList: Maybe<Array<Maybe<TypeSchemaCctv>>>
-  maxRowSync: Maybe<Scalars['Number']>
-  s3: Maybe<TypeS3Config>
-  syncIterSec: Maybe<Scalars['Number']>
-  syncStatus: Maybe<Scalars['Boolean']>
-}
-
-export type TypeCctvToolkitHealthCheckPayload = {
-  code: Maybe<Scalars['String']>
-  lastHealthCheckTimestamp: Maybe<Scalars['Date']>
-  message: Maybe<Scalars['String']>
-}
-
-export type TypeCctvToolkitPayload = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaCctvToolkit>
-}
-
-export type TypeCctvToolkitPayloadList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaCctvToolkit>>>
-}
-
-export type TypeCctvVehicleOption = {
-  car: Maybe<Scalars['Boolean']>
-  motorcycle: Maybe<Scalars['Boolean']>
-  truck: Maybe<Scalars['Boolean']>
-}
-
-export type TypeCheckVerifyEmail = {
+export type Type_Check_Verify_Email = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
   verifyStatus: Maybe<Scalars['String']>
 }
 
-export type TypeContact = {
+export type Type_Config = {
+  configKey: Maybe<Scalars['String']>
+  configName: Maybe<Scalars['String']>
+  isGlobal: Maybe<Scalars['Boolean']>
+  privacy: Maybe<Enum_Config_Privacy>
+  relatedConfig: Maybe<Array<Maybe<Scalars['String']>>>
+  value: Maybe<Scalars['JSON']>
+}
+
+export type Type_Config_Global = {
+  configKey: Maybe<Scalars['String']>
+  configName: Maybe<Scalars['String']>
+  isGlobal: Maybe<Scalars['Boolean']>
+  relatedConfig: Maybe<Array<Maybe<Scalars['String']>>>
+  value: Maybe<Type_Value_Config_Global>
+}
+
+export type Type_Config_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeContactSchema>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Config>>>
 }
 
-export type TypeContactDeclarationImport = {
-  code: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  localName: Maybe<Scalars['String']>
-}
-
-export type TypeContactList = {
+export type Type_Credential = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeContactSchema>>>
+  payload: Maybe<Type_Credential_Payload>
 }
 
-export type TypeContactSchema = {
-  _id: Maybe<Scalars['ID']>
-  accountNo: Maybe<Scalars['String']>
-  address: Maybe<Scalars['String']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  attn: Maybe<Scalars['String']>
-  branch: Maybe<Scalars['String']>
+export type Type_Credential_List = {
   code: Maybe<Scalars['String']>
-  contactType: Maybe<TypeMadterDataValue>
-  country: Maybe<TypeMadterDataValue>
-  emailInformation: Maybe<Scalars['String']>
-  emailPerson: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  incoterms: Maybe<TypeMadterDataValue>
-  localName: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Credential_List_Payload>
+}
+
+export type Type_Credential_List_Payload = {
+  app: Maybe<Type_App_Schema>
+  credentialList: Maybe<Array<Maybe<Type_Credential_Schema>>>
+}
+
+export type Type_Credential_Payload = {
+  credential: Maybe<Type_Credential_Schema>
+  serviceList: Maybe<Array<Maybe<Type_Service_List_Payload>>>
+}
+
+export type Type_Credential_Schema = {
+  credentialKey: Maybe<Scalars['String']>
+  expiration: Maybe<Type_Expiration>
+  hostList: Maybe<Array<Maybe<Scalars['String']>>>
+  isAdminCredential: Maybe<Enum_Is>
   name: Maybe<Scalars['String']>
-  note: Maybe<Scalars['String']>
-  officeFaxNo: Maybe<Scalars['String']>
-  officePhoneNo: Maybe<Scalars['String']>
-  phone: Maybe<Scalars['String']>
-  postcode: Maybe<Scalars['String']>
-  shippingAddress: Maybe<Scalars['String']>
-  shippingCountry: Maybe<Scalars['String']>
-  shippingPostcode: Maybe<Scalars['String']>
-  taxId: Maybe<Scalars['String']>
-  vatId: Maybe<Scalars['String']>
-  website: Maybe<Scalars['String']>
+  secretKey: Maybe<Scalars['String']>
+  status: Maybe<Enum_App_Status>
+  type: Maybe<Enum_Credential_Type>
 }
 
-export type TypeDataSecurityList = {
+export type Type_Custom_Menu = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeRoleDataSecurity>>>
+  payload: Maybe<Type_Schema_Custom_Menu>
 }
 
-export type TypeDeclaration = {
+export type Type_Custom_Menu_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeDeclarationSchema>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Schema_Custom_Menu>>>
 }
 
-export type TypeDeclarationControl = {
+export type Type_Data_Security_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeDeclarationControlSchema>
+  payload: Maybe<Array<Maybe<Type_Role_Data_Security>>>
 }
 
-export type TypeDeclarationControlList = {
+export type Type_Email = {
+  value: Maybe<Scalars['String']>
+  verifyStatus: Maybe<Enum_Verify_Status>
+}
+
+export type Type_Email_Register = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeDeclarationControlSchema>>>
+  payload: Maybe<Type_User_Profile>
 }
 
-export type TypeDeclarationControlSchema = {
-  _id: Maybe<Scalars['ID']>
-  approvalNo: Maybe<Scalars['String']>
-  approvalPort: Maybe<Scalars['String']>
-  arrivalDate: Maybe<Scalars['String']>
-  assessmentRequestCode: Maybe<Scalars['String']>
-  bankBranchCode: Maybe<Scalars['String']>
-  bankCode: Maybe<Scalars['String']>
-  brokerBranch: Maybe<Scalars['String']>
-  cargoPackingType: Maybe<TypeMadterDataValue>
-  consignmentCountry: Maybe<TypeMadterDataValue>
-  currencyCode: Maybe<TypeMadterDataValue>
-  customsBankCode: Maybe<Scalars['String']>
-  customsClearanceCard: Maybe<Scalars['String']>
-  customsClearanceName: Maybe<Scalars['String']>
-  date: Maybe<Scalars['Date']>
-  dateTransmit: Maybe<Scalars['Date']>
-  declaration: Maybe<TypeDeclarationSchema>
-  declarationNo: Maybe<Scalars['String']>
-  departureDate: Maybe<Scalars['Date']>
-  dischargePort: Maybe<Scalars['String']>
-  docType: Maybe<TypeMadterDataValue>
-  drokerTaxNo: Maybe<Scalars['String']>
-  establishNo: Maybe<Scalars['String']>
-  exchangeRate: Maybe<Scalars['String']>
-  factoryNo: Maybe<Scalars['String']>
-  grossWeightUnit: Maybe<TypeProductPropertySchema>
-  houseBillLading: Maybe<Scalars['String']>
-  inspectionRequestCode: Maybe<Scalars['String']>
-  managerName: Maybe<Scalars['String']>
-  managerNo: Maybe<Scalars['String']>
-  masterBillLading: Maybe<Scalars['String']>
-  netWeightUnit: Maybe<TypeProductPropertySchema>
-  originCountry: Maybe<TypeMadterDataValue>
-  packageUnit: Maybe<TypeProductPropertySchema>
-  paymentMethod: Maybe<TypeMadterDataValue>
-  productType: Maybe<EnumProductType>
-  refNo: Maybe<Scalars['String']>
-  refNoCommonAccess: Maybe<Scalars['String']>
-  releasePort: Maybe<Scalars['String']>
-  rgsCode: Maybe<Scalars['String']>
-  shippingMark: Maybe<Scalars['String']>
-  timeTransmit: Maybe<Scalars['Date']>
-  totalDeposit: Maybe<Scalars['String']>
-  totalTax: Maybe<Scalars['String']>
-  transportMode: Maybe<TypeMadterDataValue>
-  uidTransmit: Maybe<Scalars['String']>
-  vesselName: Maybe<Scalars['String']>
-}
-
-export type TypeDeclarationDetail = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeDeclarationDetailSchema>
-}
-
-export type TypeDeclarationDetailList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeDeclarationDetailSchema>>>
-  verified: Maybe<Scalars['Number']>
-}
-
-export type TypeDeclarationDetailProductUpload = {
-  code: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  localName: Maybe<Scalars['String']>
-}
-
-export type TypeDeclarationDetailSchema = {
-  _id: Maybe<Scalars['ID']>
-  ahtnCode: Maybe<Scalars['String']>
-  assessExciseQuantity: Maybe<Scalars['Number']>
-  assessQuantity: Maybe<Scalars['Number']>
-  bis19: Maybe<Scalars['String']>
-  boi: Maybe<Scalars['String']>
-  bond: Maybe<Scalars['String']>
-  currency: Maybe<TypeMadterDataValue>
-  declaration: Maybe<TypeDeclarationSchema>
-  declarationDetailOut: Maybe<Scalars['ID']>
-  declarationOut: Maybe<Scalars['ID']>
-  depositReason: Maybe<Scalars['String']>
-  epz: Maybe<Scalars['String']>
-  exchangeRate: Maybe<Scalars['Number']>
-  exciseNo: Maybe<Scalars['String']>
-  exciseQuantity: Maybe<Scalars['Number']>
-  exciseQuantityUnit: Maybe<TypeProductPropertySchema>
-  exemptIncotermsLocal: Maybe<Scalars['Number']>
-  exportDeclarationLineNo: Maybe<Scalars['String']>
-  exportDeclarationNo: Maybe<Scalars['String']>
-  freeZone: Maybe<Scalars['String']>
-  importTariff: Maybe<Scalars['String']>
-  incotermsValueAssess: Maybe<Scalars['Number']>
-  incotermsValueForeign: Maybe<Scalars['Number']>
-  incotermsValueLocal: Maybe<Scalars['Number']>
-  increasedPriceForeign: Maybe<Scalars['Number']>
-  increasedPriceLocal: Maybe<Scalars['Number']>
-  invoiceAmountForeign: Maybe<Scalars['Number']>
-  invoiceAmountLocal: Maybe<Scalars['Number']>
-  invoiceItem: Maybe<Scalars['Number']>
-  invoiceNo: Maybe<Scalars['String']>
-  invoiceQuantity: Maybe<Scalars['Number']>
-  invoiceQuantityUnit: Maybe<TypeProductPropertySchema>
-  itemNo: Maybe<Scalars['Number']>
-  lastEntry: Maybe<Scalars['String']>
-  natureTransaction: Maybe<Scalars['String']>
-  netWeight: Maybe<Scalars['Number']>
-  netWeightUnit: Maybe<TypeProductPropertySchema>
-  originCountry: Maybe<TypeMadterDataValue>
-  packageAmount: Maybe<Scalars['Number']>
-  packageUnit: Maybe<TypeProductPropertySchema>
-  privilegeCode: Maybe<Scalars['String']>
-  product: Maybe<TypeProductSchema>
-  productAttribute1: Maybe<Scalars['String']>
-  productAttribute2: Maybe<Scalars['String']>
-  productRelocation: Maybe<TypeProductRelocationSchema>
-  productUpload: Maybe<TypeDeclarationDetailProductUpload>
-  productYear: Maybe<Scalars['String']>
-  quantity: Maybe<Scalars['Number']>
-  quantityUnit: Maybe<TypeProductPropertySchema>
-  reExport: Maybe<Scalars['String']>
-  reImportationCertificate: Maybe<Scalars['String']>
-  relocationRef: Maybe<Scalars['String']>
-  remark: Maybe<Scalars['String']>
-  serveral: Maybe<Scalars['String']>
-  shippingMark: Maybe<Scalars['String']>
-  statisticalCode: Maybe<Scalars['String']>
-  status: Maybe<EnumDeclarationDetailStatus>
-  tariffCode: Maybe<Scalars['String']>
-  tariffSequence: Maybe<Scalars['String']>
-  undgNumber: Maybe<Scalars['String']>
-  unitPriceForeign: Maybe<Scalars['Number']>
-  unitPriceLocal: Maybe<Scalars['Number']>
-}
-
-export type TypeDeclarationInvoice = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeDeclarationInvoiceSchema>
-}
-
-export type TypeDeclarationInvoiceList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeDeclarationInvoiceSchema>>>
-}
-
-export type TypeDeclarationInvoiceSchema = {
-  _id: Maybe<Scalars['ID']>
-  buyerStatus: Maybe<TypeMadterDataValue>
-  commercialLevel: Maybe<TypeMadterDataValue>
-  consigneeStatus: Maybe<TypeMadterDataValue>
-  declaration: Maybe<TypeDeclarationSchema>
-  foreignInlandFreightCAF: Maybe<Scalars['Number']>
-  foreignInlandFreightCC: Maybe<TypeMadterDataValue>
-  forwardingCC: Maybe<TypeMadterDataValue>
-  forwardingCF: Maybe<Scalars['String']>
-  freightAF: Maybe<Scalars['String']>
-  freightCurrency: Maybe<TypeMadterDataValue>
-  insuranceAF: Maybe<Scalars['String']>
-  insuranceCurrency: Maybe<TypeMadterDataValue>
-  invoiceCurrency: Maybe<TypeMadterDataValue>
-  invoiceDate: Maybe<Scalars['Date']>
-  invoiceNo: Maybe<Scalars['String']>
-  otherCAF: Maybe<Scalars['Number']>
-  otherCC: Maybe<TypeMadterDataValue>
-  packingCAF: Maybe<Scalars['Number']>
-  packingCC: Maybe<TypeMadterDataValue>
-  purchaseOrderNumber: Maybe<Scalars['String']>
-  term: Maybe<TypeMadterDataValue>
-  termPayment: Maybe<TypeMadterDataValue>
-}
-
-export type TypeDeclarationList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeDeclarationSchema>>>
-}
-
-export type TypeDeclarationReception = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeDeclarationReceptionSchema>
-}
-
-export type TypeDeclarationReceptionList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeDeclarationReceptionSchema>>>
-}
-
-export type TypeDeclarationReceptionSchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  receptionDate: Maybe<Scalars['Date']>
-  receptionLocationList: Maybe<TypeReceptionLocation>
-  receptionNo: Maybe<Scalars['String']>
-  status: Maybe<EnumDeclarationReceptionStatus>
-}
-
-export type TypeDeclarationSchema = {
-  _id: Maybe<Scalars['ID']>
-  contact: Maybe<TypeContactSchema>
-  contactUpload: Maybe<TypeContactDeclarationImport>
-  date: Maybe<Scalars['Date']>
-  declarationControl: Maybe<TypeDeclarationControlSchema>
-  declarationDetailList: Maybe<Array<Maybe<TypeDeclarationDetailSchema>>>
-  declarationInvoice: Maybe<TypeDeclarationInvoiceSchema>
-  status: Maybe<EnumDeclarationStatus>
-  step: Maybe<Scalars['Number']>
-  type: Maybe<EnumDeclarationType>
-}
-
-export type TypeEndpoinService = {
+export type Type_Endpoin_Service = {
   resourceAdmin: Maybe<Scalars['String']>
   resourceOwner: Maybe<Scalars['String']>
   system: Maybe<Scalars['String']>
 }
 
-export type TypeEndpoinServiceType = {
-  gql: Maybe<TypeEndpoinService>
-  rest: Maybe<TypeEndpoinService>
+export type Type_Endpoin_Service_Type = {
+  gql: Maybe<Type_Endpoin_Service>
+  rest: Maybe<Type_Endpoin_Service>
 }
 
-export type TypeFeatureKey = {
+export type Type_Expiration = {
+  access: Maybe<Scalars['String']>
+  refresh: Maybe<Scalars['String']>
+}
+
+export type Type_Feature_Key = {
   _id: Maybe<Scalars['ID']>
   description: Maybe<Scalars['String']>
   enable: Maybe<Scalars['Boolean']>
   key: Maybe<Scalars['String']>
 }
 
-export type TypeFeatureList = {
+export type Type_Feature_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeFeatureListPayload>
+  payload: Maybe<Type_Feature_List_Payload>
 }
 
-export type TypeFeatureListPayload = {
-  app: Maybe<TypeAppSchema>
-  featureList: Maybe<Array<Maybe<TypeFeatureSchema>>>
+export type Type_Feature_List_Payload = {
+  app: Maybe<Type_App_Schema>
+  featureList: Maybe<Array<Maybe<Type_Feature_Schema>>>
 }
 
-export type TypeFeatureSchema = {
+export type Type_Feature_Schema = {
   config: Maybe<Scalars['JSON']>
   enable: Maybe<Scalars['Boolean']>
   featureKey: Maybe<Scalars['String']>
@@ -2421,967 +2613,741 @@ export type TypeFeatureSchema = {
   requiredFeatureKeyList: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-export type TypeFileupload = {
+export type Type_Gateway = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaFileupload>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Schema_Gateway>>>
 }
 
-export type TypeFileuploadList = {
+export type Type_Gateway_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaFileupload>>>
+  payload: Maybe<Type_Schema_Gateway>
 }
 
-export type TypeGenerateRunningNumber = {
+export type Type_Generate_Key = {
+  key: Maybe<Scalars['String']>
+}
+
+export type Type_Generate_Key_Response = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeRunningNumberNo>
+  payload: Maybe<Type_Generate_Key>
 }
 
-export type TypeHello = {
+export type Type_Generate_Running_Number = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Running_Number_No>
+}
+
+export type Type_Hello = {
   message: Maybe<Scalars['String']>
 }
 
-export type TypeImportdataProduct = {
+export type Type_Invite = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Schema_Invite>
 }
 
-export type TypeInvoice = {
+export type Type_Invite_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaInvoice>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Schema_Invite>>>
 }
 
-export type TypeInvoiceContactDetail = {
-  address: Maybe<Scalars['String']>
-  branch: Maybe<Scalars['String']>
-  taxId: Maybe<Scalars['String']>
-  zipCode: Maybe<Scalars['String']>
-}
-
-export type TypeInvoiceList = {
+export type Type_Json = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaInvoice>>>
+  payload: Maybe<Scalars['JSON']>
 }
 
-export type TypeInvoicePriceDetail = {
-  date: Maybe<Scalars['Date']>
-  discount: Maybe<Scalars['Number']>
-  dueDate: Maybe<Scalars['Date']>
-  grandTotal: Maybe<Scalars['Number']>
-  grandTotalForeign: Maybe<Scalars['Number']>
-  grandTotalLocal: Maybe<Scalars['Number']>
-  paymentAmount: Maybe<Scalars['Number']>
-  salesName: Maybe<Scalars['String']>
-  total: Maybe<Scalars['Number']>
-  totalAfterDiscount: Maybe<Scalars['Number']>
-  totalForeign: Maybe<Scalars['Number']>
-  totalLocal: Maybe<Scalars['Number']>
-  vat: Maybe<Scalars['Number']>
-  withHoldingTax: Maybe<Scalars['Number']>
-}
-
-export type TypeInvoiceProduct = {
-  code: Maybe<Scalars['String']>
-  exchangeRate: Maybe<Scalars['Number']>
-  id: Maybe<Scalars['ID']>
-  name: Maybe<Scalars['String']>
-  quantity: Maybe<Scalars['Number']>
-  total: Maybe<Scalars['Number']>
-  totalForeign: Maybe<Scalars['Number']>
-  totalLocal: Maybe<Scalars['Number']>
-  unit: Maybe<Scalars['String']>
-  unitId: Maybe<Scalars['ID']>
-  unitPrice: Maybe<Scalars['Number']>
-  unitPriceCurrency: Maybe<TypeMadterDataValue>
-  unitPriceForeign: Maybe<Scalars['Number']>
-  unitPriceForeignCurrency: Maybe<TypeMadterDataValue>
-  unitPriceLocal: Maybe<Scalars['Number']>
-  unitPriceLocalCurrency: Maybe<TypeMadterDataValue>
-}
-
-export type TypeKey = {
+export type Type_Key = {
   _id: Maybe<Scalars['ID']>
   code: Maybe<Scalars['String']>
   description: Maybe<Scalars['String']>
   value: Maybe<Scalars['String']>
 }
 
-export type TypeLine = {
-  login: Maybe<TypeLineLogin>
-  notify: Maybe<TypeNotify>
+export type Type_Line = {
+  login: Maybe<Type_Line_Login>
+  notify: Maybe<Type_Notify>
 }
 
-export type TypeLineLogin = {
+export type Type_Line_Login = {
   _id: Maybe<Scalars['ID']>
   clientId: Maybe<Scalars['String']>
   clientSecret: Maybe<Scalars['String']>
   redirectUri: Maybe<Scalars['String']>
 }
 
-export type TypeLocale = {
+export type Type_Locale_Text = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeLocaleResponse>
+  payload: Maybe<Type_Locale_Text_Response>
 }
 
-export type TypeLocaleList = {
+export type Type_Locale_Text_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeLocaleResponse>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Locale_Text_Response>>>
 }
 
-export type TypeLocaleResponse = {
+export type Type_Locale_Text_Response = {
   attribute: Maybe<Scalars['JSON']>
   dataKey: Maybe<Scalars['String']>
-  dataType: Maybe<EnumDataType>
   locale: Maybe<Scalars['String']>
   orgKey: Maybe<Scalars['String']>
-  searchable: Maybe<EnumIs>
   text: Maybe<Scalars['String']>
 }
 
-export type TypeLocaleText = {
-  dataKey: Maybe<Scalars['String']>
-  locale: Maybe<Scalars['String']>
-  text: Maybe<Scalars['String']>
-}
-
-export type TypeLocaleTextList = {
+export type Type_Login = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeLocaleText>>>
+  payload: Maybe<Type_Login_Payload>
 }
 
-export type TypeLocation = {
+export type Type_Login_Payload = {
+  authType: Maybe<Enum_Auth_Type>
+  code: Maybe<Scalars['String']>
+  credentialKey: Maybe<Scalars['String']>
+  isFirstLogin: Maybe<Scalars['Boolean']>
+  organization: Maybe<Type_Organization_Response>
+  profile: Maybe<Type_User_Profile>
+  redirectUrl: Maybe<Scalars['String']>
+  token: Maybe<Type_Token>
+}
+
+export type Type_Logout = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeLocationSchema>
+  payload: Maybe<Type_User_Profile>
 }
 
-export type TypeLocationList = {
+export type Type_Log_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeLocationSchema>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Log_Schema>>>
 }
 
-export type TypeLocationSchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  cctvList: Maybe<Array<Maybe<Scalars['String']>>>
-  code: Maybe<Scalars['String']>
-  description: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  image: Maybe<Scalars['String']>
-  localName: Maybe<Scalars['String']>
-  parent: Maybe<TypeLocationSchema>
-  productLocationList: Maybe<Array<Maybe<TypeProductLocationSchema>>>
-  productUsage: Maybe<EnumIs>
-  type: Maybe<EnumLocationType>
+export type Type_Log_Schema = {
+  action: Maybe<Scalars['String']>
+  actor: Maybe<Scalars['JSON']>
+  createdAt: Maybe<Scalars['Date']>
+  eventKey: Maybe<Scalars['String']>
+  eventName: Maybe<Scalars['String']>
+  ipAddress: Maybe<Scalars['String']>
+  isSystemLog: Maybe<Scalars['Boolean']>
+  message: Maybe<Scalars['String']>
+  nextData: Maybe<Scalars['JSON']>
+  prevData: Maybe<Scalars['JSON']>
+  service: Maybe<Scalars['JSON']>
+  updatedAt: Maybe<Scalars['Date']>
+  userAgent: Maybe<Scalars['String']>
 }
 
-export type TypeLogsystem = {
+export type Type_Master_Data = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaLogsystem>
+  payload: Maybe<Type_Master_Data_Response>
 }
 
-export type TypeLogsystemList = {
+export type Type_Master_Data_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaLogsystem>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Master_Data_Response>>>
 }
 
-export type TypeLogsystemUser = {
-  email: Maybe<Scalars['String']>
-  firstName: Maybe<Scalars['String']>
-  fullName: Maybe<Scalars['String']>
-  lastName: Maybe<Scalars['String']>
-  telephone: Maybe<Scalars['String']>
-  userId: Maybe<Scalars['String']>
-}
-
-export type TypeMadterDataValue = {
-  dataKey: Maybe<Scalars['String']>
-  value: Maybe<TypeLocaleText>
-}
-
-export type TypeMasterData = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeMasterDataResponse>
-}
-
-export type TypeMasterDataList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeMasterDataResponse>>>
-}
-
-export type TypeMasterDataResponse = {
+export type Type_Master_Data_Response = {
   attribute: Maybe<Scalars['JSON']>
   dataKey: Maybe<Scalars['String']>
-  localeText: Maybe<TypeLocaleText>
-  localeTextList: Maybe<Array<Maybe<TypeLocaleText>>>
+  locale: Maybe<Scalars['String']>
   parentKey: Maybe<Scalars['String']>
-  searchable: Maybe<EnumIs>
+  searchable: Maybe<Enum_Is>
+  text: Maybe<Scalars['String']>
 }
 
-export type TypeMessage = {
+export type Type_Message = {
   message: Maybe<Scalars['String']>
   success: Maybe<Scalars['Boolean']>
 }
 
-export type TypeName = {
+export type Type_My_Org_Role = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Type_Role>>>
+}
+
+export type Type_Name = {
   name: Maybe<Scalars['String']>
   name_en: Maybe<Scalars['String']>
 }
 
-export type TypeNotificationDataKey = {
+export type Type_Notification = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Notification_Schema>
+}
+
+export type Type_Notification_Data_Key = {
   dataKey: Maybe<Scalars['String']>
   defaultValue: Maybe<Scalars['String']>
-  isRequired: Maybe<EnumNotificationIsRequired>
+  isRequired: Maybe<Enum_Notification_Is_Required>
 }
 
-export type TypeNotificationTemplate = {
+export type Type_Notification_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeScmemaNotificationTemplate>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Notification_Schema>>>
+  unread: Maybe<Scalars['Number']>
 }
 
-export type TypeNotificationTemplateList = {
+export type Type_Notification_Message = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeScmemaNotificationTemplate>>>
+  payload: Maybe<Type_Notification_Message_Schema>
 }
 
-export type TypeNotify = {
+export type Type_Notification_Message_Count = {
+  totalSuccess: Maybe<Scalars['Number']>
+}
+
+export type Type_Notification_Message_Count_Payload = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Notification_Message_Count>
+}
+
+export type Type_Notification_Message_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Notification_Message_Schema>>>
+}
+
+export type Type_Notification_Message_Schema = {
+  _id: Maybe<Scalars['ID']>
+  channel: Maybe<Type_Notification_Message_Schema_Channel>
+  content: Maybe<Scalars['String']>
+  createdAt: Maybe<Scalars['Date']>
+  displayTo: Maybe<Scalars['String']>
+  from: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  sendAt: Maybe<Scalars['Date']>
+  sendType: Maybe<Enum_Notification_Message_Sendtype>
+  status: Maybe<Enum_Notification_Message_Status>
+  title: Maybe<Scalars['String']>
+  to: Maybe<Scalars['String']>
+  updatedAt: Maybe<Scalars['Date']>
+}
+
+export type Type_Notification_Message_Schema_Channel = {
+  condition: Maybe<Enum_Notification_Message_Channel_Condition>
+  key: Maybe<Enum_Notification_Message_Channel_Key>
+}
+
+export type Type_Notification_Schema = {
+  _id: Maybe<Scalars['ID']>
+  attribute: Maybe<Scalars['JSON']>
+  content: Maybe<Scalars['String']>
+  createdAt: Maybe<Scalars['Date']>
+  from: Maybe<Scalars['String']>
+  icon: Maybe<Scalars['String']>
+  read: Maybe<Enum_Notification_Read>
+  sendAt: Maybe<Scalars['Date']>
+  title: Maybe<Scalars['String']>
+  to: Maybe<Scalars['String']>
+  type: Maybe<Enum_Notification_User_Type>
+  updatedAt: Maybe<Scalars['Date']>
+}
+
+export type Type_Notification_Template = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Scmema_Notification_Template>
+}
+
+export type Type_Notification_Template_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Scmema_Notification_Template>>>
+}
+
+export type Type_Notify = {
   _id: Maybe<Scalars['ID']>
   isSendNotify: Maybe<Scalars['Boolean']>
   notificationDisabled: Maybe<Scalars['Boolean']>
   notifyToken: Maybe<Scalars['String']>
 }
 
-export type TypeNumberAttribute = {
+export type Type_Number_Attribute = {
   _id: Maybe<Scalars['ID']>
   key: Maybe<Scalars['String']>
   value: Maybe<Scalars['Number']>
 }
 
-export type TypeOk = {
+export type Type_Ok = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
 }
 
-export type TypeOrganization = {
+export type Type_Organization = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeOrganizationResponse>
+  payload: Maybe<Type_Organization_Response>
 }
 
-export type TypeOrganizationResponse = {
+export type Type_Organization_Approval = {
+  approvalAttribute: Maybe<Scalars['JSON']>
+  note: Maybe<Scalars['String']>
+  organization: Maybe<Type_Organization_Response>
+  status: Maybe<Enum_Organization_Approval_Status>
+}
+
+export type Type_Organization_Approval_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Organization_Approval>>>
+}
+
+export type Type_Organization_Approval_Response = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Organization_Approval>
+}
+
+export type Type_Organization_Contact_Email = {
+  value: Maybe<Scalars['String']>
+  verifyStatus: Maybe<Scalars['String']>
+}
+
+export type Type_Organization_Label = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Organization_Label_Schema>
+}
+
+export type Type_Organization_Label_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Organization_Label_Schema>>>
+}
+
+export type Type_Organization_Label_Schema = {
+  _id: Maybe<Scalars['ID']>
+  createdAt: Maybe<Scalars['Date']>
+  createdBy: Maybe<Type_User_Profile>
+  orgLabelDescription: Maybe<Scalars['String']>
+  orgLabelIcon: Maybe<Scalars['String']>
+  orgLabelName: Maybe<Scalars['String']>
+  orgLabelStatus: Maybe<Enum_Organization_Label_Status>
+  orgLabelTitle: Maybe<Scalars['String']>
+  updatedAt: Maybe<Scalars['Date']>
+  updatedBy: Maybe<Type_User_Profile>
+}
+
+export type Type_Organization_Locale_List = {
+  dataKey: Maybe<Scalars['String']>
+  locale: Maybe<Scalars['JSON']>
+  masterKey: Maybe<Scalars['String']>
+}
+
+export type Type_Organization_Location = {
+  coordinates: Maybe<Array<Maybe<Scalars['Number']>>>
+  type: Maybe<Scalars['String']>
+}
+
+export type Type_Organization_Master_Detail_List = {
+  dataKey: Maybe<Scalars['String']>
+  masterData: Maybe<Scalars['JSON']>
+  masterKey: Maybe<Scalars['String']>
+}
+
+export type Type_Organization_Response = {
+  address: Maybe<Scalars['JSON']>
   attribute: Maybe<Scalars['JSON']>
+  categoryList: Maybe<Array<Maybe<Type_Category_Schema>>>
   contactEmailList: Maybe<Array<Maybe<Scalars['String']>>>
   contactName: Maybe<Scalars['String']>
+  createdAt: Maybe<Scalars['Date']>
+  location: Maybe<Type_Organization_Location>
   name: Maybe<Scalars['String']>
   orgKey: Maybe<Scalars['String']>
-  status: Maybe<EnumOrganizationStatus>
+  organizationLabelList: Maybe<Array<Maybe<Type_Organization_Label_Schema>>>
+  organizationType: Maybe<Type_Organization_Type_Schema>
+  path: Maybe<Scalars['String']>
+  status: Maybe<Enum_Organization_Status>
+  updatedAt: Maybe<Scalars['Date']>
 }
 
-export type TypeOrgField = {
+export type Type_Organization_Tag_List = {
+  masterKey: Maybe<Scalars['String']>
+  tagKey: Maybe<Scalars['String']>
+}
+
+export type Type_Organization_Type = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeOrgFieldPayload>>>
+  payload: Maybe<Type_Organization_Type_Schema>
 }
 
-export type TypeOrgFieldPayload = {
-  fieldList: Maybe<Array<Maybe<TypeOrgFieldPayloadFieldList>>>
+export type Type_Organization_Type_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Organization_Type_Schema>>>
+}
+
+export type Type_Organization_Type_Schema = {
+  _id: Maybe<Scalars['ID']>
+  createdAt: Maybe<Scalars['Date']>
+  createdBy: Maybe<Type_User_Profile>
+  needApprove: Maybe<Enum_Is>
+  orgFieldList: Maybe<Array<Maybe<Scalars['JSON']>>>
+  orgTypeKey: Maybe<Scalars['String']>
+  orgTypeName: Maybe<Scalars['String']>
+  orgTypeStatus: Maybe<Enum_Organization_Type_Status>
+  updatedAt: Maybe<Scalars['Date']>
+  updatedBy: Maybe<Type_User_Profile>
+}
+
+export type Type_Org_Accees_Token = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Org_Accees_Token_Payload>
+}
+
+export type Type_Org_Accees_Token_Payload = {
+  organization: Maybe<Type_Organization_Response>
+  profile: Maybe<Type_User_Profile>
+  token: Maybe<Type_Org_Accees_Token_Payload_Token>
+}
+
+export type Type_Org_Accees_Token_Payload_Token = {
+  orgAccessToken: Maybe<Scalars['String']>
+  orgRefreshToken: Maybe<Scalars['String']>
+}
+
+export type Type_Org_Children = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Type_Org_Children_Payload>>>
+}
+
+export type Type_Org_Children_Payload = {
+  children: Maybe<Scalars['JSON']>
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
   orgKey: Maybe<Scalars['String']>
-}
-
-export type TypeOrgFieldPayloadFieldList = {
-  content: Maybe<Scalars['String']>
-  description: Maybe<Scalars['String']>
-  fieldKey: Maybe<Scalars['String']>
-  order: Maybe<Scalars['Number']>
-  showInList: Maybe<EnumShowInList>
+  path: Maybe<Scalars['String']>
   title: Maybe<Scalars['String']>
 }
 
-export type TypeOrgKeyList = {
+export type Type_Org_Token_Ref = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<Scalars['String']>>>
+  payload: Maybe<Type_Org_Token_Ref_Payload>
 }
 
-export type TypePagination = {
+export type Type_Org_Token_Ref_Payload = {
+  organization: Maybe<Type_Organization_Response>
+  profile: Maybe<Type_User_Profile>
+  ref: Maybe<Scalars['String']>
+}
+
+export type Type_Otp = {
+  countryCode: Maybe<Scalars['String']>
+  expire: Maybe<Scalars['String']>
+  phoneNumber: Maybe<Scalars['Number']>
+  ref: Maybe<Scalars['String']>
+}
+
+export type Type_Otp_Token = {
+  expireDate: Maybe<Scalars['Date']>
+  otpToken: Maybe<Scalars['String']>
+  redirectUrl: Maybe<Scalars['String']>
+}
+
+export type Type_Otp_Token_Payload = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Otp_Token>
+}
+
+export type Type_O_Auth = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Schema_O_Auth>
+}
+
+export type Type_Pagination = {
   limit: Maybe<Scalars['Int']>
   page: Maybe<Scalars['Int']>
   totalItems: Maybe<Scalars['Int']>
   totalPages: Maybe<Scalars['Int']>
 }
 
-export type TypePermisionOption = {
+export type Type_Password_Email = {
+  email: Maybe<Scalars['String']>
+}
+
+export type Type_Password_Otp = {
+  countryCode: Scalars['String']
+  phoneNumber: Scalars['Number']
+}
+
+export type Type_Permision_Option = {
   _id: Maybe<Scalars['ID']>
   code: Maybe<Scalars['String']>
   description: Maybe<Scalars['String']>
   level: Maybe<Scalars['Number']>
 }
 
-export type TypePermissionList = {
+export type Type_Permission_List = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Type_Role_Permission>>>
+}
+
+export type Type_Phone = {
+  code: Maybe<Scalars['String']>
+  value: Maybe<Scalars['String']>
+  verifyStatus: Maybe<Enum_Verify_Status>
+}
+
+export type Type_Profile = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeRolePermission>>>
+  payload: Maybe<Type_User_Profile>
 }
 
-export type TypeProduct = {
+export type Type_Profile_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductSchema>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_User_Profile>>>
 }
 
-export type TypeProductionOrder = {
+export type Type_Profile_Org = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductionOrderSchema>
+  payload: Maybe<Type_Profile_Org_Payload>
 }
 
-export type TypeProductionOrderDetail = {
+export type Type_Profile_Org_Payload = {
+  organization: Maybe<Type_Organization_Response>
+  profile: Maybe<Type_User_Profile>
+}
+
+export type Type_Refresh_Access_Token = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductionOrderDetailSchema>
+  payload: Maybe<Type_Token>
 }
 
-export type TypeProductionOrderDetailList = {
+export type Type_Remove_Config = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductionOrderDetailSchema>>>
 }
 
-export type TypeProductionOrderDetailSchema = {
-  _id: Maybe<Scalars['ID']>
-  currency: Maybe<TypeMadterDataValue>
-  invoiceAmountLocal: Maybe<Scalars['Number']>
-  netWeight: Maybe<Scalars['Number']>
-  netWeightUnit: Maybe<TypeProductPropertySchema>
-  product: Maybe<TypeProductSchema>
-  productRelocation: Maybe<TypeProductRelocationSchema>
-  productionOrder: Maybe<TypeProductionOrderSchema>
-  quantity: Maybe<Scalars['Number']>
-  quantityUnit: Maybe<TypeProductPropertySchema>
-  relocationRef: Maybe<Scalars['String']>
-  remark: Maybe<Scalars['String']>
-  status: Maybe<EnumDeclarationDetailStatus>
-  unitPriceLocal: Maybe<Scalars['Number']>
-}
-
-export type TypeProductionOrderList = {
+export type Type_Request_Otp = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductionOrderSchema>>>
+  payload: Maybe<Type_Otp>
 }
 
-export type TypeProductionOrderSchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  billOfMaterial: Maybe<TypeBillOfMaterialSchema>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Scalars['String']>
-  date: Maybe<Scalars['Date']>
-  endDate: Maybe<Scalars['Date']>
-  endWipDate: Maybe<Scalars['Date']>
-  finishGoodsRelocationRef: Maybe<Scalars['String']>
-  location: Maybe<TypeLocationSchema>
-  lostRelocationRef: Maybe<Scalars['String']>
-  materialRelocationRef: Maybe<Scalars['String']>
-  no: Maybe<Scalars['String']>
-  packageRelocationRef: Maybe<Scalars['String']>
-  product: Maybe<TypeProductSchema>
-  remark: Maybe<Scalars['String']>
-  scrapRelocationRef: Maybe<Scalars['String']>
-  startDate: Maybe<Scalars['Date']>
-  startedBy: Maybe<Scalars['String']>
-  status: Maybe<EnumProductionOrderStatus>
-  step: Maybe<Scalars['Number']>
-  updatedAt: Maybe<Scalars['Date']>
-}
-
-export type TypeProductByBom = {
-  billOfMaterialId: Maybe<Scalars['String']>
-  billOfMaterialName: Maybe<Scalars['String']>
-  declarationDetailId: Maybe<Scalars['String']>
-  declarationId: Maybe<Scalars['String']>
-  declarationItem: Maybe<Scalars['Number']>
-  locationId: Maybe<Scalars['String']>
-  locationName: Maybe<Scalars['String']>
-  productCode: Maybe<Scalars['String']>
-  productId: Maybe<Scalars['String']>
-  productName: Maybe<Scalars['String']>
-  quantity: Maybe<Scalars['Number']>
-}
-
-export type TypeProductByBomList = {
+export type Type_Reset_Password_Email = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeProductByBom>>>
+  payload: Maybe<Type_Password_Email>
 }
 
-export type TypeProductCurrency = {
-  currency: Maybe<Scalars['String']>
-  value: Maybe<Scalars['Number']>
-}
-
-export type TypeProductList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductSchema>>>
-}
-
-export type TypeProductLocation = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductLocationSchema>
-}
-
-export type TypeProductLocationList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductLocationSchema>>>
-}
-
-export type TypeProductLocationSchema = {
-  _id: Maybe<Scalars['ID']>
-  date: Maybe<Scalars['Date']>
-  declaration: Maybe<TypeDeclarationSchema>
-  declarationDetail: Maybe<TypeDeclarationDetailSchema>
-  fromLocation: Maybe<TypeLocationSchema>
-  location: Maybe<TypeLocationSchema>
-  outStock: Maybe<EnumIs>
-  product: Maybe<TypeProductSchema>
-  productionOrder: Maybe<TypeProductionOrderSchema>
-  remaining: Maybe<Scalars['Number']>
-  reserveRemaining: Maybe<Scalars['Number']>
-  type: Maybe<EnumProductLocationType>
-}
-
-export type TypeProductOverload = {
-  productId: Maybe<Scalars['String']>
-  productName: Maybe<Scalars['String']>
-  quantity: Maybe<Scalars['Number']>
-}
-
-export type TypeProductOverloadList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeProductOverload>>>
-}
-
-export type TypeProductProperty = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductPropertySchema>
-}
-
-export type TypeProductPropertyList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductPropertySchema>>>
-}
-
-export type TypeProductPropertySchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  code: Maybe<Scalars['String']>
-  description: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  localName: Maybe<Scalars['String']>
-  parent: Maybe<TypeProductPropertySchema>
-  type: Maybe<EnumProductPropertyType>
-}
-
-export type TypeProductRelocation = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeProductRelocationSchema>
-}
-
-export type TypeProductRelocationList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeProductRelocationSchema>>>
-  verified: Maybe<Scalars['Number']>
-}
-
-export type TypeProductRelocationLocation = {
-  beforeProductNumber: Maybe<Scalars['Number']>
-  declaration: Maybe<TypeDeclarationSchema>
-  declarationDetail: Maybe<TypeDeclarationDetailSchema>
-  fromLocation: Maybe<TypeLocationSchema>
-  productionOrder: Maybe<TypeProductionOrderSchema>
-  quantity: Maybe<Scalars['Number']>
-  remark: Maybe<Scalars['String']>
-  toLocation: Maybe<TypeLocationSchema>
-  type: Maybe<EnumProductRelocationLocationType>
-}
-
-export type TypeProductRelocationLocationList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeProductRelocationLocation>>>
-}
-
-export type TypeProductRelocationSchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  date: Maybe<Scalars['Date']>
-  declaration: Maybe<Scalars['ID']>
-  declarationDetail: Maybe<Scalars['ID']>
-  locationList: Maybe<Array<Maybe<TypeProductRelocationLocation>>>
-  no: Maybe<Scalars['String']>
-  parent: Maybe<TypeProductRelocationSchema>
-  product: Maybe<TypeProductSchema>
-  productionOrder: Maybe<Scalars['ID']>
-  ref: Maybe<Scalars['String']>
-  reserve: Maybe<EnumIs>
-  status: Maybe<EnumProductRelocationStatus>
-  totalRawMaterialQuantity: Maybe<Scalars['Number']>
-  transfer: Maybe<Scalars['ID']>
-  type: Maybe<EnumProductRelocationType>
-}
-
-export type TypeProductSchema = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  brandName: Maybe<Scalars['String']>
-  canProduce: Maybe<EnumIs>
-  cctvId: Maybe<Scalars['String']>
-  code: Maybe<Scalars['String']>
-  currency: Maybe<TypeMadterDataValue>
-  customsCode: Maybe<Scalars['String']>
-  description: Maybe<Scalars['String']>
-  effectiveDate: Maybe<Scalars['Date']>
-  globalName: Maybe<Scalars['String']>
-  image: Maybe<Scalars['String']>
-  localName: Maybe<Scalars['String']>
-  productCategory: Maybe<TypeProductPropertySchema>
-  productLocationList: Maybe<Array<Maybe<TypeProductLocationSchema>>>
-  productType: Maybe<TypeProductPropertySchema>
-  productUnit: Maybe<TypeProductPropertySchema>
-  productWeightUnit: Maybe<TypeProductPropertySchema>
-  productYear: Maybe<Scalars['String']>
-  remaining: Maybe<Scalars['Number']>
-  scrap: Maybe<TypeProductSchema>
-  statisticCode: Maybe<Scalars['String']>
-  tariffCode: Maybe<Scalars['String']>
-  tariffRate: Maybe<Scalars['Number']>
-  tariffSequence: Maybe<Scalars['String']>
-  type: Maybe<EnumProductType>
-  unitPrice: Maybe<Scalars['Number']>
-  weight: Maybe<Scalars['Number']>
-}
-
-export type TypeProperty = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypePropertySchema>
-}
-
-export type TypePropertyOverMaxLost = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypePropertyOverMaxLostSchema>
-}
-
-export type TypePropertyOverMaxLostSchema = {
-  lostMaxPercent: Maybe<Scalars['Number']>
-  lostPercent: Maybe<Scalars['Number']>
-  overMaxLost: Maybe<EnumIs>
-}
-
-export type TypePropertySchema = {
-  address: Maybe<Scalars['String']>
-  branch: Maybe<Scalars['String']>
-  companyEmail: Maybe<Scalars['String']>
-  companyFax: Maybe<Scalars['String']>
-  companyLogo: Maybe<Array<Maybe<Scalars['String']>>>
-  companyPhone: Maybe<Scalars['String']>
-  companyStamp: Maybe<Array<Maybe<Scalars['String']>>>
-  currency: Maybe<TypeMadterDataValue>
-  district: Maybe<TypeMadterDataValue>
-  freezoneArea: Maybe<Scalars['String']>
-  globalName: Maybe<Scalars['String']>
-  lostPercent: Maybe<Scalars['Number']>
-  name: Maybe<Scalars['String']>
-  province: Maybe<TypeMadterDataValue>
-  signature: Maybe<Array<Maybe<Scalars['String']>>>
-  subDistrict: Maybe<TypeMadterDataValue>
-  taxNo: Maybe<Scalars['String']>
-  zipCode: Maybe<Scalars['String']>
-}
-
-export type TypeQuotation = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaQuotation>
-}
-
-export type TypeQuotationContactDetail = {
-  address: Maybe<Scalars['String']>
-  branch: Maybe<Scalars['String']>
-  taxId: Maybe<Scalars['String']>
-  zipCode: Maybe<Scalars['String']>
-}
-
-export type TypeQuotationList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeSchemaQuotation>>>
-}
-
-export type TypeQuotationPriceDetail = {
-  date: Maybe<Scalars['Date']>
-  discount: Maybe<Scalars['Number']>
-  dueDate: Maybe<Scalars['Date']>
-  grandTotal: Maybe<Scalars['Number']>
-  grandTotalForeign: Maybe<Scalars['Number']>
-  grandTotalLocal: Maybe<Scalars['Number']>
-  paymentAmount: Maybe<Scalars['Number']>
-  salesName: Maybe<Scalars['String']>
-  total: Maybe<Scalars['Number']>
-  totalAfterDiscount: Maybe<Scalars['Number']>
-  totalForeign: Maybe<Scalars['Number']>
-  totalLocal: Maybe<Scalars['Number']>
-  vat: Maybe<Scalars['Number']>
-  withHoldingTax: Maybe<Scalars['Number']>
-}
-
-export type TypeQuotationProduct = {
-  code: Maybe<Scalars['String']>
-  exchangeRate: Maybe<Scalars['Number']>
-  id: Maybe<Scalars['ID']>
-  name: Maybe<Scalars['String']>
-  quantity: Maybe<Scalars['Number']>
-  total: Maybe<Scalars['Number']>
-  totalForeign: Maybe<Scalars['Number']>
-  totalLocal: Maybe<Scalars['Number']>
-  unit: Maybe<Scalars['String']>
-  unitId: Maybe<Scalars['ID']>
-  unitPrice: Maybe<Scalars['Number']>
-  unitPriceCurrency: Maybe<TypeMadterDataValue>
-  unitPriceForeign: Maybe<Scalars['Number']>
-  unitPriceForeignCurrency: Maybe<TypeMadterDataValue>
-  unitPriceLocal: Maybe<Scalars['Number']>
-  unitPriceLocalCurrency: Maybe<TypeMadterDataValue>
-}
-
-export type TypeReceptionLocation = {
-  location: Maybe<TypeProductLocationSchema>
-  quantity: Maybe<Scalars['Number']>
-  remark: Maybe<Scalars['String']>
-}
-
-export type TypeReport = {
-  _id: Maybe<Scalars['ID']>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Scalars['String']>
-  docTypeList: Maybe<Array<Maybe<Scalars['String']>>>
-  endDate: Maybe<Scalars['Date']>
-  expireDate: Maybe<Scalars['Date']>
-  fileTypeKey: Maybe<EnumReportFileType>
-  fileTypeTitle: Maybe<Scalars['String']>
-  locationList: Maybe<Array<Maybe<TypeLocationSchema>>>
-  locationType: Maybe<EnumReportSelect>
-  reportSubTypeKeyList: Maybe<Array<Maybe<EnumReportProductType>>>
-  reportTypeKey: Maybe<EnumReportType>
-  reportTypeTitle: Maybe<Scalars['String']>
-  selectDocType: Maybe<EnumReportSelect>
-  selectSubTypeKey: Maybe<EnumReportSelect>
-  startDate: Maybe<Scalars['Date']>
-  statusKey: Maybe<EnumReportStatus>
-  statusTitle: Maybe<Scalars['String']>
-  taskReportAt: Maybe<Scalars['Date']>
-  url: Maybe<Scalars['String']>
-}
-
-export type TypeReportConstantList = {
-  description: Maybe<Scalars['String']>
-  key: Maybe<Scalars['String']>
-  title: Maybe<Scalars['String']>
-}
-
-export type TypeReportConstantListResponse = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeReportConstantList>>>
-}
-
-export type TypeReportListResponse = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeReport>>>
-}
-
-export type TypeReportResponse = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<TypeReport>
-}
-
-export type TypeResponse = {
+export type Type_Response = {
   message: Maybe<Scalars['String']>
   success: Maybe<Scalars['Boolean']>
 }
 
-export type TypeRole = {
-  isDefault: Maybe<EnumIs>
-  isReplaceable: Maybe<EnumIs>
+export type Type_Role = {
+  attribute: Maybe<Scalars['JSON']>
+  isDefault: Maybe<Enum_Is>
+  isInvite: Maybe<Enum_Is>
+  isReplaceable: Maybe<Enum_Is>
   name: Maybe<Scalars['String']>
+  regisable: Maybe<Enum_Is>
   roleKey: Maybe<Scalars['String']>
-  roleType: Maybe<EnumLrleType>
-  status: Maybe<EnumAppStatus>
+  roleType: Maybe<Enum_Lrle_Type>
+  status: Maybe<Enum_App_Status>
+  userField: Maybe<Array<Maybe<Scalars['JSON']>>>
 }
 
-export type TypeRoleDataSecurity = {
-  assign: Maybe<EnumDataSecurity>
-  assignToParent: Maybe<EnumIs>
-  create: Maybe<EnumDataSecurity>
-  delete: Maybe<EnumDataSecurity>
+export type Type_Role_Aproval_Attribute = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Role_Aproval_Attribute_Schema>
+}
+
+export type Type_Role_Aproval_Attribute_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Role_Aproval_Attribute_Schema>>>
+}
+
+export type Type_Role_Aproval_Attribute_Role = {
+  _id: Maybe<Scalars['String']>
+  approval: Maybe<Enum_Is>
+  approvalAttribute: Maybe<Scalars['JSON']>
+  isDefault: Maybe<Enum_Is>
+  isReplaceable: Maybe<Enum_Is>
   name: Maybe<Scalars['String']>
-  read: Maybe<EnumDataSecurity>
+  needApproval: Maybe<Enum_Is>
+  note: Maybe<Scalars['String']>
+  roleKey: Maybe<Scalars['String']>
+  roleType: Maybe<Scalars['String']>
+  status: Maybe<Enum_Role_Aproval_Attribute_Ststus>
+}
+
+export type Type_Role_Aproval_Attribute_Schema = {
+  profile: Maybe<Type_User_Profile>
+  roleList: Maybe<Array<Maybe<Type_Role_Aproval_Attribute_Role>>>
+}
+
+export type Type_Role_Data_Security = {
+  assign: Maybe<Enum_Data_Security>
+  assignToParent: Maybe<Enum_Is>
+  create: Maybe<Enum_Data_Security>
+  delete: Maybe<Enum_Data_Security>
+  name: Maybe<Scalars['String']>
+  read: Maybe<Enum_Data_Security>
   securityKey: Maybe<Scalars['String']>
-  write: Maybe<EnumDataSecurity>
+  write: Maybe<Enum_Data_Security>
 }
 
-export type TypeRoleDataSecurityList = {
+export type Type_Role_Data_Security_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeRoleDataSecurityPayload>
+  payload: Maybe<Type_Role_Data_Security_Payload>
 }
 
-export type TypeRoleDataSecurityPayload = {
-  dataSecurityList: Maybe<Array<Maybe<TypeRoleDataSecurity>>>
-  role: Maybe<TypeRole>
+export type Type_Role_Data_Security_Payload = {
+  dataSecurityList: Maybe<Array<Maybe<Type_Role_Data_Security>>>
+  role: Maybe<Type_Role>
 }
 
-export type TypeRolePermission = {
+export type Type_Role_Permission = {
   code: Maybe<Array<Maybe<Scalars['String']>>>
   name: Maybe<Scalars['String']>
   permissionKey: Maybe<Scalars['String']>
   scopeList: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-export type TypeRolePermissionList = {
+export type Type_Role_Permission_List = {
+  /** โค้ดของการตอบสนอง */
   code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeRolePermissionPayload>
+  payload: Maybe<Type_Role_Permission_Payload>
 }
 
-export type TypeRolePermissionPayload = {
-  permissionList: Maybe<Array<Maybe<TypeRolePermission>>>
-  role: Maybe<TypeRole>
+export type Type_Role_Permission_Payload = {
+  permissionList: Maybe<Array<Maybe<Type_Role_Permission>>>
+  role: Maybe<Type_Role>
 }
 
-export type TypeRolePermissionSchema = {
+export type Type_Role_Permission_Schema = {
   code: Maybe<Array<Maybe<Scalars['String']>>>
   permissionKey: Maybe<Scalars['String']>
   scopeList: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-export type TypeRolePermissionUserList = {
+export type Type_Running_Number = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeRolePermissionSchema>>>
+  payload: Maybe<Type_Schema_Running_Number>
 }
 
-export type TypeRunningNumber = {
+export type Type_Running_Number_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaRunningNumber>
+  payload: Maybe<Array<Maybe<Type_Schema_Running_Number>>>
 }
 
-export type TypeRunningNumberList = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeSchemaRunningNumber>>>
-}
-
-export type TypeRunningNumberNo = {
+export type Type_Running_Number_No = {
   runningNo: Maybe<Scalars['String']>
 }
 
-export type TypeS3Config = {
-  ACL: Maybe<Scalars['String']>
-  _id: Maybe<Scalars['String']>
-  accessKeyId: Maybe<Scalars['String']>
-  bucket: Maybe<Scalars['String']>
-  headers: Maybe<Scalars['JSON']>
-  publicEndpoint: Maybe<Scalars['String']>
-  region: Maybe<Scalars['String']>
-  s3ForcePathStyle: Maybe<Scalars['Boolean']>
-  secretAccessKey: Maybe<Scalars['String']>
-  serviceEndpoint: Maybe<Scalars['String']>
-  signatureExpires: Maybe<Scalars['Number']>
-  signatureVersion: Maybe<Scalars['String']>
-  uniquePrefix: Maybe<Scalars['Boolean']>
+export type Type_S3_Signed_Url = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<Type_Schema_S3_Signed_Url>>>
 }
 
-export type TypeSchemaCctv = {
+export type Type_Schema_Custom_Menu = {
   _id: Maybe<Scalars['String']>
+  actionColor: Maybe<Scalars['String']>
   appKey: Maybe<Scalars['String']>
-  /** @deprecated attribute is deprecated. Use newField instead. */
-  attribute: Maybe<Scalars['JSON']>
-  /** @deprecated Field no longer supported */
-  cameraId: Maybe<Scalars['String']>
-  cameraName: Maybe<Scalars['String']>
-  createdAt: Maybe<Scalars['Date']>
-  licensePlateDetection: Maybe<TypeCctvVehicleOption>
-  localRTSP: Maybe<Scalars['String']>
-  locationId: Maybe<Scalars['String']>
-  mediaServiceEndpoint: Maybe<Scalars['String']>
-  motionDetection: Maybe<Scalars['Boolean']>
-  orgKey: Maybe<Scalars['String']>
-  remoteRTSP: Maybe<Scalars['String']>
-  /** @deprecated Field no longer supported */
-  secretKey: Maybe<Scalars['String']>
-  serialNumber: Maybe<Scalars['String']>
-  /** @deprecated Field no longer supported */
-  serviceEndpoint: Maybe<Scalars['String']>
-  /** @deprecated Field no longer supported */
-  signUrlEndpoint: Maybe<Scalars['String']>
-  toolkitList: Maybe<Array<Maybe<Scalars['String']>>>
-  toolkitListFull: Maybe<Array<Maybe<TypeToolkitOption>>>
-  updatedAt: Maybe<Scalars['Date']>
-  vehicleDeteion: Maybe<TypeCctvVehicleOption>
+  icon: Maybe<Scalars['String']>
+  menuKey: Maybe<Scalars['String']>
+  permissionList: Maybe<Array<Maybe<Type_Schema_Custom_Menu_Permission_List>>>
+  status: Maybe<Enum_Usability>
+  target: Maybe<Scalars['String']>
+  title: Maybe<Scalars['JSON']>
+  url: Maybe<Scalars['String']>
 }
 
-export type TypeSchemaCctvMotioncapture = {
-  _id: Maybe<Scalars['String']>
-  appKey: Maybe<Scalars['String']>
-  cameraId: Maybe<Scalars['String']>
-  cameraName: Maybe<Scalars['String']>
-  capture: Maybe<TypeSchemaCctvMotioncaptureS3>
-  captureTime: Maybe<Scalars['Date']>
-  motion: Maybe<TypeSchemaCctvMotioncaptureS3>
-  orgKey: Maybe<Scalars['String']>
-  reSize: Maybe<TypeSchemaCctvMotioncaptureS3>
-  registerCCTV: Maybe<Scalars['String']>
+export type Type_Schema_Custom_Menu_Permission_List = {
+  code: Maybe<Array<Maybe<Scalars['String']>>>
+  permissionKey: Maybe<Scalars['String']>
 }
 
-export type TypeSchemaCctvMotioncaptureS3 = {
-  s3Endpoint: Maybe<Scalars['String']>
-  s3FileKey: Maybe<Scalars['String']>
-  s3FileName: Maybe<Scalars['String']>
-}
-
-export type TypeSchemaCctvRecording = {
-  _id: Maybe<Scalars['String']>
-  appKey: Maybe<Scalars['String']>
-  cameraId: Maybe<Scalars['String']>
-  cameraName: Maybe<Scalars['String']>
-  orgKey: Maybe<Scalars['String']>
-  registerCCTV: Maybe<Scalars['String']>
-  s3Endpoint: Maybe<Scalars['String']>
-  s3FileKey: Maybe<Scalars['String']>
-  s3FileName: Maybe<Scalars['String']>
-  startTime: Maybe<Scalars['Date']>
-  stopTime: Maybe<Scalars['Date']>
-}
-
-export type TypeSchemaCctvToolkit = {
-  _id: Maybe<Scalars['String']>
-  appKey: Maybe<Scalars['String']>
-  certID: Maybe<Scalars['String']>
-  createdAt: Maybe<Scalars['Date']>
-  lastHealthCheckTimestamp: Maybe<Scalars['Date']>
-  orgKey: Maybe<Scalars['String']>
-  serialNumber: Maybe<Scalars['String']>
-  status: Maybe<EnumCctvToolkitStatus>
-  toolkitName: Maybe<Scalars['String']>
-  updatedAt: Maybe<Scalars['Date']>
-}
-
-export type TypeSchemaFileupload = {
-  _id: Maybe<Scalars['String']>
-  attribute: Maybe<Scalars['JSON']>
-  createBy: Maybe<Scalars['String']>
-  createdAt: Maybe<Scalars['Date']>
-  fileExtension: Maybe<Scalars['String']>
-  fileKey: Maybe<Scalars['String']>
-  fileName: Maybe<Scalars['String']>
-  fileType: Maybe<Scalars['String']>
-  refId: Maybe<Scalars['String']>
-  updateBy: Maybe<Scalars['String']>
-  updatedAt: Maybe<Scalars['Date']>
-}
-
-export type TypeSchemaInvoice = {
+export type Type_Schema_Gateway = {
   _id: Maybe<Scalars['ID']>
-  attachFileList: Maybe<Array<Maybe<Scalars['String']>>>
-  companyStamp: Maybe<Array<Maybe<Scalars['String']>>>
-  contactDetail: Maybe<TypeInvoiceContactDetail>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Scalars['String']>
-  customerId: Maybe<Scalars['ID']>
-  customerName: Maybe<Scalars['String']>
-  invoiceNumber: Maybe<Scalars['String']>
-  priceDetail: Maybe<TypeInvoicePriceDetail>
-  productList: Maybe<Array<Maybe<TypeInvoiceProduct>>>
-  remark: Maybe<Scalars['String']>
-  signature: Maybe<Array<Maybe<Scalars['String']>>>
-  updatedAt: Maybe<Scalars['Date']>
+  apiType: Maybe<Scalars['String']>
+  destination: Maybe<Array<Maybe<Scalars['String']>>>
+  endpont: Maybe<Scalars['String']>
+  header: Maybe<Scalars['JSON']>
+  key: Maybe<Scalars['String']>
+  method: Maybe<Enum_Gateway_Method>
+  name: Maybe<Scalars['String']>
+  queryString: Maybe<Scalars['JSON']>
+  resType: Maybe<Enum_Gateway_Res_Type>
+  schema: Maybe<Scalars['JSON']>
+  source: Maybe<Array<Maybe<Scalars['String']>>>
+  status: Maybe<Enum_Gateway_Status>
+  userRole: Maybe<Enum_Gateway_User_Role>
+  variable: Maybe<Scalars['JSON']>
 }
 
-export type TypeSchemaLogsystem = {
-  _id: Maybe<Scalars['String']>
-  action: Maybe<Scalars['String']>
-  createdAt: Maybe<Scalars['Date']>
-  eventKey: Maybe<Scalars['String']>
-  eventName: Maybe<Scalars['String']>
-  logType: Maybe<Scalars['String']>
-  nextData: Maybe<Scalars['JSON']>
-  prevData: Maybe<Scalars['JSON']>
-  refId: Maybe<Array<Maybe<Scalars['String']>>>
-  updatedAt: Maybe<Scalars['Date']>
-  user: Maybe<TypeLogsystemUser>
-}
-
-export type TypeSchemaQuotation = {
+export type Type_Schema_Invite = {
   _id: Maybe<Scalars['ID']>
-  attachFileList: Maybe<Array<Maybe<Scalars['String']>>>
-  companyStamp: Maybe<Array<Maybe<Scalars['String']>>>
-  contactDetail: Maybe<TypeQuotationContactDetail>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Scalars['String']>
-  customerId: Maybe<Scalars['String']>
-  customerName: Maybe<Scalars['String']>
-  priceDetail: Maybe<TypeQuotationPriceDetail>
-  productList: Maybe<Array<Maybe<TypeQuotationProduct>>>
-  quotationNumber: Maybe<Scalars['String']>
-  remark: Maybe<Scalars['String']>
-  signature: Maybe<Array<Maybe<Scalars['String']>>>
-  updatedAt: Maybe<Scalars['Date']>
+  email: Maybe<Scalars['String']>
+  organization: Maybe<Type_Organization_Response>
+  registered: Maybe<Enum_Is>
+  roleKey: Maybe<Scalars['String']>
+  status: Maybe<Enum_Invite_Status>
+  userId: Maybe<Scalars['String']>
 }
 
-export type TypeSchemaRunningNumber = {
+export type Type_Schema_O_Auth = {
+  appKey: Maybe<Scalars['String']>
+  loginStatus: Maybe<Enum_Usability>
+  reauthentication: Maybe<Enum_Usability>
+  redirectUrlList: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type Type_Schema_Running_Number = {
   attribute: Maybe<Scalars['JSON']>
   createdBy: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
@@ -3390,54 +3356,62 @@ export type TypeSchemaRunningNumber = {
   updatedBy: Maybe<Scalars['String']>
 }
 
-export type TypeSchemaWebhook = {
+export type Type_Schema_S3_Signed_Url = {
+  createdAt: Maybe<Scalars['Date']>
+  fileKey: Maybe<Scalars['String']>
+  filename: Maybe<Scalars['String']>
+  publicUrl: Maybe<Scalars['String']>
+  signedUrl: Maybe<Scalars['String']>
+  updatedAt: Maybe<Scalars['Date']>
+  user: Maybe<Type_User_Profile>
+}
+
+export type Type_Schema_Webhook = {
   count: Maybe<Scalars['Int']>
   total: Maybe<Scalars['Int']>
 }
 
-export type TypeScmemaNotificationTemplate = {
-  channel: EnumNotificationChannel
-  dataKeyList: Maybe<Array<Maybe<TypeNotificationDataKey>>>
+export type Type_Scmema_Notification_Template = {
+  channel: Enum_Notification_Channel
+  dataKeyList: Maybe<Array<Maybe<Type_Notification_Data_Key>>>
   locale: Scalars['String']
   templateKey: Maybe<Scalars['String']>
   templateValue: Maybe<Scalars['String']>
   title: Maybe<Scalars['String']>
 }
 
-export type TypeScript = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-}
-
-export type TypeService = {
+export type Type_Service = {
   adminPanelEndpoint: Maybe<Scalars['String']>
   adminPanelMetaDataUrl: Maybe<Scalars['String']>
+  adminWidgetMetaDataUrl: Maybe<Scalars['String']>
   dockerImageTag: Maybe<Scalars['String']>
-  endpoint: Maybe<TypeEndpoinServiceType>
+  endpoint: Maybe<Type_Endpoin_Service_Type>
   name: Maybe<Scalars['String']>
-  permissionList: Maybe<Array<Maybe<TypeServicePermission>>>
+  permissionList: Maybe<Array<Maybe<Type_Service_Permission>>>
   serviceKey: Maybe<Scalars['String']>
 }
 
-export type TypeServiceInfo = {
+export type Type_Service_Info = {
+  /** โค้ดของการตอบสนอง */
   code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeService>
+  payload: Maybe<Type_Service>
 }
 
-export type TypeServiceList = {
+export type Type_Service_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeService>>>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Service>>>
 }
 
-export type TypeServiceListPayload = {
-  service: Maybe<TypeService>
+export type Type_Service_List_Payload = {
+  service: Maybe<Type_Service>
   syncStatus: Maybe<Scalars['String']>
 }
 
-export type TypeServicePermission = {
+export type Type_Service_Permission = {
   defaultCode: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
   permissionKey: Maybe<Scalars['String']>
@@ -3445,545 +3419,293 @@ export type TypeServicePermission = {
   userType: Maybe<Scalars['String']>
 }
 
-export type TypeSetting = {
+export type Type_Setting = {
   _id: Maybe<Scalars['ID']>
   description: Maybe<Scalars['String']>
   key: Maybe<Scalars['String']>
   value: Maybe<Scalars['String']>
 }
 
-export type TypeSyncApp = {
+export type Type_Smtp = {
+  host: Maybe<Scalars['String']>
+  password: Maybe<Scalars['String']>
+  port: Maybe<Scalars['Number']>
+  securedConnection: Maybe<Scalars['Boolean']>
+  senderEmail: Maybe<Scalars['String']>
+  senderName: Maybe<Scalars['String']>
+  username: Maybe<Scalars['String']>
+}
+
+export type Type_Sync_App = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeSyncAppPayload>>>
+  payload: Maybe<Array<Maybe<Type_Sync_App_Payload>>>
 }
 
-export type TypeSyncAppPayload = {
-  app: Maybe<TypeApp>
-  serviceList: Maybe<Array<Maybe<TypeServiceListPayload>>>
+export type Type_Sync_App_Payload = {
+  app: Maybe<Type_App>
+  serviceList: Maybe<Array<Maybe<Type_Service_List_Payload>>>
 }
 
-export type TypeSyncOrganization = {
+export type Type_Sync_Organization = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<Array<Maybe<TypeSyncOrganizationPayload>>>
+  payload: Maybe<Array<Maybe<Type_Sync_Organization_Payload>>>
 }
 
-export type TypeSyncOrganizationPayload = {
-  organization: Maybe<TypeOrganizationResponse>
+export type Type_Sync_Organization_Payload = {
+  organization: Maybe<Type_Organization_Response>
   syncStatus: Maybe<Scalars['String']>
 }
 
-export type TypeSyncServiceInfo = {
+export type Type_Sync_Service_Info = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSyncServiceInfoPayload>
+  payload: Maybe<Type_Sync_Service_Info_Payload>
 }
 
-export type TypeSyncServiceInfoPayload = {
-  serviceList: Maybe<Array<Maybe<TypeServiceListPayload>>>
+export type Type_Sync_Service_Info_Payload = {
+  serviceList: Maybe<Array<Maybe<Type_Service_List_Payload>>>
 }
 
-export type TypeTemplate = {
+export type Type_Template = {
   _id: Maybe<Scalars['ID']>
   content: Maybe<Scalars['String']>
-  keys: Maybe<Array<Maybe<TypeKey>>>
+  keys: Maybe<Array<Maybe<Type_Key>>>
   name: Maybe<Scalars['String']>
 }
 
-export type TypeTokenExpired = {
+export type Type_Theme_Form = {
+  appKey: Maybe<Scalars['String']>
+  color: Maybe<Scalars['JSON']>
+  credentialKey: Maybe<Scalars['String']>
+  custom: Maybe<Scalars['JSON']>
+  image: Maybe<Scalars['JSON']>
+  isDefault: Maybe<Enum_Theme_Default_Status>
+  isReplaceable: Maybe<Enum_Theme_Replaceable_Status>
+  name: Maybe<Scalars['String']>
+  status: Maybe<Enum_Theme_Status>
+  text: Maybe<Scalars['JSON']>
+  themeKey: Maybe<Scalars['String']>
+  themeType: Maybe<Enum_Theme_Type>
+}
+
+export type Type_Theme_Form_Color = {
+  navAuthBg: Maybe<Scalars['String']>
+  navAuthText: Maybe<Scalars['String']>
+  navBg: Maybe<Scalars['String']>
+  navText: Maybe<Scalars['String']>
+  primary: Maybe<Scalars['String']>
+  secondary: Maybe<Scalars['String']>
+  titleText: Maybe<Scalars['String']>
+}
+
+export type Type_Theme_Form_Image = {
+  favIcon: Maybe<Scalars['String']>
+  navAuthCollapsedLogo: Maybe<Scalars['String']>
+  navAuthLogo: Maybe<Scalars['String']>
+  navLogo: Maybe<Scalars['String']>
+  webLogo: Maybe<Scalars['String']>
+}
+
+export type Type_Theme_Form_Text = {
+  description: Maybe<Scalars['String']>
+  navTitle: Maybe<Scalars['String']>
+  webTitle: Maybe<Scalars['String']>
+}
+
+export type Type_Theme_Response = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Theme_Form>
+}
+
+export type Type_Theme_Response_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Theme_Form>>>
+}
+
+export type Type_Token = {
+  accessToken: Maybe<Scalars['String']>
+  refreshToken: Maybe<Scalars['String']>
+}
+
+export type Type_Token_Expired = {
   accessTokenExpired: Maybe<Scalars['Number']>
   refreshTokenExpired: Maybe<Scalars['Number']>
 }
 
-export type TypeToolkitOption = {
-  serialNumber: Maybe<Scalars['String']>
-  toolkitName: Maybe<Scalars['String']>
-}
-
-export type TypeTransfer = {
-  _id: Maybe<Scalars['ID']>
-  attachmentList: Maybe<Array<Maybe<Scalars['String']>>>
-  productRelocation: Maybe<TypeProductRelocationSchema>
-  productType: Maybe<EnumTransferProductType>
-  relocationRef: Maybe<Scalars['String']>
-  remark: Maybe<Scalars['String']>
-  status: Maybe<EnumTransferStatus>
-  step: Maybe<Scalars['Number']>
-  transferDate: Maybe<Scalars['Date']>
-  transferInDate: Maybe<Scalars['Date']>
-  transferNo: Maybe<Scalars['String']>
-  transferOut: Maybe<TypeTransfer>
-  transferOutDate: Maybe<Scalars['Date']>
-  type: Maybe<EnumTransferType>
-}
-
-export type TypeTransferListResponse = {
+export type Type_Type_Role_Permission_User_List = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<TypePagination>
-  payload: Maybe<Array<Maybe<TypeTransfer>>>
+  payload: Maybe<Array<Maybe<Type_Role_Permission_Schema>>>
 }
 
-export type TypeTransferResponse = {
+export type Type_Update_Config = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeTransfer>
+  payload: Maybe<Type_Update_Config_Payload>
 }
 
-export type TypeUserPermission = {
+export type Type_Update_Config_Payload = {
+  config: Maybe<Type_Config>
+  serviceList: Maybe<Array<Maybe<Type_Service_List_Payload>>>
+}
+
+export type Type_Username_Register = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_User_Profile>
+}
+
+export type Type_User_Permission = {
   defaultOption: Maybe<Scalars['String']>
   permissionName: Maybe<Scalars['String']>
-  permissionOptions: Maybe<Array<Maybe<TypePermisionOption>>>
+  permissionOptions: Maybe<Array<Maybe<Type_Permision_Option>>>
 }
 
-export type TypeVerifyEmail = {
+export type Type_User_Profile = {
+  _id: Maybe<Scalars['ID']>
+  appleId: Maybe<Scalars['String']>
+  attribute: Maybe<Scalars['JSON']>
+  email: Maybe<Array<Maybe<Type_Email>>>
+  facebookId: Maybe<Scalars['String']>
+  googleId: Maybe<Scalars['String']>
+  lineId: Maybe<Scalars['String']>
+  phone: Maybe<Array<Maybe<Type_Phone>>>
+  role: Maybe<Type_Role>
+  setting: Maybe<Scalars['JSON']>
+  username: Maybe<Scalars['String']>
+}
+
+export type Type_Value_Config_Global = {
+  apiKey: Maybe<Scalars['String']>
+  bucket: Maybe<Scalars['String']>
+  headers: Maybe<Scalars['JSON']>
+  publicEndpoint: Maybe<Scalars['String']>
+  serviceEndpoint: Maybe<Scalars['String']>
+}
+
+export type Type_Verify_Email = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
   verifyId: Maybe<Scalars['String']>
 }
 
-export type TypeWebhook = {
+export type Type_Verify_Password_Otp = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  payload: Maybe<TypeSchemaWebhook>
+  payload: Maybe<Type_Password_Otp>
 }
 
-export type CreateBillOfMaterialMutationVariables = Exact<{
-  input?: InputMaybe<InputBillOfMaterial>
-}>
-
-export type CreateBillOfMaterialMutation = { createBillOfMaterial: { payload: { _id: string } } }
-
-export type CreateCctvMutationVariables = Exact<{
-  input?: InputMaybe<InputCctv>
-  tkSerialNumberList?: InputMaybe<Array<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>
-}>
-
-export type CreateCctvMutation = { createCCTV: { message: string; code: string } }
-
-export type CreateProductionOrderMutationVariables = Exact<{
-  input?: InputMaybe<InputProductionOrder>
-}>
-
-export type CreateProductionOrderMutation = {
-  createProductionOrder: { payload: { _id: string; finishGoodsRelocationRef: string } }
+export type Type_Version_Control = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Version_Control_Schema>
 }
 
-export type DeleteCctvToolkitMutationVariables = Exact<{
-  cctvToolkitId: Scalars['ID']
+export type Type_Version_Control_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Version_Control_Schema>>>
+}
+
+export type Type_Version_Control_Schema = {
+  _id: Maybe<Scalars['String']>
+  attribute: Maybe<Scalars['JSON']>
+  versionKey: Maybe<Scalars['String']>
+}
+
+export type Type_Webhook = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Schema_Webhook>
+}
+
+export type User = {
+  _id: Maybe<Scalars['String']>
+  attribute: Maybe<Scalars['JSON']>
+  email: Maybe<Array<EmailResp>>
+  phone: Maybe<Array<PhoneResp>>
+}
+
+export type GetDataLeadQueryVariables = Exact<{
+  input?: InputMaybe<FindLeadInput>
 }>
 
-export type DeleteCctvToolkitMutation = {
-  deleteCCTVToolkit: {
-    message: string
+export type GetDataLeadQuery = {
+  getDataLead: {
     code: string
-    payload: {
-      _id: string
-      appKey: string
-      orgKey: string
-      toolkitName: string
-      certID: string
-      serialNumber: string
-      status: EnumCctvToolkitStatus
-      lastHealthCheckTimestamp: any
-      createdAt: any
-      updatedAt: any
-    }
-  }
-}
-
-export type GetCctvSyncQueryVariables = Exact<{
-  input?: InputMaybe<InputFindData>
-}>
-
-export type GetCctvSyncQuery = {
-  getCCTVSync: {
     message: string
-    code: string
     payload: Array<{
-      cameraSerialNumber: string
-      fullSnapshotFileKey: string
-      licensePlateFileKey: string
-      licensePlateText: string
-      vehicleType: EnumVehicle
-      timestamp: any
-      createdAt: any
+      _id: string
+      firstName: string
+      lastName: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      resourceOwner: string
+      status: string
+      image: string
+      organizationName: string
+      createdAt: string
+      updatedAt: string
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      createdAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
     }>
     pagination: { limit: number; page: number; totalItems: number; totalPages: number }
   }
 }
 
-export type GetCctvToolkitQueryVariables = Exact<{
-  input?: InputMaybe<InputFindData>
-}>
+export declare const GetDataLead: import('graphql').DocumentNode
 
-export type GetCctvToolkitQuery = {
-  getCCTVToolkit: {
-    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
-    payload: Array<{
-      _id: string
-      appKey: string
-      orgKey: string
-      toolkitName: string
-      certID: string
-      serialNumber: string
-      status: EnumCctvToolkitStatus
-      lastHealthCheckTimestamp: any
-      createdAt: any
-      updatedAt: any
-    }>
-  }
-}
-
-export type GetCctvTookitConfigQueryVariables = Exact<{
-  serialNumber: Scalars['String']
-}>
-
-export type GetCctvTookitConfigQuery = {
-  getCCTVTookitConfig: {
-    payload: {
-      _id: string
-      syncStatus: boolean
-      maxRowSync: any
-      syncIterSec: any
-      s3: {
-        _id: string
-        accessKeyId: string
-        secretAccessKey: string
-        serviceEndpoint: string
-        publicEndpoint: string
-        s3ForcePathStyle: boolean
-        bucket: string
-        region: string
-        signatureVersion: string
-        signatureExpires: any
-        headers: any
-        ACL: string
-        uniquePrefix: boolean
-      }
-    }
-  }
-}
-
-export type GetDataBillOfMaterialQueryVariables = Exact<{
-  input?: InputMaybe<InputFindData>
-}>
-
-export type GetDataBillOfMaterialQuery = {
-  getDataBillOfMaterial: {
-    payload: Array<{
-      _id: string
-      appKey: string
-      orgKey: string
-      billOfmaterialNo: string
-      billOfMaterialDate: string
-      name: string
-      TimeSpent: any
-      quantity: any
-      netWeight: any
-      unitPrice: any
-      totalPrice: any
-      status: EnumBomStatus
-      productFinishGood: { _id: string; globalName: string }
-      quantityUnit: { _id: string; globalName: string }
-      netWeightUnit: { _id: string; globalName: string }
-      materialList: Array<{ quantity: any; productMaterial: { _id: string; globalName: string } }>
-    }>
-  }
-}
-
-export type GetOrgProductPropertyQueryVariables = Exact<{
-  input?: InputMaybe<InputFindData>
-}>
-
-export type GetOrgProductPropertyQuery = {
-  getOrgProductProperty: { payload: Array<{ _id: string; globalName: string }> }
-}
-
-export type GetOrgProductionOrderDetailQueryVariables = Exact<{
-  productionOrderId: Scalars['ID']
-  input?: InputMaybe<InputFindData>
-}>
-
-export type GetOrgProductionOrderDetailQuery = {
-  getOrgProductionOrderDetail: {
-    payload: Array<{
-      _id: string
-      remark: string
-      netWeight: any
-      quantity: any
-      unitPriceLocal: any
-      invoiceAmountLocal: any
-      status: EnumDeclarationDetailStatus
-      relocationRef: string
-      productionOrder: { _id: string }
-      productRelocation: { _id: string }
-      netWeightUnit: { _id: string; type: EnumProductPropertyType; globalName: string; localName: string }
-      quantityUnit: { _id: string; type: EnumProductPropertyType; globalName: string; localName: string }
-      currency: { dataKey: string; value: { dataKey: string; locale: string; text: string } }
-      product: {
-        _id: string
-        weight: any
-        productUnit: { _id: string; globalName: string; type: EnumProductPropertyType }
-        productWeightUnit: { _id: string; globalName: string; type: EnumProductPropertyType }
-      }
-    }>
-  }
-}
-
-export type UpdateBillOfMaterailMutationVariables = Exact<{
-  billOfMaterialId: Scalars['ID']
-  input?: InputMaybe<InputBillOfMaterial>
-}>
-
-export type UpdateBillOfMaterailMutation = { updateBillOfMaterail: { payload: { _id: string } } }
-
-export type UpdateCctvToolkitConfigMutationVariables = Exact<{
-  tkSerialNumber: Scalars['String']
-  input?: InputMaybe<InputSchemaCctvToolkitConfig>
-}>
-
-export type UpdateCctvToolkitConfigMutation = { updateCCTVToolkitConfig: { payload: { _id: string } } }
-
-export type UpdateStatusCctvToolkitMutationVariables = Exact<{
-  cctvToolkitId: Scalars['ID']
-  status: EnumCctvToolkitStatusUpdate
-}>
-
-export type UpdateStatusCctvToolkitMutation = {
-  updateStatusCCTVToolkit: {
-    message: string
-    code: string
-    payload: {
-      _id: string
-      appKey: string
-      orgKey: string
-      toolkitName: string
-      certID: string
-      serialNumber: string
-      status: EnumCctvToolkitStatus
-      lastHealthCheckTimestamp: any
-      createdAt: any
-      updatedAt: any
-    }
-  }
-}
-
-export declare const createBillOfMaterial: import('graphql').DocumentNode
-export declare const CreateCCTV: import('graphql').DocumentNode
-export declare const createProductionOrder: import('graphql').DocumentNode
-export declare const deleteCCTVToolkit: import('graphql').DocumentNode
-export declare const GetCCTVSync: import('graphql').DocumentNode
-export declare const getCCTVToolkit: import('graphql').DocumentNode
-export declare const getCCTVTookitConfig: import('graphql').DocumentNode
-export declare const getDataBillOfMaterial: import('graphql').DocumentNode
-export declare const getOrgProductProperty: import('graphql').DocumentNode
-export declare const getOrgProductionOrderDetail: import('graphql').DocumentNode
-export declare const updateBillOfMaterail: import('graphql').DocumentNode
-export declare const updateCCTVToolkitConfig: import('graphql').DocumentNode
-export declare const updateStatusCCTVToolkit: import('graphql').DocumentNode
-
-export const CreateBillOfMaterialDocument = gql`
-  mutation createBillOfMaterial($input: INPUT_BILL_OF_MATERIAL) {
-    createBillOfMaterial(input: $input) {
+export const GetDataLeadDocument = gql`
+  query GetDataLead($input: FindLeadInput) {
+    getDataLead(input: $input) {
       payload {
         _id
-      }
-    }
-  }
-`
-export type CreateBillOfMaterialMutationFn = Apollo.MutationFunction<
-  CreateBillOfMaterialMutation,
-  CreateBillOfMaterialMutationVariables
->
-
-/**
- * __useCreateBillOfMaterialMutation__
- *
- * To run a mutation, you first call `useCreateBillOfMaterialMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateBillOfMaterialMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createBillOfMaterialMutation, { data, loading, error }] = useCreateBillOfMaterialMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateBillOfMaterialMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateBillOfMaterialMutation, CreateBillOfMaterialMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateBillOfMaterialMutation, CreateBillOfMaterialMutationVariables>(
-    CreateBillOfMaterialDocument,
-    options
-  )
-}
-export type CreateBillOfMaterialMutationHookResult = ReturnType<typeof useCreateBillOfMaterialMutation>
-export type CreateBillOfMaterialMutationResult = Apollo.MutationResult<CreateBillOfMaterialMutation>
-export type CreateBillOfMaterialMutationOptions = Apollo.BaseMutationOptions<
-  CreateBillOfMaterialMutation,
-  CreateBillOfMaterialMutationVariables
->
-export const CreateCctvDocument = gql`
-  mutation CreateCCTV($input: INPUT_CCTV, $tkSerialNumberList: [String]) {
-    createCCTV(input: $input, tkSerialNumberList: $tkSerialNumberList) {
-      message
-      code
-    }
-  }
-`
-export type CreateCctvMutationFn = Apollo.MutationFunction<CreateCctvMutation, CreateCctvMutationVariables>
-
-/**
- * __useCreateCctvMutation__
- *
- * To run a mutation, you first call `useCreateCctvMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateCctvMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createCctvMutation, { data, loading, error }] = useCreateCctvMutation({
- *   variables: {
- *      input: // value for 'input'
- *      tkSerialNumberList: // value for 'tkSerialNumberList'
- *   },
- * });
- */
-export function useCreateCctvMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateCctvMutation, CreateCctvMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateCctvMutation, CreateCctvMutationVariables>(CreateCctvDocument, options)
-}
-export type CreateCctvMutationHookResult = ReturnType<typeof useCreateCctvMutation>
-export type CreateCctvMutationResult = Apollo.MutationResult<CreateCctvMutation>
-export type CreateCctvMutationOptions = Apollo.BaseMutationOptions<CreateCctvMutation, CreateCctvMutationVariables>
-export const CreateProductionOrderDocument = gql`
-  mutation createProductionOrder($input: INPUT_PRODUCTION_ORDER) {
-    createProductionOrder(input: $input) {
-      payload {
-        _id
-        finishGoodsRelocationRef
-      }
-    }
-  }
-`
-export type CreateProductionOrderMutationFn = Apollo.MutationFunction<
-  CreateProductionOrderMutation,
-  CreateProductionOrderMutationVariables
->
-
-/**
- * __useCreateProductionOrderMutation__
- *
- * To run a mutation, you first call `useCreateProductionOrderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProductionOrderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProductionOrderMutation, { data, loading, error }] = useCreateProductionOrderMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateProductionOrderMutation(
-  baseOptions?: Apollo.MutationHookOptions<CreateProductionOrderMutation, CreateProductionOrderMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreateProductionOrderMutation, CreateProductionOrderMutationVariables>(
-    CreateProductionOrderDocument,
-    options
-  )
-}
-export type CreateProductionOrderMutationHookResult = ReturnType<typeof useCreateProductionOrderMutation>
-export type CreateProductionOrderMutationResult = Apollo.MutationResult<CreateProductionOrderMutation>
-export type CreateProductionOrderMutationOptions = Apollo.BaseMutationOptions<
-  CreateProductionOrderMutation,
-  CreateProductionOrderMutationVariables
->
-export const DeleteCctvToolkitDocument = gql`
-  mutation deleteCCTVToolkit($cctvToolkitId: ID!) {
-    deleteCCTVToolkit(cctvToolkitID: $cctvToolkitId) {
-      message
-      code
-      payload {
-        _id
-        appKey
-        orgKey
-        toolkitName
-        certID
-        serialNumber
+        firstName
+        lastName
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        resourceOwner
         status
-        lastHealthCheckTimestamp
+        image
+        organizationName
         createdAt
         updatedAt
-      }
-    }
-  }
-`
-export type DeleteCctvToolkitMutationFn = Apollo.MutationFunction<
-  DeleteCctvToolkitMutation,
-  DeleteCctvToolkitMutationVariables
->
-
-/**
- * __useDeleteCctvToolkitMutation__
- *
- * To run a mutation, you first call `useDeleteCctvToolkitMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteCctvToolkitMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteCctvToolkitMutation, { data, loading, error }] = useDeleteCctvToolkitMutation({
- *   variables: {
- *      cctvToolkitId: // value for 'cctvToolkitId'
- *   },
- * });
- */
-export function useDeleteCctvToolkitMutation(
-  baseOptions?: Apollo.MutationHookOptions<DeleteCctvToolkitMutation, DeleteCctvToolkitMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteCctvToolkitMutation, DeleteCctvToolkitMutationVariables>(
-    DeleteCctvToolkitDocument,
-    options
-  )
-}
-export type DeleteCctvToolkitMutationHookResult = ReturnType<typeof useDeleteCctvToolkitMutation>
-export type DeleteCctvToolkitMutationResult = Apollo.MutationResult<DeleteCctvToolkitMutation>
-export type DeleteCctvToolkitMutationOptions = Apollo.BaseMutationOptions<
-  DeleteCctvToolkitMutation,
-  DeleteCctvToolkitMutationVariables
->
-export const GetCctvSyncDocument = gql`
-  query GetCCTVSync($input: INPUT_FIND_DATA) {
-    getCCTVSync(input: $input) {
-      message
-      code
-      payload {
-        cameraSerialNumber
-        fullSnapshotFileKey
-        licensePlateFileKey
-        licensePlateText
-        vehicleType
-        timestamp
-        createdAt
+        createdAtBy {
+          email {
+            value
+          }
+          _id
+          phone {
+            value
+          }
+          attribute
+        }
+        updatedAtBy {
+          email {
+            value
+          }
+          _id
+          phone {
+            value
+          }
+          attribute
+        }
       }
       pagination {
         limit
@@ -3991,543 +3713,40 @@ export const GetCctvSyncDocument = gql`
         totalItems
         totalPages
       }
-    }
-  }
-`
-
-/**
- * __useGetCctvSyncQuery__
- *
- * To run a query within a React component, call `useGetCctvSyncQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCctvSyncQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCctvSyncQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetCctvSyncQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetCctvSyncQuery, GetCctvSyncQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetCctvSyncQuery, GetCctvSyncQueryVariables>(GetCctvSyncDocument, options)
-}
-export function useGetCctvSyncLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCctvSyncQuery, GetCctvSyncQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetCctvSyncQuery, GetCctvSyncQueryVariables>(GetCctvSyncDocument, options)
-}
-export type GetCctvSyncQueryHookResult = ReturnType<typeof useGetCctvSyncQuery>
-export type GetCctvSyncLazyQueryHookResult = ReturnType<typeof useGetCctvSyncLazyQuery>
-export type GetCctvSyncQueryResult = Apollo.QueryResult<GetCctvSyncQuery, GetCctvSyncQueryVariables>
-export const GetCctvToolkitDocument = gql`
-  query getCCTVToolkit($input: INPUT_FIND_DATA) {
-    getCCTVToolkit(input: $input) {
-      pagination {
-        limit
-        page
-        totalItems
-        totalPages
-      }
-      payload {
-        _id
-        appKey
-        orgKey
-        toolkitName
-        certID
-        serialNumber
-        status
-        lastHealthCheckTimestamp
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`
-
-/**
- * __useGetCctvToolkitQuery__
- *
- * To run a query within a React component, call `useGetCctvToolkitQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCctvToolkitQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCctvToolkitQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetCctvToolkitQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetCctvToolkitQuery, GetCctvToolkitQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetCctvToolkitQuery, GetCctvToolkitQueryVariables>(GetCctvToolkitDocument, options)
-}
-export function useGetCctvToolkitLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCctvToolkitQuery, GetCctvToolkitQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetCctvToolkitQuery, GetCctvToolkitQueryVariables>(GetCctvToolkitDocument, options)
-}
-export type GetCctvToolkitQueryHookResult = ReturnType<typeof useGetCctvToolkitQuery>
-export type GetCctvToolkitLazyQueryHookResult = ReturnType<typeof useGetCctvToolkitLazyQuery>
-export type GetCctvToolkitQueryResult = Apollo.QueryResult<GetCctvToolkitQuery, GetCctvToolkitQueryVariables>
-export const GetCctvTookitConfigDocument = gql`
-  query getCCTVTookitConfig($serialNumber: String!) {
-    getCCTVTookitConfig(serialNumber: $serialNumber) {
-      payload {
-        _id
-        s3 {
-          _id
-          accessKeyId
-          secretAccessKey
-          serviceEndpoint
-          publicEndpoint
-          s3ForcePathStyle
-          bucket
-          region
-          signatureVersion
-          signatureExpires
-          headers
-          ACL
-          uniquePrefix
-        }
-        syncStatus
-        maxRowSync
-        syncIterSec
-      }
-    }
-  }
-`
-
-/**
- * __useGetCctvTookitConfigQuery__
- *
- * To run a query within a React component, call `useGetCctvTookitConfigQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCctvTookitConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCctvTookitConfigQuery({
- *   variables: {
- *      serialNumber: // value for 'serialNumber'
- *   },
- * });
- */
-export function useGetCctvTookitConfigQuery(
-  baseOptions: Apollo.QueryHookOptions<GetCctvTookitConfigQuery, GetCctvTookitConfigQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetCctvTookitConfigQuery, GetCctvTookitConfigQueryVariables>(
-    GetCctvTookitConfigDocument,
-    options
-  )
-}
-export function useGetCctvTookitConfigLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCctvTookitConfigQuery, GetCctvTookitConfigQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetCctvTookitConfigQuery, GetCctvTookitConfigQueryVariables>(
-    GetCctvTookitConfigDocument,
-    options
-  )
-}
-export type GetCctvTookitConfigQueryHookResult = ReturnType<typeof useGetCctvTookitConfigQuery>
-export type GetCctvTookitConfigLazyQueryHookResult = ReturnType<typeof useGetCctvTookitConfigLazyQuery>
-export type GetCctvTookitConfigQueryResult = Apollo.QueryResult<
-  GetCctvTookitConfigQuery,
-  GetCctvTookitConfigQueryVariables
->
-export const GetDataBillOfMaterialDocument = gql`
-  query getDataBillOfMaterial($input: INPUT_FIND_DATA) {
-    getDataBillOfMaterial(input: $input) {
-      payload {
-        _id
-        appKey
-        orgKey
-        billOfmaterialNo
-        billOfMaterialDate
-        name
-        TimeSpent
-        productFinishGood {
-          _id
-          globalName
-        }
-        quantity
-        quantityUnit {
-          _id
-          globalName
-        }
-        netWeight
-        netWeightUnit {
-          _id
-          globalName
-        }
-        unitPrice
-        totalPrice
-        status
-        materialList {
-          productMaterial {
-            _id
-            globalName
-          }
-          quantity
-        }
-      }
-    }
-  }
-`
-
-/**
- * __useGetDataBillOfMaterialQuery__
- *
- * To run a query within a React component, call `useGetDataBillOfMaterialQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDataBillOfMaterialQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetDataBillOfMaterialQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetDataBillOfMaterialQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetDataBillOfMaterialQuery, GetDataBillOfMaterialQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetDataBillOfMaterialQuery, GetDataBillOfMaterialQueryVariables>(
-    GetDataBillOfMaterialDocument,
-    options
-  )
-}
-export function useGetDataBillOfMaterialLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetDataBillOfMaterialQuery, GetDataBillOfMaterialQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetDataBillOfMaterialQuery, GetDataBillOfMaterialQueryVariables>(
-    GetDataBillOfMaterialDocument,
-    options
-  )
-}
-export type GetDataBillOfMaterialQueryHookResult = ReturnType<typeof useGetDataBillOfMaterialQuery>
-export type GetDataBillOfMaterialLazyQueryHookResult = ReturnType<typeof useGetDataBillOfMaterialLazyQuery>
-export type GetDataBillOfMaterialQueryResult = Apollo.QueryResult<
-  GetDataBillOfMaterialQuery,
-  GetDataBillOfMaterialQueryVariables
->
-export const GetOrgProductPropertyDocument = gql`
-  query getOrgProductProperty($input: INPUT_FIND_DATA) {
-    getOrgProductProperty(input: $input) {
-      payload {
-        _id
-        globalName
-      }
-    }
-  }
-`
-
-/**
- * __useGetOrgProductPropertyQuery__
- *
- * To run a query within a React component, call `useGetOrgProductPropertyQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetOrgProductPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetOrgProductPropertyQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetOrgProductPropertyQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetOrgProductPropertyQuery, GetOrgProductPropertyQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetOrgProductPropertyQuery, GetOrgProductPropertyQueryVariables>(
-    GetOrgProductPropertyDocument,
-    options
-  )
-}
-export function useGetOrgProductPropertyLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetOrgProductPropertyQuery, GetOrgProductPropertyQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetOrgProductPropertyQuery, GetOrgProductPropertyQueryVariables>(
-    GetOrgProductPropertyDocument,
-    options
-  )
-}
-export type GetOrgProductPropertyQueryHookResult = ReturnType<typeof useGetOrgProductPropertyQuery>
-export type GetOrgProductPropertyLazyQueryHookResult = ReturnType<typeof useGetOrgProductPropertyLazyQuery>
-export type GetOrgProductPropertyQueryResult = Apollo.QueryResult<
-  GetOrgProductPropertyQuery,
-  GetOrgProductPropertyQueryVariables
->
-export const GetOrgProductionOrderDetailDocument = gql`
-  query getOrgProductionOrderDetail($productionOrderId: ID!, $input: INPUT_FIND_DATA) {
-    getOrgProductionOrderDetail(productionOrderId: $productionOrderId, input: $input) {
-      payload {
-        _id
-        productionOrder {
-          _id
-        }
-        productRelocation {
-          _id
-        }
-        remark
-        netWeight
-        netWeightUnit {
-          _id
-          type
-          globalName
-          localName
-        }
-        quantity
-        quantityUnit {
-          _id
-          type
-          globalName
-          localName
-        }
-        unitPriceLocal
-        invoiceAmountLocal
-        currency {
-          dataKey
-          value {
-            dataKey
-            locale
-            text
-          }
-        }
-        product {
-          _id
-          weight
-          productUnit {
-            _id
-            globalName
-            type
-          }
-          productWeightUnit {
-            _id
-            globalName
-            type
-          }
-        }
-        status
-        relocationRef
-      }
-    }
-  }
-`
-
-/**
- * __useGetOrgProductionOrderDetailQuery__
- *
- * To run a query within a React component, call `useGetOrgProductionOrderDetailQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetOrgProductionOrderDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetOrgProductionOrderDetailQuery({
- *   variables: {
- *      productionOrderId: // value for 'productionOrderId'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetOrgProductionOrderDetailQuery(
-  baseOptions: Apollo.QueryHookOptions<GetOrgProductionOrderDetailQuery, GetOrgProductionOrderDetailQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetOrgProductionOrderDetailQuery, GetOrgProductionOrderDetailQueryVariables>(
-    GetOrgProductionOrderDetailDocument,
-    options
-  )
-}
-export function useGetOrgProductionOrderDetailLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetOrgProductionOrderDetailQuery, GetOrgProductionOrderDetailQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetOrgProductionOrderDetailQuery, GetOrgProductionOrderDetailQueryVariables>(
-    GetOrgProductionOrderDetailDocument,
-    options
-  )
-}
-export type GetOrgProductionOrderDetailQueryHookResult = ReturnType<typeof useGetOrgProductionOrderDetailQuery>
-export type GetOrgProductionOrderDetailLazyQueryHookResult = ReturnType<typeof useGetOrgProductionOrderDetailLazyQuery>
-export type GetOrgProductionOrderDetailQueryResult = Apollo.QueryResult<
-  GetOrgProductionOrderDetailQuery,
-  GetOrgProductionOrderDetailQueryVariables
->
-export const UpdateBillOfMaterailDocument = gql`
-  mutation updateBillOfMaterail($billOfMaterialId: ID!, $input: INPUT_BILL_OF_MATERIAL) {
-    updateBillOfMaterail(billOfMaterialId: $billOfMaterialId, input: $input) {
-      payload {
-        _id
-      }
-    }
-  }
-`
-export type UpdateBillOfMaterailMutationFn = Apollo.MutationFunction<
-  UpdateBillOfMaterailMutation,
-  UpdateBillOfMaterailMutationVariables
->
-
-/**
- * __useUpdateBillOfMaterailMutation__
- *
- * To run a mutation, you first call `useUpdateBillOfMaterailMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateBillOfMaterailMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateBillOfMaterailMutation, { data, loading, error }] = useUpdateBillOfMaterailMutation({
- *   variables: {
- *      billOfMaterialId: // value for 'billOfMaterialId'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateBillOfMaterailMutation(
-  baseOptions?: Apollo.MutationHookOptions<UpdateBillOfMaterailMutation, UpdateBillOfMaterailMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdateBillOfMaterailMutation, UpdateBillOfMaterailMutationVariables>(
-    UpdateBillOfMaterailDocument,
-    options
-  )
-}
-export type UpdateBillOfMaterailMutationHookResult = ReturnType<typeof useUpdateBillOfMaterailMutation>
-export type UpdateBillOfMaterailMutationResult = Apollo.MutationResult<UpdateBillOfMaterailMutation>
-export type UpdateBillOfMaterailMutationOptions = Apollo.BaseMutationOptions<
-  UpdateBillOfMaterailMutation,
-  UpdateBillOfMaterailMutationVariables
->
-export const UpdateCctvToolkitConfigDocument = gql`
-  mutation updateCCTVToolkitConfig($tkSerialNumber: String!, $input: INPUT_SCHEMA_CCTV_TOOLKIT_CONFIG) {
-    updateCCTVToolkitConfig(tkSerialNumber: $tkSerialNumber, input: $input) {
-      payload {
-        _id
-      }
-    }
-  }
-`
-export type UpdateCctvToolkitConfigMutationFn = Apollo.MutationFunction<
-  UpdateCctvToolkitConfigMutation,
-  UpdateCctvToolkitConfigMutationVariables
->
-
-/**
- * __useUpdateCctvToolkitConfigMutation__
- *
- * To run a mutation, you first call `useUpdateCctvToolkitConfigMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateCctvToolkitConfigMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateCctvToolkitConfigMutation, { data, loading, error }] = useUpdateCctvToolkitConfigMutation({
- *   variables: {
- *      tkSerialNumber: // value for 'tkSerialNumber'
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateCctvToolkitConfigMutation(
-  baseOptions?: Apollo.MutationHookOptions<UpdateCctvToolkitConfigMutation, UpdateCctvToolkitConfigMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdateCctvToolkitConfigMutation, UpdateCctvToolkitConfigMutationVariables>(
-    UpdateCctvToolkitConfigDocument,
-    options
-  )
-}
-export type UpdateCctvToolkitConfigMutationHookResult = ReturnType<typeof useUpdateCctvToolkitConfigMutation>
-export type UpdateCctvToolkitConfigMutationResult = Apollo.MutationResult<UpdateCctvToolkitConfigMutation>
-export type UpdateCctvToolkitConfigMutationOptions = Apollo.BaseMutationOptions<
-  UpdateCctvToolkitConfigMutation,
-  UpdateCctvToolkitConfigMutationVariables
->
-export const UpdateStatusCctvToolkitDocument = gql`
-  mutation updateStatusCCTVToolkit($cctvToolkitId: ID!, $status: ENUM_CCTV_TOOLKIT_STATUS_UPDATE!) {
-    updateStatusCCTVToolkit(cctvToolkitID: $cctvToolkitId, status: $status) {
-      message
       code
-      payload {
-        _id
-        appKey
-        orgKey
-        toolkitName
-        certID
-        serialNumber
-        status
-        lastHealthCheckTimestamp
-        createdAt
-        updatedAt
-      }
+      message
     }
   }
 `
-export type UpdateStatusCctvToolkitMutationFn = Apollo.MutationFunction<
-  UpdateStatusCctvToolkitMutation,
-  UpdateStatusCctvToolkitMutationVariables
->
 
 /**
- * __useUpdateStatusCctvToolkitMutation__
+ * __useGetDataLeadQuery__
  *
- * To run a mutation, you first call `useUpdateStatusCctvToolkitMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateStatusCctvToolkitMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useGetDataLeadQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataLeadQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [updateStatusCctvToolkitMutation, { data, loading, error }] = useUpdateStatusCctvToolkitMutation({
+ * const { data, loading, error } = useGetDataLeadQuery({
  *   variables: {
- *      cctvToolkitId: // value for 'cctvToolkitId'
- *      status: // value for 'status'
+ *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdateStatusCctvToolkitMutation(
-  baseOptions?: Apollo.MutationHookOptions<UpdateStatusCctvToolkitMutation, UpdateStatusCctvToolkitMutationVariables>
+export function useGetDataLeadQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataLeadQuery, GetDataLeadQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<UpdateStatusCctvToolkitMutation, UpdateStatusCctvToolkitMutationVariables>(
-    UpdateStatusCctvToolkitDocument,
-    options
-  )
+  return Apollo.useQuery<GetDataLeadQuery, GetDataLeadQueryVariables>(GetDataLeadDocument, options)
 }
-export type UpdateStatusCctvToolkitMutationHookResult = ReturnType<typeof useUpdateStatusCctvToolkitMutation>
-export type UpdateStatusCctvToolkitMutationResult = Apollo.MutationResult<UpdateStatusCctvToolkitMutation>
-export type UpdateStatusCctvToolkitMutationOptions = Apollo.BaseMutationOptions<
-  UpdateStatusCctvToolkitMutation,
-  UpdateStatusCctvToolkitMutationVariables
->
+export function useGetDataLeadLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataLeadQuery, GetDataLeadQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataLeadQuery, GetDataLeadQueryVariables>(GetDataLeadDocument, options)
+}
+export type GetDataLeadQueryHookResult = ReturnType<typeof useGetDataLeadQuery>
+export type GetDataLeadLazyQueryHookResult = ReturnType<typeof useGetDataLeadLazyQuery>
+export type GetDataLeadQueryResult = Apollo.QueryResult<GetDataLeadQuery, GetDataLeadQueryVariables>
