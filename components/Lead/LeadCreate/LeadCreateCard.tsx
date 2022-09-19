@@ -17,7 +17,7 @@ const LeadCreateCard: React.FC = () => {
     onCompleted() {
       message.success('Created Lead was Successfully')
       router.push({
-        pathname: `/org/[orgToken]/lead`,
+        pathname: `/app/[appToken]/lead`,
         query: {
           ...router.query,
         },
@@ -29,7 +29,7 @@ const LeadCreateCard: React.FC = () => {
     onCompleted() {
       message.success('Created User was Successfully')
       router.push({
-        pathname: `/org/[orgToken]/lead`,
+        pathname: `/app/[appToken]/lead`,
         query: {
           ...router.query,
         },

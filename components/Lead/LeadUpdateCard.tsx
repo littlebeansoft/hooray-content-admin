@@ -21,7 +21,7 @@ const LeadUpdateCard: React.FC = () => {
   })
 
   const onFinish = (values: any) => {
-    console.log('Value: -->' + JSON.stringify(values))
+    // console.log('Value: -->' + JSON.stringify(values))
 
     createLead({
       context: { clientType: 'CUSTOMER' },
