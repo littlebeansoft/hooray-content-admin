@@ -16,6 +16,7 @@ query GetDataLead($input: FindLeadInput) {
       resourceOwner
       status
       image
+      leadType
       organizationName
       createdAt
       updatedAt
