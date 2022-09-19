@@ -878,21 +878,22 @@ export interface ProductCategoryAPIPayload {
 
 export interface LeadDataAPIPayload {
   _id: string
-  prefixKey: string
-  prefixName: string
   firstName: string
   lastName: string
-  leadTypeKey: string
-  leadTypeName: string
-  organizationKey: string
-  organizationName: string
+  citizenId: string
+  passport: string
+  dataSource: string
+  resourceOwner: string
   status: string
-  phone: Phone[]
-  email: Email[]
-  createdAt: number
-  updatedAt: number
-  createBy: string
-  updateBy: string
+  image: string
+  organizationName: string
+  createdAt: string
+  updatedAt: string
+  phone: Array<{ value: string }>
+  email: Array<{ value: string }>
+  createdAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
+  updatedAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
+  leadType: string
 }
 
 export interface LeadTypeOption {

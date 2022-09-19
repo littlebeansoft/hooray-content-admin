@@ -3650,6 +3650,7 @@ export type GetDataLeadQuery = {
       resourceOwner: string
       status: string
       image: string
+      leadType: string
       organizationName: string
       createdAt: string
       updatedAt: string
@@ -3683,6 +3684,7 @@ export const GetDataLeadDocument = gql`
         resourceOwner
         status
         image
+        leadType
         organizationName
         createdAt
         updatedAt

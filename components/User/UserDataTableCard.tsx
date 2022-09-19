@@ -13,6 +13,7 @@ import useGetLeadData from 'graphql/useGetLeadData'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import dayjs from 'dayjs'
 import { dateUnixFormatter } from 'utils/utils'
+import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
 
 const { Search } = Input
 const { Text } = Typography
@@ -23,7 +24,7 @@ const UserDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetLeadData({
+  const leadData = useGetDataLeadQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -44,7 +45,7 @@ const UserDataTableCard: React.FC = () => {
         },
       },
     },
-    onCompleted(resp: any) {
+    onCompleted(resp: GetDataLeadQuery) {
       const { pagination } = resp.getDataLead
       setPagination(pagination)
     },
@@ -53,20 +54,20 @@ const UserDataTableCard: React.FC = () => {
   const LeadData = leadData.data?.getDataLead.payload
   const columns: ColumnsType<LeadDataAPIPayload> = [
     {
-      title: 'User Name',
+      title: 'Name',
       key: 'firstName',
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.firstName),
     },
     {
-      title: 'User Type',
+      title: 'Lead Type',
       key: 'Type',
       fixed: 'left',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadTypeName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadType),
     },
     {
       title: 'Organization Name',
@@ -127,38 +128,36 @@ const UserDataTableCard: React.FC = () => {
       key: 'ModifyDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dateUnixFormatter(_text?.updatedAt) : '-'),
+      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
     },
-    // {
-    //   title: 'Modify By',
-    //   dataIndex: 'ModifyBy',
-    //   key: 'ModifyBy',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updateBy),
-    // },
+    {
+      title: 'Modify By',
+      key: 'ModifyBy',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updatedAtBy?.email[0].value || '-'),
+    },
     {
       title: 'Create Date',
       key: 'CreateDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dateUnixFormatter(_text?.createdAt) : '-'),
+      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
     },
-    // {
-    //   title: 'Create By',
-    //   dataIndex: 'CreateBy',
-    //   key: 'CreateBy',
-    //   fixed: 'left',
-    //   width: 100,
-    //   ellipsis: true,
-    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createBy),
-    // },
+    {
+      title: 'Create By',
+      key: 'CreateBy',
+      width: 100,
+      ellipsis: true,
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
+    },
     // {
     //   fixed: 'right',
     //   key: 'eventAction',
     //   width: 140,
-    //   render: (_text, record) => <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />,
+    //   render: (_text, record) => (
+    //     <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
+    //   ),
     // },
   ]
 
