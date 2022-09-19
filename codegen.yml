@@ -1,6 +1,6 @@
 overwrite: true
-schema: 'graphql/generated/schema.graphql'
-documents: 'graphql/documents/**/*.graphql'
+schema: './graphql/schema.graphql'
+documents: './graphql/documents/**/*.graphql'
 generates:
   graphql/generated/operations.ts:
     plugins:
@@ -13,9 +13,9 @@ generates:
       maybeValue: T
       skipTypename: true
       namingConvention:
-        typeNames: change-case-all#pascalCase
         enumValues: change-case-all#pascalCase
       skipTypeNameForRoot: true
       flattenGeneratedTypes: true
       useTypeImports: true
       addOperationExport: true
+

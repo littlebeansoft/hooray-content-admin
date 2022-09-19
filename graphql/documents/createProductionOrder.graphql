@@ -1,8 +1,0 @@
-mutation createProductionOrder($input: INPUT_PRODUCTION_ORDER) {
-  createProductionOrder(input: $input) {
-    payload {
-      _id
-      finishGoodsRelocationRef
-    }
-  }
-}

@@ -11,8 +11,8 @@
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
     "prepare": "husky install",
     "format:operations": "prettier --write ./graphql/generated/**/*",
-    "codegen:schema": "DOTENV_CONFIG_PATH=./.env.local graphql-codegen -r dotenv/config --config codegen.json",
-    "codegen:operations": "graphql-codegen --config codegen.yml && yarn format:operations",
+    "codegen:schema": "graphql-codegen --config codegen-schema.yml",
+    "codegen:operations": "graphql-codegen --config codegen.yml",
     "codegen:all": "yarn codegen:schema && yarn codegen:operations"
   },
   "dependencies": {
