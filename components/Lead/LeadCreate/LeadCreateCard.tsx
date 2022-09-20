@@ -1,7 +1,6 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import { useCreateLeadMutation, useCreateLeadToUserMutation } from 'graphql/generated/operations'
-import useCreateLeadToUser from 'graphql/useCreateLeadToUser'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import LeadCreateForm from './LeadCreateForm'

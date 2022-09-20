@@ -9,11 +9,8 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import LeadDataTableDropDown from './LeadDataTableDropDown'
-import dayjs from 'dayjs'
-import { formatDate } from 'helpers/formatter'
 import { dateUnixFormatter } from 'utils/utils'
 import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
 

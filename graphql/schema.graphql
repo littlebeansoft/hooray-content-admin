@@ -21,7 +21,11 @@ type AccountPaginateResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """pagination data"""
   pagination: PaginatedType
+
+  """array data"""
   payload: [AccountResp!]
 }
 
@@ -62,6 +66,8 @@ type AccountResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """data"""
   payload: AccountResp
 }
 
@@ -142,7 +148,7 @@ type AddressRESP {
 }
 
 input AgentGetProductInput {
-  pagination: INPUT_PAGINATION
+  pagination: PaginatedFindType
   search: AgentProductCriteria
   sort: GetProductSortInput
 }
@@ -231,7 +237,7 @@ type Category {
 }
 
 input CommonGetProductInput {
-  pagination: INPUT_PAGINATION
+  pagination: PaginatedFindType
   search: CommonProductCriteria
   sort: GetProductSortInput
 }
@@ -276,7 +282,11 @@ type ContactPaginateResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """pagination data"""
   pagination: PaginatedType
+
+  """array data"""
   payload: [ContactResp!]
 }
 
@@ -318,6 +328,8 @@ type ContactResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """data"""
   payload: ContactResp
 }
 
@@ -755,11 +767,6 @@ enum ENUM_APP_STATUS {
 enum ENUM_AUTH_TYPE {
   AUTH_CODE
   AUTH_TOKEN
-}
-
-enum ENUM_CATEGORY_STATUS {
-  ACTIVE
-  INACTIVE
 }
 
 enum ENUM_CONFIG_PRIVACY {
@@ -1401,7 +1408,7 @@ input GetProductAttribute {
 input GetProductAttributeInput {
   """สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and"""
   filter: GetProductAttribute
-  pagination: INPUT_PAGINATION
+  pagination: PaginatedFindType
   search: GetProductAttribute
   sort: GetProductAttributeSort
 }
@@ -1423,7 +1430,7 @@ input GetProductCategoryLevel {
 input GetProductCategoryLevelInput {
   """สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and"""
   filter: GetProductCategoryLevel
-  pagination: INPUT_PAGINATION
+  pagination: PaginatedFindType
   search: GetProductCategoryLevel
   sort: GetProductCategoryLevelSortInput
 }
@@ -1516,11 +1523,6 @@ input INPUT_ATTRIBUTE {
   _id: ID
   key: String
   value: String
-}
-
-input INPUT_CATEGORY {
-  name: String
-  status: ENUM_CATEGORY_STATUS
 }
 
 input INPUT_CONFIG_FORM {
@@ -1693,7 +1695,6 @@ input INPUT_ORGANIZATION_APPROVAL_FORM {
 input INPUT_ORGANIZATION_FORM {
   address: JSON
   attribute: JSON
-  categoryList: [ID]
   contactEmailList: [String]
   contactName: String
   location: INPUT_ORGANIZATION_LOCATION
@@ -1726,7 +1727,6 @@ input INPUT_ORGANIZATION_TAG_LIST {
 input INPUT_ORGANIZATION_UPDATE {
   address: JSON
   attribute: JSON
-  categoryList: [ID]
   contactEmailList: [String]
   contactName: String
   location: INPUT_ORGANIZATION_LOCATION
@@ -2034,7 +2034,11 @@ type LeadPaginateResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """pagination data"""
   pagination: PaginatedType
+
+  """array data"""
   payload: [LeadResp!]
 }
 
@@ -2068,6 +2072,8 @@ type LeadResponse {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """data"""
   payload: LeadResp
 }
 
@@ -2102,15 +2108,15 @@ type Mutation {
     """คีย์ของหมวดหมู่ที่จะเพิ่ม Attribute"""
     categoryKey: String!
   ): ProductCategoryResponse!
-  addContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
-  addEmailGlobal(input: INPUT_ADD_EMAIL): TYPE_OK
-  addGateway(input: INPUT_GATEWAY!): TYPE_GATEWAY_LIST
 
   """addCategoryAttribute """
-  addLabelCategoryAttribute(
+  addCategoryAttribute(
     """ช้อมูล CategoryAttribute"""
     input: AddCategoryAttributeInput!
   ): GetCategoryAttributeResponse!
+  addContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
+  addEmailGlobal(input: INPUT_ADD_EMAIL): TYPE_OK
+  addGateway(input: INPUT_GATEWAY!): TYPE_GATEWAY_LIST
   addOrgAdmin(email: String!, orgKey: String!, roleList: [String]): TYPE_PROFILE
   addService(input: INPUT_CREATE_SERVICE): TYPE_SERVICE
   addServiceToApp(serviceKey: String!): TYPE_APP_SERVICE
@@ -2134,28 +2140,27 @@ type Mutation {
   """สร้างที่อยู่แต่ละประเภท"""
   createAddress(input: CreateAddressInput!): AddressInputResponse!
   createApp(input: INPUT_APP_FORM): TYPE_APP
-  createCategory(input: INPUT_CATEGORY): TYPE_CATEGORY
-  createContact(input: CreateContactInput!): ContactResponse!
-  createCredential(credentialInput: INPUT_CREDENTIAL_FORM): TYPE_CREDENTIAL
-  createCustomMenu(input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
 
   """สร้าง order """
-  createLabelAttribute(
+  createAttribute(
     """ช้อมูล Attribute"""
     input: CreateAttributeInput!
   ): GetAttributeRespon!
 
   """สร้าง order """
-  createLabelCategory(
+  createCategory(
     """ช้อมูล Category"""
     input: CreateCategoryInput!
   ): GetCategoryRespon!
 
   """สร้าง CategoryAttribute """
-  createLabelCategoryAttribute(
+  createCategoryAttribute(
     """ช้อมูล Attribute"""
     input: CreateCategoryAttributeInput!
   ): GetCategoryAttributeRespon!
+  createContact(input: CreateContactInput!): ContactResponse!
+  createCredential(credentialInput: INPUT_CREDENTIAL_FORM): TYPE_CREDENTIAL
+  createCustomMenu(input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
   createLead(input: CreateLeadInput!): LeadResponse!
   createLeadNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLeadToUser(input: CreateLeadInput!): LeadResponse!
@@ -2187,7 +2192,24 @@ type Mutation {
   """ลบที่อยู่แต่ละประเภท"""
   deleteAddress(addressId: String!): AddressInputResponse!
   deleteApp(appKey: String!): TYPE_APP
-  deleteCategory(categoryId: String!): TYPE_CATEGORY
+
+  """สร้าง order """
+  deleteAttribute(
+    """id ของ Attribute ที่จะอัพเดต"""
+    id: String!
+  ): GetAttributeRespon!
+
+  """สร้าง order """
+  deleteCategory(
+    """id ของ Category ที่จะอัพเดต"""
+    id: String!
+  ): GetCategoryRespon!
+
+  """deleteAttribute """
+  deleteCategoryAttribute(
+    """id ของ CategoryAttribute ที่จะอัพเดต"""
+    id: String!
+  ): GetCategoryAttributeRespon!
   deleteContact(contactId: String!): ContactResponse!
   deleteContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
   deleteCredential(credentialKey: String!): TYPE_CREDENTIAL
@@ -2196,24 +2218,6 @@ type Mutation {
   deleteEmailContact(email: String!, orgKey: String!): TYPE_ORGANIZATION
   deleteGateway(gatewayId: ID!): TYPE_GATEWAY_LIST
   deleteInvite(inviteId: ID!, orgKey: String!): TYPE_INVITE
-
-  """สร้าง order """
-  deleteLabelAttribute(
-    """id ของ Attribute ที่จะอัพเดต"""
-    id: String!
-  ): GetAttributeRespon!
-
-  """สร้าง order """
-  deleteLabelCategory(
-    """id ของ Category ที่จะอัพเดต"""
-    id: String!
-  ): GetCategoryRespon!
-
-  """deleteAttribute """
-  deleteLabelCategoryAttribute(
-    """id ของ CategoryAttribute ที่จะอัพเดต"""
-    id: String!
-  ): GetCategoryAttributeRespon!
   deleteLead(leadId: String!): LeadResponse!
   deleteLocaleText(dataKey: String!, orgKey: String): TYPE_LOCALE_TEXT
   deleteMasterData(changeTo: String, dataKey: String!): TYPE_MASTER_DATA
@@ -2299,13 +2303,13 @@ type Mutation {
     """คีย์ของหมวดหมู่"""
     categoryKey: String!
   ): ProductCategoryResponse!
-  removeConfig(configKey: String!): TYPE_REMOVE_CONFIG
 
   """addCategoryAttribute """
-  removeLabelCategoryAttribute(
+  removeCategoryAttribute(
     """ช้อมูล CategoryAttribute"""
     input: RemoveCategoryAttributeInput!
   ): GetCategoryAttributeResponse!
+  removeConfig(configKey: String!): TYPE_REMOVE_CONFIG
   removePermissionRole(appKey: String!, permissionKeyList: [String!], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
   removeProductVariant(variantId: String!): CreateVaraintResponse!
   removeServiceFromApp(appKey: String!, serviceKey: String!): TYPE_APP_SERVICE
@@ -2338,7 +2342,24 @@ type Mutation {
     """ช้อมูล Attribute"""
     input: CreateAttributeInput!
   ): GetAttributeRespon!
-  updateCategory(categoryId: String!, input: INPUT_CATEGORY): TYPE_CATEGORY
+
+  """สร้าง order """
+  updateCategory(
+    """id ของ Category ที่จะอัพเดต"""
+    id: String!
+
+    """ช้อมูล Category"""
+    input: CreateCategoryInput!
+  ): GetCategoryRespon!
+
+  """update CategoryAttribute """
+  updateCategoryAttribute(
+    """id ของ CategoryAttribute ที่จะอัพเดต"""
+    id: String!
+
+    """ช้อมูล CategoryAttribute"""
+    input: CreateCategoryAttributeInput!
+  ): GetCategoryAttributeRespon!
   updateConfig(input: INPUT_CONFIG_FORM): TYPE_CONFIG
   updateContact(contactId: String!, input: CreateContactInput!): ContactResponse!
   updateCredential(credentialInput: INPUT_CREDENTIAL_FORM_UPDATE, credentialKey: String!): TYPE_CREDENTIAL
@@ -2349,24 +2370,6 @@ type Mutation {
 
   """อัพเดต stock สินค้า, varaint และ สถานะของ varaint"""
   updateInventory(inputs: [UpdateInventoryInput!]!): UpdateInventoryResponse!
-
-  """สร้าง order """
-  updateLabelCategory(
-    """id ของ Category ที่จะอัพเดต"""
-    id: String!
-
-    """ช้อมูล Category"""
-    input: CreateCategoryInput!
-  ): GetCategoryRespon!
-
-  """update CategoryAttribute """
-  updateLabelCategoryAttribute(
-    """id ของ CategoryAttribute ที่จะอัพเดต"""
-    id: String!
-
-    """ช้อมูล CategoryAttribute"""
-    input: CreateCategoryAttributeInput!
-  ): GetCategoryAttributeRespon!
   updateLead(input: CreateLeadInput!, leadId: String!): LeadResponse!
   updateLocaleText(dataInput: INPUT_LOCALE_TEXT_FORM, dataKey: String!, orgKey: String): TYPE_LOCALE_TEXT
   updateMasterData(dataInput: INPUT_MASTER_DATA, dataKey: String!): TYPE_MASTER_DATA
@@ -2601,7 +2604,7 @@ type ProductAttributeKeyPairResponse {
 type ProductAttributeResponse {
   code: String
   message: String
-  pagination: TYPE_PAGINATION
+  pagination: PaginatedType
   payload: [ProductAttribute]
 }
 
@@ -2653,7 +2656,7 @@ type ProductCategoryLevel {
 type ProductCategoryLevelResponse {
   code: String
   message: String
-  pagination: TYPE_PAGINATION
+  pagination: PaginatedType
   payload: [ProductCategoryLevel]
 }
 
@@ -2742,14 +2745,14 @@ type ProductRespon {
 type ProductResponse {
   code: String
   message: String
-  pagination: TYPE_PAGINATION
+  pagination: PaginatedType
   payload: [OmitObjectType]
 }
 
 type ProductResponseAgent {
   code: String
   message: String
-  pagination: TYPE_PAGINATION
+  pagination: PaginatedType
   payload: [ProductRespAgent]
 }
 
@@ -2791,7 +2794,7 @@ type ProductRetailResp {
 type ProductRetailResponse {
   code: String
   message: String
-  pagination: TYPE_PAGINATION
+  pagination: PaginatedType
   payload: [ProductRetailResp]
 }
 
@@ -2817,7 +2820,15 @@ type Query {
   getAppByEmail(email: String!): GET_APP_BY_EMAIL
   getAppService: TYPE_APP_SERVICE_LIST
   getAppTheme(find: INPUT_FIND_DATA): TYPE_THEME_RESPONSE_LIST
-  getCategory(find: INPUT_FIND_DATA): TYPE_CATEGORY_LIST
+
+  """ดึงข้อมูล Attribute """
+  getAttribute(input: GetAttributeInPut!): GetAttributeResponse!
+
+  """ดึงข้อมูล Category """
+  getCategory(input: GetCategoryInPut!): GetCategoryResponse!
+
+  """ดึงข้อมูล Attribute """
+  getCategoryAttribute(input: GetCategoryAttributeInPut!): GetCategoryAttributeResponse!
   getConfig(input: INPUT_FIND_DATA): TYPE_CONFIG_LIST
   getCredential: TYPE_CREDENTIAL_LIST
   getCredentialByHost(host: String!): GET_APP_CREDENTIAL_HOST
@@ -2835,18 +2846,6 @@ type Query {
   getInviteOrgRole: TYPE_APP_ROLE_LIST
   getInviteRole(orgKey: String!): TYPE_APP_ROLE_LIST
   getInviteUserOrganization(input: INPUT_FIND_DATA, orgKey: String!): TYPE_INVITE_LIST
-
-  """ดึงข้อมูล Attribute """
-  getLabelAttribute(input: GetAttributeInPut!): GetAttributeResponse!
-
-  """ดึงข้อมูล Category """
-  getLabelCategory(input: GetCategoryInPut!): GetCategoryResponse!
-
-  """ดึงข้อมูล Attribute """
-  getLabelCategoryAttribute(input: GetCategoryAttributeInPut!): GetCategoryAttributeResponse!
-
-  """ดึงข้อมูล Category """
-  getLabelParentCategory(id: String!): GetCategoryResponse!
   getLocaleText(input: INPUT_FIND_DATA): TYPE_LOCALE_TEXT_LIST
   getLog(input: INPUT_FIND_DATA): TYPE_LOG_LIST
   getMasterData(input: INPUT_FIND_DATA): TYPE_MASTER_DATA_LIST
@@ -2873,6 +2872,9 @@ type Query {
   getOrganizationByName(input: INPUT_FIND_DATA, name: String): ORGANIZATION_LIST
   getOrganizationLabel(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_LABEL_LIST
   getOrganizationType(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_TYPE_LIST
+
+  """ดึงข้อมูล Category """
+  getParentCategory(id: String!): GetCategoryResponse!
   getPermissionRole(roleKey: String!): TYPE_PERMISSION_LIST
   getProductAttribute(productId: String!): ProductAttributeKeyPairResponse!
   getProductAttributeList(input: GetProductAttributeInput): ProductAttributeResponse!
@@ -3042,7 +3044,7 @@ type ResponseClass {
 }
 
 input RetailGetProductInput {
-  pagination: INPUT_PAGINATION
+  pagination: PaginatedFindType
   search: RetailProductCriteria
   sort: GetProductSortInput
 }
@@ -3250,29 +3252,6 @@ type TYPE_AWS {
   cloudWatchEnable: Boolean
   endpoint: String
   secretKey: String
-}
-
-type TYPE_CATEGORY {
-  code: String
-  message: String
-  payload: TYPE_CATEGORY_SCHEMA
-}
-
-type TYPE_CATEGORY_LIST {
-  code: String
-  message: String
-  pagination: TYPE_PAGINATION
-  payload: [TYPE_CATEGORY_SCHEMA]
-}
-
-type TYPE_CATEGORY_SCHEMA {
-  _id: ID
-  createdAt: Date
-  createdBy: TYPE_USER_PROFILE
-  name: String
-  status: ENUM_CATEGORY_STATUS
-  updatedAt: Date
-  updatedBy: TYPE_USER_PROFILE
 }
 
 type TYPE_CHECK_VERIFY_EMAIL {
@@ -3773,7 +3752,6 @@ type TYPE_ORGANIZATION_MASTER_DETAIL_LIST {
 type TYPE_ORGANIZATION_RESPONSE {
   address: JSON
   attribute: JSON
-  categoryList: [TYPE_CATEGORY_SCHEMA]
   contactEmailList: [String]
   contactName: String
   createdAt: Date
@@ -3888,17 +3866,10 @@ type TYPE_O_AUTH {
 }
 
 type TYPE_PAGINATION {
-  """จำนวนสูงสุดที่ดึงใน 1 หน้า"""
-  limit: Int!
-
-  """หมายเลขหน้า"""
-  page: Int!
-
-  """จำนวน item ทั้งหมด"""
-  totalItems: Int!
-
-  """จำนวนหน้าทั้งหมด"""
-  totalPages: Int!
+  limit: Int
+  page: Int
+  totalItems: Int
+  totalPages: Int
 }
 
 type TYPE_PASSWORD_EMAIL {

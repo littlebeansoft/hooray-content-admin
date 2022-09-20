@@ -45,7 +45,9 @@ export type AccountPaginateResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** pagination data */
   pagination: Maybe<PaginatedType>
+  /** array data */
   payload: Maybe<Array<AccountResp>>
 }
 
@@ -83,6 +85,7 @@ export type AccountResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<AccountResp>
 }
 
@@ -146,7 +149,7 @@ export type AddressResp = {
 }
 
 export type AgentGetProductInput = {
-  pagination?: InputMaybe<Input_Pagination>
+  pagination?: InputMaybe<PaginatedFindType>
   search?: InputMaybe<AgentProductCriteria>
   sort?: InputMaybe<GetProductSortInput>
 }
@@ -221,7 +224,7 @@ export type Category = {
 }
 
 export type CommonGetProductInput = {
-  pagination?: InputMaybe<Input_Pagination>
+  pagination?: InputMaybe<PaginatedFindType>
   search?: InputMaybe<CommonProductCriteria>
   sort?: InputMaybe<GetProductSortInput>
 }
@@ -262,7 +265,9 @@ export type ContactPaginateResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** pagination data */
   pagination: Maybe<PaginatedType>
+  /** array data */
   payload: Maybe<Array<ContactResp>>
 }
 
@@ -301,6 +306,7 @@ export type ContactResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<ContactResp>
 }
 
@@ -673,11 +679,6 @@ export enum Enum_App_Status {
 export enum Enum_Auth_Type {
   AuthCode = 'AUTH_CODE',
   AuthToken = 'AUTH_TOKEN',
-}
-
-export enum Enum_Category_Status {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
 }
 
 export enum Enum_Config_Privacy {
@@ -1276,7 +1277,7 @@ export type GetProductAttribute = {
 export type GetProductAttributeInput = {
   /** สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and */
   filter?: InputMaybe<GetProductAttribute>
-  pagination?: InputMaybe<Input_Pagination>
+  pagination?: InputMaybe<PaginatedFindType>
   search?: InputMaybe<GetProductAttribute>
   sort?: InputMaybe<GetProductAttributeSort>
 }
@@ -1295,7 +1296,7 @@ export type GetProductCategoryLevel = {
 export type GetProductCategoryLevelInput = {
   /** สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and */
   filter?: InputMaybe<GetProductCategoryLevel>
-  pagination?: InputMaybe<Input_Pagination>
+  pagination?: InputMaybe<PaginatedFindType>
   search?: InputMaybe<GetProductCategoryLevel>
   sort?: InputMaybe<GetProductCategoryLevelSortInput>
 }
@@ -1388,11 +1389,6 @@ export type Input_Attribute = {
   _id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
-}
-
-export type Input_Category = {
-  name?: InputMaybe<Scalars['String']>
-  status?: InputMaybe<Enum_Category_Status>
 }
 
 export type Input_Config_Form = {
@@ -1565,7 +1561,6 @@ export type Input_Organization_Approval_Form = {
 export type Input_Organization_Form = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
-  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -1598,7 +1593,6 @@ export type Input_Organization_Tag_List = {
 export type Input_Organization_Update = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
-  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -1895,7 +1889,9 @@ export type LeadPaginateResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** pagination data */
   pagination: Maybe<PaginatedType>
+  /** array data */
   payload: Maybe<Array<LeadResp>>
 }
 
@@ -1926,6 +1922,7 @@ export type LeadResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<LeadResp>
 }
 
@@ -1956,11 +1953,11 @@ export type Mutation = {
   addAppSystemAdmin: Maybe<Type_Profile>
   /** เพิ่ม attribute(property) ให้ category */
   addAttributeToProductCategory: ProductCategoryResponse
+  /** addCategoryAttribute  */
+  addCategoryAttribute: GetCategoryAttributeResponse
   addContactEmail: Maybe<Type_App>
   addEmailGlobal: Maybe<Type_Ok>
   addGateway: Maybe<Type_Gateway_List>
-  /** addCategoryAttribute  */
-  addLabelCategoryAttribute: GetCategoryAttributeResponse
   addOrgAdmin: Maybe<Type_Profile>
   addService: Maybe<Type_Service>
   addServiceToApp: Maybe<Type_App_Service>
@@ -1983,16 +1980,15 @@ export type Mutation = {
   /** สร้างที่อยู่แต่ละประเภท */
   createAddress: AddressInputResponse
   createApp: Maybe<Type_App>
-  createCategory: Maybe<Type_Category>
+  /** สร้าง order  */
+  createAttribute: GetAttributeRespon
+  /** สร้าง order  */
+  createCategory: GetCategoryRespon
+  /** สร้าง CategoryAttribute  */
+  createCategoryAttribute: GetCategoryAttributeRespon
   createContact: ContactResponse
   createCredential: Maybe<Type_Credential>
   createCustomMenu: Maybe<Type_Custom_Menu>
-  /** สร้าง order  */
-  createLabelAttribute: GetAttributeRespon
-  /** สร้าง order  */
-  createLabelCategory: GetCategoryRespon
-  /** สร้าง CategoryAttribute  */
-  createLabelCategoryAttribute: GetCategoryAttributeRespon
   createLead: LeadResponse
   createLeadNonAuthen: LeadResponse
   createLeadToUser: LeadResponse
@@ -2020,7 +2016,12 @@ export type Mutation = {
   /** ลบที่อยู่แต่ละประเภท */
   deleteAddress: AddressInputResponse
   deleteApp: Maybe<Type_App>
-  deleteCategory: Maybe<Type_Category>
+  /** สร้าง order  */
+  deleteAttribute: GetAttributeRespon
+  /** สร้าง order  */
+  deleteCategory: GetCategoryRespon
+  /** deleteAttribute  */
+  deleteCategoryAttribute: GetCategoryAttributeRespon
   deleteContact: ContactResponse
   deleteContactEmail: Maybe<Type_App>
   deleteCredential: Maybe<Type_Credential>
@@ -2029,12 +2030,6 @@ export type Mutation = {
   deleteEmailContact: Maybe<Type_Organization>
   deleteGateway: Maybe<Type_Gateway_List>
   deleteInvite: Maybe<Type_Invite>
-  /** สร้าง order  */
-  deleteLabelAttribute: GetAttributeRespon
-  /** สร้าง order  */
-  deleteLabelCategory: GetCategoryRespon
-  /** deleteAttribute  */
-  deleteLabelCategoryAttribute: GetCategoryAttributeRespon
   deleteLead: LeadResponse
   deleteLocaleText: Maybe<Type_Locale_Text>
   deleteMasterData: Maybe<Type_Master_Data>
@@ -2103,9 +2098,9 @@ export type Mutation = {
   registerUsername: Maybe<Type_Username_Register>
   /** ลบคุณลักษณะออกจากหมวดหมู่สินค้า */
   removeAttributeFromProductCategory: ProductCategoryResponse
-  removeConfig: Maybe<Type_Remove_Config>
   /** addCategoryAttribute  */
-  removeLabelCategoryAttribute: GetCategoryAttributeResponse
+  removeCategoryAttribute: GetCategoryAttributeResponse
+  removeConfig: Maybe<Type_Remove_Config>
   removePermissionRole: Maybe<Type_Role_Permission_List>
   removeProductVariant: CreateVaraintResponse
   removeServiceFromApp: Maybe<Type_App_Service>
@@ -2130,7 +2125,10 @@ export type Mutation = {
   updateAppAttribute: Maybe<Type_App>
   /** updateAttribute */
   updateAttribute: GetAttributeRespon
-  updateCategory: Maybe<Type_Category>
+  /** สร้าง order  */
+  updateCategory: GetCategoryRespon
+  /** update CategoryAttribute  */
+  updateCategoryAttribute: GetCategoryAttributeRespon
   updateConfig: Maybe<Type_Config>
   updateContact: ContactResponse
   updateCredential: Maybe<Type_Credential>
@@ -2140,10 +2138,6 @@ export type Mutation = {
   updateGateway: Maybe<Type_Gateway_List>
   /** อัพเดต stock สินค้า, varaint และ สถานะของ varaint */
   updateInventory: UpdateInventoryResponse
-  /** สร้าง order  */
-  updateLabelCategory: GetCategoryRespon
-  /** update CategoryAttribute  */
-  updateLabelCategoryAttribute: GetCategoryAttributeRespon
   updateLead: LeadResponse
   updateLocaleText: Maybe<Type_Locale_Text>
   updateMasterData: Maybe<Type_Master_Data>
@@ -2196,6 +2190,10 @@ export type MutationAddAttributeToProductCategoryArgs = {
   categoryKey: Scalars['String']
 }
 
+export type MutationAddCategoryAttributeArgs = {
+  input: AddCategoryAttributeInput
+}
+
 export type MutationAddContactEmailArgs = {
   appKey: Scalars['String']
   emailList?: InputMaybe<Array<Scalars['String']>>
@@ -2207,10 +2205,6 @@ export type MutationAddEmailGlobalArgs = {
 
 export type MutationAddGatewayArgs = {
   input: Input_Gateway
-}
-
-export type MutationAddLabelCategoryAttributeArgs = {
-  input: AddCategoryAttributeInput
 }
 
 export type MutationAddOrgAdminArgs = {
@@ -2303,8 +2297,16 @@ export type MutationCreateAppArgs = {
   input?: InputMaybe<Input_App_Form>
 }
 
+export type MutationCreateAttributeArgs = {
+  input: CreateAttributeInput
+}
+
 export type MutationCreateCategoryArgs = {
-  input?: InputMaybe<Input_Category>
+  input: CreateCategoryInput
+}
+
+export type MutationCreateCategoryAttributeArgs = {
+  input: CreateCategoryAttributeInput
 }
 
 export type MutationCreateContactArgs = {
@@ -2317,18 +2319,6 @@ export type MutationCreateCredentialArgs = {
 
 export type MutationCreateCustomMenuArgs = {
   input?: InputMaybe<Input_Schema_Custom_Menu>
-}
-
-export type MutationCreateLabelAttributeArgs = {
-  input: CreateAttributeInput
-}
-
-export type MutationCreateLabelCategoryArgs = {
-  input: CreateCategoryInput
-}
-
-export type MutationCreateLabelCategoryAttributeArgs = {
-  input: CreateCategoryAttributeInput
 }
 
 export type MutationCreateLeadArgs = {
@@ -2436,8 +2426,16 @@ export type MutationDeleteAppArgs = {
   appKey: Scalars['String']
 }
 
+export type MutationDeleteAttributeArgs = {
+  id: Scalars['String']
+}
+
 export type MutationDeleteCategoryArgs = {
-  categoryId: Scalars['String']
+  id: Scalars['String']
+}
+
+export type MutationDeleteCategoryAttributeArgs = {
+  id: Scalars['String']
 }
 
 export type MutationDeleteContactArgs = {
@@ -2474,18 +2472,6 @@ export type MutationDeleteGatewayArgs = {
 export type MutationDeleteInviteArgs = {
   inviteId: Scalars['ID']
   orgKey: Scalars['String']
-}
-
-export type MutationDeleteLabelAttributeArgs = {
-  id: Scalars['String']
-}
-
-export type MutationDeleteLabelCategoryArgs = {
-  id: Scalars['String']
-}
-
-export type MutationDeleteLabelCategoryAttributeArgs = {
-  id: Scalars['String']
 }
 
 export type MutationDeleteLeadArgs = {
@@ -2762,12 +2748,12 @@ export type MutationRemoveAttributeFromProductCategoryArgs = {
   categoryKey: Scalars['String']
 }
 
-export type MutationRemoveConfigArgs = {
-  configKey: Scalars['String']
+export type MutationRemoveCategoryAttributeArgs = {
+  input: RemoveCategoryAttributeInput
 }
 
-export type MutationRemoveLabelCategoryAttributeArgs = {
-  input: RemoveCategoryAttributeInput
+export type MutationRemoveConfigArgs = {
+  configKey: Scalars['String']
 }
 
 export type MutationRemovePermissionRoleArgs = {
@@ -2865,8 +2851,13 @@ export type MutationUpdateAttributeArgs = {
 }
 
 export type MutationUpdateCategoryArgs = {
-  categoryId: Scalars['String']
-  input?: InputMaybe<Input_Category>
+  id: Scalars['String']
+  input: CreateCategoryInput
+}
+
+export type MutationUpdateCategoryAttributeArgs = {
+  id: Scalars['String']
+  input: CreateCategoryAttributeInput
 }
 
 export type MutationUpdateConfigArgs = {
@@ -2905,16 +2896,6 @@ export type MutationUpdateGatewayArgs = {
 
 export type MutationUpdateInventoryArgs = {
   inputs: Array<UpdateInventoryInput>
-}
-
-export type MutationUpdateLabelCategoryArgs = {
-  id: Scalars['String']
-  input: CreateCategoryInput
-}
-
-export type MutationUpdateLabelCategoryAttributeArgs = {
-  id: Scalars['String']
-  input: CreateCategoryAttributeInput
 }
 
 export type MutationUpdateLeadArgs = {
@@ -3248,7 +3229,7 @@ export type ProductAttributeKeyPairResponse = {
 export type ProductAttributeResponse = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
+  pagination: Maybe<PaginatedType>
   payload: Maybe<Array<Maybe<ProductAttribute>>>
 }
 
@@ -3286,7 +3267,7 @@ export type ProductCategoryLevel = {
 export type ProductCategoryLevelResponse = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
+  pagination: Maybe<PaginatedType>
   payload: Maybe<Array<Maybe<ProductCategoryLevel>>>
 }
 
@@ -3357,14 +3338,14 @@ export type ProductRespon = {
 export type ProductResponse = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
+  pagination: Maybe<PaginatedType>
   payload: Maybe<Array<Maybe<OmitObjectType>>>
 }
 
 export type ProductResponseAgent = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
+  pagination: Maybe<PaginatedType>
   payload: Maybe<Array<Maybe<ProductRespAgent>>>
 }
 
@@ -3397,7 +3378,7 @@ export type ProductRetailResp = {
 export type ProductRetailResponse = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
+  pagination: Maybe<PaginatedType>
   payload: Maybe<Array<Maybe<ProductRetailResp>>>
 }
 
@@ -3416,7 +3397,12 @@ export type Query = {
   getAppByEmail: Maybe<Get_App_By_Email>
   getAppService: Maybe<Type_App_Service_List>
   getAppTheme: Maybe<Type_Theme_Response_List>
-  getCategory: Maybe<Type_Category_List>
+  /** ดึงข้อมูล Attribute  */
+  getAttribute: GetAttributeResponse
+  /** ดึงข้อมูล Category  */
+  getCategory: GetCategoryResponse
+  /** ดึงข้อมูล Attribute  */
+  getCategoryAttribute: GetCategoryAttributeResponse
   getConfig: Maybe<Type_Config_List>
   getCredential: Maybe<Type_Credential_List>
   getCredentialByHost: Maybe<Get_App_Credential_Host>
@@ -3433,14 +3419,6 @@ export type Query = {
   getInviteOrgRole: Maybe<Type_App_Role_List>
   getInviteRole: Maybe<Type_App_Role_List>
   getInviteUserOrganization: Maybe<Type_Invite_List>
-  /** ดึงข้อมูล Attribute  */
-  getLabelAttribute: GetAttributeResponse
-  /** ดึงข้อมูล Category  */
-  getLabelCategory: GetCategoryResponse
-  /** ดึงข้อมูล Attribute  */
-  getLabelCategoryAttribute: GetCategoryAttributeResponse
-  /** ดึงข้อมูล Category  */
-  getLabelParentCategory: GetCategoryResponse
   getLocaleText: Maybe<Type_Locale_Text_List>
   getLog: Maybe<Type_Log_List>
   getMasterData: Maybe<Type_Master_Data_List>
@@ -3467,6 +3445,8 @@ export type Query = {
   getOrganizationByName: Maybe<Organization_List>
   getOrganizationLabel: Maybe<Type_Organization_Label_List>
   getOrganizationType: Maybe<Type_Organization_Type_List>
+  /** ดึงข้อมูล Category  */
+  getParentCategory: GetCategoryResponse
   getPermissionRole: Maybe<Type_Permission_List>
   getProductAttribute: ProductAttributeKeyPairResponse
   getProductAttributeList: ProductAttributeResponse
@@ -3555,8 +3535,16 @@ export type QueryGetAppThemeArgs = {
   find?: InputMaybe<Input_Find_Data>
 }
 
+export type QueryGetAttributeArgs = {
+  input: GetAttributeInPut
+}
+
 export type QueryGetCategoryArgs = {
-  find?: InputMaybe<Input_Find_Data>
+  input: GetCategoryInPut
+}
+
+export type QueryGetCategoryAttributeArgs = {
+  input: GetCategoryAttributeInPut
 }
 
 export type QueryGetConfigArgs = {
@@ -3606,22 +3594,6 @@ export type QueryGetInviteRoleArgs = {
 export type QueryGetInviteUserOrganizationArgs = {
   input?: InputMaybe<Input_Find_Data>
   orgKey: Scalars['String']
-}
-
-export type QueryGetLabelAttributeArgs = {
-  input: GetAttributeInPut
-}
-
-export type QueryGetLabelCategoryArgs = {
-  input: GetCategoryInPut
-}
-
-export type QueryGetLabelCategoryAttributeArgs = {
-  input: GetCategoryAttributeInPut
-}
-
-export type QueryGetLabelParentCategoryArgs = {
-  id: Scalars['String']
 }
 
 export type QueryGetLocaleTextArgs = {
@@ -3710,6 +3682,10 @@ export type QueryGetOrganizationLabelArgs = {
 
 export type QueryGetOrganizationTypeArgs = {
   find?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetParentCategoryArgs = {
+  id: Scalars['String']
 }
 
 export type QueryGetPermissionRoleArgs = {
@@ -3965,7 +3941,7 @@ export type ResponseClass = {
 }
 
 export type RetailGetProductInput = {
-  pagination?: InputMaybe<Input_Pagination>
+  pagination?: InputMaybe<PaginatedFindType>
   search?: InputMaybe<RetailProductCriteria>
   sort?: InputMaybe<GetProductSortInput>
 }
@@ -4169,29 +4145,6 @@ export type Type_Aws = {
   cloudWatchEnable: Maybe<Scalars['Boolean']>
   endpoint: Maybe<Scalars['String']>
   secretKey: Maybe<Scalars['String']>
-}
-
-export type Type_Category = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Type_Category_Schema>
-}
-
-export type Type_Category_List = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
-  payload: Maybe<Array<Maybe<Type_Category_Schema>>>
-}
-
-export type Type_Category_Schema = {
-  _id: Maybe<Scalars['ID']>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Type_User_Profile>
-  name: Maybe<Scalars['String']>
-  status: Maybe<Enum_Category_Status>
-  updatedAt: Maybe<Scalars['Date']>
-  updatedBy: Maybe<Type_User_Profile>
 }
 
 export type Type_Check_Verify_Email = {
@@ -4692,7 +4645,6 @@ export type Type_Organization_Master_Detail_List = {
 export type Type_Organization_Response = {
   address: Maybe<Scalars['JSON']>
   attribute: Maybe<Scalars['JSON']>
-  categoryList: Maybe<Array<Maybe<Type_Category_Schema>>>
   contactEmailList: Maybe<Array<Maybe<Scalars['String']>>>
   contactName: Maybe<Scalars['String']>
   createdAt: Maybe<Scalars['Date']>
@@ -4807,14 +4759,10 @@ export type Type_O_Auth = {
 }
 
 export type Type_Pagination = {
-  /** จำนวนสูงสุดที่ดึงใน 1 หน้า */
-  limit: Scalars['Int']
-  /** หมายเลขหน้า */
-  page: Scalars['Int']
-  /** จำนวน item ทั้งหมด */
-  totalItems: Scalars['Int']
-  /** จำนวนหน้าทั้งหมด */
-  totalPages: Scalars['Int']
+  limit: Maybe<Scalars['Int']>
+  page: Maybe<Scalars['Int']>
+  totalItems: Maybe<Scalars['Int']>
+  totalPages: Maybe<Scalars['Int']>
 }
 
 export type Type_Password_Email = {
