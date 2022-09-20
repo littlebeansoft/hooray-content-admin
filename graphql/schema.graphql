@@ -1,8 +1,526 @@
 directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | INTERFACE | OBJECT
 
+enum ATRRIBUTE_TYPE {
+  CHECKBOX
+  NUMBER
+  RADIO
+  TEXT
+}
+
+input AccountEmail {
+  value: String
+}
+
+type AccountEmailResp {
+  value: String
+}
+
+type AccountPaginateResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+  pagination: PaginatedType
+  payload: [AccountResp!]
+}
+
+input AccountPhone {
+  value: String
+}
+
+type AccountPhoneResp {
+  value: String!
+}
+
+type AccountResp {
+  _id: ID
+  citizenId: String
+  contactList: [ContactInAccountResp!]
+
+  """วันที่ลงทะเบียน"""
+  createdAt: DateTime!
+  createdAtBy: UserResp
+  dataSource: String
+  email: [AccountEmailResp!]
+  image: String
+  leadType: String
+  name: String
+  passport: String
+  phone: [AccountPhoneResp!]
+  resourceOwner: String
+  status: String
+
+  """วันที่อัพเดตข้อมูลล่าสุด"""
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
+}
+
+type AccountResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+  payload: AccountResp
+}
+
+input AddCategoryAttributeInput {
+  """array id attribute ที่ใช้ในการเพิ่ม"""
+  attributeIdList: [String!] = []
+
+  """categoryId"""
+  categoryId: String!
+}
+
+input AddImagesToVaraintsInput {
+  fileKey: String!
+  variantId: String!
+}
+
+type AddressInputResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """data"""
+  payload: RespCreate
+}
+
+type AddressPaginateResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """pagination data"""
+  pagination: PaginatedType
+
+  """array data"""
+  payload: [AddressRESP!]
+}
+
+type AddressRESP {
+  _id: String!
+
+  """ที่อยู่"""
+  address: String
+
+  """ประเทศ"""
+  country: String
+
+  """กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น"""
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND
+
+  """อำเภอ"""
+  district: String
+
+  """latitude"""
+  latitude: String
+
+  """longitude"""
+  longitude: String
+  orgKey: String
+
+  """รหัสไปรษณีย์"""
+  postcode: String
+
+  """จังหวัด"""
+  province: String
+
+  """ไอดีของเจ้าของที่อยู่"""
+  refId: String
+
+  """ตำบล"""
+  subDistrict: String
+
+  """ประเภทที่อยู่"""
+  type: ENUM_ADDRESS_TYPE
+}
+
+input AgentGetProductInput {
+  pagination: INPUT_PAGINATION
+  search: AgentProductCriteria
+  sort: GetProductSortInput
+}
+
+input AgentProductCriteria {
+  categoryKey: String
+  name: String
+
+  """คีย์ของโรงงาน"""
+  orgKey: String
+  priceRange: PriceRangeCriteria
+}
+
+input AttributeInPut {
+  """id ของคุณลักษณะผลิตภัณฑ์ของหมวดหมู่ทีี่เลือก"""
+  productAttributeId: String!
+
+  """ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number"""
+  value: String
+
+  """
+  id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select
+  """
+  valueIds: [String!]
+}
+
+type AttributeOptions {
+  """name ของ Options"""
+  name: String
+
+  """ลำดับ การเรียงใน Options"""
+  order: Int
+
+  """value ใน Options"""
+  value: String
+}
+
+input AttributeOptionsInput {
+  """name ของ Options"""
+  name: String
+
+  """ลำดับ การเรียงใน Options"""
+  order: Int
+
+  """value ใน Options"""
+  value: String
+}
+
+type AttributeOptionsResponse {
+  _id: String
+  name: String
+}
+
+enum AttributeType {
+  CHECKBOX
+  NUMBER
+  RADIO
+  TEXT
+}
+
+input AttributeUpdate {
+  """id ของคุณลักษณะผลิตภัณฑ์ของหมวดหมู่ทีี่เลือก"""
+  productAttributeId: String!
+
+  """ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number"""
+  value: String
+
+  """
+  id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select
+  """
+  valueIds: [String!]
+}
+
 enum CacheControlScope {
   PRIVATE
   PUBLIC
+}
+
+type Category {
+  _id: String
+  categoryKey: String
+
+  """เลิกใช้แล้ว"""
+  key: String
+  name: String
+}
+
+input CommonGetProductInput {
+  pagination: INPUT_PAGINATION
+  search: CommonProductCriteria
+  sort: GetProductSortInput
+}
+
+input CommonProductCriteria {
+  categoryKey: String
+  name: String
+
+  """คีย์ของโรงงาน"""
+  orgKey: String
+  priceRange: PriceRangeCriteria
+}
+
+input ContactEmail {
+  value: String
+}
+
+type ContactEmailResp {
+  value: String
+}
+
+input ContactInAccountInput {
+  """ไอดีของลูกค้า"""
+  contactAtBy: String
+
+  """กำหนดค่าว่าคนไหนคือคนหลักหรือต้องติดต่อเป็นหลัก"""
+  isMainContact: Boolean
+
+  """ตำแหน่ง"""
+  position: String
+}
+
+type ContactInAccountResp {
+  contactAtBy: ContactResp
+  isMainContact: Boolean
+  position: String
+}
+
+type ContactPaginateResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+  pagination: PaginatedType
+  payload: [ContactResp!]
+}
+
+input ContactPhone {
+  value: String
+}
+
+type ContactPhoneResp {
+  value: String!
+}
+
+type ContactResp {
+  _id: ID
+  citizenId: String
+
+  """วันที่ลงทะเบียน"""
+  createdAt: DateTime!
+  createdAtBy: UserResp
+  dataSource: String
+  email: [ContactEmailResp!]
+  firstName: String
+  image: String
+  lastName: String
+  leadType: String
+  organizationName: String
+  passport: String
+  phone: [ContactPhoneResp!]
+  resourceOwner: String
+  status: String
+
+  """วันที่อัพเดตข้อมูลล่าสุด"""
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
+}
+
+type ContactResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+  payload: ContactResp
+}
+
+type Create {
+  _id: String
+}
+
+input CreateAccountInput {
+  """ประเภทองค์กร"""
+  accountType: ENUM_CUSTOMER_TYPE = CUSTOMER
+
+  """บ้านเลขที่"""
+  addressNo: String
+
+  """ประเภทที่อยู่"""
+  addressType: ENUM_ADDRESS_TYPE = NONE
+
+  """เว็บไซต์ขององค์กร"""
+  category: String
+  contactList: [ContactInAccountInput!]
+
+  """ประเทศ"""
+  country: String
+
+  """แหล่งที่มา"""
+  dataSource: String
+
+  """ที่อยู่จัดส่งตั้งต้น"""
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND = NOT_DEFAULT
+
+  """อำเภอ/เขต"""
+  district: String
+  email: [AccountEmail!]
+
+  """รูปภาพโรงงาน"""
+  fileList: [String!]
+
+  """รูปภาพ"""
+  image: String
+
+  """รูปภาพสินค้า"""
+  imageList: [String!]
+  latitude: String
+  longitude: String
+
+  """ชื่อองค์กร"""
+  name: String
+
+  """บันทึกข้อมูลเพิ่มเติม"""
+  note: String
+  orgKey: String
+  phone: [AccountPhone!]
+
+  """รหัสไปรษณีย์"""
+  postcode: String
+
+  """จังหวัด"""
+  province: String
+
+  """สถานะองค์กร"""
+  status: ENUM_ORGANIZATION_STATUS = APPROVED
+
+  """ตำบล/แขวง"""
+  subDistrict: String
+
+  """เว็บไซต์ขององค์กร"""
+  website: String
+}
+
+input CreateAddressInput {
+  """ที่อยู่"""
+  address: String
+
+  """ประเทศ"""
+  country: String
+
+  """กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น"""
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND
+
+  """อำเภอ"""
+  district: String
+
+  """latitude"""
+  latitude: String
+
+  """longitude"""
+  longitude: String
+  orgKey: String
+
+  """รหัสไปรษณีย์"""
+  postcode: String
+
+  """จังหวัด"""
+  province: String
+
+  """ไอดีของเจ้าของที่อยู่"""
+  refId: String
+
+  """ตำบล"""
+  subDistrict: String
+
+  """ประเภทที่อยู่"""
+  type: ENUM_ADDRESS_TYPE
+}
+
+input CreateAttributeInput {
+  """descriptions ของ Attribute"""
+  descriptions: String
+
+  """ ชื่อ ของ Attribute"""
+  name: String
+
+  """จะมีค่าเมื่อ type = CHECKBOX,RADIO"""
+  optionList: [AttributeOptionsInput!]
+
+  """ruleRegExpList ของ Attribute ไว้สำหรับการใช้ RegExp ในการจัดการ"""
+  ruleRegExpList: [String!]
+
+  """status ของ Attribute"""
+  status: EnabledStatus
+
+  """ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด"""
+  type: AttributeType
+}
+
+input CreateCategoryAttributeInput {
+  """attributeId"""
+  attributeId: String
+
+  """categoryId"""
+  categoryId: String
+
+  """status การใช้งาน"""
+  status: EnabledStatus
+}
+
+input CreateCategoryInput {
+  """descriptions ของ Category"""
+  descriptions: String
+
+  """ ชื่อ ของ Category"""
+  name: String
+
+  """
+  ระบุ CategoryKey ของ Categoryที่เป็นแม่ตัวที่สร้าง ถ้าจะสร้างโดยที่มันไม่มีแม่ ให้ระบุ "NONE" 
+  """
+  parentCategoryKey: String
+
+  """สถานะ ของ Category"""
+  status: EnabledStatus
+}
+
+input CreateContactInput {
+  """บ้านเลขที่"""
+  addressNo: String
+
+  """ประเภทที่อยู่"""
+  addressType: ENUM_ADDRESS_TYPE = NONE
+  citizenId: String
+
+  """ประเทศ"""
+  country: String
+
+  """แหล่งที่มา"""
+  dataSource: String
+  dateOfBirth: String
+
+  """ที่อยู่จัดส่งตั้งต้น"""
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND = NOT_DEFAULT
+
+  """อำเภอ/เขต"""
+  district: String
+  email: [ContactEmail!]
+
+  """รูปภาพโรงงาน"""
+  factoryImages: [String!]
+  firstName: String
+
+  """รูปภาพ"""
+  image: String
+  lastName: String
+  latitude: String
+
+  """ประเภท"""
+  leadType: ENUM_CUSTOMER_TYPE = CUSTOMER
+  longitude: String
+  orgKey: String
+  passport: String
+  phone: [ContactPhone!]
+
+  """รหัสไปรษณีย์"""
+  postcode: String
+  prefixKey: String
+
+  """รูปภาพสินค้า"""
+  productImages: [String!]
+
+  """จังหวัด"""
+  province: String
+  resourceOwner: ENUM_RESOURCE_OWNER = OTHER
+
+  """ตำบล/แขวง"""
+  subDistrict: String
 }
 
 input CreateLeadInput {
@@ -37,7 +555,7 @@ input CreateLeadInput {
   latitude: String
 
   """ประเภท"""
-  leadType: LEAD_TYPE_RESPONSE = CUSTOMER
+  leadType: ENUM_CUSTOMER_TYPE = CUSTOMER
   longitude: String
 
   """ชื่อหน่วยงาน"""
@@ -63,6 +581,127 @@ input CreateLeadInput {
   subDistrict: String
 }
 
+type CreateProductAttribute {
+  _id: String
+
+  """ชื่อคุณลักษณะสินค้า"""
+  name: String!
+
+  """ตัวเลือกของคุณลักษณะสินค้าในกรณีที่ type เป็น CHECKBOX, RADIO"""
+  options: [OptionsResponse!]
+
+  """regex string สำหรับตรวจสอบความถูกต้องของข้อมูล"""
+  rules: [String!]
+
+  """ประเภทข้อมูลของคุณลักษณะสินค้า"""
+  type: ATRRIBUTE_TYPE!
+}
+
+input CreateProductAttributeInput {
+  """ชื่อคุณลักษณะสินค้า"""
+  name: String!
+
+  """ตัวเลือกของคุณลักษณะสินค้าในกรณีที่ type เป็น CHECKBOX, RADIO"""
+  options: [Options!]
+
+  """regex string สำหรับตรวจสอบความถูกต้องของข้อมูล"""
+  rules: [String!]
+
+  """ประเภทข้อมูลของคุณลักษณะสินค้า"""
+  type: ATRRIBUTE_TYPE!
+}
+
+type CreateProductAttributeResponse {
+  code: String
+  message: String
+  payload: CreateProductAttribute
+}
+
+type CreateProductAttributeResponseList {
+  code: String
+  message: String
+  payload: [ProductAttributeDTO]
+}
+
+input CreateProductCategoryInput {
+  """ชื่อหมวดหมู่ผลิตภัณฑ์"""
+  name: String!
+
+  "\n      ชื่อหมวดหมู่ผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น : \n      { \n        \"th\" : \"สุขภาพ\",\n        \"en\" : \"Health\"\n      }\n      "
+  names: JSON
+
+  """คีย์ของหมวดหมู่หลัก ถ้าไม่ใส่หมวดหมู่ที่สร้างจะเป็น ROOT Level"""
+  parentKey: String
+}
+
+input CreateProductInput {
+  """คุณลักษณะผลิตภัณฑ์"""
+  attributes: [AttributeInPut]
+
+  """คีย์ของหมวดหมู่ผลิตภัณฑ์"""
+  categoryKey: String
+
+  """จำนวนสต๊อก"""
+  changeQty: Float!
+
+  """สถานะการเปิดใช้งานของรูปภาพอธิบายผลิตภัณฑ์"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS!
+
+  """รูปภาพอธิบาย"""
+  descImages: [Image!]
+
+  "\n    คำอธิบายผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น : \n    { \n      \"th\" : \"นุ่ม เบา ราคาถูก รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม\",\n      \"en\" : \"Boots High Quality cheap price\"\n    }\n    ความยาวสูงสุด 5000 ตัวอักษร, ต่ำสุด 23 ตัวอักษร\n  "
+  descriptions: JSON!
+
+  "\n    ชื่อผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น : \n    { \n      \"th\" : \"รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม\",\n      \"en\" : \"BAOJI Boots High Quality\"\n    }\n    ความยาวสูงสุด 120 ตัวอักษร, ต่ำสุด 19 ตัวอักษร\n  "
+  names: JSON!
+
+  """ราคาของผลิตภัณฑ์"""
+  price: Price!
+
+  """รูปภาพผลิตภัณฑ์"""
+  productImages: [Image!]
+
+  """ตัวเลือกสินค้า"""
+  skus: [SKU!]
+}
+
+type CreateResponse {
+  code: String
+  message: String
+  payload: Create
+}
+
+type CreateVaraint {
+  _id: String
+}
+
+input CreateVaraintOptionInput {
+  name: String!
+}
+
+type CreateVaraintResponse {
+  code: String
+  message: String
+  payload: CreateVaraint
+}
+
+input CreateVaraintV2Input {
+  name: String!
+  productId: String!
+}
+
+type CreatedSku {
+  propertyMemoMap: JSON
+  skuMap: JSON
+}
+
+type CreatedSkuResponse {
+  code: String
+  message: String
+  payload: CreatedSku
+}
+
 input DATA_MIGRATION_INPUT {
   appKey: String!
   dbUri: String!
@@ -74,6 +713,24 @@ type DATA_MIGRATION_RESULT {
 }
 
 scalar Date
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DeleteProductCategory {
+  _id: String
+
+  """หมวดหมู่สินค้าที่ลบไป"""
+  categoryKey: String
+}
+
+type DeleteProductCategoryResponse {
+  code: String
+  message: String
+  payload: DeleteProductCategory
+}
 
 enum ENUM_ADDRESS_DEFAULT_SEND {
   DEFAULT
@@ -89,6 +746,7 @@ enum ENUM_ADDRESS_TYPE {
   NONE
 }
 
+"""สถานะการใช้ของ APP"""
 enum ENUM_APP_STATUS {
   ACTIVE
   INACTIVE
@@ -124,6 +782,15 @@ enum ENUM_CREAT_LEAD_STATUS {
 enum ENUM_CREDENTIAL_TYPE {
   RESOURCE_ADMIN
   RESOURCE_OWNER
+}
+
+enum ENUM_CUSTOMER_TYPE {
+  AGENT
+  CUSTOMER
+  FACTORY
+  ORGANIZATION
+  OTHER
+  RETAIL
 }
 
 enum ENUM_DATA_SECURITY {
@@ -176,11 +843,13 @@ enum ENUM_INVITE_STATUS {
   INACTIVE
 }
 
+"""สถานะ YES | NO"""
 enum ENUM_IS {
   NO
   YES
 }
 
+"""ประเภทของ user"""
 enum ENUM_LRLE_TYPE {
   RESOURCE_ADMIN
   RESOURCE_OWNER
@@ -348,6 +1017,12 @@ type EmailResp {
   value: String
 }
 
+"""สถานะการเปิดใช้งาน"""
+enum EnabledStatus {
+  DISABLED
+  ENABLED
+}
+
 type File {
   encoding: String!
   filename: String!
@@ -355,6 +1030,27 @@ type File {
 }
 
 scalar FileUpload
+
+input FindAccountInput {
+  filter: QueryAccountInput
+  pagination: PaginatedFindType
+  query: QueryAccountInput
+  search: QueryAccountInput
+}
+
+input FindAddressInput {
+  filter: QueryAddressInput
+  pagination: PaginatedFindType
+  query: QueryAddressInput
+  search: QueryAddressInput
+}
+
+input FindContactInput {
+  filter: QueryContactInput
+  pagination: PaginatedFindType
+  query: QueryContactInput
+  search: QueryContactInput
+}
 
 input FindLeadInput {
   filter: QueryLeadInput
@@ -396,6 +1092,376 @@ type GET_APP_CREDENTIAL_LIST {
   credentialKey: String
   name: String
   type: String
+}
+
+enum GET_PRODUCT_STATUS {
+  CHECKING
+  DRAFT
+  OUT_OF_STOCK
+  REMOVE
+  SELLING
+  WAITING_TO_FIX
+}
+
+input GenerateSku {
+  varaintKeys: [String!]!
+}
+
+input GetAttributeInPut {
+  pagination: PaginatedFindType = {limit: 10, page: 1}
+  query: GetAttributeQuery = {attributeId: null, attributeKey: null, descriptions: null, name: null, status: null, type: null}
+
+  "\n      ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น : \n      { \n        \"name\" : \"1\",\n        \"createdBy\" : \"1\",\n        \"updatedBy\" : \"-1\"\n      }\n      "
+  sort: JSON
+}
+
+input GetAttributeQuery {
+  """ค้นหาด้วย AttributeId"""
+  attributeId: String = null
+
+  """ค้นหาด้วย AttributeKey"""
+  attributeKey: String = null
+
+  """ค้นหาด้วย descriptions แบบ Regex"""
+  descriptions: String = null
+
+  """ค้นหาด้วย name แบบ Regex"""
+  name: String = null
+
+  """ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด"""
+  status: EnabledStatus = null
+
+  """ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด"""
+  type: AttributeType = null
+}
+
+type GetAttributeResp {
+  """id ของ Attribute"""
+  _id: String
+
+  """attributeKey ของ Attribute ซึ้งจะแสดงผล และค้นหา และจะไม่ซ้ำ"""
+  attributeKey: String
+
+  """สร้างเมื่อ """
+  createdAt: DateTime
+
+  """สร้างโดย userID"""
+  createdBy: String
+
+  """descriptions ของ Attribute"""
+  descriptions: String
+
+  """ชื่อ ของ Attribute"""
+  name: String
+
+  """จะมีค่าเมื่อ type = CHECKBOX,RADIO"""
+  optionList: [AttributeOptions!]
+
+  """ruleRegExpList ของ Attribute ไว้สำหรับการใช้ RegExp ในการจัดการ"""
+  ruleRegExpList: [String!]
+
+  """status ของ Attribute"""
+  status: EnabledStatus
+
+  """ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด"""
+  type: AttributeType
+
+  """แก้ไขเมื่อ"""
+  updatedAt: DateTime
+
+  """แก้ไขโดย userID"""
+  updatedBy: String
+}
+
+type GetAttributeRespon {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """data"""
+  payload: GetAttributeResp
+}
+
+type GetAttributeResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """pagination data"""
+  pagination: PaginatedType
+
+  """array data"""
+  payload: [GetAttributeResp!]
+}
+
+input GetCategoryAttributeInPut {
+  pagination: PaginatedFindType = {limit: 10, page: 1}
+  query: GetCategoryAttributeQuery = {attributeId: null, attributeKey: null, categoryAttributeId: null, categoryId: null, categoryKey: null, status: null}
+
+  "\n      ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น : \n      { \n        \"name\" : \"1\",\n        \"createdBy\" : \"1\",\n        \"updatedBy\" : \"-1\"\n      }\n      "
+  sort: JSON
+}
+
+input GetCategoryAttributeQuery {
+  """ค้นหาด้วย AttributeId"""
+  attributeId: String = null
+
+  """ค้นหาด้วย AttributeKey"""
+  attributeKey: String = null
+
+  """ค้นหาด้วย CategoryAttribute ID"""
+  categoryAttributeId: String = null
+
+  """ค้นหาด้วย categoryId"""
+  categoryId: String = null
+
+  """ค้นหาด้วย categoryKey"""
+  categoryKey: String = null
+
+  """ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด"""
+  status: EnabledStatus = null
+}
+
+type GetCategoryAttributeResp {
+  """id ของ Attribute"""
+  _id: String
+
+  """categoryKey"""
+  attribute: GetAttributeResp
+
+  """categoryKey"""
+  attributeKey: String
+
+  """categoryKey"""
+  category: GetCategoryResp
+
+  """categoryKey"""
+  categoryKey: String
+
+  """สร้างเมื่อ """
+  createdAt: DateTime
+
+  """สร้างโดย userID"""
+  createdBy: String
+
+  """status ของ Attribute"""
+  status: EnabledStatus
+
+  """แก้ไขเมื่อ"""
+  updatedAt: DateTime
+
+  """แก้ไขโดย userID"""
+  updatedBy: String
+}
+
+type GetCategoryAttributeRespon {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """data"""
+  payload: GetCategoryAttributeResp
+}
+
+type GetCategoryAttributeResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """pagination data"""
+  pagination: PaginatedType
+
+  """array data"""
+  payload: [GetCategoryAttributeResp!]
+}
+
+input GetCategoryInPut {
+  pagination: PaginatedFindType = {limit: 10, page: 1}
+  query: GetCategoryQuery = {categoryId: null, categoryKey: null, descriptions: null, name: null, path: null, pathRegex: null, status: null}
+
+  "\n      ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น : \n      { \n        \"name\" : \"1\",\n        \"createdBy\" : \"1\",\n        \"updatedBy\" : \"-1\"\n      }\n      "
+  sort: JSON
+}
+
+input GetCategoryQuery {
+  """ค้นหาด้วย categoryId"""
+  categoryId: String = null
+
+  """ค้นหาด้วย categoryKey"""
+  categoryKey: String = null
+
+  """ค้นหาด้วย descriptions แบบ Regex"""
+  descriptions: String = null
+
+  """ค้นหาด้วย name แบบ Regex"""
+  name: String = null
+
+  """ค้นหาด้วย path ถ้าจะค้นหาตัวที่ไม่มีแม่ ให้ใส่ NONE"""
+  path: String = null
+
+  """
+  ค้นหาด้วย path แบบ Regex ซึ้ง
+      For queries from the root Books sub-tree (e.g. /^,Books,/ or /^,Books,Programming,/), an index on the path field improves the query performance significantly.
+  """
+  pathRegex: String = null
+
+  """ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด"""
+  status: EnabledStatus = null
+}
+
+type GetCategoryResp {
+  """id ของ Category"""
+  _id: String
+
+  """categoryKey ของ Category ซึ้งจะแสดงผล และค้นหา และจะไม่ซ้ำ"""
+  categoryKey: String
+
+  """สร้างเมื่อ """
+  createdAt: DateTime
+
+  """สร้างโดย userID"""
+  createdBy: String
+
+  """descriptions ของ Category"""
+  descriptions: String
+
+  """ชื่อ ของ Category"""
+  name: String
+
+  """ต้นทางของ Category"""
+  parentCategory: GetCategoryResp
+
+  """path ซึ้งจะระบุต้นทางของ Category"""
+  path: String
+
+  """status ของ Category"""
+  status: EnabledStatus
+
+  """แก้ไขเมื่อ"""
+  updatedAt: DateTime
+
+  """แก้ไขโดย userID"""
+  updatedBy: String
+}
+
+type GetCategoryRespon {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """data"""
+  payload: GetCategoryResp
+}
+
+type GetCategoryResponse {
+  """โค้ดของการตอบสนอง"""
+  code: String
+
+  """ข้อความตอบสนอง"""
+  message: String
+
+  """pagination data"""
+  pagination: PaginatedType
+
+  """array data"""
+  payload: [GetCategoryResp!]
+}
+
+type GetInventory {
+  _id: String
+
+  """id ของสินค้า"""
+  productId: String
+
+  """จำนวนสต๊อก"""
+  quantity: Float
+}
+
+type GetInventoryResponse {
+  code: String
+  message: String
+  payload: GetInventory
+}
+
+input GetProductAttribute {
+  name: MultilangInput
+  type: [ATRRIBUTE_TYPE!]
+}
+
+input GetProductAttributeInput {
+  """สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and"""
+  filter: GetProductAttribute
+  pagination: INPUT_PAGINATION
+  search: GetProductAttribute
+  sort: GetProductAttributeSort
+}
+
+input GetProductAttributeSort {
+  createdAt: SORT_ORDER
+}
+
+input GetProductCategoryLevel {
+  """คีย์ของภาษาที่ต้องการค้นหาเช่น en, th"""
+  keyLang: String!
+
+  """
+  ชื่อหมวดหมู่ที่ต้องการค้นหา โดยใช้ keyLang เป็นตัวระบุว่าจะค้นหาในภาษาไหน
+  """
+  name: String!
+}
+
+input GetProductCategoryLevelInput {
+  """สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and"""
+  filter: GetProductCategoryLevel
+  pagination: INPUT_PAGINATION
+  search: GetProductCategoryLevel
+  sort: GetProductCategoryLevelSortInput
+}
+
+input GetProductCategoryLevelSortInput {
+  createdAt: SORT_ORDER
+}
+
+input GetProductSortInput {
+  createdAt: SORT_ORDER
+  price: SORT_ORDER
+}
+
+type GetSku {
+  skuMap: JSON
+  tierVariation: [TierVariation]
+}
+
+type GetSkuById {
+  customerSellingPrice: Float
+  factoryPrice: Float
+  productId: String
+  pvs: String
+  qty: Float
+  shopSellingPrice: Float
+  skuVariants: [SkuVariant]
+}
+
+type GetSkuByIdResponse {
+  code: String
+  message: String
+  payload: GetSkuById
+}
+
+type GetSkuResponse {
+  code: String
+  message: String
+  payload: GetSku
 }
 
 type HOORAY_SERVER_SERVICE_INFO {
@@ -931,46 +1997,36 @@ input INPUT_VERIFY_PASSWORD_SYSTEM_ADMIN_EMAIL {
   verifyToken: String!
 }
 
+input Image {
+  """url ของรูปภาพ"""
+  fileKey: String!
+
+  """ตำแหน่งการจัดเรียงรูปภาพ แนะนำให้เริ่มท่ี่ 1"""
+  index: Int!
+}
+
+type ImageResp {
+  """url รูป"""
+  fileKey: String
+
+  """ตำแหน่งการจัดวางภาพ"""
+  index: Int
+}
+
+input ImageUpdate {
+  """url ของรูปภาพ"""
+  fileKey: String!
+
+  """ตำแหน่งการจัดเรียงรูปภาพ แนะนำให้เริ่มท่ี่ 1"""
+  index: Int!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
 
 scalar JSONObject
-
-enum LEAD_TYPE_RESPONSE {
-  AGENT
-  CUSTOMER
-  FACTORY
-  ORGANIZATION
-  OTHER
-  RETAIL
-}
-
-type Lead {
-  _id: String!
-
-  """วันที่ลงทะเบียน"""
-  createdAt: String!
-
-  """ชื่อ"""
-  firstName: String!
-
-  """นามสกุล"""
-  lastName: String!
-
-  """ประเภทของลูกค้า"""
-  leadType: LEAD_TYPE_RESPONSE!
-
-  """เบอร์โทรศัพท์"""
-  phoneNumber: String!
-
-  """สถานะของลูกค้า"""
-  status: ENUM_CREAT_LEAD_STATUS!
-
-  """วันที่อัพเดตข้อมูลล่าสุด"""
-  updatedAt: String!
-}
 
 type LeadPaginateResponse {
   """โค้ดของการตอบสนอง"""
@@ -987,8 +2043,8 @@ type LeadResp {
   citizenId: String
 
   """วันที่ลงทะเบียน"""
-  createdAt: String!
-  createdAtBy: User
+  createdAt: DateTime!
+  createdAtBy: UserResp
   dataSource: String
   email: [EmailResp!]
   firstName: String
@@ -1002,8 +2058,8 @@ type LeadResp {
   status: String
 
   """วันที่อัพเดตข้อมูลล่าสุด"""
-  updatedAt: String!
-  updatedAtBy: User
+  updatedAt: DateTime!
+  updatedAtBy: UserResp
 }
 
 type LeadResponse {
@@ -1012,15 +2068,49 @@ type LeadResponse {
 
   """ข้อความตอบสนอง"""
   message: String
-  payload: Lead
+  payload: LeadResp
+}
+
+enum MANAGE_PRODUCT_ACTION {
+  CLOSE_SALES
+  OPEN_SALES
+}
+
+input ManageProductStatusInput {
+  "\n        action ในการเปลี่ยนสถานะสินค้า\n    "
+  action: MANAGE_PRODUCT_ACTION!
+
+  """id ของสินค้าที่ต้องการจะอัพเดตสถานะ"""
+  productId: String!
+}
+
+input MultilangInput {
+  """key of language ex: 'th', 'en' """
+  keyLang: String
+  value: String!
 }
 
 type Mutation {
   _dummy: String
   addAppSystemAdmin(appKey: String!, input: INPUT_EMAIL_REGISTER_INPUT): TYPE_PROFILE
+
+  """เพิ่ม attribute(property) ให้ category"""
+  addAttributeToProductCategory(
+    """id ของ attribute, สามารถเพิ่มหลายๆ attribute ใน 1 หมวดหมู่ได้"""
+    attributeIds: [String!]!
+
+    """คีย์ของหมวดหมู่ที่จะเพิ่ม Attribute"""
+    categoryKey: String!
+  ): ProductCategoryResponse!
   addContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
   addEmailGlobal(input: INPUT_ADD_EMAIL): TYPE_OK
   addGateway(input: INPUT_GATEWAY!): TYPE_GATEWAY_LIST
+
+  """addCategoryAttribute """
+  addLabelCategoryAttribute(
+    """ช้อมูล CategoryAttribute"""
+    input: AddCategoryAttributeInput!
+  ): GetCategoryAttributeResponse!
   addOrgAdmin(email: String!, orgKey: String!, roleList: [String]): TYPE_PROFILE
   addService(input: INPUT_CREATE_SERVICE): TYPE_SERVICE
   addServiceToApp(serviceKey: String!): TYPE_APP_SERVICE
@@ -1039,13 +2129,37 @@ type Mutation {
   confirmOrgAdmin(email: String!, verifyToken: String): TYPE_PROFILE
   confirmPhoneNumberUser(otpCode: String!, phoneNumber: String!): TYPE_JSON
   confirmSystemAdmin(input: INPUT_VERIFY_PASSWORD_SYSTEM_ADMIN_EMAIL): TYPE_RESET_PASSWORD_EMAIL
+  createAccount(input: CreateAccountInput!): AccountResponse!
+
+  """สร้างที่อยู่แต่ละประเภท"""
+  createAddress(input: CreateAddressInput!): AddressInputResponse!
   createApp(input: INPUT_APP_FORM): TYPE_APP
   createCategory(input: INPUT_CATEGORY): TYPE_CATEGORY
+  createContact(input: CreateContactInput!): ContactResponse!
   createCredential(credentialInput: INPUT_CREDENTIAL_FORM): TYPE_CREDENTIAL
   createCustomMenu(input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
+
+  """สร้าง order """
+  createLabelAttribute(
+    """ช้อมูล Attribute"""
+    input: CreateAttributeInput!
+  ): GetAttributeRespon!
+
+  """สร้าง order """
+  createLabelCategory(
+    """ช้อมูล Category"""
+    input: CreateCategoryInput!
+  ): GetCategoryRespon!
+
+  """สร้าง CategoryAttribute """
+  createLabelCategoryAttribute(
+    """ช้อมูล Attribute"""
+    input: CreateCategoryAttributeInput!
+  ): GetCategoryAttributeRespon!
   createLead(input: CreateLeadInput!): LeadResponse!
   createLeadNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLeadToUser(input: CreateLeadInput!): LeadResponse!
+  createLeadToUserNonAuthen(input: CreateLeadInput!): LeadResponse!
   createLocaleText(input: INPUT_LOCALE_TEXT_FORM): TYPE_LOCALE_TEXT
   createLocaleTextList(inputList: [INPUT_LOCALE_TEXT_FORM!]!): TYPE_LOCALE_TEXT_LIST
   createMasterData(input: INPUT_MASTER_DATA): TYPE_MASTER_DATA
@@ -1056,10 +2170,25 @@ type Mutation {
   createOrganization(input: INPUT_ORGANIZATION_FORM): TYPE_ORGANIZATION
   createOrganizationLabel(input: INPUT_ORGANIZTION_LABEL): TYPE_ORGANIZATION_LABEL
   createOrganizationType(input: INPUT_ORGANIZTION_TYPE): TYPE_ORGANIZATION_TYPE
+
+  """สร้างสินค้า"""
+  createProduct(input: CreateProductInput!, productId: String!): CreateResponse!
+
+  """สร้างคุณลักษณะสินค้า"""
+  createProductAttribute(input: CreateProductAttributeInput!): CreateProductAttributeResponse!
+
+  """สร้างหมวดหมู่สินค้า"""
+  createProductCategory(input: CreateProductCategoryInput!): ProductCategoryResponse!
   createRole(roleInput: INPUT_ROLE_FROM): TYPE_APP_ROLE
   createRunningNumber(input: INPUT_RUNNING_NUMBER): TYPE_RUNNING_NUMBER
+  createVaraint(input: CreateVaraintV2Input!): CreateVaraintResponse!
+  createVaraintOptions(input: CreateVaraintOptionInput!, variantId: String!): CreateVaraintResponse!
+
+  """ลบที่อยู่แต่ละประเภท"""
+  deleteAddress(addressId: String!): AddressInputResponse!
   deleteApp(appKey: String!): TYPE_APP
   deleteCategory(categoryId: String!): TYPE_CATEGORY
+  deleteContact(contactId: String!): ContactResponse!
   deleteContactEmail(appKey: String!, emailList: [String!]): TYPE_APP
   deleteCredential(credentialKey: String!): TYPE_CREDENTIAL
   deleteCustomMenu(customMenuIdList: [ID]!): TYPE_CUSTOM_MENU_LIST
@@ -1067,6 +2196,24 @@ type Mutation {
   deleteEmailContact(email: String!, orgKey: String!): TYPE_ORGANIZATION
   deleteGateway(gatewayId: ID!): TYPE_GATEWAY_LIST
   deleteInvite(inviteId: ID!, orgKey: String!): TYPE_INVITE
+
+  """สร้าง order """
+  deleteLabelAttribute(
+    """id ของ Attribute ที่จะอัพเดต"""
+    id: String!
+  ): GetAttributeRespon!
+
+  """สร้าง order """
+  deleteLabelCategory(
+    """id ของ Category ที่จะอัพเดต"""
+    id: String!
+  ): GetCategoryRespon!
+
+  """deleteAttribute """
+  deleteLabelCategoryAttribute(
+    """id ของ CategoryAttribute ที่จะอัพเดต"""
+    id: String!
+  ): GetCategoryAttributeRespon!
   deleteLead(leadId: String!): LeadResponse!
   deleteLocaleText(dataKey: String!, orgKey: String): TYPE_LOCALE_TEXT
   deleteMasterData(changeTo: String, dataKey: String!): TYPE_MASTER_DATA
@@ -1077,6 +2224,21 @@ type Mutation {
   deleteOrganizationLabel(orgLabelId: ID!): TYPE_ORGANIZATION_LABEL
   deleteOrganizationType(orgTypeId: ID!): TYPE_ORGANIZATION_TYPE
   deletePermission(permissionKeyList: [String!]!, roleKey: String!): TYPE_ROLE_PERMISSION_LIST
+
+  """ลบสินค้า"""
+  deleteProduct(
+    """id ของสินค้าที่ต้องการจะลบ"""
+    productId: String!
+  ): CreateResponse!
+
+  """ลบคุณลักษณะสินค้า และลบออกจากหมวดสินค้าทั้งหมดที่มีคุณลักษณะนี้"""
+  deleteProductAttribute(
+    """id ของคุณลักษณะที่ต้องการจะลบ"""
+    _id: String!
+  ): CreateProductAttributeResponse!
+
+  """ลบหมวดหมู่สินค้า"""
+  deleteProductCategory(categoryKey: String!): DeleteProductCategoryResponse!
   deleteResourceAdmin(userId: ID!): TYPE_PROFILE
   deleteResourceAdminPermission(appKey: String!, permissionKeyList: [String!], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
   deleteResourceOwnerPermission(appKey: String!, permissionKeyList: [String!], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
@@ -1093,6 +2255,7 @@ type Mutation {
   enableServiceFeature(featureKeyList: [String!]): TYPE_FEATURE_LIST
   generateAuthCode: TYPE_LOGIN
   generateRunningNumber(input: INPUT_GENERATE_RUNNING_NUMBER): TYPE_GENERATE_RUNNING_NUMBER
+  generateSku(input: [GenerateSku!]!, productId: String!): CreatedSkuResponse!
   getAppAccessToken(appKey: String!): TYPE_APP_ACCEES_TOKEN
   getOrgAccessToken(accessToken: String!, orgKey: String!): TYPE_ORG_ACCEES_TOKEN
   getS3GetObjectSignedUrl(fileKeys: [String]): TYPE_S3_SIGNED_URL
@@ -1113,7 +2276,11 @@ type Mutation {
   loginPhoneNumberConfirmOrg(otpCode: String!, phoneNumber: String!, redirectUrl: String): TYPE_LOGIN
   loginUsername(password: String!, username: String!): TYPE_LOGIN
   loginWithAuthCode(input: INPUT_LOGIN_AUTH_CODE!): TYPE_AUTH_CODE
+
+  """จัดการสถานะสินค้า ดราฟ, ลงขาย, แสดง-ไม่แสดง"""
+  manageProductStatus(input: ManageProductStatusInput!): CreateResponse!
   pinConfirm(pin: String!): TYPE_OK
+  preCreateProduct: CreateResponse!
   qualifyLead(leadId: String!): LeadResponse!
   readAllNotification: TYPE_NOTIFICATION_LIST
   readNotification(notificationIdList: [String!]!): TYPE_NOTIFICATION_LIST
@@ -1123,14 +2290,31 @@ type Mutation {
   registerOrgAdmin(input: INPUT_ORG_ADMIN_REGISTER_INPUT): TYPE_EMAIL_REGISTER
   registerPhoneNumber(input: INPUT_PHONE_NUMBER_REGISTER_INPUT): TYPE_EMAIL_REGISTER
   registerUsername(input: INPUT_USERNAME_REGISTER): TYPE_USERNAME_REGISTER
+
+  """ลบคุณลักษณะออกจากหมวดหมู่สินค้า"""
+  removeAttributeFromProductCategory(
+    """id ของรายการคุณลักษณะที่ต้องการจะลบ"""
+    attributeIds: [String!]!
+
+    """คีย์ของหมวดหมู่"""
+    categoryKey: String!
+  ): ProductCategoryResponse!
   removeConfig(configKey: String!): TYPE_REMOVE_CONFIG
+
+  """addCategoryAttribute """
+  removeLabelCategoryAttribute(
+    """ช้อมูล CategoryAttribute"""
+    input: RemoveCategoryAttributeInput!
+  ): GetCategoryAttributeResponse!
   removePermissionRole(appKey: String!, permissionKeyList: [String!], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
+  removeProductVariant(variantId: String!): CreateVaraintResponse!
   removeServiceFromApp(appKey: String!, serviceKey: String!): TYPE_APP_SERVICE
   requestOtp(phoneNumber: String!): TYPE_JSON
   resendRegisterEmail(email: String!): TYPE_EMAIL_REGISTER
   resetPasswordEmail(email: String!): TYPE_RESET_PASSWORD_EMAIL
   resetPasswordOtp(input: INPUT_REQUEST_OTP): TYPE_RESET_PASSWORD_EMAIL
   s3UploadFile(file: FileUpload, userId: ID): TYPE_S3_SIGNED_URL
+  saveImageToVariant(input: [AddImagesToVaraintsInput!]!, productId: String!): VariantListResponse!
   sendContactMail(input: INPUT_SEND_MAIL_FORM): TYPE_OK
   sendToVerifyEmailOrg(email: String!): TYPE_OK
   singleUpload(file: FileUpload!): File!
@@ -1139,15 +2323,50 @@ type Mutation {
   syncAppToService(appKeyList: [String!]): TYPE_SYNC_APP
   syncOrganization(orgKeyList: [String]): TYPE_SYNC_ORGANIZATION
   syncService(serviceKeyList: [String!]): TYPE_SYNC_SERVICE_INFO
+  updateAccount(accountId: String!, input: CreateAccountInput!): AccountResponse!
+
+  """แก้ไขที่อยู่แต่ละประเภท"""
+  updateAddress(addressId: String!, input: CreateAddressInput!): AddressInputResponse!
   updateApp(appInput: INPUT_UPDATE_APP, appKey: String!): TYPE_APP
   updateAppAttribute(attributeInput: JSON!): TYPE_APP
+
+  """updateAttribute"""
+  updateAttribute(
+    """id ของ Attribute ที่จะอัพเดต"""
+    id: String!
+
+    """ช้อมูล Attribute"""
+    input: CreateAttributeInput!
+  ): GetAttributeRespon!
   updateCategory(categoryId: String!, input: INPUT_CATEGORY): TYPE_CATEGORY
   updateConfig(input: INPUT_CONFIG_FORM): TYPE_CONFIG
+  updateContact(contactId: String!, input: CreateContactInput!): ContactResponse!
   updateCredential(credentialInput: INPUT_CREDENTIAL_FORM_UPDATE, credentialKey: String!): TYPE_CREDENTIAL
   updateCredentialKey(credentialKey: String!, newCredentialKey: String!): TYPE_CREDENTIAL
   updateCustomMenu(customMenuId: ID!, input: INPUT_SCHEMA_CUSTOM_MENU): TYPE_CUSTOM_MENU
   updateDataSecurity(roleKey: String!, securityList: [INPUT_DATA_SECURITY_FORM]): TYPE_ROLE_DATA_SECURITY_LIST
   updateGateway(gatewayId: ID!, input: INPUT_GATEWAY!): TYPE_GATEWAY_LIST
+
+  """อัพเดต stock สินค้า, varaint และ สถานะของ varaint"""
+  updateInventory(inputs: [UpdateInventoryInput!]!): UpdateInventoryResponse!
+
+  """สร้าง order """
+  updateLabelCategory(
+    """id ของ Category ที่จะอัพเดต"""
+    id: String!
+
+    """ช้อมูล Category"""
+    input: CreateCategoryInput!
+  ): GetCategoryRespon!
+
+  """update CategoryAttribute """
+  updateLabelCategoryAttribute(
+    """id ของ CategoryAttribute ที่จะอัพเดต"""
+    id: String!
+
+    """ช้อมูล CategoryAttribute"""
+    input: CreateCategoryAttributeInput!
+  ): GetCategoryAttributeRespon!
   updateLead(input: CreateLeadInput!, leadId: String!): LeadResponse!
   updateLocaleText(dataInput: INPUT_LOCALE_TEXT_FORM, dataKey: String!, orgKey: String): TYPE_LOCALE_TEXT
   updateMasterData(dataInput: INPUT_MASTER_DATA, dataKey: String!): TYPE_MASTER_DATA
@@ -1164,6 +2383,31 @@ type Mutation {
   updateOrganizationType(input: INPUT_ORGANIZTION_TYPE, orgTypeId: ID!): TYPE_ORGANIZATION_TYPE
   updatePermission(permissionList: [INPUT_PERMISSION_FORM], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
   updatePermissionRole(appKey: String!, permissionList: [INPUT_PERMISSION_FORM!], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
+
+  """แก้ไข/อัปเดตข้อมูลสินค้า"""
+  updateProduct(
+    input: UpdateProductInput!
+
+    """ไอดีของสินค้าที่ต้องการแก้ไข"""
+    productId: String!
+  ): UpdateResponse!
+
+  """อัพเดทคุณลักษณะสินค้า"""
+  updateProductAttribute(
+    """id ของคุณลักษณะที่ต้องการอัพเดต"""
+    _id: String!
+    input: CreateProductAttributeInput!
+  ): CreateProductAttributeResponse!
+
+  """
+  สำหรับการเปลี่ยน relation ระหว่าง parent กับ child ของหมวดหมู่, อัพเดตชื่อหมวดหมู่
+  """
+  updateProductCategory(
+    """คีย์ของหมวดหมู่ที่จะทำการเปลี่ยนแปลง"""
+    categoryKey: String!
+    input: UpdateProductCategory!
+  ): ProductCategoryResponse!
+  updateProductVariant(input: UpdateVaraintInput_!, variantId: String!): CreateVaraintResponse!
   updateResourceAdmin(adminInput: INPUT_UPDATE_PROFILE, userId: ID!): TYPE_PROFILE
   updateResourceAdminPermission(appKey: String!, permissionList: [INPUT_PERMISSION_FORM], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
   updateResourceOwnerPermission(appKey: String!, permissionList: [INPUT_PERMISSION_FORM], roleKey: String!): TYPE_ROLE_PERMISSION_LIST
@@ -1190,6 +2434,53 @@ type ORGANIZATION_LIST {
   message: String
   pagination: TYPE_PAGINATION
   payload: [TYPE_ORGANIZATION_RESPONSE]
+}
+
+type OmitObjectType {
+  _id: String
+
+  """คุณลักษณะสินค้า"""
+  attributes: [ProductAtrribute!]
+  category: Category
+
+  """สถานะการแสดงผล รูปภาพอธิบายสินค้า"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+
+  """รูปภาพอธิบายสินค้า"""
+  descImages: [ImageResp!]
+
+  """คำอธิบายสินค้า อิงภาษาตาม locale ใน header"""
+  description: String
+
+  """จะถูกอนุมัติจาก admin"""
+  isApprove: Boolean
+
+  """ชื่อสินค้า อิงภาษาตาม locale ใน header"""
+  name: String
+  orgAgentKey: String
+  orgKey: String
+
+  """ราคาสินค้า"""
+  price: PriceResp
+  priceRange: PriceRange
+
+  """รูปภาพสินค้า"""
+  productImages: [ImageResp!]
+
+  """สถานะสินค้า"""
+  status: GET_PRODUCT_STATUS
+}
+
+input Options {
+  """ชื่อตัวเลือกคุณลักษณะสินค้า"""
+  name: String!
+}
+
+type OptionsResponse {
+  _id: String
+
+  """ชื่อตัวเลือกคุณลักษณะสินค้า"""
+  name: String!
 }
 
 input PaginatedFindType {
@@ -1222,9 +2513,302 @@ type PhoneResp {
   value: String!
 }
 
+input Price {
+  """ราคาขายลูกค้า"""
+  customerSellingPrice: Float!
+
+  """ราคาโรงงาน"""
+  factoryPrice: Float!
+
+  """ราคาขายร้านค้า"""
+  shopSellingPrice: Float!
+}
+
+type PriceRange {
+  max: PriceResp
+  min: PriceResp
+}
+
+input PriceRangeCriteria {
+  max: Float
+  min: Float
+}
+
+type PriceResp {
+  """ราคาขายลูกค้า"""
+  customerSellingPrice: Float
+
+  """ราคาโรงงาน"""
+  factoryPrice: Float
+
+  """ราคาขายร้านค้า"""
+  shopSellingPrice: Float
+}
+
+input PriceUpdate {
+  """ราคาขายลูกค้า"""
+  customerSellingPrice: Float
+
+  """ราคาโรงงาน"""
+  factoryPrice: Float
+
+  """ราคาขายร้านค้า"""
+  shopSellingPrice: Float
+}
+
+type ProductAtrribute {
+  """id ของ productAttribute"""
+  productAttributeId: String
+
+  """ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number"""
+  value: String
+
+  """
+  id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select
+  """
+  valueIds: [String!]
+}
+
+type ProductAttribute {
+  _id: String
+  name: String
+  options: [AttributeOptionsResponse]
+  rules: [String]
+  type: ATRRIBUTE_TYPE
+}
+
+type ProductAttributeDTO {
+  _id: String
+  name: String
+  options: [OptionsResponse]
+
+  """prefer regex for check input"""
+  rules: [String]
+  type: ATRRIBUTE_TYPE
+}
+
+type ProductAttributeKeyPair {
+  name: String
+  value: String
+}
+
+type ProductAttributeKeyPairResponse {
+  code: String
+  message: String
+  payload: [ProductAttributeKeyPair]
+}
+
+type ProductAttributeResponse {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [ProductAttribute]
+}
+
+type ProductCategory {
+  _id: String
+
+  """รายการไอดีของคุณลักษณะที่มีในหมวดหมู่นี้"""
+  attributes: [String]
+
+  """ใช้ระบุว่าหมวดหมู่นี้มีหมวดหมู่ย่อยหรือไม่"""
+  hasChildren: Boolean
+
+  """รหัสของหมวดหมู่"""
+  key: String
+
+  """ชื่อหมวดหมู่สินค้าในแต่ละภาษาที่สร้างไว้"""
+  name: String
+
+  """รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้"""
+  parent: String
+
+  """
+  ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array
+  """
+  tree: [String]
+  treeFull: [SelfProductCategory]
+}
+
+type ProductCategoryLevel {
+  _id: String
+  hasChildren: Boolean
+
+  """รหัสของหมวดหมู่"""
+  key: String
+
+  """ชื่อของหมวดหมู่ อิงภาษาตาม locale ที่ส่งมาใน headers"""
+  name: String
+
+  """รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้"""
+  parent: String
+
+  """
+  ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array
+  """
+  tree: [String]
+  treeFull: [SelfProductCategory]
+}
+
+type ProductCategoryLevelResponse {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [ProductCategoryLevel]
+}
+
+type ProductCategoryResponse {
+  code: String
+  message: String
+  payload: ResponseClass
+}
+
+type ProductResp {
+  _id: String
+
+  """คุณลักษณะสินค้า"""
+  attributes: [ProductAtrribute!]
+  category: Category
+
+  """สถานะการแสดงผล รูปภาพอธิบายสินค้า"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+
+  """รูปภาพอธิบายสินค้า"""
+  descImages: [ImageResp!]
+
+  """คำอธิบายสินค้า อิงภาษาตาม locale ใน header"""
+  description: String
+
+  """จะถูกอนุมัติจาก admin"""
+  isApprove: Boolean
+
+  """ชื่อสินค้า อิงภาษาตาม locale ใน header"""
+  name: String
+  orgAgentKey: String
+  orgKey: String
+
+  """ราคาสินค้า"""
+  price: PriceResp
+  priceRange: PriceRange
+
+  """รูปภาพสินค้า"""
+  productImages: [ImageResp!]
+  sku: GetSku
+
+  """สถานะสินค้า"""
+  status: GET_PRODUCT_STATUS
+}
+
+type ProductRespAgent {
+  _id: String
+
+  """คุณลักษณะสินค้า"""
+  attributes: [ProductAtrribute!]
+  category: Category
+
+  """สถานะการแสดงผล รูปภาพอธิบายสินค้า"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+
+  """รูปภาพอธิบายสินค้า"""
+  descImages: [ImageResp!]
+
+  """คำอธิบายสินค้า อิงภาษาตาม locale ใน header"""
+  description: String
+
+  """จะถูกอนุมัติจาก admin"""
+  isApprove: Boolean
+
+  """ชื่อสินค้า อิงภาษาตาม locale ใน header"""
+  name: String
+  orgKey: String
+
+  """ราคาสินค้า"""
+  price: PriceResp
+  priceRange: PriceRange
+
+  """รูปภาพสินค้า"""
+  productImages: [ImageResp!]
+
+  """สถานะสินค้า"""
+  status: GET_PRODUCT_STATUS
+}
+
+type ProductRespon {
+  code: String
+  message: String
+  payload: ProductResp
+}
+
+type ProductResponse {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [OmitObjectType]
+}
+
+type ProductResponseAgent {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [ProductRespAgent]
+}
+
+type ProductRetailResp {
+  _id: String
+
+  """คุณลักษณะสินค้า"""
+  attributes: [ProductAtrribute!]
+  category: Category
+
+  """สถานะการแสดงผล รูปภาพอธิบายสินค้า"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+
+  """รูปภาพอธิบายสินค้า"""
+  descImages: [ImageResp!]
+
+  """คำอธิบายสินค้า อิงภาษาตาม locale ใน header"""
+  description: String
+
+  """จะถูกอนุมัติจาก admin"""
+  isApprove: Boolean
+
+  """ชื่อสินค้า อิงภาษาตาม locale ใน header"""
+  name: String
+  orgAgentKey: String
+  orgKey: String
+
+  """ราคาสินค้า"""
+  price: PriceResp
+  priceRange: PriceRange
+
+  """รูปภาพสินค้า"""
+  productImages: [ImageResp!]
+
+  """สถานะสินค้า"""
+  status: GET_PRODUCT_STATUS
+}
+
+type ProductRetailResponse {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [ProductRetailResp]
+}
+
 type Query {
   _dummy: String
+
+  """ดูข้อมูลสินค้าสำหรับ Agent"""
+  agentGetProductList(input: AgentGetProductInput, status: GET_PRODUCT_STATUS): ProductResponseAgent!
   exportUser: TYPE_TYPE_ROLE_PERMISSION_USER_LIST
+
+  """ดูข้อมูลสินค้าสำหรับ Factory"""
+  factoryGetProductList(
+    input: CommonGetProductInput
+
+    """สถานะสินค้าที่ต้องการค้นหา ถ้าไม่ใส่จะเอาทุกสถานะ"""
+    status: GET_PRODUCT_STATUS
+  ): ProductResponse!
   generateKey(capitalization: ENUM_GENERATE_KEY_CAPITALIZATION, charset: String, length: Int, readable: Boolean): TYPE_GENERATE_KEY_RESPONSE
   generateOrgTokenRef(orgKey: String!): TYPE_ORG_TOKEN_REF
   getAllOrganization(input: INPUT_FIND_DATA): ORGANIZATION_LIST
@@ -1238,6 +2822,11 @@ type Query {
   getCredential: TYPE_CREDENTIAL_LIST
   getCredentialByHost(host: String!): GET_APP_CREDENTIAL_HOST
   getCustomMenu(input: INPUT_FIND_DATA): TYPE_CUSTOM_MENU_LIST
+  getDataAccount(input: FindAccountInput): AccountPaginateResponse!
+
+  """เรียกข้อมูลที่อยู่"""
+  getDataAddress(input: FindAddressInput): AddressPaginateResponse!
+  getDataContact(input: FindContactInput): ContactPaginateResponse!
   getDataLead(input: FindLeadInput): LeadPaginateResponse!
   getDataRunningNumber(input: INPUT_FIND_DATA): TYPE_RUNNING_NUMBER_LIST
   getDataSecurityRole(roleKey: String!): TYPE_DATA_SECURITY_LIST
@@ -1246,6 +2835,18 @@ type Query {
   getInviteOrgRole: TYPE_APP_ROLE_LIST
   getInviteRole(orgKey: String!): TYPE_APP_ROLE_LIST
   getInviteUserOrganization(input: INPUT_FIND_DATA, orgKey: String!): TYPE_INVITE_LIST
+
+  """ดึงข้อมูล Attribute """
+  getLabelAttribute(input: GetAttributeInPut!): GetAttributeResponse!
+
+  """ดึงข้อมูล Category """
+  getLabelCategory(input: GetCategoryInPut!): GetCategoryResponse!
+
+  """ดึงข้อมูล Attribute """
+  getLabelCategoryAttribute(input: GetCategoryAttributeInPut!): GetCategoryAttributeResponse!
+
+  """ดึงข้อมูล Category """
+  getLabelParentCategory(id: String!): GetCategoryResponse!
   getLocaleText(input: INPUT_FIND_DATA): TYPE_LOCALE_TEXT_LIST
   getLog(input: INPUT_FIND_DATA): TYPE_LOG_LIST
   getMasterData(input: INPUT_FIND_DATA): TYPE_MASTER_DATA_LIST
@@ -1273,6 +2874,30 @@ type Query {
   getOrganizationLabel(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_LABEL_LIST
   getOrganizationType(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_TYPE_LIST
   getPermissionRole(roleKey: String!): TYPE_PERMISSION_LIST
+  getProductAttribute(productId: String!): ProductAttributeKeyPairResponse!
+  getProductAttributeList(input: GetProductAttributeInput): ProductAttributeResponse!
+  getProductAttributeOfCategory(categoryKey: String!): CreateProductAttributeResponseList!
+
+  """ดูข้อมูลสินค้าby id"""
+  getProductById(
+    """id ของสินค้า"""
+    id: String!
+  ): ProductRespon!
+  getProductCategory(categoryKey: String!): ProductCategory!
+
+  """ใช้ดึงข้อมูลหมวดหมู่สินค้าทั้งหมด ในแต่ละขั้นจาก ROOT Level ลงไป"""
+  getProductCategoryLevel(
+    input: GetProductCategoryLevelInput
+    isTail: Boolean
+
+    "\n          ใช้ key ของหมวดหมู่ที่เลือกก่อนหน้าเพื่อดึงข้อมูลหมวดหมู่ย่อยลงไป, \n          ถ้าไม่ส่งค่าจะเป็นการดึงหมวดหมู่ของ ROOT Level\n      "
+    parentKey: String
+  ): ProductCategoryLevelResponse
+
+  """ดึงข้อมูลสต๊อกสินค้า"""
+  getProductInventory(productId: String!): GetInventoryResponse!
+  getProductListHoldByOrg(input: CommonGetProductInput): ProductResponse!
+  getProductVariantList(productId: String!): VariantListResponse!
   getProfile(userIdList: [ID!]!): TYPE_PROFILE_LIST
   getPublicAppConfig(configKeyList: [String]): TYPE_CONFIG_LIST
   getPublicProfile(find: INPUT_FIND_DATA, userIdList: [ID]!): TYPE_PROFILE_LIST
@@ -1290,6 +2915,8 @@ type Query {
   getService(input: INPUT_FIND_DATA): TYPE_SERVICE_LIST
   getServiceFeature: TYPE_FEATURE_LIST
   getServiceInfo(serviceKey: String!): TYPE_SERVICE_INFO
+  getSku(productId: String!): GetSkuResponse!
+  getSkuById(skuId: String!): GetSkuByIdResponse!
   getSystemAdminPermission(appKey: String!, roleKeyList: [String!]): TYPE_TYPE_ROLE_PERMISSION_USER_LIST
   getSystemAdminProfile(find: INPUT_FIND_DATA): TYPE_PROFILE_LIST
   getSystemAdminRoleApprovalAttribute(input: INPUT_FIND_DATA): TYPE_ROLE_APROVAL_ATTRIBUTE_LIST
@@ -1299,8 +2926,64 @@ type Query {
   kafkaListTopics: TYPE_JSON
   migrateData(appKey: String!, destinationDb: String!, destinationUri: String!, exceptList: [String], includeList: [String], limit: Number!, originDb: String!, originUri: String!, version: String!): DATA_MIGRATION_RESULT
   otherFields: Boolean!
+
+  """ดูข้อมูลสินค้าสำหรับ Retail"""
+  retailGetProductList(input: RetailGetProductInput): ProductRetailResponse!
   webhookRunTaskAppNotification(secretKey: String!): TYPE_WEBHOOK
   webhookRunTaskEmail(secretKey: String!): TYPE_WEBHOOK
+}
+
+input QueryAccountInput {
+  _id: String
+  category: String
+  name: String
+  status: String
+}
+
+input QueryAddressInput {
+  """ที่อยู่"""
+  address: String
+
+  """ประเทศ"""
+  country: String
+
+  """กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น"""
+  defaultSend: ENUM_ADDRESS_DEFAULT_SEND
+
+  """อำเภอ"""
+  district: String
+
+  """latitude"""
+  latitude: String
+
+  """longitude"""
+  longitude: String
+
+  """รหัสไปรษณีย์"""
+  postcode: String
+
+  """จังหวัด"""
+  province: String
+
+  """ไอดีของเจ้าของที่อยู่"""
+  refId: String
+
+  """ตำบล"""
+  subDistrict: String
+
+  """ประเภทที่อยู่"""
+  type: ENUM_ADDRESS_TYPE
+}
+
+input QueryContactInput {
+  _id: String
+  citizenId: String
+  dataSource: String
+  firstName: String
+  lastName: String
+  passport: String
+  resourceOwner: String
+  status: String
 }
 
 input QueryLeadInput {
@@ -1313,14 +2996,127 @@ input QueryLeadInput {
   status: String
 }
 
+input QueryValue {
+  """ไอดีของ inventory ที่ต้องการจะแก้ไข"""
+  inventoryId: String
+  inventoryType: String
+  productId: String
+  skuId: String
+}
+
+input RemoveCategoryAttributeInput {
+  """array id attribute ที่ใช้ในการเพิ่ม"""
+  attributeIdList: [String!] = []
+
+  """categoryId"""
+  categoryId: String!
+}
+
 type RespCreate {
   _id: String
+}
+
+type ResponseClass {
+  _id: String
+
+  """รายการไอดีของคุณลักษณะที่มีในหมวดหมู่นี้"""
+  attributes: [String]
+
+  """ใช้ระบุว่าหมวดหมู่นี้มีหมวดหมู่ย่อยหรือไม่"""
+  hasChildren: Boolean
+
+  """รหัสของหมวดหมู่"""
+  key: String
+
+  """ชื่อหมวดหมู่สินค้าในแต่ละภาษาที่สร้างไว้"""
+  name: String
+
+  """รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้"""
+  parent: String
+
+  """
+  ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array
+  """
+  tree: [String]
+  treeFull: [SelfProductCategory]
+}
+
+input RetailGetProductInput {
+  pagination: INPUT_PAGINATION
+  search: RetailProductCriteria
+  sort: GetProductSortInput
+}
+
+input RetailProductCriteria {
+  categoryKey: String
+  name: String
+  priceRange: PriceRangeCriteria
+}
+
+input SKU {
+  """จำนวนสต๊อก"""
+  changeQty: Float!
+
+  """ราคาขายลูกค้า"""
+  customerSellingPrice: Float
+
+  """ราคาโรงงาน"""
+  factoryPrice: Float
+
+  """ราคาขายร้านค้า"""
+  shopSellingPrice: Float
+  skuId: String!
+
+  """สถานะเปิด-ปิด"""
+  status: TOGGLE_CREAT_PRODUCT_STATUS
+}
+
+input SKUUpdate {
+  """จำนวนสต๊อก"""
+  changeQty: Float
+
+  """ราคาขายลูกค้า"""
+  customerSellingPrice: Float
+
+  """ราคาโรงงาน"""
+  factoryPrice: Float
+
+  """ราคาขายร้านค้า"""
+  shopSellingPrice: Float
+  skuId: String!
+
+  """สถานะเปิด-ปิด"""
+  status: TOGGLE_CREAT_PRODUCT_STATUS
+}
+
+enum SORT_ORDER {
+  ASC
+  DESC
+}
+
+type SelfProductCategory {
+  _id: String
+  hasChildren: Boolean
+  key: String
+  name: String
+  parent: String
+}
+
+type SkuVariant {
+  childName: String
+  fileKey: String
+  parentName: String
 }
 
 type Subscription {
   _dummy: String
   getHello: TYPE_HELLO
   getMyNotification(find: INPUT_FIND_DATA): TYPE_NOTIFICATION_LIST
+}
+
+enum TOGGLE_CREAT_PRODUCT_STATUS {
+  DISABLED
+  ENABLED
 }
 
 type TYPE_APP {
@@ -2092,10 +3888,17 @@ type TYPE_O_AUTH {
 }
 
 type TYPE_PAGINATION {
-  limit: Int
-  page: Int
-  totalItems: Int
-  totalPages: Int
+  """จำนวนสูงสุดที่ดึงใน 1 หน้า"""
+  limit: Int!
+
+  """หมายเลขหน้า"""
+  page: Int!
+
+  """จำนวน item ทั้งหมด"""
+  totalItems: Int!
+
+  """จำนวนหน้าทั้งหมด"""
+  totalPages: Int!
 }
 
 type TYPE_PASSWORD_EMAIL {
@@ -2120,6 +3923,8 @@ type TYPE_PERMISSION_LIST {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """array data"""
   payload: [TYPE_ROLE_PERMISSION]
 }
 
@@ -2261,6 +4066,8 @@ type TYPE_ROLE_PERMISSION_LIST {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """data"""
   payload: TYPE_ROLE_PERMISSION_PAYLOAD
 }
 
@@ -2400,6 +4207,8 @@ type TYPE_SERVICE_INFO {
 
   """ข้อความตอบสนอง"""
   message: String
+
+  """data"""
   payload: TYPE_SERVICE
 }
 
@@ -2629,12 +4438,142 @@ type TYPE_WEBHOOK {
   payload: TYPE_SCHEMA_WEBHOOK
 }
 
+type TierVariation {
+  name: String
+  options: [TierVariationOptions]
+}
+
+type TierVariationOptions {
+  fileKey: String
+  key: String
+  name: String
+}
+
+type Update {
+  _id: String
+}
+
+type UpdateInventory {
+  """จำนวนรายการที่ไม่สำเร็จ"""
+  fail: Int
+
+  """จำนวนรายการที่สำเร็จ"""
+  success: Int
+
+  """จำนวนรายการทั้งหมด"""
+  total: Int
+}
+
+input UpdateInventoryInput {
+  query: QueryValue!
+  updated: UpdateValue!
+}
+
+type UpdateInventoryResponse {
+  code: String
+  message: String
+  payload: UpdateInventory
+}
+
+input UpdateProductCategory {
+  name: String
+
+  "\n  ชื่อหมวดหมู่สินค้าที่ต้องการอัพเดต เช่น : \n  { \n    \"th\" : \"รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม\",\n    \"en\" : \"BAOJI Boots High Quality\"\n}\n"
+  names: JSON
+
+  """
+  รหัสหมวดหมู่สินค้าที่ต้องการให้เป็น parent, ROOT ถ้าต้องการให้เป็นหมวดหมู่ระดับ root
+  """
+  parrentKey: String
+}
+
+input UpdateProductInput {
+  """คุณลักษณะผลิตภัณฑ์"""
+  attributes: [AttributeUpdate!]
+
+  """คีย์ของหมวดหมู่ผลิตภัณฑ์"""
+  categoryKey: String
+
+  """จำนวนสต๊อก"""
+  changeQty: Float
+
+  """สถานะการเปิดใช้งานของรูปภาพอธิบายผลิตภัณฑ์"""
+  descImageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+
+  """รูปภาพอธิบาย ถ้าอัพเดตส่งมาทุกรูปที่มี"""
+  descImages: [ImageUpdate]
+
+  "\n    *** ส่งมาแค่ภาษาที่ต้องการจะอัพเดต\n    คำอธิบายผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น : \n    { \n      \"th\" : \"นุ่ม เบา ราคาถูก รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม\",\n      \"en\" : \"Boots High Quality cheap price\"\n    }\n    ความยาวสูงสุด 5000 ตัวอักษร, ต่ำสุด 23 ตัวอักษร\n  "
+  descriptions: JSON
+
+  "\n    *** ส่งมาแค่ภาษาที่ต้องการจะอัพเดต\n    ชื่อผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น : \n    { \n      \"th\" : \"รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม\",\n      \"en\" : \"BAOJI Boots High Quality\"\n    }\n    ความยาวสูงสุด 120 ตัวอักษร, ต่ำสุด 19 ตัวอักษร\n  "
+  names: JSON
+
+  """ราคาของผลิตภัณฑ์"""
+  price: PriceUpdate
+
+  """รูปภาพสินค้า ถ้าอัพเดตส่งมาทุกรูปที่มี"""
+  productImages: [ImageUpdate]
+
+  """ตัวเลือกสินค้า"""
+  skus: [SKUUpdate!]
+}
+
+type UpdateResponse {
+  code: String
+  message: String
+  payload: Update
+}
+
+input UpdateValue {
+  """จำนวนที่ต้องการแก้ไข +,-"""
+  changeQty: Float!
+
+  """ถ้า inventory เป็นประเภท varaint สามารถเปิด-ปิดได้"""
+  varaintStatus: TOGGLE_CREAT_PRODUCT_STATUS
+}
+
+input UpdateVaraintInput_ {
+  imageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+  name: String
+}
+
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
 
-type User {
+type UserEmailResp {
+  value: String
+}
+
+type UserPhoneResp {
+  value: String!
+}
+
+type UserResp {
   _id: String
   attribute: JSON
-  email: [EmailResp!]
-  phone: [PhoneResp!]
+  email: [UserEmailResp!]
+  phone: [UserPhoneResp!]
+}
+
+type VaraintList {
+  _id: String
+  imageStatus: TOGGLE_CREAT_PRODUCT_STATUS
+  key: String
+  name: String
+  options: [VaraintOptions]
+  productId: String
+}
+
+type VaraintOptions {
+  _id: String
+  fileKey: String
+  key: String
+  name: String
+}
+
+type VariantListResponse {
+  code: String
+  message: String
+  payload: [VaraintList]
 }

@@ -18,7 +18,7 @@ export default async function handler(req: any, res: any) {
       pattern: '${endpoint}/app/${authorization_code}/${path}?credentialKey=${credentialKey}',
       menuList: [
         {
-          name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
+          name: { en: 'Lead', th: 'ผู้มุ้งหวัง' },
           path: 'lead',
           icon: 'user-clock',
           permissionList: [
@@ -29,7 +29,18 @@ export default async function handler(req: any, res: any) {
           ],
         },
         {
-          name: { en: 'All User', th: 'ผู้ใช้' },
+          name: { en: 'Account', th: 'ผู้ใช้' },
+          path: 'user',
+          icon: 'user',
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
+        },
+        {
+          name: { en: 'Contact', th: 'ผู้ติดต่อ' },
           path: 'user',
           icon: 'user',
           // permissionList: [

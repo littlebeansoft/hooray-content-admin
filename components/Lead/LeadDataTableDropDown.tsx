@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Menu, Dropdown, Button, Typography, Space, message, Popconfirm, Modal } from 'antd'
 
-import { defaultPagination } from 'config/paginationConfig'
-import { DownOutlined, FormOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { LeadDataAPIPayload } from 'graphql/interface'
-import useQualifyLead from 'graphql/useQualifyLead'
-import useDeleteLead from 'graphql/useDeleteLead'
-import useUpdateLead from 'graphql/useUpdateLead'
+import {
+  Enum_Creat_Lead_Status,
+  useDeleteLeadMutation,
+  useQualifyLeadMutation,
+  useUpdateLeadMutation,
+} from 'graphql/generated/operations'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -82,25 +84,21 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
     }
   }, [leadData])
 
-  const [qualifyLead] = useQualifyLead({
+  const [qualifyLead] = useQualifyLeadMutation({
     onCompleted() {
       message.success('Qualify lead was Successfully')
-      // setPagination(defaultPagination)
       refetch()
-    },
-    onError() {
-      // message.error('Qualify lead was Error')
     },
   })
 
-  const [deleteLead] = useDeleteLead({
+  const [deleteLead] = useDeleteLeadMutation({
     onCompleted() {
       message.success('Delete lead was Successfully')
       refetch()
     },
   })
 
-  const [disqualify] = useUpdateLead({
+  const [disqualify] = useUpdateLeadMutation({
     onCompleted() {
       message.success('Disqualify lead was Successfully')
       refetch()
@@ -134,9 +132,7 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
         })
         //
       },
-      onCancel() {
-        //console.log('Cancel');
-      },
+      onCancel() {},
     })
   }
 
@@ -169,7 +165,7 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
           variables: {
             leadId: leadData._id,
             input: {
-              status: 'DISQUALIFY',
+              status: 'DISQUALIFY' as Enum_Creat_Lead_Status,
             },
           },
         })
@@ -192,7 +188,7 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
           variables: {
             leadId: leadData._id,
             input: {
-              status: 'NORMAL',
+              status: 'NORMAL' as Enum_Creat_Lead_Status,
             },
           },
         })
