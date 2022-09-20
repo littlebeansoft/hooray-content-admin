@@ -30,8 +30,8 @@ export default async function handler(req: any, res: any) {
         },
         {
           name: { en: 'Account', th: 'ผู้ใช้' },
-          path: 'user',
-          icon: 'user',
+          path: 'account',
+          icon: 'user-unlock',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -41,8 +41,8 @@ export default async function handler(req: any, res: any) {
         },
         {
           name: { en: 'Contact', th: 'ผู้ติดต่อ' },
-          path: 'user',
-          icon: 'user',
+          path: 'contact',
+          icon: 'address-book',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -79,39 +79,6 @@ export default async function handler(req: any, res: any) {
       pattern: '${endpoint}/org/${authorization_code}/${path}?credentialKey=${credentialKey}',
       menuList: [
         {
-          name: { en: 'All Lead', th: 'ลีดทั้งหมด' },
-          path: 'lead',
-          icon: 'user-clock',
-          permissionList: [
-            // {
-            //   permissionKey: 'ORG.MASTER_DATA.LOCATION',
-            //   code: ['READ'],
-            // },
-          ],
-        },
-        {
-          name: { en: 'All User', th: 'ผู้ใช้' },
-          path: 'user',
-          icon: 'user',
-          // permissionList: [
-          //   {
-          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
-          //     code: ['READ'],
-          //   },
-          // ],
-        },
-        {
-          name: { en: 'All Organization', th: 'หน่วยงาน' },
-          path: 'organization',
-          icon: 'users',
-          // permissionList: [
-          //   {
-          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
-          //     code: ['READ'],
-          //   },
-          // ],
-        },
-        {
           name: { en: 'All Product', th: 'สินค้า' },
           path: 'product',
           icon: 'box-archive',
@@ -125,7 +92,7 @@ export default async function handler(req: any, res: any) {
         {
           name: { en: 'All Category', th: 'หมวดหมู่สินค้า' },
           path: 'category',
-          icon: 'grid-2-plus',
+          icon: 'boxes-stacked',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',

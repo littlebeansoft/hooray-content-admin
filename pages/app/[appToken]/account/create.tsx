@@ -3,27 +3,27 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import UseDetailCard from 'components/User/UserDetail/UseDetailCard'
+import AccountCreateCard from 'components/Account/AccountCreate/AccountCreateCard'
 
-const UserDetail: React.FC = () => {
+const UserCreate: React.FC = () => {
   const router = useRouter()
 
   return (
-    <MainLayout breadcrumb={['Home', 'User Name']}>
+    <MainLayout breadcrumb={['Home', 'Account']}>
       <TitleComponent
-        title="User Name"
+        title="Account"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/user`,
+            pathname: `/app/[appToken]/user`,
             query: {
               ...router.query,
             },
           })
         }
       />
-      <UseDetailCard />
+      <AccountCreateCard />
     </MainLayout>
   )
 }
 
-export default withAuth(UserDetail)
+export default withAuth(UserCreate)

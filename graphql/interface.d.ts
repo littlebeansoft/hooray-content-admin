@@ -931,3 +931,44 @@ export interface MasterDataLocationPayload {
   dataKey: string
   attribute: string
 }
+
+export interface AccountResponse {
+  _id: string
+  name: string
+  citizenId: string
+  passport: string
+  dataSource: string
+  leadType: string
+  resourceOwner: string
+  status: string
+  image: string
+  createdAt: any
+  updatedAt: any
+  phone: Array<{ value: string }>
+  email: Array<{ value: string }>
+  contactList: Array<{
+    position: string
+    isMainContact: boolean
+    contactAtBy: {
+      _id: string
+      firstName: string
+      lastName: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      leadType: string
+      resourceOwner: string
+      status: string
+      image: string
+      organizationName: string
+      createdAt: any
+      updatedAt: any
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+    }
+  }>
+  createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+  updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+}

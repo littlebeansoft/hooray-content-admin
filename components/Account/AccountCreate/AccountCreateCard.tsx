@@ -2,7 +2,7 @@ import { Card, Form } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import { useRouter } from 'next/router'
 import React from 'react'
-import LeadCreateForm from './UserCreateForm'
+import LeadCreateForm from './AccountCreateForm'
 
 const UserCreateCard: React.FC = () => {
   const router = useRouter()

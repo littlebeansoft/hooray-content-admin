@@ -5,8 +5,8 @@ import { Tab } from 'components/interface'
 import TabLayout from 'components/TabLayout'
 import { useRouter } from 'next/router'
 import React from 'react'
-import UserCreateForm from '../UserCreate/UserCreateForm'
-import UserRelationship from './UserRelationship'
+import UserCreateForm from '../AccountCreate/AccountCreateForm'
+import UserRelationship from './AccountRelationship'
 
 const UserDetailCard: React.FC = () => {
   const router = useRouter()

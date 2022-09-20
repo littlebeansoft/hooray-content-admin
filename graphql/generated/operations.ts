@@ -5463,6 +5463,58 @@ export type DeleteLeadMutationVariables = Exact<{
 
 export type DeleteLeadMutation = { deleteLead: { code: string; message: string; payload: { _id: string } } }
 
+export type GetDataAccountQueryVariables = Exact<{
+  input?: InputMaybe<FindAccountInput>
+}>
+
+export type GetDataAccountQuery = {
+  getDataAccount: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      name: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      leadType: string
+      resourceOwner: string
+      status: string
+      image: string
+      createdAt: any
+      updatedAt: any
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      contactList: Array<{
+        position: string
+        isMainContact: boolean
+        contactAtBy: {
+          _id: string
+          firstName: string
+          lastName: string
+          citizenId: string
+          passport: string
+          dataSource: string
+          leadType: string
+          resourceOwner: string
+          status: string
+          image: string
+          organizationName: string
+          createdAt: any
+          updatedAt: any
+          phone: Array<{ value: string }>
+          email: Array<{ value: string }>
+          createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+          updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+        }
+      }>
+      createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
 export type GetDataLeadQueryVariables = Exact<{
   input?: InputMaybe<FindLeadInput>
 }>
@@ -5510,6 +5562,7 @@ export type UpdateLeadMutation = { updateLead: { code: string; message: string; 
 export declare const CreateLead: import('graphql').DocumentNode
 export declare const CreateLeadToUser: import('graphql').DocumentNode
 export declare const DeleteLead: import('graphql').DocumentNode
+export declare const GetDataAccount: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
 export declare const QualifyLead: import('graphql').DocumentNode
 export declare const UpdateLead: import('graphql').DocumentNode
@@ -5640,6 +5693,136 @@ export function useDeleteLeadMutation(
 export type DeleteLeadMutationHookResult = ReturnType<typeof useDeleteLeadMutation>
 export type DeleteLeadMutationResult = Apollo.MutationResult<DeleteLeadMutation>
 export type DeleteLeadMutationOptions = Apollo.BaseMutationOptions<DeleteLeadMutation, DeleteLeadMutationVariables>
+export const GetDataAccountDocument = gql`
+  query GetDataAccount($input: FindAccountInput) {
+    getDataAccount(input: $input) {
+      code
+      message
+      payload {
+        _id
+        name
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        leadType
+        resourceOwner
+        status
+        image
+        contactList {
+          contactAtBy {
+            _id
+            firstName
+            lastName
+            citizenId
+            passport
+            phone {
+              value
+            }
+            email {
+              value
+            }
+            dataSource
+            leadType
+            resourceOwner
+            status
+            image
+            organizationName
+            createdAt
+            updatedAt
+            createdAtBy {
+              _id
+              phone {
+                value
+              }
+              attribute
+              email {
+                value
+              }
+            }
+            updatedAtBy {
+              _id
+              phone {
+                value
+              }
+              email {
+                value
+              }
+              attribute
+            }
+          }
+          position
+          isMainContact
+        }
+        createdAt
+        updatedAt
+        createdAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+        updatedAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetDataAccountQuery__
+ *
+ * To run a query within a React component, call `useGetDataAccountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataAccountQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetDataAccountQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataAccountQuery, GetDataAccountQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetDataAccountQuery, GetDataAccountQueryVariables>(GetDataAccountDocument, options)
+}
+export function useGetDataAccountLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataAccountQuery, GetDataAccountQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataAccountQuery, GetDataAccountQueryVariables>(GetDataAccountDocument, options)
+}
+export type GetDataAccountQueryHookResult = ReturnType<typeof useGetDataAccountQuery>
+export type GetDataAccountLazyQueryHookResult = ReturnType<typeof useGetDataAccountLazyQuery>
+export type GetDataAccountQueryResult = Apollo.QueryResult<GetDataAccountQuery, GetDataAccountQueryVariables>
 export const GetDataLeadDocument = gql`
   query GetDataLead($input: FindLeadInput) {
     getDataLead(input: $input) {

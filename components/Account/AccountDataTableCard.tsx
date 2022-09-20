@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { Button, Card, Input, Radio, Typography } from 'antd'
-import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Card, Input, Typography } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -9,22 +8,19 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
-import { LeadDataAPIPayload } from 'graphql/interface'
-import dayjs from 'dayjs'
+import { AccountResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
-import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
+import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
 
 const { Search } = Input
 const { Text } = Typography
 
-const UserDataTableCard: React.FC = () => {
-  const router = useRouter()
+const AccountDataTableCard: React.FC = () => {
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetDataLeadQuery({
+  const leadData = useGetDataAccountQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -34,32 +30,27 @@ const UserDataTableCard: React.FC = () => {
           limit: pagination.limit,
           page: pagination.page,
         },
-        query: {
-          status: 'QUALIFY',
-        },
         search: {
-          firstName: search,
-          lastName: search,
-          citizenId: search,
-          passport: search,
+          name: search as string,
+          category: search as string,
         },
       },
     },
-    onCompleted(resp: GetDataLeadQuery) {
-      const { pagination } = resp.getDataLead
+    onCompleted(resp: GetDataAccountQuery) {
+      const { pagination } = resp.getDataAccount
       setPagination(pagination)
     },
   })
 
-  const LeadData = leadData.data?.getDataLead.payload
-  const columns: ColumnsType<LeadDataAPIPayload> = [
+  const LeadData = leadData.data?.getDataAccount.payload
+  const columns: ColumnsType<AccountResponse> = [
     {
       title: 'Name',
       key: 'firstName',
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.firstName),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.name + ' ' + _text?.name),
     },
     {
       title: 'Lead Type',
@@ -67,15 +58,15 @@ const UserDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadType),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.leadType),
     },
     {
-      title: 'Organization Name',
+      title: 'Citizen ID',
       key: 'TOrganizationype',
       fixed: 'left',
       width: 160,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.organizationName),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.citizenId),
     },
     {
       title: 'Status',
@@ -83,7 +74,7 @@ const UserDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (text: LeadDataAPIPayload, record) => {
+      render: (text: AccountResponse, record) => {
         let _tColor
         let _iCon
         let _text
@@ -114,42 +105,42 @@ const UserDataTableCard: React.FC = () => {
       key: 'Telephone',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.phone[0]?.value),
     },
     {
       title: 'Email',
       key: 'Email',
       width: 180,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.email[0]?.value),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.email[0]?.value),
     },
     {
       title: 'Modify Date',
       key: 'ModifyDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
+      render: (_text: AccountResponse) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
     },
     {
       title: 'Modify By',
       key: 'ModifyBy',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updatedAtBy?.email[0].value || '-'),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.updatedAtBy?.email[0].value || '-'),
     },
     {
       title: 'Create Date',
       key: 'CreateDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
+      render: (_text: AccountResponse) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
     },
     {
       title: 'Create By',
       key: 'CreateBy',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
     },
     // {
     //   fixed: 'right',
@@ -222,4 +213,4 @@ const UserDataTableCard: React.FC = () => {
   )
 }
 
-export default UserDataTableCard
+export default AccountDataTableCard
