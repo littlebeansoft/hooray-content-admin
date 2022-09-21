@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, Input, Typography } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -11,16 +11,20 @@ import type { Pagination } from 'graphql/graphQL-service-hook'
 import { ContactResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
 import { GetDataContactQuery, useGetDataContactQuery } from 'graphql/generated/operations'
+import { useRouter } from 'next/router'
+import ContactDataTableDropDown from './ContactDataTableDropDown'
 
 const { Search } = Input
 const { Text } = Typography
 
 const ContactDataTableCard: React.FC = () => {
+  const router = useRouter()
+
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetDataContactQuery({
+  const contactData = useGetDataContactQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -44,18 +48,18 @@ const ContactDataTableCard: React.FC = () => {
     },
   })
 
-  const LeadData = leadData.data?.getDataContact.payload
+  const ContactData = contactData.data?.getDataContact.payload
   const columns: ColumnsType<ContactResponse> = [
     {
       title: 'Name',
-      key: 'firstName',
+      key: 'Name',
       fixed: 'left',
       width: 150,
       ellipsis: true,
       render: (_text: ContactResponse) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
     },
     {
-      title: 'Lead Type',
+      title: 'Contact Type',
       key: 'Type',
       fixed: 'left',
       width: 120,
@@ -82,17 +86,9 @@ const ContactDataTableCard: React.FC = () => {
         let _text
         switch (text.status) {
           default:
-          case 'NORMAL':
-            _tColor = '#FFB200'
-            _text = 'Normal'
-            break
-          case 'DISQUALIFY':
-            _tColor = '#A30404'
-            _text = 'Disqualify'
-            break
-          case 'QUALIFY':
+          case 'ACTIVE':
             _tColor = '#34B53A'
-            _text = 'Qualify'
+            _text = 'Active'
             break
         }
         return (
@@ -144,14 +140,14 @@ const ContactDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: ContactResponse) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
     },
-    // {
-    //   fixed: 'right',
-    //   key: 'eventAction',
-    //   width: 140,
-    //   render: (_text, record) => (
-    //     <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
-    //   ),
-    // },
+    {
+      fixed: 'right',
+      key: 'eventAction',
+      width: 140,
+      render: (_text, record) => (
+        <ContactDataTableDropDown data={record} setPagination={setPagination} refetch={contactData.refetch} />
+      ),
+    },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -181,25 +177,25 @@ const ContactDataTableCard: React.FC = () => {
               setSearch(value)
             }}
           />,
-          // <Button
-          //   key="addProductType"
-          //   type="primary"
-          //   icon={<PlusCircleOutlined />}
-          //   onClick={() => {
-          //     router.push({
-          //       pathname: `${router.pathname}/create`,
-          //       query: {
-          //         ...router.query,
-          //       },
-          //     })
-          //   }}
-          // >
-          //   Add New User
-          // </Button>,
+          <Button
+            key="addProductType"
+            type="primary"
+            icon={<PlusCircleOutlined />}
+            onClick={() => {
+              router.push({
+                pathname: `${router.pathname}/create`,
+                query: {
+                  ...router.query,
+                },
+              })
+            }}
+          >
+            Add Contact
+          </Button>,
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}
-        loading={leadData.loading}
+        loading={contactData.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -209,7 +205,7 @@ const ContactDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={LeadData}
+        dataSource={ContactData}
       />
     </Card>
   )

@@ -1,18 +1,25 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import { useCreateContactMutation } from 'graphql/generated/operations'
+import { useUpdateContactMutation } from 'graphql/generated/operations'
+import { ContactResponse } from 'graphql/interface'
 import { useRouter } from 'next/router'
 import React from 'react'
-import LeadCreateForm from './ContactCreateForm'
+import ContactCreateForm from './ContactCreate/ContactCreateForm'
 
-const UserCreateCard: React.FC = () => {
+interface ContactDataDetailProps {
+  contact?: ContactResponse
+  loading?: boolean
+  edit?: boolean
+}
+
+const ContactDetailCard: React.FC<ContactDataDetailProps> = ({ contact, loading, edit }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [createContact] = useCreateContactMutation({
+  const [updateContact] = useUpdateContactMutation({
     onCompleted() {
-      message.success('Created Contact was Successfully')
+      message.success('Update Contact was Successfully')
       router.push({
         pathname: `/app/[appToken]/contact`,
         query: {
@@ -24,9 +31,10 @@ const UserCreateCard: React.FC = () => {
 
   const onFinish = (values: any) => {
     console.log('values:-->', values)
-    createContact({
+    updateContact({
       context: { clientType: 'CUSTOMER' },
       variables: {
+        contactId: contact?._id as string,
         input: {
           ...values,
           image: values?.image[0],
@@ -40,10 +48,10 @@ const UserCreateCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <LeadCreateForm form={form} onFinish={onFinish} />
+        <ContactCreateForm form={form} loading={loading} data={contact} edit={edit} onFinish={onFinish} />
       </FullWidthSpace>
     </Card>
   )
 }
 
-export default UserCreateCard
+export default ContactDetailCard
