@@ -1,0 +1,9 @@
+mutation UpdateLead($input: CreateLeadInput!, $leadId: String!) {
+  updateLead(input: $input, leadId: $leadId) {
+    code
+    message
+    payload {
+      _id
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useCreateLead from 'graphql/useCreateLead'
-import { CreateLeadInput } from 'graphql/useCreateLead/interface'
+import { useUpdateLeadMutation } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LeadCreateForm from './LeadCreate/LeadCreateForm'
@@ -11,7 +10,7 @@ const LeadUpdateCard: React.FC = () => {
 
   const [form] = Form.useForm()
 
-  const [createLead, createLeadResp] = useCreateLead({
+  const [createLead, createLeadResp] = useUpdateLeadMutation({
     onCompleted() {
       message.success('Create Transfer In Successfully')
     },
@@ -26,6 +25,7 @@ const LeadUpdateCard: React.FC = () => {
     createLead({
       context: { clientType: 'CUSTOMER' },
       variables: {
+        leadId: '',
         input: {
           ...values,
           image: values?.image[0],

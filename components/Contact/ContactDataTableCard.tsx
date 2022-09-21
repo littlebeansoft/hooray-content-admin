@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { Button, Card, Input, Radio, Typography } from 'antd'
-import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Card, Input, Typography } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -9,21 +8,19 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import { LeadDataAPIPayload } from 'graphql/interface'
-import LeadDataTableDropDown from './LeadDataTableDropDown'
+import { ContactResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
-import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
+import { GetDataContactQuery, useGetDataContactQuery } from 'graphql/generated/operations'
 
 const { Search } = Input
 const { Text } = Typography
 
-const LeadDataTableCard: React.FC = () => {
-  const router = useRouter()
+const ContactDataTableCard: React.FC = () => {
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetDataLeadQuery({
+  const leadData = useGetDataContactQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -33,33 +30,29 @@ const LeadDataTableCard: React.FC = () => {
           limit: pagination.limit,
           page: pagination.page,
         },
-        query: {
-          status: 'NORMAL',
-        },
         search: {
-          firstName: search,
-          lastName: search,
-          citizenId: search,
-          passport: search,
+          citizenId: search as string,
+          firstName: search as string,
+          lastName: search as string,
+          passport: search as string,
         },
       },
     },
-    onCompleted(resp: GetDataLeadQuery) {
-      const { pagination } = resp.getDataLead
+    onCompleted(resp: GetDataContactQuery) {
+      const { pagination } = resp.getDataContact
       setPagination(pagination)
     },
   })
 
-  const LeadData = leadData.data?.getDataLead.payload
-
-  const columns: ColumnsType<LeadDataAPIPayload> = [
+  const LeadData = leadData.data?.getDataContact.payload
+  const columns: ColumnsType<ContactResponse> = [
     {
       title: 'Name',
       key: 'firstName',
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.firstName + ' ' + _text?.firstName),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
     },
     {
       title: 'Lead Type',
@@ -67,15 +60,15 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.leadType),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.leadType),
     },
     {
-      title: 'Organization Name',
+      title: 'Citizen ID',
       key: 'TOrganizationype',
       fixed: 'left',
       width: 160,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.organizationName),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.citizenId),
     },
     {
       title: 'Status',
@@ -83,7 +76,7 @@ const LeadDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (text: LeadDataAPIPayload, record) => {
+      render: (text: ContactResponse, record) => {
         let _tColor
         let _iCon
         let _text
@@ -110,62 +103,55 @@ const LeadDataTableCard: React.FC = () => {
       },
     },
     {
-      title: 'Citizen ID',
-      key: 'citizenId',
-      width: 180,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.citizenId),
-    },
-    {
       title: 'Telephone',
       key: 'Telephone',
       width: 120,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.phone[0]?.value),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.phone[0]?.value),
     },
     {
       title: 'Email',
       key: 'Email',
       width: 180,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.email[0]?.value),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.email[0]?.value),
     },
     {
       title: 'Modify Date',
       key: 'ModifyDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
+      render: (_text: ContactResponse) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
     },
     {
       title: 'Modify By',
       key: 'ModifyBy',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.updatedAtBy?.email[0].value || '-'),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.updatedAtBy?.email[0].value || '-'),
     },
     {
       title: 'Create Date',
       key: 'CreateDate',
       width: 150,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
+      render: (_text: ContactResponse) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
     },
     {
       title: 'Create By',
       key: 'CreateBy',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
     },
-    {
-      fixed: 'right',
-      key: 'eventAction',
-      width: 140,
-      render: (_text, record) => (
-        <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
-      ),
-    },
+    // {
+    //   fixed: 'right',
+    //   key: 'eventAction',
+    //   width: 140,
+    //   render: (_text, record) => (
+    //     <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
+    //   ),
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -178,12 +164,13 @@ const LeadDataTableCard: React.FC = () => {
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <CustomTable
         // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
-        rowSelectAmount={undefined}
+        // rowSelectAmount={selectedRowKeys.length}
         header={[
-          // <Radio.Group disabled={!hasSelected} onChange={() => { }} defaultValue="a" style={{}}>
-          //   <Radio.Button value="qualify">Qualify</Radio.Button>
-          //   <Radio.Button value="delete">Delete</Radio.Button>
-          // </Radio.Group>,
+          hasSelected ? (
+            <Button key="deleteButton" danger>
+              Delete
+            </Button>
+          ) : null,
           <Search
             key="searchButton"
             placeholder={'Input search text'}
@@ -194,21 +181,21 @@ const LeadDataTableCard: React.FC = () => {
               setSearch(value)
             }}
           />,
-          <Button
-            key="addProductType"
-            type="primary"
-            icon={<PlusCircleOutlined />}
-            onClick={() => {
-              router.push({
-                pathname: `${router.pathname}/create`,
-                query: {
-                  ...router.query,
-                },
-              })
-            }}
-          >
-            Add New Lead
-          </Button>,
+          // <Button
+          //   key="addProductType"
+          //   type="primary"
+          //   icon={<PlusCircleOutlined />}
+          //   onClick={() => {
+          //     router.push({
+          //       pathname: `${router.pathname}/create`,
+          //       query: {
+          //         ...router.query,
+          //       },
+          //     })
+          //   }}
+          // >
+          //   Add New User
+          // </Button>,
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}
@@ -228,4 +215,4 @@ const LeadDataTableCard: React.FC = () => {
   )
 }
 
-export default LeadDataTableCard
+export default ContactDataTableCard

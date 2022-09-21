@@ -14,6 +14,8 @@ export type Scalars = {
   Int: number
   Float: number
   Date: any
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any
   FileUpload: any
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any
@@ -23,9 +25,441 @@ export type Scalars = {
   Upload: any
 }
 
+export enum Atrribute_Type {
+  Checkbox = 'CHECKBOX',
+  Number = 'NUMBER',
+  Radio = 'RADIO',
+  Text = 'TEXT',
+}
+
+export type AccountEmail = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type AccountEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type AccountPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<AccountResp>>
+}
+
+export type AccountPhone = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type AccountPhoneResp = {
+  value: Scalars['String']
+}
+
+export type AccountResp = {
+  _id: Maybe<Scalars['ID']>
+  citizenId: Maybe<Scalars['String']>
+  contactList: Maybe<Array<ContactInAccountResp>>
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
+  dataSource: Maybe<Scalars['String']>
+  email: Maybe<Array<AccountEmailResp>>
+  image: Maybe<Scalars['String']>
+  leadType: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  passport: Maybe<Scalars['String']>
+  phone: Maybe<Array<AccountPhoneResp>>
+  resourceOwner: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
+}
+
+export type AccountResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<AccountResp>
+}
+
+export type AddCategoryAttributeInput = {
+  /** array id attribute ที่ใช้ในการเพิ่ม */
+  attributeIdList?: InputMaybe<Array<Scalars['String']>>
+  /** categoryId */
+  categoryId: Scalars['String']
+}
+
+export type AddImagesToVaraintsInput = {
+  fileKey: Scalars['String']
+  variantId: Scalars['String']
+}
+
+export type AddressInputResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<RespCreate>
+}
+
+export type AddressPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<AddressResp>>
+}
+
+export type AddressResp = {
+  _id: Scalars['String']
+  /** ที่อยู่ */
+  address: Maybe<Scalars['String']>
+  /** ประเทศ */
+  country: Maybe<Scalars['String']>
+  /** กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น */
+  defaultSend: Maybe<Enum_Address_Default_Send>
+  /** อำเภอ */
+  district: Maybe<Scalars['String']>
+  /** latitude */
+  latitude: Maybe<Scalars['String']>
+  /** longitude */
+  longitude: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  /** รหัสไปรษณีย์ */
+  postcode: Maybe<Scalars['String']>
+  /** จังหวัด */
+  province: Maybe<Scalars['String']>
+  /** ไอดีของเจ้าของที่อยู่ */
+  refId: Maybe<Scalars['String']>
+  /** ตำบล */
+  subDistrict: Maybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  type: Maybe<Enum_Address_Type>
+}
+
+export type AgentGetProductInput = {
+  pagination?: InputMaybe<PaginatedFindType>
+  search?: InputMaybe<AgentProductCriteria>
+  sort?: InputMaybe<GetProductSortInput>
+}
+
+export type AgentProductCriteria = {
+  categoryKey?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  /** คีย์ของโรงงาน */
+  orgKey?: InputMaybe<Scalars['String']>
+  priceRange?: InputMaybe<PriceRangeCriteria>
+}
+
+export type AttributeInPut = {
+  /** id ของคุณลักษณะผลิตภัณฑ์ของหมวดหมู่ทีี่เลือก */
+  productAttributeId: Scalars['String']
+  /** ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number */
+  value?: InputMaybe<Scalars['String']>
+  /** id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select */
+  valueIds?: InputMaybe<Array<Scalars['String']>>
+}
+
+export type AttributeOptions = {
+  /** name ของ Options */
+  name: Maybe<Scalars['String']>
+  /** ลำดับ การเรียงใน Options */
+  order: Maybe<Scalars['Int']>
+  /** value ใน Options */
+  value: Maybe<Scalars['String']>
+}
+
+export type AttributeOptionsInput = {
+  /** name ของ Options */
+  name?: InputMaybe<Scalars['String']>
+  /** ลำดับ การเรียงใน Options */
+  order?: InputMaybe<Scalars['Int']>
+  /** value ใน Options */
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type AttributeOptionsResponse = {
+  _id: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+}
+
+export enum AttributeType {
+  Checkbox = 'CHECKBOX',
+  Number = 'NUMBER',
+  Radio = 'RADIO',
+  Text = 'TEXT',
+}
+
+export type AttributeUpdate = {
+  /** id ของคุณลักษณะผลิตภัณฑ์ของหมวดหมู่ทีี่เลือก */
+  productAttributeId: Scalars['String']
+  /** ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number */
+  value?: InputMaybe<Scalars['String']>
+  /** id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select */
+  valueIds?: InputMaybe<Array<Scalars['String']>>
+}
+
 export enum CacheControlScope {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
+}
+
+export type Category = {
+  _id: Maybe<Scalars['String']>
+  categoryKey: Maybe<Scalars['String']>
+  /** เลิกใช้แล้ว */
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+}
+
+export type CommonGetProductInput = {
+  pagination?: InputMaybe<PaginatedFindType>
+  search?: InputMaybe<CommonProductCriteria>
+  sort?: InputMaybe<GetProductSortInput>
+}
+
+export type CommonProductCriteria = {
+  categoryKey?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  /** คีย์ของโรงงาน */
+  orgKey?: InputMaybe<Scalars['String']>
+  priceRange?: InputMaybe<PriceRangeCriteria>
+}
+
+export type ContactEmail = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type ContactEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type ContactInAccountInput = {
+  /** ไอดีของลูกค้า */
+  contactAtBy?: InputMaybe<Scalars['String']>
+  /** กำหนดค่าว่าคนไหนคือคนหลักหรือต้องติดต่อเป็นหลัก */
+  isMainContact?: InputMaybe<Scalars['Boolean']>
+  /** ตำแหน่ง */
+  position?: InputMaybe<Scalars['String']>
+}
+
+export type ContactInAccountResp = {
+  contactAtBy: Maybe<ContactResp>
+  isMainContact: Maybe<Scalars['Boolean']>
+  position: Maybe<Scalars['String']>
+}
+
+export type ContactPaginateResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<ContactResp>>
+}
+
+export type ContactPhone = {
+  value?: InputMaybe<Scalars['String']>
+}
+
+export type ContactPhoneResp = {
+  value: Scalars['String']
+}
+
+export type ContactResp = {
+  _id: Maybe<Scalars['ID']>
+  citizenId: Maybe<Scalars['String']>
+  /** วันที่ลงทะเบียน */
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
+  dataSource: Maybe<Scalars['String']>
+  email: Maybe<Array<ContactEmailResp>>
+  firstName: Maybe<Scalars['String']>
+  image: Maybe<Scalars['String']>
+  lastName: Maybe<Scalars['String']>
+  leadType: Maybe<Scalars['String']>
+  organizationName: Maybe<Scalars['String']>
+  passport: Maybe<Scalars['String']>
+  phone: Maybe<Array<ContactPhoneResp>>
+  resourceOwner: Maybe<Scalars['String']>
+  status: Maybe<Scalars['String']>
+  /** วันที่อัพเดตข้อมูลล่าสุด */
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
+}
+
+export type ContactResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<ContactResp>
+}
+
+export type Create = {
+  _id: Maybe<Scalars['String']>
+}
+
+export type CreateAccountInput = {
+  /** ประเภทองค์กร */
+  accountType?: InputMaybe<Enum_Customer_Type>
+  /** บ้านเลขที่ */
+  addressNo?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  addressType?: InputMaybe<Enum_Address_Type>
+  /** เว็บไซต์ขององค์กร */
+  category?: InputMaybe<Scalars['String']>
+  contactList?: InputMaybe<Array<ContactInAccountInput>>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** แหล่งที่มา */
+  dataSource?: InputMaybe<Scalars['String']>
+  /** ที่อยู่จัดส่งตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ/เขต */
+  district?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Array<AccountEmail>>
+  /** รูปภาพโรงงาน */
+  fileList?: InputMaybe<Array<Scalars['String']>>
+  /** รูปภาพ */
+  image?: InputMaybe<Scalars['String']>
+  /** รูปภาพสินค้า */
+  imageList?: InputMaybe<Array<Scalars['String']>>
+  latitude?: InputMaybe<Scalars['String']>
+  longitude?: InputMaybe<Scalars['String']>
+  /** ชื่อองค์กร */
+  name?: InputMaybe<Scalars['String']>
+  /** บันทึกข้อมูลเพิ่มเติม */
+  note?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  phone?: InputMaybe<Array<AccountPhone>>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  /** สถานะองค์กร */
+  status?: InputMaybe<Enum_Organization_Status>
+  /** ตำบล/แขวง */
+  subDistrict?: InputMaybe<Scalars['String']>
+  /** เว็บไซต์ขององค์กร */
+  website?: InputMaybe<Scalars['String']>
+}
+
+export type CreateAddressInput = {
+  /** ที่อยู่ */
+  address?: InputMaybe<Scalars['String']>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ */
+  district?: InputMaybe<Scalars['String']>
+  /** latitude */
+  latitude?: InputMaybe<Scalars['String']>
+  /** longitude */
+  longitude?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  /** ไอดีของเจ้าของที่อยู่ */
+  refId?: InputMaybe<Scalars['String']>
+  /** ตำบล */
+  subDistrict?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  type?: InputMaybe<Enum_Address_Type>
+}
+
+export type CreateAttributeInput = {
+  /** descriptions ของ Attribute */
+  descriptions?: InputMaybe<Scalars['String']>
+  /**  ชื่อ ของ Attribute */
+  name?: InputMaybe<Scalars['String']>
+  /** จะมีค่าเมื่อ type = CHECKBOX,RADIO */
+  optionList?: InputMaybe<Array<AttributeOptionsInput>>
+  /** ruleRegExpList ของ Attribute ไว้สำหรับการใช้ RegExp ในการจัดการ */
+  ruleRegExpList?: InputMaybe<Array<Scalars['String']>>
+  /** status ของ Attribute */
+  status?: InputMaybe<EnabledStatus>
+  /** ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด */
+  type?: InputMaybe<AttributeType>
+}
+
+export type CreateCategoryAttributeInput = {
+  /** attributeId */
+  attributeId?: InputMaybe<Scalars['String']>
+  /** categoryId */
+  categoryId?: InputMaybe<Scalars['String']>
+  /** status การใช้งาน */
+  status?: InputMaybe<EnabledStatus>
+}
+
+export type CreateCategoryInput = {
+  /** descriptions ของ Category */
+  descriptions?: InputMaybe<Scalars['String']>
+  /**  ชื่อ ของ Category */
+  name?: InputMaybe<Scalars['String']>
+  /** ระบุ CategoryKey ของ Categoryที่เป็นแม่ตัวที่สร้าง ถ้าจะสร้างโดยที่มันไม่มีแม่ ให้ระบุ "NONE"  */
+  parentCategoryKey?: InputMaybe<Scalars['String']>
+  /** สถานะ ของ Category */
+  status?: InputMaybe<EnabledStatus>
+}
+
+export type CreateContactInput = {
+  /** บ้านเลขที่ */
+  addressNo?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  addressType?: InputMaybe<Enum_Address_Type>
+  category?: InputMaybe<Scalars['String']>
+  citizenId?: InputMaybe<Scalars['String']>
+  /** ประเภท */
+  contactType?: InputMaybe<Enum_Customer_Type>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** แหล่งที่มา */
+  dataSource?: InputMaybe<Scalars['String']>
+  dateOfBirth?: InputMaybe<Scalars['String']>
+  /** ที่อยู่จัดส่งตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ/เขต */
+  district?: InputMaybe<Scalars['String']>
+  email?: InputMaybe<Array<ContactEmail>>
+  /** รูปภาพโรงงาน */
+  factoryImages?: InputMaybe<Array<Scalars['String']>>
+  firstName?: InputMaybe<Scalars['String']>
+  /** รูปภาพ */
+  image?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  latitude?: InputMaybe<Scalars['String']>
+  longitude?: InputMaybe<Scalars['String']>
+  orgKey?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  phone?: InputMaybe<Array<ContactPhone>>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  prefixKey?: InputMaybe<Scalars['String']>
+  /** รูปภาพสินค้า */
+  productImages?: InputMaybe<Array<Scalars['String']>>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Enum_Resource_Owner>
+  /** ตำบล/แขวง */
+  subDistrict?: InputMaybe<Scalars['String']>
 }
 
 export type CreateLeadInput = {
@@ -52,7 +486,7 @@ export type CreateLeadInput = {
   lastName?: InputMaybe<Scalars['String']>
   latitude?: InputMaybe<Scalars['String']>
   /** ประเภท */
-  leadType?: InputMaybe<Lead_Type_Response>
+  leadType?: InputMaybe<Enum_Customer_Type>
   longitude?: InputMaybe<Scalars['String']>
   /** ชื่อหน่วยงาน */
   organizationName?: InputMaybe<Scalars['String']>
@@ -65,11 +499,141 @@ export type CreateLeadInput = {
   productImages?: InputMaybe<Array<Scalars['String']>>
   /** จังหวัด */
   province?: InputMaybe<Scalars['String']>
+  remark?: InputMaybe<Scalars['String']>
   resourceOwner?: InputMaybe<Enum_Resource_Owner>
   /** สถานะ */
   status?: InputMaybe<Enum_Creat_Lead_Status>
   /** ตำบล/แขวง */
   subDistrict?: InputMaybe<Scalars['String']>
+}
+
+export type CreateProductAttribute = {
+  _id: Maybe<Scalars['String']>
+  /** ชื่อคุณลักษณะสินค้า */
+  name: Scalars['String']
+  /** ตัวเลือกของคุณลักษณะสินค้าในกรณีที่ type เป็น CHECKBOX, RADIO */
+  options: Maybe<Array<OptionsResponse>>
+  /** regex string สำหรับตรวจสอบความถูกต้องของข้อมูล */
+  rules: Maybe<Array<Scalars['String']>>
+  /** ประเภทข้อมูลของคุณลักษณะสินค้า */
+  type: Atrribute_Type
+}
+
+export type CreateProductAttributeInput = {
+  /** ชื่อคุณลักษณะสินค้า */
+  name: Scalars['String']
+  /** ตัวเลือกของคุณลักษณะสินค้าในกรณีที่ type เป็น CHECKBOX, RADIO */
+  options?: InputMaybe<Array<Options>>
+  /** regex string สำหรับตรวจสอบความถูกต้องของข้อมูล */
+  rules?: InputMaybe<Array<Scalars['String']>>
+  /** ประเภทข้อมูลของคุณลักษณะสินค้า */
+  type: Atrribute_Type
+}
+
+export type CreateProductAttributeResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<CreateProductAttribute>
+}
+
+export type CreateProductAttributeResponseList = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<ProductAttributeDto>>>
+}
+
+export type CreateProductCategoryInput = {
+  /** ชื่อหมวดหมู่ผลิตภัณฑ์ */
+  name: Scalars['String']
+  /**
+   *
+   *       ชื่อหมวดหมู่ผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น :
+   *       {
+   *         "th" : "สุขภาพ",
+   *         "en" : "Health"
+   *       }
+   *
+   */
+  names?: InputMaybe<Scalars['JSON']>
+  /** คีย์ของหมวดหมู่หลัก ถ้าไม่ใส่หมวดหมู่ที่สร้างจะเป็น ROOT Level */
+  parentKey?: InputMaybe<Scalars['String']>
+}
+
+export type CreateProductInput = {
+  /** คุณลักษณะผลิตภัณฑ์ */
+  attributes?: InputMaybe<Array<InputMaybe<AttributeInPut>>>
+  /** คีย์ของหมวดหมู่ผลิตภัณฑ์ */
+  categoryKey?: InputMaybe<Scalars['String']>
+  /** จำนวนสต๊อก */
+  changeQty: Scalars['Float']
+  /** สถานะการเปิดใช้งานของรูปภาพอธิบายผลิตภัณฑ์ */
+  descImageStatus: Toggle_Creat_Product_Status
+  /** รูปภาพอธิบาย */
+  descImages?: InputMaybe<Array<Image>>
+  /**
+   *
+   *     คำอธิบายผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น :
+   *     {
+   *       "th" : "นุ่ม เบา ราคาถูก รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม",
+   *       "en" : "Boots High Quality cheap price"
+   *     }
+   *     ความยาวสูงสุด 5000 ตัวอักษร, ต่ำสุด 23 ตัวอักษร
+   *
+   */
+  descriptions: Scalars['JSON']
+  /**
+   *
+   *     ชื่อผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น :
+   *     {
+   *       "th" : "รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม",
+   *       "en" : "BAOJI Boots High Quality"
+   *     }
+   *     ความยาวสูงสุด 120 ตัวอักษร, ต่ำสุด 19 ตัวอักษร
+   *
+   */
+  names: Scalars['JSON']
+  /** ราคาของผลิตภัณฑ์ */
+  price: Price
+  /** รูปภาพผลิตภัณฑ์ */
+  productImages?: InputMaybe<Array<Image>>
+  /** ตัวเลือกสินค้า */
+  skus?: InputMaybe<Array<Sku>>
+}
+
+export type CreateResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Create>
+}
+
+export type CreateVaraint = {
+  _id: Maybe<Scalars['String']>
+}
+
+export type CreateVaraintOptionInput = {
+  name: Scalars['String']
+}
+
+export type CreateVaraintResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<CreateVaraint>
+}
+
+export type CreateVaraintV2Input = {
+  name: Scalars['String']
+  productId: Scalars['String']
+}
+
+export type CreatedSku = {
+  propertyMemoMap: Maybe<Scalars['JSON']>
+  skuMap: Maybe<Scalars['JSON']>
+}
+
+export type CreatedSkuResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<CreatedSku>
 }
 
 export type Data_Migration_Input = {
@@ -80,6 +644,18 @@ export type Data_Migration_Input = {
 export type Data_Migration_Result = {
   appKey: Maybe<Scalars['String']>
   status: Maybe<Scalars['String']>
+}
+
+export type DeleteProductCategory = {
+  _id: Maybe<Scalars['String']>
+  /** หมวดหมู่สินค้าที่ลบไป */
+  categoryKey: Maybe<Scalars['String']>
+}
+
+export type DeleteProductCategoryResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<DeleteProductCategory>
 }
 
 export enum Enum_Address_Default_Send {
@@ -96,6 +672,7 @@ export enum Enum_Address_Type {
   None = 'NONE',
 }
 
+/** สถานะการใช้ของ APP */
 export enum Enum_App_Status {
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
@@ -104,11 +681,6 @@ export enum Enum_App_Status {
 export enum Enum_Auth_Type {
   AuthCode = 'AUTH_CODE',
   AuthToken = 'AUTH_TOKEN',
-}
-
-export enum Enum_Category_Status {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
 }
 
 export enum Enum_Config_Privacy {
@@ -129,6 +701,15 @@ export enum Enum_Creat_Lead_Status {
 export enum Enum_Credential_Type {
   ResourceAdmin = 'RESOURCE_ADMIN',
   ResourceOwner = 'RESOURCE_OWNER',
+}
+
+export enum Enum_Customer_Type {
+  Agent = 'AGENT',
+  Customer = 'CUSTOMER',
+  Factory = 'FACTORY',
+  Organization = 'ORGANIZATION',
+  Other = 'OTHER',
+  Retail = 'RETAIL',
 }
 
 export enum Enum_Data_Security {
@@ -181,11 +762,13 @@ export enum Enum_Invite_Status {
   Inactive = 'INACTIVE',
 }
 
+/** สถานะ YES | NO */
 export enum Enum_Is {
   No = 'NO',
   Yes = 'YES',
 }
 
+/** ประเภทของ user */
 export enum Enum_Lrle_Type {
   ResourceAdmin = 'RESOURCE_ADMIN',
   ResourceOwner = 'RESOURCE_OWNER',
@@ -353,10 +936,37 @@ export type EmailResp = {
   value: Maybe<Scalars['String']>
 }
 
+/** สถานะการเปิดใช้งาน */
+export enum EnabledStatus {
+  Disabled = 'DISABLED',
+  Enabled = 'ENABLED',
+}
+
 export type File = {
   encoding: Scalars['String']
   filename: Scalars['String']
   mimetype: Scalars['String']
+}
+
+export type FindAccountInput = {
+  filter?: InputMaybe<QueryAccountInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryAccountInput>
+  search?: InputMaybe<QueryAccountInput>
+}
+
+export type FindAddressInput = {
+  filter?: InputMaybe<QueryAddressInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryAddressInput>
+  search?: InputMaybe<QueryAddressInput>
+}
+
+export type FindContactInput = {
+  filter?: InputMaybe<QueryContactInput>
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<QueryContactInput>
+  search?: InputMaybe<QueryContactInput>
 }
 
 export type FindLeadInput = {
@@ -399,6 +1009,334 @@ export type Get_App_Credential_List = {
   credentialKey: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
   type: Maybe<Scalars['String']>
+}
+
+export enum Get_Product_Status {
+  Checking = 'CHECKING',
+  Draft = 'DRAFT',
+  OutOfStock = 'OUT_OF_STOCK',
+  Remove = 'REMOVE',
+  Selling = 'SELLING',
+  WaitingToFix = 'WAITING_TO_FIX',
+}
+
+export type GenerateSku = {
+  varaintKeys: Array<Scalars['String']>
+}
+
+export type GetAttributeInPut = {
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<GetAttributeQuery>
+  /**
+   *
+   *       ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น :
+   *       {
+   *         "name" : "1",
+   *         "createdBy" : "1",
+   *         "updatedBy" : "-1"
+   *       }
+   *
+   */
+  sort?: InputMaybe<Scalars['JSON']>
+}
+
+export type GetAttributeQuery = {
+  /** ค้นหาด้วย AttributeId */
+  attributeId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย AttributeKey */
+  attributeKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย descriptions แบบ Regex */
+  descriptions?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย name แบบ Regex */
+  name?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
+  status?: InputMaybe<EnabledStatus>
+  /** ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด */
+  type?: InputMaybe<AttributeType>
+}
+
+export type GetAttributeResp = {
+  /** id ของ Attribute */
+  _id: Maybe<Scalars['String']>
+  /** attributeKey ของ Attribute ซึ้งจะแสดงผล และค้นหา และจะไม่ซ้ำ */
+  attributeKey: Maybe<Scalars['String']>
+  /** สร้างเมื่อ  */
+  createdAt: Maybe<Scalars['DateTime']>
+  /** สร้างโดย userID */
+  createdBy: Maybe<Scalars['String']>
+  /** descriptions ของ Attribute */
+  descriptions: Maybe<Scalars['String']>
+  /** ชื่อ ของ Attribute */
+  name: Maybe<Scalars['String']>
+  /** จะมีค่าเมื่อ type = CHECKBOX,RADIO */
+  optionList: Maybe<Array<AttributeOptions>>
+  /** ruleRegExpList ของ Attribute ไว้สำหรับการใช้ RegExp ในการจัดการ */
+  ruleRegExpList: Maybe<Array<Scalars['String']>>
+  /** status ของ Attribute */
+  status: Maybe<EnabledStatus>
+  /** ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด */
+  type: Maybe<AttributeType>
+  /** แก้ไขเมื่อ */
+  updatedAt: Maybe<Scalars['DateTime']>
+  /** แก้ไขโดย userID */
+  updatedBy: Maybe<Scalars['String']>
+}
+
+export type GetAttributeRespon = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<GetAttributeResp>
+}
+
+export type GetAttributeResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<GetAttributeResp>>
+}
+
+export type GetCategoryAttributeInPut = {
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<GetCategoryAttributeQuery>
+  /**
+   *
+   *       ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น :
+   *       {
+   *         "name" : "1",
+   *         "createdBy" : "1",
+   *         "updatedBy" : "-1"
+   *       }
+   *
+   */
+  sort?: InputMaybe<Scalars['JSON']>
+}
+
+export type GetCategoryAttributeQuery = {
+  /** ค้นหาด้วย AttributeId */
+  attributeId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย AttributeKey */
+  attributeKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย CategoryAttribute ID */
+  categoryAttributeId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย categoryId */
+  categoryId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย categoryKey */
+  categoryKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
+  status?: InputMaybe<EnabledStatus>
+}
+
+export type GetCategoryAttributeResp = {
+  /** id ของ Attribute */
+  _id: Maybe<Scalars['String']>
+  /** categoryKey */
+  attribute: Maybe<GetAttributeResp>
+  /** categoryKey */
+  attributeKey: Maybe<Scalars['String']>
+  /** categoryKey */
+  category: Maybe<GetCategoryResp>
+  /** categoryKey */
+  categoryKey: Maybe<Scalars['String']>
+  /** สร้างเมื่อ  */
+  createdAt: Maybe<Scalars['DateTime']>
+  /** สร้างโดย userID */
+  createdBy: Maybe<Scalars['String']>
+  /** status ของ Attribute */
+  status: Maybe<EnabledStatus>
+  /** แก้ไขเมื่อ */
+  updatedAt: Maybe<Scalars['DateTime']>
+  /** แก้ไขโดย userID */
+  updatedBy: Maybe<Scalars['String']>
+}
+
+export type GetCategoryAttributeRespon = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<GetCategoryAttributeResp>
+}
+
+export type GetCategoryAttributeResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<GetCategoryAttributeResp>>
+}
+
+export type GetCategoryInPut = {
+  pagination?: InputMaybe<PaginatedFindType>
+  query?: InputMaybe<GetCategoryQuery>
+  /**
+   *
+   *       ลำดับการเรียงข้อมูล โดยจะตามลำดับ และเลขคือประเภทการเรียง โดยที่1จะเป็นน้อยไปมาก และ-1เป็นมากไปน้อย เช่น :
+   *       {
+   *         "name" : "1",
+   *         "createdBy" : "1",
+   *         "updatedBy" : "-1"
+   *       }
+   *
+   */
+  sort?: InputMaybe<Scalars['JSON']>
+}
+
+export type GetCategoryQuery = {
+  /** ค้นหาด้วย categoryId */
+  categoryId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย categoryKey */
+  categoryKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย descriptions แบบ Regex */
+  descriptions?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย name แบบ Regex */
+  name?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย path ถ้าจะค้นหาตัวที่ไม่มีแม่ ให้ใส่ NONE */
+  path?: InputMaybe<Scalars['String']>
+  /**
+   * ค้นหาด้วย path แบบ Regex ซึ้ง
+   *     For queries from the root Books sub-tree (e.g. /^,Books,/ or /^,Books,Programming,/), an index on the path field improves the query performance significantly.
+   */
+  pathRegex?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
+  status?: InputMaybe<EnabledStatus>
+}
+
+export type GetCategoryResp = {
+  /** id ของ Category */
+  _id: Maybe<Scalars['String']>
+  /** categoryKey ของ Category ซึ้งจะแสดงผล และค้นหา และจะไม่ซ้ำ */
+  categoryKey: Maybe<Scalars['String']>
+  /** สร้างเมื่อ  */
+  createdAt: Maybe<Scalars['DateTime']>
+  /** สร้างโดย userID */
+  createdBy: Maybe<Scalars['String']>
+  /** descriptions ของ Category */
+  descriptions: Maybe<Scalars['String']>
+  /** ชื่อ ของ Category */
+  name: Maybe<Scalars['String']>
+  /** ต้นทางของ Category */
+  parentCategory: Maybe<GetCategoryResp>
+  /** path ซึ้งจะระบุต้นทางของ Category */
+  path: Maybe<Scalars['String']>
+  /** status ของ Category */
+  status: Maybe<EnabledStatus>
+  /** แก้ไขเมื่อ */
+  updatedAt: Maybe<Scalars['DateTime']>
+  /** แก้ไขโดย userID */
+  updatedBy: Maybe<Scalars['String']>
+}
+
+export type GetCategoryRespon = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** data */
+  payload: Maybe<GetCategoryResp>
+}
+
+export type GetCategoryResponse = {
+  /** โค้ดของการตอบสนอง */
+  code: Maybe<Scalars['String']>
+  /** ข้อความตอบสนอง */
+  message: Maybe<Scalars['String']>
+  /** pagination data */
+  pagination: Maybe<PaginatedType>
+  /** array data */
+  payload: Maybe<Array<GetCategoryResp>>
+}
+
+export type GetInventory = {
+  _id: Maybe<Scalars['String']>
+  /** id ของสินค้า */
+  productId: Maybe<Scalars['String']>
+  /** จำนวนสต๊อก */
+  quantity: Maybe<Scalars['Float']>
+}
+
+export type GetInventoryResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<GetInventory>
+}
+
+export type GetProductAttribute = {
+  name?: InputMaybe<MultilangInput>
+  type?: InputMaybe<Array<Atrribute_Type>>
+}
+
+export type GetProductAttributeInput = {
+  /** สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and */
+  filter?: InputMaybe<GetProductAttribute>
+  pagination?: InputMaybe<PaginatedFindType>
+  search?: InputMaybe<GetProductAttribute>
+  sort?: InputMaybe<GetProductAttributeSort>
+}
+
+export type GetProductAttributeSort = {
+  createdAt?: InputMaybe<Sort_Order>
+}
+
+export type GetProductCategoryLevel = {
+  /** คีย์ของภาษาที่ต้องการค้นหาเช่น en, th */
+  keyLang: Scalars['String']
+  /** ชื่อหมวดหมู่ที่ต้องการค้นหา โดยใช้ keyLang เป็นตัวระบุว่าจะค้นหาในภาษาไหน */
+  name: Scalars['String']
+}
+
+export type GetProductCategoryLevelInput = {
+  /** สำหรับกรณีที่ใช้เงื่อนไขการค้นหาเป็น and */
+  filter?: InputMaybe<GetProductCategoryLevel>
+  pagination?: InputMaybe<PaginatedFindType>
+  search?: InputMaybe<GetProductCategoryLevel>
+  sort?: InputMaybe<GetProductCategoryLevelSortInput>
+}
+
+export type GetProductCategoryLevelSortInput = {
+  createdAt?: InputMaybe<Sort_Order>
+}
+
+export type GetProductSortInput = {
+  createdAt?: InputMaybe<Sort_Order>
+  price?: InputMaybe<Sort_Order>
+}
+
+export type GetSku = {
+  skuMap: Maybe<Scalars['JSON']>
+  tierVariation: Maybe<Array<Maybe<TierVariation>>>
+}
+
+export type GetSkuById = {
+  customerSellingPrice: Maybe<Scalars['Float']>
+  factoryPrice: Maybe<Scalars['Float']>
+  productId: Maybe<Scalars['String']>
+  pvs: Maybe<Scalars['String']>
+  qty: Maybe<Scalars['Float']>
+  shopSellingPrice: Maybe<Scalars['Float']>
+  skuVariants: Maybe<Array<Maybe<SkuVariant>>>
+}
+
+export type GetSkuByIdResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<GetSkuById>
+}
+
+export type GetSkuResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<GetSku>
 }
 
 export type Hooray_Server_Service_Info = {
@@ -453,11 +1391,6 @@ export type Input_Attribute = {
   _id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   value?: InputMaybe<Scalars['String']>
-}
-
-export type Input_Category = {
-  name?: InputMaybe<Scalars['String']>
-  status?: InputMaybe<Enum_Category_Status>
 }
 
 export type Input_Config_Form = {
@@ -630,7 +1563,6 @@ export type Input_Organization_Approval_Form = {
 export type Input_Organization_Form = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
-  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -663,7 +1595,6 @@ export type Input_Organization_Tag_List = {
 export type Input_Organization_Update = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
-  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -934,31 +1865,25 @@ export type Input_Verify_Password_System_Admin_Email = {
   verifyToken: Scalars['String']
 }
 
-export enum Lead_Type_Response {
-  Agent = 'AGENT',
-  Customer = 'CUSTOMER',
-  Factory = 'FACTORY',
-  Organization = 'ORGANIZATION',
-  Other = 'OTHER',
-  Retail = 'RETAIL',
+export type Image = {
+  /** url ของรูปภาพ */
+  fileKey: Scalars['String']
+  /** ตำแหน่งการจัดเรียงรูปภาพ แนะนำให้เริ่มท่ี่ 1 */
+  index: Scalars['Int']
 }
 
-export type Lead = {
-  _id: Scalars['String']
-  /** วันที่ลงทะเบียน */
-  createdAt: Scalars['String']
-  /** ชื่อ */
-  firstName: Scalars['String']
-  /** นามสกุล */
-  lastName: Scalars['String']
-  /** ประเภทของลูกค้า */
-  leadType: Lead_Type_Response
-  /** เบอร์โทรศัพท์ */
-  phoneNumber: Scalars['String']
-  /** สถานะของลูกค้า */
-  status: Enum_Creat_Lead_Status
-  /** วันที่อัพเดตข้อมูลล่าสุด */
-  updatedAt: Scalars['String']
+export type ImageResp = {
+  /** url รูป */
+  fileKey: Maybe<Scalars['String']>
+  /** ตำแหน่งการจัดวางภาพ */
+  index: Maybe<Scalars['Int']>
+}
+
+export type ImageUpdate = {
+  /** url ของรูปภาพ */
+  fileKey: Scalars['String']
+  /** ตำแหน่งการจัดเรียงรูปภาพ แนะนำให้เริ่มท่ี่ 1 */
+  index: Scalars['Int']
 }
 
 export type LeadPaginateResponse = {
@@ -966,7 +1891,9 @@ export type LeadPaginateResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** pagination data */
   pagination: Maybe<PaginatedType>
+  /** array data */
   payload: Maybe<Array<LeadResp>>
 }
 
@@ -974,8 +1901,8 @@ export type LeadResp = {
   _id: Maybe<Scalars['ID']>
   citizenId: Maybe<Scalars['String']>
   /** วันที่ลงทะเบียน */
-  createdAt: Scalars['String']
-  createdAtBy: Maybe<User>
+  createdAt: Scalars['DateTime']
+  createdAtBy: Maybe<UserResp>
   dataSource: Maybe<Scalars['String']>
   email: Maybe<Array<EmailResp>>
   firstName: Maybe<Scalars['String']>
@@ -985,11 +1912,12 @@ export type LeadResp = {
   organizationName: Maybe<Scalars['String']>
   passport: Maybe<Scalars['String']>
   phone: Maybe<Array<PhoneResp>>
+  remark: Maybe<Scalars['String']>
   resourceOwner: Maybe<Scalars['String']>
   status: Maybe<Scalars['String']>
   /** วันที่อัพเดตข้อมูลล่าสุด */
-  updatedAt: Scalars['String']
-  updatedAtBy: Maybe<User>
+  updatedAt: Scalars['DateTime']
+  updatedAtBy: Maybe<UserResp>
 }
 
 export type LeadResponse = {
@@ -997,12 +1925,39 @@ export type LeadResponse = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
-  payload: Maybe<Lead>
+  /** data */
+  payload: Maybe<LeadResp>
+}
+
+export enum Manage_Product_Action {
+  CloseSales = 'CLOSE_SALES',
+  OpenSales = 'OPEN_SALES',
+}
+
+export type ManageProductStatusInput = {
+  /**
+   *
+   *         action ในการเปลี่ยนสถานะสินค้า
+   *
+   */
+  action: Manage_Product_Action
+  /** id ของสินค้าที่ต้องการจะอัพเดตสถานะ */
+  productId: Scalars['String']
+}
+
+export type MultilangInput = {
+  /** key of language ex: 'th', 'en'  */
+  keyLang?: InputMaybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type Mutation = {
   _dummy: Maybe<Scalars['String']>
   addAppSystemAdmin: Maybe<Type_Profile>
+  /** เพิ่ม attribute(property) ให้ category */
+  addAttributeToProductCategory: ProductCategoryResponse
+  /** addCategoryAttribute  */
+  addCategoryAttribute: GetCategoryAttributeResponse
   addContactEmail: Maybe<Type_App>
   addEmailGlobal: Maybe<Type_Ok>
   addGateway: Maybe<Type_Gateway_List>
@@ -1024,13 +1979,23 @@ export type Mutation = {
   confirmOrgAdmin: Maybe<Type_Profile>
   confirmPhoneNumberUser: Maybe<Type_Json>
   confirmSystemAdmin: Maybe<Type_Reset_Password_Email>
+  createAccount: AccountResponse
+  /** สร้างที่อยู่แต่ละประเภท */
+  createAddress: AddressInputResponse
   createApp: Maybe<Type_App>
-  createCategory: Maybe<Type_Category>
+  /** สร้าง order  */
+  createAttribute: GetAttributeRespon
+  /** สร้าง order  */
+  createCategory: GetCategoryRespon
+  /** สร้าง CategoryAttribute  */
+  createCategoryAttribute: GetCategoryAttributeRespon
+  createContact: ContactResponse
   createCredential: Maybe<Type_Credential>
   createCustomMenu: Maybe<Type_Custom_Menu>
   createLead: LeadResponse
   createLeadNonAuthen: LeadResponse
   createLeadToUser: LeadResponse
+  createLeadToUserNonAuthen: LeadResponse
   createLocaleText: Maybe<Type_Locale_Text>
   createLocaleTextList: Maybe<Type_Locale_Text_List>
   createMasterData: Maybe<Type_Master_Data>
@@ -1041,10 +2006,26 @@ export type Mutation = {
   createOrganization: Maybe<Type_Organization>
   createOrganizationLabel: Maybe<Type_Organization_Label>
   createOrganizationType: Maybe<Type_Organization_Type>
+  /** สร้างสินค้า */
+  createProduct: CreateResponse
+  /** สร้างคุณลักษณะสินค้า */
+  createProductAttribute: CreateProductAttributeResponse
+  /** สร้างหมวดหมู่สินค้า */
+  createProductCategory: ProductCategoryResponse
   createRole: Maybe<Type_App_Role>
   createRunningNumber: Maybe<Type_Running_Number>
+  createVaraint: CreateVaraintResponse
+  createVaraintOptions: CreateVaraintResponse
+  /** ลบที่อยู่แต่ละประเภท */
+  deleteAddress: AddressInputResponse
   deleteApp: Maybe<Type_App>
-  deleteCategory: Maybe<Type_Category>
+  /** สร้าง order  */
+  deleteAttribute: GetAttributeRespon
+  /** สร้าง order  */
+  deleteCategory: GetCategoryRespon
+  /** deleteAttribute  */
+  deleteCategoryAttribute: GetCategoryAttributeRespon
+  deleteContact: ContactResponse
   deleteContactEmail: Maybe<Type_App>
   deleteCredential: Maybe<Type_Credential>
   deleteCustomMenu: Maybe<Type_Custom_Menu_List>
@@ -1062,6 +2043,12 @@ export type Mutation = {
   deleteOrganizationLabel: Maybe<Type_Organization_Label>
   deleteOrganizationType: Maybe<Type_Organization_Type>
   deletePermission: Maybe<Type_Role_Permission_List>
+  /** ลบสินค้า */
+  deleteProduct: CreateResponse
+  /** ลบคุณลักษณะสินค้า และลบออกจากหมวดสินค้าทั้งหมดที่มีคุณลักษณะนี้ */
+  deleteProductAttribute: CreateProductAttributeResponse
+  /** ลบหมวดหมู่สินค้า */
+  deleteProductCategory: DeleteProductCategoryResponse
   deleteResourceAdmin: Maybe<Type_Profile>
   deleteResourceAdminPermission: Maybe<Type_Role_Permission_List>
   deleteResourceOwnerPermission: Maybe<Type_Role_Permission_List>
@@ -1078,6 +2065,7 @@ export type Mutation = {
   enableServiceFeature: Maybe<Type_Feature_List>
   generateAuthCode: Maybe<Type_Login>
   generateRunningNumber: Maybe<Type_Generate_Running_Number>
+  generateSku: CreatedSkuResponse
   getAppAccessToken: Maybe<Type_App_Accees_Token>
   getOrgAccessToken: Maybe<Type_Org_Accees_Token>
   getS3GetObjectSignedUrl: Maybe<Type_S3_Signed_Url>
@@ -1098,7 +2086,10 @@ export type Mutation = {
   loginPhoneNumberConfirmOrg: Maybe<Type_Login>
   loginUsername: Maybe<Type_Login>
   loginWithAuthCode: Maybe<Type_Auth_Code>
+  /** จัดการสถานะสินค้า ดราฟ, ลงขาย, แสดง-ไม่แสดง */
+  manageProductStatus: CreateResponse
   pinConfirm: Maybe<Type_Ok>
+  preCreateProduct: CreateResponse
   qualifyLead: LeadResponse
   readAllNotification: Maybe<Type_Notification_List>
   readNotification: Maybe<Type_Notification_List>
@@ -1108,14 +2099,20 @@ export type Mutation = {
   registerOrgAdmin: Maybe<Type_Email_Register>
   registerPhoneNumber: Maybe<Type_Email_Register>
   registerUsername: Maybe<Type_Username_Register>
+  /** ลบคุณลักษณะออกจากหมวดหมู่สินค้า */
+  removeAttributeFromProductCategory: ProductCategoryResponse
+  /** addCategoryAttribute  */
+  removeCategoryAttribute: GetCategoryAttributeResponse
   removeConfig: Maybe<Type_Remove_Config>
   removePermissionRole: Maybe<Type_Role_Permission_List>
+  removeProductVariant: CreateVaraintResponse
   removeServiceFromApp: Maybe<Type_App_Service>
   requestOtp: Maybe<Type_Json>
   resendRegisterEmail: Maybe<Type_Email_Register>
   resetPasswordEmail: Maybe<Type_Reset_Password_Email>
   resetPasswordOtp: Maybe<Type_Reset_Password_Email>
   s3UploadFile: Maybe<Type_S3_Signed_Url>
+  saveImageToVariant: VariantListResponse
   sendContactMail: Maybe<Type_Ok>
   sendToVerifyEmailOrg: Maybe<Type_Ok>
   singleUpload: File
@@ -1124,15 +2121,26 @@ export type Mutation = {
   syncAppToService: Maybe<Type_Sync_App>
   syncOrganization: Maybe<Type_Sync_Organization>
   syncService: Maybe<Type_Sync_Service_Info>
+  updateAccount: AccountResponse
+  /** แก้ไขที่อยู่แต่ละประเภท */
+  updateAddress: AddressInputResponse
   updateApp: Maybe<Type_App>
   updateAppAttribute: Maybe<Type_App>
-  updateCategory: Maybe<Type_Category>
+  /** updateAttribute */
+  updateAttribute: GetAttributeRespon
+  /** สร้าง order  */
+  updateCategory: GetCategoryRespon
+  /** update CategoryAttribute  */
+  updateCategoryAttribute: GetCategoryAttributeRespon
   updateConfig: Maybe<Type_Config>
+  updateContact: ContactResponse
   updateCredential: Maybe<Type_Credential>
   updateCredentialKey: Maybe<Type_Credential>
   updateCustomMenu: Maybe<Type_Custom_Menu>
   updateDataSecurity: Maybe<Type_Role_Data_Security_List>
   updateGateway: Maybe<Type_Gateway_List>
+  /** อัพเดต stock สินค้า, varaint และ สถานะของ varaint */
+  updateInventory: UpdateInventoryResponse
   updateLead: LeadResponse
   updateLocaleText: Maybe<Type_Locale_Text>
   updateMasterData: Maybe<Type_Master_Data>
@@ -1149,6 +2157,13 @@ export type Mutation = {
   updateOrganizationType: Maybe<Type_Organization_Type>
   updatePermission: Maybe<Type_Role_Permission_List>
   updatePermissionRole: Maybe<Type_Role_Permission_List>
+  /** แก้ไข/อัปเดตข้อมูลสินค้า */
+  updateProduct: UpdateResponse
+  /** อัพเดทคุณลักษณะสินค้า */
+  updateProductAttribute: CreateProductAttributeResponse
+  /** สำหรับการเปลี่ยน relation ระหว่าง parent กับ child ของหมวดหมู่, อัพเดตชื่อหมวดหมู่ */
+  updateProductCategory: ProductCategoryResponse
+  updateProductVariant: CreateVaraintResponse
   updateResourceAdmin: Maybe<Type_Profile>
   updateResourceAdminPermission: Maybe<Type_Role_Permission_List>
   updateResourceOwnerPermission: Maybe<Type_Role_Permission_List>
@@ -1171,6 +2186,15 @@ export type Mutation = {
 export type MutationAddAppSystemAdminArgs = {
   appKey: Scalars['String']
   input?: InputMaybe<Input_Email_Register_Input>
+}
+
+export type MutationAddAttributeToProductCategoryArgs = {
+  attributeIds: Array<Scalars['String']>
+  categoryKey: Scalars['String']
+}
+
+export type MutationAddCategoryAttributeArgs = {
+  input: AddCategoryAttributeInput
 }
 
 export type MutationAddContactEmailArgs = {
@@ -1264,12 +2288,32 @@ export type MutationConfirmSystemAdminArgs = {
   input?: InputMaybe<Input_Verify_Password_System_Admin_Email>
 }
 
+export type MutationCreateAccountArgs = {
+  input: CreateAccountInput
+}
+
+export type MutationCreateAddressArgs = {
+  input: CreateAddressInput
+}
+
 export type MutationCreateAppArgs = {
   input?: InputMaybe<Input_App_Form>
 }
 
+export type MutationCreateAttributeArgs = {
+  input: CreateAttributeInput
+}
+
 export type MutationCreateCategoryArgs = {
-  input?: InputMaybe<Input_Category>
+  input: CreateCategoryInput
+}
+
+export type MutationCreateCategoryAttributeArgs = {
+  input: CreateCategoryAttributeInput
+}
+
+export type MutationCreateContactArgs = {
+  input: CreateContactInput
 }
 
 export type MutationCreateCredentialArgs = {
@@ -1289,6 +2333,10 @@ export type MutationCreateLeadNonAuthenArgs = {
 }
 
 export type MutationCreateLeadToUserArgs = {
+  input: CreateLeadInput
+}
+
+export type MutationCreateLeadToUserNonAuthenArgs = {
   input: CreateLeadInput
 }
 
@@ -1343,6 +2391,19 @@ export type MutationCreateOrganizationTypeArgs = {
   input?: InputMaybe<Input_Organiztion_Type>
 }
 
+export type MutationCreateProductArgs = {
+  input: CreateProductInput
+  productId: Scalars['String']
+}
+
+export type MutationCreateProductAttributeArgs = {
+  input: CreateProductAttributeInput
+}
+
+export type MutationCreateProductCategoryArgs = {
+  input: CreateProductCategoryInput
+}
+
 export type MutationCreateRoleArgs = {
   roleInput?: InputMaybe<Input_Role_From>
 }
@@ -1351,12 +2412,37 @@ export type MutationCreateRunningNumberArgs = {
   input?: InputMaybe<Input_Running_Number>
 }
 
+export type MutationCreateVaraintArgs = {
+  input: CreateVaraintV2Input
+}
+
+export type MutationCreateVaraintOptionsArgs = {
+  input: CreateVaraintOptionInput
+  variantId: Scalars['String']
+}
+
+export type MutationDeleteAddressArgs = {
+  addressId: Scalars['String']
+}
+
 export type MutationDeleteAppArgs = {
   appKey: Scalars['String']
 }
 
+export type MutationDeleteAttributeArgs = {
+  id: Scalars['String']
+}
+
 export type MutationDeleteCategoryArgs = {
-  categoryId: Scalars['String']
+  id: Scalars['String']
+}
+
+export type MutationDeleteCategoryAttributeArgs = {
+  id: Scalars['String']
+}
+
+export type MutationDeleteContactArgs = {
+  contactId: Scalars['String']
 }
 
 export type MutationDeleteContactEmailArgs = {
@@ -1431,6 +2517,18 @@ export type MutationDeletePermissionArgs = {
   roleKey: Scalars['String']
 }
 
+export type MutationDeleteProductArgs = {
+  productId: Scalars['String']
+}
+
+export type MutationDeleteProductAttributeArgs = {
+  _id: Scalars['String']
+}
+
+export type MutationDeleteProductCategoryArgs = {
+  categoryKey: Scalars['String']
+}
+
 export type MutationDeleteResourceAdminArgs = {
   userId: Scalars['ID']
 }
@@ -1498,6 +2596,11 @@ export type MutationEnableServiceFeatureArgs = {
 
 export type MutationGenerateRunningNumberArgs = {
   input?: InputMaybe<Input_Generate_Running_Number>
+}
+
+export type MutationGenerateSkuArgs = {
+  input: Array<GenerateSku>
+  productId: Scalars['String']
 }
 
 export type MutationGetAppAccessTokenArgs = {
@@ -1603,6 +2706,10 @@ export type MutationLoginWithAuthCodeArgs = {
   input: Input_Login_Auth_Code
 }
 
+export type MutationManageProductStatusArgs = {
+  input: ManageProductStatusInput
+}
+
 export type MutationPinConfirmArgs = {
   pin: Scalars['String']
 }
@@ -1639,6 +2746,15 @@ export type MutationRegisterUsernameArgs = {
   input?: InputMaybe<Input_Username_Register>
 }
 
+export type MutationRemoveAttributeFromProductCategoryArgs = {
+  attributeIds: Array<Scalars['String']>
+  categoryKey: Scalars['String']
+}
+
+export type MutationRemoveCategoryAttributeArgs = {
+  input: RemoveCategoryAttributeInput
+}
+
 export type MutationRemoveConfigArgs = {
   configKey: Scalars['String']
 }
@@ -1647,6 +2763,10 @@ export type MutationRemovePermissionRoleArgs = {
   appKey: Scalars['String']
   permissionKeyList?: InputMaybe<Array<Scalars['String']>>
   roleKey: Scalars['String']
+}
+
+export type MutationRemoveProductVariantArgs = {
+  variantId: Scalars['String']
 }
 
 export type MutationRemoveServiceFromAppArgs = {
@@ -1673,6 +2793,11 @@ export type MutationResetPasswordOtpArgs = {
 export type MutationS3UploadFileArgs = {
   file?: InputMaybe<Scalars['FileUpload']>
   userId?: InputMaybe<Scalars['ID']>
+}
+
+export type MutationSaveImageToVariantArgs = {
+  input: Array<AddImagesToVaraintsInput>
+  productId: Scalars['String']
 }
 
 export type MutationSendContactMailArgs = {
@@ -1704,6 +2829,16 @@ export type MutationSyncServiceArgs = {
   serviceKeyList?: InputMaybe<Array<Scalars['String']>>
 }
 
+export type MutationUpdateAccountArgs = {
+  accountId: Scalars['String']
+  input: CreateAccountInput
+}
+
+export type MutationUpdateAddressArgs = {
+  addressId: Scalars['String']
+  input: CreateAddressInput
+}
+
 export type MutationUpdateAppArgs = {
   appInput?: InputMaybe<Input_Update_App>
   appKey: Scalars['String']
@@ -1713,13 +2848,28 @@ export type MutationUpdateAppAttributeArgs = {
   attributeInput: Scalars['JSON']
 }
 
+export type MutationUpdateAttributeArgs = {
+  id: Scalars['String']
+  input: CreateAttributeInput
+}
+
 export type MutationUpdateCategoryArgs = {
-  categoryId: Scalars['String']
-  input?: InputMaybe<Input_Category>
+  id: Scalars['String']
+  input: CreateCategoryInput
+}
+
+export type MutationUpdateCategoryAttributeArgs = {
+  id: Scalars['String']
+  input: CreateCategoryAttributeInput
 }
 
 export type MutationUpdateConfigArgs = {
   input?: InputMaybe<Input_Config_Form>
+}
+
+export type MutationUpdateContactArgs = {
+  contactId: Scalars['String']
+  input: CreateContactInput
 }
 
 export type MutationUpdateCredentialArgs = {
@@ -1745,6 +2895,10 @@ export type MutationUpdateDataSecurityArgs = {
 export type MutationUpdateGatewayArgs = {
   gatewayId: Scalars['ID']
   input: Input_Gateway
+}
+
+export type MutationUpdateInventoryArgs = {
+  inputs: Array<UpdateInventoryInput>
 }
 
 export type MutationUpdateLeadArgs = {
@@ -1827,6 +2981,26 @@ export type MutationUpdatePermissionRoleArgs = {
   appKey: Scalars['String']
   permissionList?: InputMaybe<Array<Input_Permission_Form>>
   roleKey: Scalars['String']
+}
+
+export type MutationUpdateProductArgs = {
+  input: UpdateProductInput
+  productId: Scalars['String']
+}
+
+export type MutationUpdateProductAttributeArgs = {
+  _id: Scalars['String']
+  input: CreateProductAttributeInput
+}
+
+export type MutationUpdateProductCategoryArgs = {
+  categoryKey: Scalars['String']
+  input: UpdateProductCategory
+}
+
+export type MutationUpdateProductVariantArgs = {
+  input: UpdateVaraintInput_
+  variantId: Scalars['String']
 }
 
 export type MutationUpdateResourceAdminArgs = {
@@ -1918,6 +3092,43 @@ export type Organization_List = {
   payload: Maybe<Array<Maybe<Type_Organization_Response>>>
 }
 
+export type OmitObjectType = {
+  _id: Maybe<Scalars['String']>
+  /** คุณลักษณะสินค้า */
+  attributes: Maybe<Array<ProductAtrribute>>
+  category: Maybe<Category>
+  /** สถานะการแสดงผล รูปภาพอธิบายสินค้า */
+  descImageStatus: Maybe<Toggle_Creat_Product_Status>
+  /** รูปภาพอธิบายสินค้า */
+  descImages: Maybe<Array<ImageResp>>
+  /** คำอธิบายสินค้า อิงภาษาตาม locale ใน header */
+  description: Maybe<Scalars['String']>
+  /** จะถูกอนุมัติจาก admin */
+  isApprove: Maybe<Scalars['Boolean']>
+  /** ชื่อสินค้า อิงภาษาตาม locale ใน header */
+  name: Maybe<Scalars['String']>
+  orgAgentKey: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  /** ราคาสินค้า */
+  price: Maybe<PriceResp>
+  priceRange: Maybe<PriceRange>
+  /** รูปภาพสินค้า */
+  productImages: Maybe<Array<ImageResp>>
+  /** สถานะสินค้า */
+  status: Maybe<Get_Product_Status>
+}
+
+export type Options = {
+  /** ชื่อตัวเลือกคุณลักษณะสินค้า */
+  name: Scalars['String']
+}
+
+export type OptionsResponse = {
+  _id: Maybe<Scalars['String']>
+  /** ชื่อตัวเลือกคุณลักษณะสินค้า */
+  name: Scalars['String']
+}
+
 export type PaginatedFindType = {
   /** จำนวนสูงสุดที่ดึงใน 1 หน้า */
   limit?: InputMaybe<Scalars['Int']>
@@ -1944,9 +3155,243 @@ export type PhoneResp = {
   value: Scalars['String']
 }
 
+export type Price = {
+  /** ราคาขายลูกค้า */
+  customerSellingPrice: Scalars['Float']
+  /** ราคาโรงงาน */
+  factoryPrice: Scalars['Float']
+  /** ราคาขายร้านค้า */
+  shopSellingPrice: Scalars['Float']
+}
+
+export type PriceRange = {
+  max: Maybe<PriceResp>
+  min: Maybe<PriceResp>
+}
+
+export type PriceRangeCriteria = {
+  max?: InputMaybe<Scalars['Float']>
+  min?: InputMaybe<Scalars['Float']>
+}
+
+export type PriceResp = {
+  /** ราคาขายลูกค้า */
+  customerSellingPrice: Maybe<Scalars['Float']>
+  /** ราคาโรงงาน */
+  factoryPrice: Maybe<Scalars['Float']>
+  /** ราคาขายร้านค้า */
+  shopSellingPrice: Maybe<Scalars['Float']>
+}
+
+export type PriceUpdate = {
+  /** ราคาขายลูกค้า */
+  customerSellingPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาโรงงาน */
+  factoryPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาขายร้านค้า */
+  shopSellingPrice?: InputMaybe<Scalars['Float']>
+}
+
+export type ProductAtrribute = {
+  /** id ของ productAttribute */
+  productAttributeId: Maybe<Scalars['String']>
+  /** ค่าของคุณลักษณะในกรณีืี่คุณลักษณะนั้นเป็นประเภท Text, Number */
+  value: Maybe<Scalars['String']>
+  /** id ของคุณลักษณะที่เลือกในกรณีืที่คุณลักษณะนั้นเป็นประเภท Checkbox, Radio หรือ Select */
+  valueIds: Maybe<Array<Scalars['String']>>
+}
+
+export type ProductAttribute = {
+  _id: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  options: Maybe<Array<Maybe<AttributeOptionsResponse>>>
+  rules: Maybe<Array<Maybe<Scalars['String']>>>
+  type: Maybe<Atrribute_Type>
+}
+
+export type ProductAttributeDto = {
+  _id: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  options: Maybe<Array<Maybe<OptionsResponse>>>
+  /** prefer regex for check input */
+  rules: Maybe<Array<Maybe<Scalars['String']>>>
+  type: Maybe<Atrribute_Type>
+}
+
+export type ProductAttributeKeyPair = {
+  name: Maybe<Scalars['String']>
+  value: Maybe<Scalars['String']>
+}
+
+export type ProductAttributeKeyPairResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<ProductAttributeKeyPair>>>
+}
+
+export type ProductAttributeResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<Maybe<ProductAttribute>>>
+}
+
+export type ProductCategory = {
+  _id: Maybe<Scalars['String']>
+  /** รายการไอดีของคุณลักษณะที่มีในหมวดหมู่นี้ */
+  attributes: Maybe<Array<Maybe<Scalars['String']>>>
+  /** ใช้ระบุว่าหมวดหมู่นี้มีหมวดหมู่ย่อยหรือไม่ */
+  hasChildren: Maybe<Scalars['Boolean']>
+  /** รหัสของหมวดหมู่ */
+  key: Maybe<Scalars['String']>
+  /** ชื่อหมวดหมู่สินค้าในแต่ละภาษาที่สร้างไว้ */
+  name: Maybe<Scalars['String']>
+  /** รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้ */
+  parent: Maybe<Scalars['String']>
+  /** ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array */
+  tree: Maybe<Array<Maybe<Scalars['String']>>>
+  treeFull: Maybe<Array<Maybe<SelfProductCategory>>>
+}
+
+export type ProductCategoryLevel = {
+  _id: Maybe<Scalars['String']>
+  hasChildren: Maybe<Scalars['Boolean']>
+  /** รหัสของหมวดหมู่ */
+  key: Maybe<Scalars['String']>
+  /** ชื่อของหมวดหมู่ อิงภาษาตาม locale ที่ส่งมาใน headers */
+  name: Maybe<Scalars['String']>
+  /** รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้ */
+  parent: Maybe<Scalars['String']>
+  /** ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array */
+  tree: Maybe<Array<Maybe<Scalars['String']>>>
+  treeFull: Maybe<Array<Maybe<SelfProductCategory>>>
+}
+
+export type ProductCategoryLevelResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<Maybe<ProductCategoryLevel>>>
+}
+
+export type ProductCategoryResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<ResponseClass>
+}
+
+export type ProductResp = {
+  _id: Maybe<Scalars['String']>
+  /** คุณลักษณะสินค้า */
+  attributes: Maybe<Array<ProductAtrribute>>
+  category: Maybe<Category>
+  /** สถานะการแสดงผล รูปภาพอธิบายสินค้า */
+  descImageStatus: Maybe<Toggle_Creat_Product_Status>
+  /** รูปภาพอธิบายสินค้า */
+  descImages: Maybe<Array<ImageResp>>
+  /** คำอธิบายสินค้า อิงภาษาตาม locale ใน header */
+  description: Maybe<Scalars['String']>
+  /** จะถูกอนุมัติจาก admin */
+  isApprove: Maybe<Scalars['Boolean']>
+  /** ชื่อสินค้า อิงภาษาตาม locale ใน header */
+  name: Maybe<Scalars['String']>
+  orgAgentKey: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  /** ราคาสินค้า */
+  price: Maybe<PriceResp>
+  priceRange: Maybe<PriceRange>
+  /** รูปภาพสินค้า */
+  productImages: Maybe<Array<ImageResp>>
+  sku: Maybe<GetSku>
+  /** สถานะสินค้า */
+  status: Maybe<Get_Product_Status>
+}
+
+export type ProductRespAgent = {
+  _id: Maybe<Scalars['String']>
+  /** คุณลักษณะสินค้า */
+  attributes: Maybe<Array<ProductAtrribute>>
+  category: Maybe<Category>
+  /** สถานะการแสดงผล รูปภาพอธิบายสินค้า */
+  descImageStatus: Maybe<Toggle_Creat_Product_Status>
+  /** รูปภาพอธิบายสินค้า */
+  descImages: Maybe<Array<ImageResp>>
+  /** คำอธิบายสินค้า อิงภาษาตาม locale ใน header */
+  description: Maybe<Scalars['String']>
+  /** จะถูกอนุมัติจาก admin */
+  isApprove: Maybe<Scalars['Boolean']>
+  /** ชื่อสินค้า อิงภาษาตาม locale ใน header */
+  name: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  /** ราคาสินค้า */
+  price: Maybe<PriceResp>
+  priceRange: Maybe<PriceRange>
+  /** รูปภาพสินค้า */
+  productImages: Maybe<Array<ImageResp>>
+  /** สถานะสินค้า */
+  status: Maybe<Get_Product_Status>
+}
+
+export type ProductRespon = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<ProductResp>
+}
+
+export type ProductResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<Maybe<OmitObjectType>>>
+}
+
+export type ProductResponseAgent = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<Maybe<ProductRespAgent>>>
+}
+
+export type ProductRetailResp = {
+  _id: Maybe<Scalars['String']>
+  /** คุณลักษณะสินค้า */
+  attributes: Maybe<Array<ProductAtrribute>>
+  category: Maybe<Category>
+  /** สถานะการแสดงผล รูปภาพอธิบายสินค้า */
+  descImageStatus: Maybe<Toggle_Creat_Product_Status>
+  /** รูปภาพอธิบายสินค้า */
+  descImages: Maybe<Array<ImageResp>>
+  /** คำอธิบายสินค้า อิงภาษาตาม locale ใน header */
+  description: Maybe<Scalars['String']>
+  /** จะถูกอนุมัติจาก admin */
+  isApprove: Maybe<Scalars['Boolean']>
+  /** ชื่อสินค้า อิงภาษาตาม locale ใน header */
+  name: Maybe<Scalars['String']>
+  orgAgentKey: Maybe<Scalars['String']>
+  orgKey: Maybe<Scalars['String']>
+  /** ราคาสินค้า */
+  price: Maybe<PriceResp>
+  priceRange: Maybe<PriceRange>
+  /** รูปภาพสินค้า */
+  productImages: Maybe<Array<ImageResp>>
+  /** สถานะสินค้า */
+  status: Maybe<Get_Product_Status>
+}
+
+export type ProductRetailResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<PaginatedType>
+  payload: Maybe<Array<Maybe<ProductRetailResp>>>
+}
+
 export type Query = {
   _dummy: Maybe<Scalars['String']>
+  /** ดูข้อมูลสินค้าสำหรับ Agent */
+  agentGetProductList: ProductResponseAgent
   exportUser: Maybe<Type_Type_Role_Permission_User_List>
+  /** ดูข้อมูลสินค้าสำหรับ Factory */
+  factoryGetProductList: ProductResponse
   generateKey: Maybe<Type_Generate_Key_Response>
   generateOrgTokenRef: Maybe<Type_Org_Token_Ref>
   getAllOrganization: Maybe<Organization_List>
@@ -1955,11 +3400,20 @@ export type Query = {
   getAppByEmail: Maybe<Get_App_By_Email>
   getAppService: Maybe<Type_App_Service_List>
   getAppTheme: Maybe<Type_Theme_Response_List>
-  getCategory: Maybe<Type_Category_List>
+  /** ดึงข้อมูล Attribute  */
+  getAttribute: GetAttributeResponse
+  /** ดึงข้อมูล Category  */
+  getCategory: GetCategoryResponse
+  /** ดึงข้อมูล Attribute  */
+  getCategoryAttribute: GetCategoryAttributeResponse
   getConfig: Maybe<Type_Config_List>
   getCredential: Maybe<Type_Credential_List>
   getCredentialByHost: Maybe<Get_App_Credential_Host>
   getCustomMenu: Maybe<Type_Custom_Menu_List>
+  getDataAccount: AccountPaginateResponse
+  /** เรียกข้อมูลที่อยู่ */
+  getDataAddress: AddressPaginateResponse
+  getDataContact: ContactPaginateResponse
   getDataLead: LeadPaginateResponse
   getDataRunningNumber: Maybe<Type_Running_Number_List>
   getDataSecurityRole: Maybe<Type_Data_Security_List>
@@ -1994,7 +3448,21 @@ export type Query = {
   getOrganizationByName: Maybe<Organization_List>
   getOrganizationLabel: Maybe<Type_Organization_Label_List>
   getOrganizationType: Maybe<Type_Organization_Type_List>
+  /** ดึงข้อมูล Category  */
+  getParentCategory: GetCategoryResponse
   getPermissionRole: Maybe<Type_Permission_List>
+  getProductAttribute: ProductAttributeKeyPairResponse
+  getProductAttributeList: ProductAttributeResponse
+  getProductAttributeOfCategory: CreateProductAttributeResponseList
+  /** ดูข้อมูลสินค้าby id */
+  getProductById: ProductRespon
+  getProductCategory: ProductCategory
+  /** ใช้ดึงข้อมูลหมวดหมู่สินค้าทั้งหมด ในแต่ละขั้นจาก ROOT Level ลงไป */
+  getProductCategoryLevel: Maybe<ProductCategoryLevelResponse>
+  /** ดึงข้อมูลสต๊อกสินค้า */
+  getProductInventory: GetInventoryResponse
+  getProductListHoldByOrg: ProductResponse
+  getProductVariantList: VariantListResponse
   getProfile: Maybe<Type_Profile_List>
   getPublicAppConfig: Maybe<Type_Config_List>
   getPublicProfile: Maybe<Type_Profile_List>
@@ -2012,6 +3480,8 @@ export type Query = {
   getService: Maybe<Type_Service_List>
   getServiceFeature: Maybe<Type_Feature_List>
   getServiceInfo: Maybe<Type_Service_Info>
+  getSku: GetSkuResponse
+  getSkuById: GetSkuByIdResponse
   getSystemAdminPermission: Maybe<Type_Type_Role_Permission_User_List>
   getSystemAdminProfile: Maybe<Type_Profile_List>
   getSystemAdminRoleApprovalAttribute: Maybe<Type_Role_Aproval_Attribute_List>
@@ -2021,8 +3491,20 @@ export type Query = {
   kafkaListTopics: Maybe<Type_Json>
   migrateData: Maybe<Data_Migration_Result>
   otherFields: Scalars['Boolean']
+  /** ดูข้อมูลสินค้าสำหรับ Retail */
+  retailGetProductList: ProductRetailResponse
   webhookRunTaskAppNotification: Maybe<Type_Webhook>
   webhookRunTaskEmail: Maybe<Type_Webhook>
+}
+
+export type QueryAgentGetProductListArgs = {
+  input?: InputMaybe<AgentGetProductInput>
+  status?: InputMaybe<Get_Product_Status>
+}
+
+export type QueryFactoryGetProductListArgs = {
+  input?: InputMaybe<CommonGetProductInput>
+  status?: InputMaybe<Get_Product_Status>
 }
 
 export type QueryGenerateKeyArgs = {
@@ -2056,8 +3538,16 @@ export type QueryGetAppThemeArgs = {
   find?: InputMaybe<Input_Find_Data>
 }
 
+export type QueryGetAttributeArgs = {
+  input: GetAttributeInPut
+}
+
 export type QueryGetCategoryArgs = {
-  find?: InputMaybe<Input_Find_Data>
+  input: GetCategoryInPut
+}
+
+export type QueryGetCategoryAttributeArgs = {
+  input: GetCategoryAttributeInPut
 }
 
 export type QueryGetConfigArgs = {
@@ -2070,6 +3560,18 @@ export type QueryGetCredentialByHostArgs = {
 
 export type QueryGetCustomMenuArgs = {
   input?: InputMaybe<Input_Find_Data>
+}
+
+export type QueryGetDataAccountArgs = {
+  input?: InputMaybe<FindAccountInput>
+}
+
+export type QueryGetDataAddressArgs = {
+  input?: InputMaybe<FindAddressInput>
+}
+
+export type QueryGetDataContactArgs = {
+  input?: InputMaybe<FindContactInput>
 }
 
 export type QueryGetDataLeadArgs = {
@@ -2185,8 +3687,50 @@ export type QueryGetOrganizationTypeArgs = {
   find?: InputMaybe<Input_Find_Data>
 }
 
+export type QueryGetParentCategoryArgs = {
+  id: Scalars['String']
+}
+
 export type QueryGetPermissionRoleArgs = {
   roleKey: Scalars['String']
+}
+
+export type QueryGetProductAttributeArgs = {
+  productId: Scalars['String']
+}
+
+export type QueryGetProductAttributeListArgs = {
+  input?: InputMaybe<GetProductAttributeInput>
+}
+
+export type QueryGetProductAttributeOfCategoryArgs = {
+  categoryKey: Scalars['String']
+}
+
+export type QueryGetProductByIdArgs = {
+  id: Scalars['String']
+}
+
+export type QueryGetProductCategoryArgs = {
+  categoryKey: Scalars['String']
+}
+
+export type QueryGetProductCategoryLevelArgs = {
+  input?: InputMaybe<GetProductCategoryLevelInput>
+  isTail?: InputMaybe<Scalars['Boolean']>
+  parentKey?: InputMaybe<Scalars['String']>
+}
+
+export type QueryGetProductInventoryArgs = {
+  productId: Scalars['String']
+}
+
+export type QueryGetProductListHoldByOrgArgs = {
+  input?: InputMaybe<CommonGetProductInput>
+}
+
+export type QueryGetProductVariantListArgs = {
+  productId: Scalars['String']
 }
 
 export type QueryGetProfileArgs = {
@@ -2251,6 +3795,14 @@ export type QueryGetServiceInfoArgs = {
   serviceKey: Scalars['String']
 }
 
+export type QueryGetSkuArgs = {
+  productId: Scalars['String']
+}
+
+export type QueryGetSkuByIdArgs = {
+  skuId: Scalars['String']
+}
+
 export type QueryGetSystemAdminPermissionArgs = {
   appKey: Scalars['String']
   roleKeyList?: InputMaybe<Array<Scalars['String']>>
@@ -2290,6 +3842,10 @@ export type QueryMigrateDataArgs = {
   version: Scalars['String']
 }
 
+export type QueryRetailGetProductListArgs = {
+  input?: InputMaybe<RetailGetProductInput>
+}
+
 export type QueryWebhookRunTaskAppNotificationArgs = {
   secretKey: Scalars['String']
 }
@@ -2298,7 +3854,40 @@ export type QueryWebhookRunTaskEmailArgs = {
   secretKey: Scalars['String']
 }
 
-export type QueryLeadInput = {
+export type QueryAccountInput = {
+  _id?: InputMaybe<Scalars['String']>
+  category?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Scalars['String']>
+}
+
+export type QueryAddressInput = {
+  /** ที่อยู่ */
+  address?: InputMaybe<Scalars['String']>
+  /** ประเทศ */
+  country?: InputMaybe<Scalars['String']>
+  /** กำหนดที่อยู่ที่จะเป็นค่าตั้งต้น */
+  defaultSend?: InputMaybe<Enum_Address_Default_Send>
+  /** อำเภอ */
+  district?: InputMaybe<Scalars['String']>
+  /** latitude */
+  latitude?: InputMaybe<Scalars['String']>
+  /** longitude */
+  longitude?: InputMaybe<Scalars['String']>
+  /** รหัสไปรษณีย์ */
+  postcode?: InputMaybe<Scalars['String']>
+  /** จังหวัด */
+  province?: InputMaybe<Scalars['String']>
+  /** ไอดีของเจ้าของที่อยู่ */
+  refId?: InputMaybe<Scalars['String']>
+  /** ตำบล */
+  subDistrict?: InputMaybe<Scalars['String']>
+  /** ประเภทที่อยู่ */
+  type?: InputMaybe<Enum_Address_Type>
+}
+
+export type QueryContactInput = {
+  _id?: InputMaybe<Scalars['String']>
   citizenId?: InputMaybe<Scalars['String']>
   dataSource?: InputMaybe<Scalars['String']>
   firstName?: InputMaybe<Scalars['String']>
@@ -2308,8 +3897,110 @@ export type QueryLeadInput = {
   status?: InputMaybe<Scalars['String']>
 }
 
+export type QueryLeadInput = {
+  _id?: InputMaybe<Scalars['String']>
+  citizenId?: InputMaybe<Scalars['String']>
+  dataSource?: InputMaybe<Scalars['String']>
+  firstName?: InputMaybe<Scalars['String']>
+  lastName?: InputMaybe<Scalars['String']>
+  passport?: InputMaybe<Scalars['String']>
+  resourceOwner?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Scalars['String']>
+}
+
+export type QueryValue = {
+  /** ไอดีของ inventory ที่ต้องการจะแก้ไข */
+  inventoryId?: InputMaybe<Scalars['String']>
+  inventoryType?: InputMaybe<Scalars['String']>
+  productId?: InputMaybe<Scalars['String']>
+  skuId?: InputMaybe<Scalars['String']>
+}
+
+export type RemoveCategoryAttributeInput = {
+  /** array id attribute ที่ใช้ในการเพิ่ม */
+  attributeIdList?: InputMaybe<Array<Scalars['String']>>
+  /** categoryId */
+  categoryId: Scalars['String']
+}
+
 export type RespCreate = {
   _id: Maybe<Scalars['String']>
+}
+
+export type ResponseClass = {
+  _id: Maybe<Scalars['String']>
+  /** รายการไอดีของคุณลักษณะที่มีในหมวดหมู่นี้ */
+  attributes: Maybe<Array<Maybe<Scalars['String']>>>
+  /** ใช้ระบุว่าหมวดหมู่นี้มีหมวดหมู่ย่อยหรือไม่ */
+  hasChildren: Maybe<Scalars['Boolean']>
+  /** รหัสของหมวดหมู่ */
+  key: Maybe<Scalars['String']>
+  /** ชื่อหมวดหมู่สินค้าในแต่ละภาษาที่สร้างไว้ */
+  name: Maybe<Scalars['String']>
+  /** รหัสของหมวดหมู่หลัก ของหมวดหมู่นี้ */
+  parent: Maybe<Scalars['String']>
+  /** ลำดับขั้นของรหัสหมวดหมู่หลักตั้งแต่ระดับ root ของหมวดหมู่นี้ เรียงตาม index ใน array */
+  tree: Maybe<Array<Maybe<Scalars['String']>>>
+  treeFull: Maybe<Array<Maybe<SelfProductCategory>>>
+}
+
+export type RetailGetProductInput = {
+  pagination?: InputMaybe<PaginatedFindType>
+  search?: InputMaybe<RetailProductCriteria>
+  sort?: InputMaybe<GetProductSortInput>
+}
+
+export type RetailProductCriteria = {
+  categoryKey?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+  priceRange?: InputMaybe<PriceRangeCriteria>
+}
+
+export type Sku = {
+  /** จำนวนสต๊อก */
+  changeQty: Scalars['Float']
+  /** ราคาขายลูกค้า */
+  customerSellingPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาโรงงาน */
+  factoryPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาขายร้านค้า */
+  shopSellingPrice?: InputMaybe<Scalars['Float']>
+  skuId: Scalars['String']
+  /** สถานะเปิด-ปิด */
+  status?: InputMaybe<Toggle_Creat_Product_Status>
+}
+
+export type SkuUpdate = {
+  /** จำนวนสต๊อก */
+  changeQty?: InputMaybe<Scalars['Float']>
+  /** ราคาขายลูกค้า */
+  customerSellingPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาโรงงาน */
+  factoryPrice?: InputMaybe<Scalars['Float']>
+  /** ราคาขายร้านค้า */
+  shopSellingPrice?: InputMaybe<Scalars['Float']>
+  skuId: Scalars['String']
+  /** สถานะเปิด-ปิด */
+  status?: InputMaybe<Toggle_Creat_Product_Status>
+}
+
+export enum Sort_Order {
+  Asc = 'ASC',
+  Desc = 'DESC',
+}
+
+export type SelfProductCategory = {
+  _id: Maybe<Scalars['String']>
+  hasChildren: Maybe<Scalars['Boolean']>
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  parent: Maybe<Scalars['String']>
+}
+
+export type SkuVariant = {
+  childName: Maybe<Scalars['String']>
+  fileKey: Maybe<Scalars['String']>
+  parentName: Maybe<Scalars['String']>
 }
 
 export type Subscription = {
@@ -2320,6 +4011,11 @@ export type Subscription = {
 
 export type SubscriptionGetMyNotificationArgs = {
   find?: InputMaybe<Input_Find_Data>
+}
+
+export enum Toggle_Creat_Product_Status {
+  Disabled = 'DISABLED',
+  Enabled = 'ENABLED',
 }
 
 export type Type_App = {
@@ -2453,29 +4149,6 @@ export type Type_Aws = {
   cloudWatchEnable: Maybe<Scalars['Boolean']>
   endpoint: Maybe<Scalars['String']>
   secretKey: Maybe<Scalars['String']>
-}
-
-export type Type_Category = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  payload: Maybe<Type_Category_Schema>
-}
-
-export type Type_Category_List = {
-  code: Maybe<Scalars['String']>
-  message: Maybe<Scalars['String']>
-  pagination: Maybe<Type_Pagination>
-  payload: Maybe<Array<Maybe<Type_Category_Schema>>>
-}
-
-export type Type_Category_Schema = {
-  _id: Maybe<Scalars['ID']>
-  createdAt: Maybe<Scalars['Date']>
-  createdBy: Maybe<Type_User_Profile>
-  name: Maybe<Scalars['String']>
-  status: Maybe<Enum_Category_Status>
-  updatedAt: Maybe<Scalars['Date']>
-  updatedBy: Maybe<Type_User_Profile>
 }
 
 export type Type_Check_Verify_Email = {
@@ -2976,7 +4649,6 @@ export type Type_Organization_Master_Detail_List = {
 export type Type_Organization_Response = {
   address: Maybe<Scalars['JSON']>
   attribute: Maybe<Scalars['JSON']>
-  categoryList: Maybe<Array<Maybe<Type_Category_Schema>>>
   contactEmailList: Maybe<Array<Maybe<Scalars['String']>>>
   contactName: Maybe<Scalars['String']>
   createdAt: Maybe<Scalars['Date']>
@@ -3118,6 +4790,7 @@ export type Type_Permission_List = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** array data */
   payload: Maybe<Array<Maybe<Type_Role_Permission>>>
 }
 
@@ -3258,6 +4931,7 @@ export type Type_Role_Permission_List = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<Type_Role_Permission_Payload>
 }
 
@@ -3396,6 +5070,7 @@ export type Type_Service_Info = {
   code: Maybe<Scalars['String']>
   /** ข้อความตอบสนอง */
   message: Maybe<Scalars['String']>
+  /** data */
   payload: Maybe<Type_Service>
 }
 
@@ -3625,11 +5300,254 @@ export type Type_Webhook = {
   payload: Maybe<Type_Schema_Webhook>
 }
 
-export type User = {
+export type TierVariation = {
+  name: Maybe<Scalars['String']>
+  options: Maybe<Array<Maybe<TierVariationOptions>>>
+}
+
+export type TierVariationOptions = {
+  fileKey: Maybe<Scalars['String']>
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+}
+
+export type Update = {
+  _id: Maybe<Scalars['String']>
+}
+
+export type UpdateInventory = {
+  /** จำนวนรายการที่ไม่สำเร็จ */
+  fail: Maybe<Scalars['Int']>
+  /** จำนวนรายการที่สำเร็จ */
+  success: Maybe<Scalars['Int']>
+  /** จำนวนรายการทั้งหมด */
+  total: Maybe<Scalars['Int']>
+}
+
+export type UpdateInventoryInput = {
+  query: QueryValue
+  updated: UpdateValue
+}
+
+export type UpdateInventoryResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<UpdateInventory>
+}
+
+export type UpdateProductCategory = {
+  name?: InputMaybe<Scalars['String']>
+  /**
+   *
+   *   ชื่อหมวดหมู่สินค้าที่ต้องการอัพเดต เช่น :
+   *   {
+   *     "th" : "รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม",
+   *     "en" : "BAOJI Boots High Quality"
+   * }
+   *
+   */
+  names?: InputMaybe<Scalars['JSON']>
+  /** รหัสหมวดหมู่สินค้าที่ต้องการให้เป็น parent, ROOT ถ้าต้องการให้เป็นหมวดหมู่ระดับ root */
+  parrentKey?: InputMaybe<Scalars['String']>
+}
+
+export type UpdateProductInput = {
+  /** คุณลักษณะผลิตภัณฑ์ */
+  attributes?: InputMaybe<Array<AttributeUpdate>>
+  /** คีย์ของหมวดหมู่ผลิตภัณฑ์ */
+  categoryKey?: InputMaybe<Scalars['String']>
+  /** จำนวนสต๊อก */
+  changeQty?: InputMaybe<Scalars['Float']>
+  /** สถานะการเปิดใช้งานของรูปภาพอธิบายผลิตภัณฑ์ */
+  descImageStatus?: InputMaybe<Toggle_Creat_Product_Status>
+  /** รูปภาพอธิบาย ถ้าอัพเดตส่งมาทุกรูปที่มี */
+  descImages?: InputMaybe<Array<InputMaybe<ImageUpdate>>>
+  /**
+   *
+   *     *** ส่งมาแค่ภาษาที่ต้องการจะอัพเดต
+   *     คำอธิบายผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น :
+   *     {
+   *       "th" : "นุ่ม เบา ราคาถูก รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม",
+   *       "en" : "Boots High Quality cheap price"
+   *     }
+   *     ความยาวสูงสุด 5000 ตัวอักษร, ต่ำสุด 23 ตัวอักษร
+   *
+   */
+  descriptions?: InputMaybe<Scalars['JSON']>
+  /**
+   *
+   *     *** ส่งมาแค่ภาษาที่ต้องการจะอัพเดต
+   *     ชื่อผลิตภัณฑ์ สามารถสร้างได้หลายภาษา เช่น :
+   *     {
+   *       "th" : "รองเท้า BAOJI แท้💯% รองเท้าหัวโตผลไม้ พื้นสูง 7 ซม. พื้นนุ่ม",
+   *       "en" : "BAOJI Boots High Quality"
+   *     }
+   *     ความยาวสูงสุด 120 ตัวอักษร, ต่ำสุด 19 ตัวอักษร
+   *
+   */
+  names?: InputMaybe<Scalars['JSON']>
+  /** ราคาของผลิตภัณฑ์ */
+  price?: InputMaybe<PriceUpdate>
+  /** รูปภาพสินค้า ถ้าอัพเดตส่งมาทุกรูปที่มี */
+  productImages?: InputMaybe<Array<InputMaybe<ImageUpdate>>>
+  /** ตัวเลือกสินค้า */
+  skus?: InputMaybe<Array<SkuUpdate>>
+}
+
+export type UpdateResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Update>
+}
+
+export type UpdateValue = {
+  /** จำนวนที่ต้องการแก้ไข +,- */
+  changeQty: Scalars['Float']
+  /** ถ้า inventory เป็นประเภท varaint สามารถเปิด-ปิดได้ */
+  varaintStatus?: InputMaybe<Toggle_Creat_Product_Status>
+}
+
+export type UpdateVaraintInput_ = {
+  imageStatus?: InputMaybe<Toggle_Creat_Product_Status>
+  name?: InputMaybe<Scalars['String']>
+}
+
+export type UserEmailResp = {
+  value: Maybe<Scalars['String']>
+}
+
+export type UserPhoneResp = {
+  value: Scalars['String']
+}
+
+export type UserResp = {
   _id: Maybe<Scalars['String']>
   attribute: Maybe<Scalars['JSON']>
-  email: Maybe<Array<EmailResp>>
-  phone: Maybe<Array<PhoneResp>>
+  email: Maybe<Array<UserEmailResp>>
+  phone: Maybe<Array<UserPhoneResp>>
+}
+
+export type VaraintList = {
+  _id: Maybe<Scalars['String']>
+  imageStatus: Maybe<Toggle_Creat_Product_Status>
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  options: Maybe<Array<Maybe<VaraintOptions>>>
+  productId: Maybe<Scalars['String']>
+}
+
+export type VaraintOptions = {
+  _id: Maybe<Scalars['String']>
+  fileKey: Maybe<Scalars['String']>
+  key: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+}
+
+export type VariantListResponse = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Array<Maybe<VaraintList>>>
+}
+
+export type CreateLeadMutationVariables = Exact<{
+  input: CreateLeadInput
+}>
+
+export type CreateLeadMutation = { createLead: { code: string; message: string; payload: { _id: string } } }
+
+export type CreateLeadToUserMutationVariables = Exact<{
+  input: CreateLeadInput
+}>
+
+export type CreateLeadToUserMutation = { createLeadToUser: { code: string; message: string; payload: { _id: string } } }
+
+export type DeleteLeadMutationVariables = Exact<{
+  leadId: Scalars['String']
+}>
+
+export type DeleteLeadMutation = { deleteLead: { code: string; message: string; payload: { _id: string } } }
+
+export type GetDataAccountQueryVariables = Exact<{
+  input?: InputMaybe<FindAccountInput>
+}>
+
+export type GetDataAccountQuery = {
+  getDataAccount: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      name: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      leadType: string
+      resourceOwner: string
+      status: string
+      image: string
+      createdAt: any
+      updatedAt: any
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      contactList: Array<{
+        position: string
+        isMainContact: boolean
+        contactAtBy: {
+          _id: string
+          firstName: string
+          lastName: string
+          citizenId: string
+          passport: string
+          dataSource: string
+          leadType: string
+          resourceOwner: string
+          status: string
+          image: string
+          organizationName: string
+          createdAt: any
+          updatedAt: any
+          phone: Array<{ value: string }>
+          email: Array<{ value: string }>
+          createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+          updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+        }
+      }>
+      createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
+export type GetDataContactQueryVariables = Exact<{
+  input?: InputMaybe<FindContactInput>
+}>
+
+export type GetDataContactQuery = {
+  getDataContact: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      firstName: string
+      lastName: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      leadType: string
+      resourceOwner: string
+      status: string
+      image: string
+      organizationName: string
+      createdAt: any
+      updatedAt: any
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
 }
 
 export type GetDataLeadQueryVariables = Exact<{
@@ -3651,9 +5569,10 @@ export type GetDataLeadQuery = {
       status: string
       image: string
       leadType: string
+      remark: string
       organizationName: string
-      createdAt: string
-      updatedAt: string
+      createdAt: any
+      updatedAt: any
       phone: Array<{ value: string }>
       email: Array<{ value: string }>
       createdAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
@@ -3663,8 +5582,385 @@ export type GetDataLeadQuery = {
   }
 }
 
-export declare const GetDataLead: import('graphql').DocumentNode
+export type GetMasterDataQueryVariables = Exact<{
+  input?: InputMaybe<Input_Find_Data>
+}>
 
+export type GetMasterDataQuery = {
+  getMasterData: {
+    code: string
+    message: string
+    payload: Array<{ dataKey: string; parentKey: string; text: string; attribute: any; locale: string }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
+export type QualifyLeadMutationVariables = Exact<{
+  leadId: Scalars['String']
+}>
+
+export type QualifyLeadMutation = { qualifyLead: { code: string; message: string; payload: { _id: string } } }
+
+export type UpdateLeadMutationVariables = Exact<{
+  input: CreateLeadInput
+  leadId: Scalars['String']
+}>
+
+export type UpdateLeadMutation = { updateLead: { code: string; message: string; payload: { _id: string } } }
+
+export declare const CreateLead: import('graphql').DocumentNode
+export declare const CreateLeadToUser: import('graphql').DocumentNode
+export declare const DeleteLead: import('graphql').DocumentNode
+export declare const GetDataAccount: import('graphql').DocumentNode
+export declare const GetDataContact: import('graphql').DocumentNode
+export declare const GetDataLead: import('graphql').DocumentNode
+export declare const GetMasterData: import('graphql').DocumentNode
+export declare const QualifyLead: import('graphql').DocumentNode
+export declare const UpdateLead: import('graphql').DocumentNode
+
+export const CreateLeadDocument = gql`
+  mutation CreateLead($input: CreateLeadInput!) {
+    createLead(input: $input) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type CreateLeadMutationFn = Apollo.MutationFunction<CreateLeadMutation, CreateLeadMutationVariables>
+
+/**
+ * __useCreateLeadMutation__
+ *
+ * To run a mutation, you first call `useCreateLeadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLeadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLeadMutation, { data, loading, error }] = useCreateLeadMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLeadMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateLeadMutation, CreateLeadMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateLeadMutation, CreateLeadMutationVariables>(CreateLeadDocument, options)
+}
+export type CreateLeadMutationHookResult = ReturnType<typeof useCreateLeadMutation>
+export type CreateLeadMutationResult = Apollo.MutationResult<CreateLeadMutation>
+export type CreateLeadMutationOptions = Apollo.BaseMutationOptions<CreateLeadMutation, CreateLeadMutationVariables>
+export const CreateLeadToUserDocument = gql`
+  mutation CreateLeadToUser($input: CreateLeadInput!) {
+    createLeadToUser(input: $input) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type CreateLeadToUserMutationFn = Apollo.MutationFunction<
+  CreateLeadToUserMutation,
+  CreateLeadToUserMutationVariables
+>
+
+/**
+ * __useCreateLeadToUserMutation__
+ *
+ * To run a mutation, you first call `useCreateLeadToUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLeadToUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLeadToUserMutation, { data, loading, error }] = useCreateLeadToUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLeadToUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateLeadToUserMutation, CreateLeadToUserMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateLeadToUserMutation, CreateLeadToUserMutationVariables>(
+    CreateLeadToUserDocument,
+    options
+  )
+}
+export type CreateLeadToUserMutationHookResult = ReturnType<typeof useCreateLeadToUserMutation>
+export type CreateLeadToUserMutationResult = Apollo.MutationResult<CreateLeadToUserMutation>
+export type CreateLeadToUserMutationOptions = Apollo.BaseMutationOptions<
+  CreateLeadToUserMutation,
+  CreateLeadToUserMutationVariables
+>
+export const DeleteLeadDocument = gql`
+  mutation DeleteLead($leadId: String!) {
+    deleteLead(leadId: $leadId) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type DeleteLeadMutationFn = Apollo.MutationFunction<DeleteLeadMutation, DeleteLeadMutationVariables>
+
+/**
+ * __useDeleteLeadMutation__
+ *
+ * To run a mutation, you first call `useDeleteLeadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLeadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLeadMutation, { data, loading, error }] = useDeleteLeadMutation({
+ *   variables: {
+ *      leadId: // value for 'leadId'
+ *   },
+ * });
+ */
+export function useDeleteLeadMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteLeadMutation, DeleteLeadMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteLeadMutation, DeleteLeadMutationVariables>(DeleteLeadDocument, options)
+}
+export type DeleteLeadMutationHookResult = ReturnType<typeof useDeleteLeadMutation>
+export type DeleteLeadMutationResult = Apollo.MutationResult<DeleteLeadMutation>
+export type DeleteLeadMutationOptions = Apollo.BaseMutationOptions<DeleteLeadMutation, DeleteLeadMutationVariables>
+export const GetDataAccountDocument = gql`
+  query GetDataAccount($input: FindAccountInput) {
+    getDataAccount(input: $input) {
+      code
+      message
+      payload {
+        _id
+        name
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        leadType
+        resourceOwner
+        status
+        image
+        contactList {
+          contactAtBy {
+            _id
+            firstName
+            lastName
+            citizenId
+            passport
+            phone {
+              value
+            }
+            email {
+              value
+            }
+            dataSource
+            leadType
+            resourceOwner
+            status
+            image
+            organizationName
+            createdAt
+            updatedAt
+            createdAtBy {
+              _id
+              phone {
+                value
+              }
+              attribute
+              email {
+                value
+              }
+            }
+            updatedAtBy {
+              _id
+              phone {
+                value
+              }
+              email {
+                value
+              }
+              attribute
+            }
+          }
+          position
+          isMainContact
+        }
+        createdAt
+        updatedAt
+        createdAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+        updatedAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetDataAccountQuery__
+ *
+ * To run a query within a React component, call `useGetDataAccountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataAccountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataAccountQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetDataAccountQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataAccountQuery, GetDataAccountQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetDataAccountQuery, GetDataAccountQueryVariables>(GetDataAccountDocument, options)
+}
+export function useGetDataAccountLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataAccountQuery, GetDataAccountQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataAccountQuery, GetDataAccountQueryVariables>(GetDataAccountDocument, options)
+}
+export type GetDataAccountQueryHookResult = ReturnType<typeof useGetDataAccountQuery>
+export type GetDataAccountLazyQueryHookResult = ReturnType<typeof useGetDataAccountLazyQuery>
+export type GetDataAccountQueryResult = Apollo.QueryResult<GetDataAccountQuery, GetDataAccountQueryVariables>
+export const GetDataContactDocument = gql`
+  query GetDataContact($input: FindContactInput) {
+    getDataContact(input: $input) {
+      code
+      message
+      payload {
+        _id
+        firstName
+        lastName
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        leadType
+        resourceOwner
+        status
+        image
+        organizationName
+        createdAt
+        updatedAt
+        createdAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+        updatedAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetDataContactQuery__
+ *
+ * To run a query within a React component, call `useGetDataContactQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataContactQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataContactQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetDataContactQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataContactQuery, GetDataContactQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetDataContactQuery, GetDataContactQueryVariables>(GetDataContactDocument, options)
+}
+export function useGetDataContactLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataContactQuery, GetDataContactQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataContactQuery, GetDataContactQueryVariables>(GetDataContactDocument, options)
+}
+export type GetDataContactQueryHookResult = ReturnType<typeof useGetDataContactQuery>
+export type GetDataContactLazyQueryHookResult = ReturnType<typeof useGetDataContactLazyQuery>
+export type GetDataContactQueryResult = Apollo.QueryResult<GetDataContactQuery, GetDataContactQueryVariables>
 export const GetDataLeadDocument = gql`
   query GetDataLead($input: FindLeadInput) {
     getDataLead(input: $input) {
@@ -3685,6 +5981,7 @@ export const GetDataLeadDocument = gql`
         status
         image
         leadType
+        remark
         organizationName
         createdAt
         updatedAt
@@ -3752,3 +6049,135 @@ export function useGetDataLeadLazyQuery(
 export type GetDataLeadQueryHookResult = ReturnType<typeof useGetDataLeadQuery>
 export type GetDataLeadLazyQueryHookResult = ReturnType<typeof useGetDataLeadLazyQuery>
 export type GetDataLeadQueryResult = Apollo.QueryResult<GetDataLeadQuery, GetDataLeadQueryVariables>
+export const GetMasterDataDocument = gql`
+  query GetMasterData($input: INPUT_FIND_DATA) {
+    getMasterData(input: $input) {
+      code
+      message
+      payload {
+        dataKey
+        parentKey
+        text
+        attribute
+        locale
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetMasterDataQuery__
+ *
+ * To run a query within a React component, call `useGetMasterDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMasterDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMasterDataQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetMasterDataQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetMasterDataQuery, GetMasterDataQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetMasterDataQuery, GetMasterDataQueryVariables>(GetMasterDataDocument, options)
+}
+export function useGetMasterDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetMasterDataQuery, GetMasterDataQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetMasterDataQuery, GetMasterDataQueryVariables>(GetMasterDataDocument, options)
+}
+export type GetMasterDataQueryHookResult = ReturnType<typeof useGetMasterDataQuery>
+export type GetMasterDataLazyQueryHookResult = ReturnType<typeof useGetMasterDataLazyQuery>
+export type GetMasterDataQueryResult = Apollo.QueryResult<GetMasterDataQuery, GetMasterDataQueryVariables>
+export const QualifyLeadDocument = gql`
+  mutation QualifyLead($leadId: String!) {
+    qualifyLead(leadId: $leadId) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type QualifyLeadMutationFn = Apollo.MutationFunction<QualifyLeadMutation, QualifyLeadMutationVariables>
+
+/**
+ * __useQualifyLeadMutation__
+ *
+ * To run a mutation, you first call `useQualifyLeadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useQualifyLeadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [qualifyLeadMutation, { data, loading, error }] = useQualifyLeadMutation({
+ *   variables: {
+ *      leadId: // value for 'leadId'
+ *   },
+ * });
+ */
+export function useQualifyLeadMutation(
+  baseOptions?: Apollo.MutationHookOptions<QualifyLeadMutation, QualifyLeadMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<QualifyLeadMutation, QualifyLeadMutationVariables>(QualifyLeadDocument, options)
+}
+export type QualifyLeadMutationHookResult = ReturnType<typeof useQualifyLeadMutation>
+export type QualifyLeadMutationResult = Apollo.MutationResult<QualifyLeadMutation>
+export type QualifyLeadMutationOptions = Apollo.BaseMutationOptions<QualifyLeadMutation, QualifyLeadMutationVariables>
+export const UpdateLeadDocument = gql`
+  mutation UpdateLead($input: CreateLeadInput!, $leadId: String!) {
+    updateLead(input: $input, leadId: $leadId) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type UpdateLeadMutationFn = Apollo.MutationFunction<UpdateLeadMutation, UpdateLeadMutationVariables>
+
+/**
+ * __useUpdateLeadMutation__
+ *
+ * To run a mutation, you first call `useUpdateLeadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLeadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLeadMutation, { data, loading, error }] = useUpdateLeadMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      leadId: // value for 'leadId'
+ *   },
+ * });
+ */
+export function useUpdateLeadMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateLeadMutation, UpdateLeadMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateLeadMutation, UpdateLeadMutationVariables>(UpdateLeadDocument, options)
+}
+export type UpdateLeadMutationHookResult = ReturnType<typeof useUpdateLeadMutation>
+export type UpdateLeadMutationResult = Apollo.MutationResult<UpdateLeadMutation>
+export type UpdateLeadMutationOptions = Apollo.BaseMutationOptions<UpdateLeadMutation, UpdateLeadMutationVariables>

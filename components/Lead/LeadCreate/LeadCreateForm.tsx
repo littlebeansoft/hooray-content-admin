@@ -38,6 +38,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       onFinish={handleFinished}
       onValuesChange={() => {}}
       labelAlign="left"
+      autoComplete="off"
     >
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>
         ข้อมูล Lead
@@ -45,7 +46,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       <Form.Item name="image" label="Profile Image">
         <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} maximumUploadItems={1} />
       </Form.Item>
-      <Form.Item name="leadType" label="Type">
+      <Form.Item name="leadType" label="Type" rules={[ruleRequired]}>
         <Select
           //showSearch
           allowClear
@@ -61,7 +62,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
           }}
         />
       </Form.Item>
-      <Form.Item name="status" label="Status">
+      <Form.Item name="status" label="Status" rules={[ruleRequired]}>
         <Select
           //showSearch
           allowClear
@@ -79,6 +80,9 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       </Form.Item>
       <Form.Item name="lastName" label="Last Name" rules={[ruleRequired]}>
         <Input placeholder="Last Name" style={{ width: 221 }} />
+      </Form.Item>
+      <Form.Item name="citizenId" label="Citizen ID" rules={[ruleRequired]}>
+        <Input placeholder="Citizen ID" style={{ width: 221 }} />
       </Form.Item>
       <Form.Item name="phone" label="Phone Number" rules={[ruleRequired]}>
         <Input placeholder="Phone Number" style={{ width: 221 }} />
@@ -128,16 +132,16 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       <Form.Item name="remark" label="โน๊ต">
         <TextArea rows={2} style={{ width: 395 }} />
       </Form.Item>
-      <Form.Item name="attachmentList" label="ไฟล์">
+      {/* <Form.Item name="attachmentList" label="ไฟล์">
         <UploadFileDocument isEdit allowFileExtensions={allowFileExtensionsDocument} />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item>
         <FullWidthSpace style={{ display: 'flex' }}>
           <Button
             type="primary"
             htmlType="submit"
             loading={loading}
-            style={{ minWidth: '10em' }}
+            style={{ minWidth: '10em', marginTop: 20 }}
             icon={<PlusCircleOutlined />}
           >
             Save

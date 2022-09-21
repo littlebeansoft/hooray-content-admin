@@ -1,9 +1,6 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useCreateLead from 'graphql/useCreateLead'
-import useCreateLeadToUser from 'graphql/useCreateLeadToUser'
-import useGetLeadData from 'graphql/useGetLeadData'
-import GET_LEAD from 'graphql/useGetLeadData/getLeadData'
+import { useCreateLeadMutation, useCreateLeadToUserMutation } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import LeadCreateForm from './LeadCreateForm'
@@ -13,7 +10,7 @@ const LeadCreateCard: React.FC = () => {
 
   const [form] = Form.useForm()
 
-  const [createLead] = useCreateLead({
+  const [createLead] = useCreateLeadMutation({
     onCompleted() {
       message.success('Created Lead was Successfully')
       router.push({
@@ -25,7 +22,7 @@ const LeadCreateCard: React.FC = () => {
     },
   })
 
-  const [createLeadToUser] = useCreateLeadToUser({
+  const [createLeadToUser] = useCreateLeadToUserMutation({
     onCompleted() {
       message.success('Created User was Successfully')
       router.push({
