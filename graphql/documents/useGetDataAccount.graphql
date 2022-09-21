@@ -18,51 +18,7 @@ query GetDataAccount($input: FindAccountInput) {
       resourceOwner
       status
       image
-      contactList {
-        contactAtBy {
-          _id
-          firstName
-          lastName
-          citizenId
-          passport
-          phone {
-            value
-          }
-          email {
-            value
-          }
-          dataSource
-          leadType
-          resourceOwner
-          status
-          image
-          organizationName
-          createdAt
-          updatedAt
-          createdAtBy {
-            _id
-            phone {
-              value
-            }
-            attribute
-            email {
-              value
-            }
-          }
-          updatedAtBy {
-            _id
-            phone {
-              value
-            }
-            email {
-              value
-            }
-            attribute
-          }
-        }
-        position
-        isMainContact
-      }
+     
       createdAt
       updatedAt
       createdAtBy {

@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, Row, Select, Spin, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import UploadImage from 'components/UploadImage'
 import { allowFileExtensionsImage } from 'config'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LeadCreateFormProps } from '../interface'
 import { leadStatusOptions, leadTypeOptions } from 'constant/option'
 import InputAddress from 'components/InputAddress/InputAddress'
@@ -18,7 +18,7 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading, onFinish, onCancel }) => {
+const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading, onFinish, edit }) => {
   const [leadType, setLeadType] = useState('')
 
   const handleFinished = (values: any) => {
@@ -26,6 +26,17 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       ...values,
     })
   }
+
+  useEffect(() => {
+    if (leadData) {
+      form.setFieldsValue({
+        ...leadData,
+        image: [leadData?.image],
+        phone: leadData?.phone[0]?.value,
+        email: leadData?.email[0]?.value,
+      })
+    }
+  }, [leadData])
 
   return (
     <Form

@@ -48,7 +48,7 @@ const AccountDataTableCard: React.FC = () => {
       title: 'Organization Name',
       key: 'organizationName',
       fixed: 'left',
-      width: 150,
+      width: 180,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.name),
     },
@@ -56,18 +56,18 @@ const AccountDataTableCard: React.FC = () => {
       title: 'Organization Type',
       key: 'Type',
       fixed: 'left',
-      width: 150,
+      width: 180,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.leadType),
     },
-    {
-      title: 'Organization Owner',
-      key: 'Type',
-      fixed: 'left',
-      width: 150,
-      ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.resourceOwner),
-    },
+    // {
+    //   title: 'Organization Owner',
+    //   key: 'Type',
+    //   fixed: 'left',
+    //   width: 180,
+    //   ellipsis: true,
+    //   render: (_text: AccountResponse) => fallBackValueTable(_text?.resourceOwner),
+    // },
     {
       title: 'Status',
       key: 'Status',
@@ -88,9 +88,33 @@ const AccountDataTableCard: React.FC = () => {
             _tColor = '#FFC107'
             _text = 'Reviwing'
             break
+          case 'PREPARING':
+            _tColor = '#FFC107'
+            _text = 'Preparing'
+            break
+          case 'NEED_MORE_INFORMATION':
+            _tColor = '#FFC107'
+            _text = 'Need More Information'
+            break
+          case 'SUSPENDED':
+            _tColor = '#FFC107'
+            _text = 'Suspended'
+            break
+          case 'REJECTED':
+            _tColor = '#FF0000'
+            _text = 'Rejected'
+            break
+          case 'BLOCKED':
+            _tColor = '#FF0000'
+            _text = 'Blocked'
+            break
           case 'DECLINED':
             _tColor = '#FF0000'
             _text = 'Declined'
+            break
+          case 'CLOSED':
+            _tColor = '#FF0000'
+            _text = 'Closed'
             break
         }
         return (

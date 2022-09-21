@@ -5501,29 +5501,6 @@ export type GetDataAccountQuery = {
       updatedAt: any
       phone: Array<{ value: string }>
       email: Array<{ value: string }>
-      contactList: Array<{
-        position: string
-        isMainContact: boolean
-        contactAtBy: {
-          _id: string
-          firstName: string
-          lastName: string
-          citizenId: string
-          passport: string
-          dataSource: string
-          leadType: string
-          resourceOwner: string
-          status: string
-          image: string
-          organizationName: string
-          createdAt: any
-          updatedAt: any
-          phone: Array<{ value: string }>
-          email: Array<{ value: string }>
-          createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
-          updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
-        }
-      }>
       createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
       updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
     }>
@@ -5871,51 +5848,6 @@ export const GetDataAccountDocument = gql`
         resourceOwner
         status
         image
-        contactList {
-          contactAtBy {
-            _id
-            firstName
-            lastName
-            citizenId
-            passport
-            phone {
-              value
-            }
-            email {
-              value
-            }
-            dataSource
-            leadType
-            resourceOwner
-            status
-            image
-            organizationName
-            createdAt
-            updatedAt
-            createdAtBy {
-              _id
-              phone {
-                value
-              }
-              attribute
-              email {
-                value
-              }
-            }
-            updatedAtBy {
-              _id
-              phone {
-                value
-              }
-              email {
-                value
-              }
-              attribute
-            }
-          }
-          position
-          isMainContact
-        }
         createdAt
         updatedAt
         createdAtBy {
