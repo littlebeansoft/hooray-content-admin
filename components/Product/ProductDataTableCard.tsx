@@ -9,7 +9,8 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
+import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
+
 import { LeadDataAPIPayload } from 'graphql/interface'
 import dayjs from 'dayjs'
 
@@ -21,7 +22,7 @@ const ProductDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetLeadData({
+  const leadData = useGetDataLeadQuery({
     // skip: !router.isReady,
     fetchPolicy: 'network-only',
     variables: {
@@ -31,12 +32,8 @@ const ProductDataTableCard: React.FC = () => {
           page: pagination.page,
         },
         search: {
-          organizationName: search,
           firstName: search,
           lastName: search,
-          phone: search,
-          email: search,
-          citizenId: search,
           passport: search,
         },
       },
@@ -65,7 +62,7 @@ const ProductDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadType),
     },
     {
       title: 'Organization Name',
@@ -93,14 +90,14 @@ const ProductDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
     },
-    {
-      title: 'Update By',
-      dataIndex: 'UpdateBy',
-      key: 'UpdateBy',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
-    },
+    // {
+    //   title: 'Update By',
+    //   dataIndex: 'UpdateBy',
+    //   key: 'UpdateBy',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
+    // },
     {
       title: 'Create At',
       dataIndex: 'CreateAt',
@@ -109,14 +106,14 @@ const ProductDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
     },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {

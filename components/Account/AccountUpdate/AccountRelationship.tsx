@@ -9,7 +9,7 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
+import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import dayjs from 'dayjs'
 
@@ -21,7 +21,7 @@ const UserRelationship: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetLeadData({
+  const leadData = useGetDataAccountQuery({
     // skip: !router.isReady,
     fetchPolicy: 'network-only',
     variables: {
@@ -30,15 +30,7 @@ const UserRelationship: React.FC = () => {
           limit: pagination.limit,
           page: pagination.page,
         },
-        search: {
-          organizationName: search,
-          firstName: search,
-          lastName: search,
-          phone: search,
-          email: search,
-          citizenId: search,
-          passport: search,
-        },
+        search: {},
       },
     },
     onCompleted(resp: any) {
@@ -47,7 +39,7 @@ const UserRelationship: React.FC = () => {
     },
   })
 
-  const LeadData = leadData.data?.getDataLead.payload
+  const LeadData = leadData.data?.getDataAccount.payload
   const columns: ColumnsType<LeadDataAPIPayload> = [
     {
       title: 'User Name',
@@ -65,7 +57,7 @@ const UserRelationship: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadType),
     },
     {
       title: 'Create At',
@@ -75,14 +67,14 @@ const UserRelationship: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
     },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
+    // },
   ]
 
   const onSelectItems = (selectedRowKeys: React.Key[]) => {

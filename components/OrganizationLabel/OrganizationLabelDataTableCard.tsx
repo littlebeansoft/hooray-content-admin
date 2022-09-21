@@ -9,11 +9,10 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import useGetLeadData from 'graphql/useGetLeadData'
 import { LeadDataAPIPayload } from 'graphql/interface'
 import OrganizationLabelDataTableDropDown from './OrganizationLabelDataTableDropDown'
 import dayjs from 'dayjs'
-
+import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
 const { Search } = Input
 
 const OrganizationLabelDataTableCard: React.FC = () => {
@@ -22,7 +21,7 @@ const OrganizationLabelDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetLeadData({
+  const leadData = useGetDataLeadQuery({
     // skip: !router.isReady,
     fetchPolicy: 'network-only',
     variables: {
@@ -32,11 +31,8 @@ const OrganizationLabelDataTableCard: React.FC = () => {
           page: pagination.page,
         },
         search: {
-          organizationName: search,
           firstName: search,
           lastName: search,
-          phone: search,
-          email: search,
           citizenId: search,
           passport: search,
         },
@@ -66,7 +62,7 @@ const OrganizationLabelDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadTypeName),
+      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.leadType),
     },
 
     {
@@ -87,15 +83,15 @@ const OrganizationLabelDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.updatedAt ? dayjs(_text.updatedAt) : '-'),
     },
-    {
-      title: 'Modify By',
-      dataIndex: 'ModifyBy',
-      key: 'ModifyBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
-    },
+    // {
+    //   title: 'Modify By',
+    //   dataIndex: 'ModifyBy',
+    //   key: 'ModifyBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.updateBy),
+    // },
     {
       title: 'Create Date',
       dataIndex: 'CreateDate',
@@ -105,15 +101,15 @@ const OrganizationLabelDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: LeadDataAPIPayload) => (_text.createdAt ? dayjs(_text.updatedAt) : '-'),
     },
-    {
-      title: 'Create By',
-      dataIndex: 'CreateBy',
-      key: 'CreateBy',
-      fixed: 'left',
-      width: 100,
-      ellipsis: true,
-      render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
-    },
+    // {
+    //   title: 'Create By',
+    //   dataIndex: 'CreateBy',
+    //   key: 'CreateBy',
+    //   fixed: 'left',
+    //   width: 100,
+    //   ellipsis: true,
+    //   render: (_text: LeadDataAPIPayload) => fallBackValueTable(_text.createBy),
+    // },
     {
       fixed: 'right',
       key: 'eventAction',
