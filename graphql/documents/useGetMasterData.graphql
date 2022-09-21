@@ -1,0 +1,19 @@
+query GetMasterData($input: INPUT_FIND_DATA) {
+  getMasterData(input: $input) {
+    code
+    message
+    payload {
+      dataKey
+      parentKey
+      text
+      attribute
+      locale
+    }
+     pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+  }
+}

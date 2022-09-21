@@ -924,12 +924,11 @@ export interface LeadAddressRESP {
 }
 
 export interface MasterDataLocationPayload {
-  locale: string
-  text: string
-  searchable: string
-  parentKey: string
   dataKey: string
-  attribute: string
+  parentKey: string
+  text: string
+  attribute: any
+  locale: string
 }
 
 export interface AccountResponse {
@@ -969,6 +968,26 @@ export interface AccountResponse {
       updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
     }
   }>
+  createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+  updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+}
+
+export interface ContactResponse {
+  _id: string
+  firstName: string
+  lastName: string
+  citizenId: string
+  passport: string
+  dataSource: string
+  leadType: string
+  resourceOwner: string
+  status: string
+  image: string
+  organizationName: string
+  createdAt: any
+  updatedAt: any
+  phone: Array<{ value: string }>
+  email: Array<{ value: string }>
   createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
   updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
 }

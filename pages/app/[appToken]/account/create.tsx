@@ -14,7 +14,7 @@ const UserCreate: React.FC = () => {
         title="Account"
         onBack={() =>
           router.push({
-            pathname: `/app/[appToken]/user`,
+            pathname: `/app/[appToken]/account`,
             query: {
               ...router.query,
             },

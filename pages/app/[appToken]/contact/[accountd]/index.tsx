@@ -14,7 +14,7 @@ const UserDetail: React.FC = () => {
         title="Account"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/account`,
+            pathname: `/org/[orgToken]/contact`,
             query: {
               ...router.query,
             },

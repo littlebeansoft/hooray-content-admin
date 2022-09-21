@@ -3,9 +3,9 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import UseDetailCard from 'components/Account/AccountUpdate/AccountDetailCard'
+import ContactCreateCard from 'components/Contact/ContactCreate/ContactCreateCard'
 
-const UserDetail: React.FC = () => {
+const UserCreate: React.FC = () => {
   const router = useRouter()
 
   return (
@@ -14,16 +14,16 @@ const UserDetail: React.FC = () => {
         title="Account"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/account`,
+            pathname: `/app/[appToken]/contact`,
             query: {
               ...router.query,
             },
           })
         }
       />
-      <UseDetailCard />
+      <ContactCreateCard />
     </MainLayout>
   )
 }
 
-export default withAuth(UserDetail)
+export default withAuth(UserCreate)

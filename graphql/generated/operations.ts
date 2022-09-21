@@ -425,7 +425,10 @@ export type CreateContactInput = {
   addressNo?: InputMaybe<Scalars['String']>
   /** ประเภทที่อยู่ */
   addressType?: InputMaybe<Enum_Address_Type>
+  category?: InputMaybe<Scalars['String']>
   citizenId?: InputMaybe<Scalars['String']>
+  /** ประเภท */
+  contactType?: InputMaybe<Enum_Customer_Type>
   /** ประเทศ */
   country?: InputMaybe<Scalars['String']>
   /** แหล่งที่มา */
@@ -443,8 +446,6 @@ export type CreateContactInput = {
   image?: InputMaybe<Scalars['String']>
   lastName?: InputMaybe<Scalars['String']>
   latitude?: InputMaybe<Scalars['String']>
-  /** ประเภท */
-  leadType?: InputMaybe<Enum_Customer_Type>
   longitude?: InputMaybe<Scalars['String']>
   orgKey?: InputMaybe<Scalars['String']>
   passport?: InputMaybe<Scalars['String']>
@@ -498,6 +499,7 @@ export type CreateLeadInput = {
   productImages?: InputMaybe<Array<Scalars['String']>>
   /** จังหวัด */
   province?: InputMaybe<Scalars['String']>
+  remark?: InputMaybe<Scalars['String']>
   resourceOwner?: InputMaybe<Enum_Resource_Owner>
   /** สถานะ */
   status?: InputMaybe<Enum_Creat_Lead_Status>
@@ -1910,6 +1912,7 @@ export type LeadResp = {
   organizationName: Maybe<Scalars['String']>
   passport: Maybe<Scalars['String']>
   phone: Maybe<Array<PhoneResp>>
+  remark: Maybe<Scalars['String']>
   resourceOwner: Maybe<Scalars['String']>
   status: Maybe<Scalars['String']>
   /** วันที่อัพเดตข้อมูลล่าสุด */
@@ -3895,6 +3898,7 @@ export type QueryContactInput = {
 }
 
 export type QueryLeadInput = {
+  _id?: InputMaybe<Scalars['String']>
   citizenId?: InputMaybe<Scalars['String']>
   dataSource?: InputMaybe<Scalars['String']>
   firstName?: InputMaybe<Scalars['String']>
@@ -5515,6 +5519,37 @@ export type GetDataAccountQuery = {
   }
 }
 
+export type GetDataContactQueryVariables = Exact<{
+  input?: InputMaybe<FindContactInput>
+}>
+
+export type GetDataContactQuery = {
+  getDataContact: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      firstName: string
+      lastName: string
+      citizenId: string
+      passport: string
+      dataSource: string
+      leadType: string
+      resourceOwner: string
+      status: string
+      image: string
+      organizationName: string
+      createdAt: any
+      updatedAt: any
+      phone: Array<{ value: string }>
+      email: Array<{ value: string }>
+      createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+      updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
 export type GetDataLeadQueryVariables = Exact<{
   input?: InputMaybe<FindLeadInput>
 }>
@@ -5534,6 +5569,7 @@ export type GetDataLeadQuery = {
       status: string
       image: string
       leadType: string
+      remark: string
       organizationName: string
       createdAt: any
       updatedAt: any
@@ -5542,6 +5578,19 @@ export type GetDataLeadQuery = {
       createdAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
       updatedAtBy: { _id: string; attribute: any; email: Array<{ value: string }>; phone: Array<{ value: string }> }
     }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
+export type GetMasterDataQueryVariables = Exact<{
+  input?: InputMaybe<Input_Find_Data>
+}>
+
+export type GetMasterDataQuery = {
+  getMasterData: {
+    code: string
+    message: string
+    payload: Array<{ dataKey: string; parentKey: string; text: string; attribute: any; locale: string }>
     pagination: { limit: number; page: number; totalItems: number; totalPages: number }
   }
 }
@@ -5563,7 +5612,9 @@ export declare const CreateLead: import('graphql').DocumentNode
 export declare const CreateLeadToUser: import('graphql').DocumentNode
 export declare const DeleteLead: import('graphql').DocumentNode
 export declare const GetDataAccount: import('graphql').DocumentNode
+export declare const GetDataContact: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
+export declare const GetMasterData: import('graphql').DocumentNode
 export declare const QualifyLead: import('graphql').DocumentNode
 export declare const UpdateLead: import('graphql').DocumentNode
 
@@ -5823,6 +5874,93 @@ export function useGetDataAccountLazyQuery(
 export type GetDataAccountQueryHookResult = ReturnType<typeof useGetDataAccountQuery>
 export type GetDataAccountLazyQueryHookResult = ReturnType<typeof useGetDataAccountLazyQuery>
 export type GetDataAccountQueryResult = Apollo.QueryResult<GetDataAccountQuery, GetDataAccountQueryVariables>
+export const GetDataContactDocument = gql`
+  query GetDataContact($input: FindContactInput) {
+    getDataContact(input: $input) {
+      code
+      message
+      payload {
+        _id
+        firstName
+        lastName
+        citizenId
+        passport
+        phone {
+          value
+        }
+        email {
+          value
+        }
+        dataSource
+        leadType
+        resourceOwner
+        status
+        image
+        organizationName
+        createdAt
+        updatedAt
+        createdAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+        updatedAtBy {
+          _id
+          phone {
+            value
+          }
+          email {
+            value
+          }
+          attribute
+        }
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetDataContactQuery__
+ *
+ * To run a query within a React component, call `useGetDataContactQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataContactQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataContactQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetDataContactQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataContactQuery, GetDataContactQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetDataContactQuery, GetDataContactQueryVariables>(GetDataContactDocument, options)
+}
+export function useGetDataContactLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataContactQuery, GetDataContactQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataContactQuery, GetDataContactQueryVariables>(GetDataContactDocument, options)
+}
+export type GetDataContactQueryHookResult = ReturnType<typeof useGetDataContactQuery>
+export type GetDataContactLazyQueryHookResult = ReturnType<typeof useGetDataContactLazyQuery>
+export type GetDataContactQueryResult = Apollo.QueryResult<GetDataContactQuery, GetDataContactQueryVariables>
 export const GetDataLeadDocument = gql`
   query GetDataLead($input: FindLeadInput) {
     getDataLead(input: $input) {
@@ -5843,6 +5981,7 @@ export const GetDataLeadDocument = gql`
         status
         image
         leadType
+        remark
         organizationName
         createdAt
         updatedAt
@@ -5910,6 +6049,59 @@ export function useGetDataLeadLazyQuery(
 export type GetDataLeadQueryHookResult = ReturnType<typeof useGetDataLeadQuery>
 export type GetDataLeadLazyQueryHookResult = ReturnType<typeof useGetDataLeadLazyQuery>
 export type GetDataLeadQueryResult = Apollo.QueryResult<GetDataLeadQuery, GetDataLeadQueryVariables>
+export const GetMasterDataDocument = gql`
+  query GetMasterData($input: INPUT_FIND_DATA) {
+    getMasterData(input: $input) {
+      code
+      message
+      payload {
+        dataKey
+        parentKey
+        text
+        attribute
+        locale
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetMasterDataQuery__
+ *
+ * To run a query within a React component, call `useGetMasterDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMasterDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMasterDataQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetMasterDataQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetMasterDataQuery, GetMasterDataQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetMasterDataQuery, GetMasterDataQueryVariables>(GetMasterDataDocument, options)
+}
+export function useGetMasterDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetMasterDataQuery, GetMasterDataQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetMasterDataQuery, GetMasterDataQueryVariables>(GetMasterDataDocument, options)
+}
+export type GetMasterDataQueryHookResult = ReturnType<typeof useGetMasterDataQuery>
+export type GetMasterDataLazyQueryHookResult = ReturnType<typeof useGetMasterDataLazyQuery>
+export type GetMasterDataQueryResult = Apollo.QueryResult<GetMasterDataQuery, GetMasterDataQueryVariables>
 export const QualifyLeadDocument = gql`
   mutation QualifyLead($leadId: String!) {
     qualifyLead(leadId: $leadId) {

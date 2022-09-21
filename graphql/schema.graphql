@@ -488,7 +488,11 @@ input CreateContactInput {
 
   """ประเภทที่อยู่"""
   addressType: ENUM_ADDRESS_TYPE = NONE
+  category: String
   citizenId: String
+
+  """ประเภท"""
+  contactType: ENUM_CUSTOMER_TYPE = CUSTOMER
 
   """ประเทศ"""
   country: String
@@ -512,9 +516,6 @@ input CreateContactInput {
   image: String
   lastName: String
   latitude: String
-
-  """ประเภท"""
-  leadType: ENUM_CUSTOMER_TYPE = CUSTOMER
   longitude: String
   orgKey: String
   passport: String
@@ -584,6 +585,7 @@ input CreateLeadInput {
 
   """จังหวัด"""
   province: String
+  remark: String
   resourceOwner: ENUM_RESOURCE_OWNER = OTHER
 
   """สถานะ"""
@@ -2058,6 +2060,7 @@ type LeadResp {
   organizationName: String
   passport: String
   phone: [PhoneResp!]
+  remark: String
   resourceOwner: String
   status: String
 
@@ -2989,6 +2992,7 @@ input QueryContactInput {
 }
 
 input QueryLeadInput {
+  _id: String
   citizenId: String
   dataSource: String
   firstName: String

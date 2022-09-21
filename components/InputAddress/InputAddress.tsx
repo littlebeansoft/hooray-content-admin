@@ -1,6 +1,6 @@
 import { Form, Input, Select, Spin, Typography } from 'antd'
+import { useGetMasterDataQuery } from 'graphql/generated/operations'
 import { MasterDataLocationPayload } from 'graphql/interface'
-import useGetMasterDataLocation from 'graphql/useGetMasterDataLocation'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { InputAddressProps } from './interface'
@@ -21,8 +21,8 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
     }
   }, [addressRes])
 
-  const countries = useGetMasterDataLocation({
-    context: { clientType: 'LOCATION' },
+  const countries = useGetMasterDataQuery({
+    context: { clientType: 'CORE' },
     variables: {
       input: {
         query: {
@@ -37,8 +37,8 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
     },
   })
 
-  const provices = useGetMasterDataLocation({
-    context: { clientType: 'LOCATION' },
+  const provices = useGetMasterDataQuery({
+    context: { clientType: 'CORE' },
     variables: {
       input: {
         query: {
@@ -53,8 +53,8 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
     },
   })
 
-  const district = useGetMasterDataLocation({
-    context: { clientType: 'LOCATION' },
+  const district = useGetMasterDataQuery({
+    context: { clientType: 'CORE' },
     variables: {
       input: {
         query: {
@@ -69,8 +69,8 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
     },
   })
 
-  const tambon = useGetMasterDataLocation({
-    context: { clientType: 'LOCATION' },
+  const tambon = useGetMasterDataQuery({
+    context: { clientType: 'CORE' },
     variables: {
       input: {
         query: {

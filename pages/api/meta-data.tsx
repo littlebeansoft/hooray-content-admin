@@ -29,7 +29,7 @@ export default async function handler(req: any, res: any) {
           ],
         },
         {
-          name: { en: 'Account', th: 'ผู้ใช้' },
+          name: { en: 'Account', th: 'หน่วยงาน' },
           path: 'account',
           icon: 'user-unlock',
           // permissionList: [
