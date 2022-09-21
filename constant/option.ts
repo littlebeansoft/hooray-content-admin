@@ -1,4 +1,4 @@
-import { LeadTypeOption, LeadStatus } from 'graphql/interface'
+import { LeadTypeOption, LeadStatus, AccountTypeOption } from 'graphql/interface'
 
 export const leadTypeOptions: LeadTypeOption[] = [
   {
@@ -30,6 +30,49 @@ export const leadTypeOptions: LeadTypeOption[] = [
     label: 'Other',
     value: 'OTHER',
     text: 'อื่นๆ',
+  },
+]
+
+export const accountTypeOptions: AccountTypeOption[] = [
+  {
+    label: 'Approved',
+    value: 'APPROVED',
+    text: 'Approved',
+  },
+  {
+    label: 'Blocked',
+    value: 'BLOCKED',
+    text: 'Blocked',
+  },
+  {
+    label: 'Closed',
+    value: 'CLOSED',
+    text: 'Closed',
+  },
+  {
+    label: 'Closed',
+    value: 'DECLINED',
+    text: 'Closed',
+  },
+  {
+    label: 'Need More Info',
+    value: 'NEED_MORE_INFORMATION',
+    text: 'Need More Info',
+  },
+  {
+    label: 'Preparing',
+    value: 'PREPARING',
+    text: 'Preparing',
+  },
+  {
+    label: 'Reviewing',
+    value: 'REVIEWING',
+    text: 'Reviewing',
+  },
+  {
+    label: 'Suspended',
+    value: 'SUSPENDED',
+    text: 'Suspended',
   },
 ]
 

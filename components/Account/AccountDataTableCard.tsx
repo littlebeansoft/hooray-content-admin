@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, Input, Typography } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -11,11 +11,14 @@ import type { Pagination } from 'graphql/graphQL-service-hook'
 import { AccountResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
 import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
+import { useRouter } from 'next/router'
 
 const { Search } = Input
 const { Text } = Typography
 
 const AccountDataTableCard: React.FC = () => {
+  const router = useRouter()
+
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
@@ -162,11 +165,11 @@ const AccountDataTableCard: React.FC = () => {
     // },
   ]
 
-  const onSelectItems = (selectedRowKeys: React.Key[]) => {
-    setSelectRowKeys(selectedRowKeys)
-  }
+  // const onSelectItems = (selectedRowKeys: React.Key[]) => {
+  //   setSelectRowKeys(selectedRowKeys)
+  // }
 
-  const hasSelected = selectedRowKeys.length > 0
+  // const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
@@ -174,11 +177,11 @@ const AccountDataTableCard: React.FC = () => {
         // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
         // rowSelectAmount={selectedRowKeys.length}
         header={[
-          hasSelected ? (
-            <Button key="deleteButton" danger>
-              Delete
-            </Button>
-          ) : null,
+          // hasSelected ? (
+          //   <Button key="deleteButton" danger>
+          //     Delete
+          //   </Button>
+          // ) : null,
           <Search
             key="searchButton"
             placeholder={'Input search text'}
@@ -189,21 +192,21 @@ const AccountDataTableCard: React.FC = () => {
               setSearch(value)
             }}
           />,
-          // <Button
-          //   key="addProductType"
-          //   type="primary"
-          //   icon={<PlusCircleOutlined />}
-          //   onClick={() => {
-          //     router.push({
-          //       pathname: `${router.pathname}/create`,
-          //       query: {
-          //         ...router.query,
-          //       },
-          //     })
-          //   }}
-          // >
-          //   Add New User
-          // </Button>,
+          <Button
+            key="addProductType"
+            type="primary"
+            icon={<PlusCircleOutlined />}
+            onClick={() => {
+              router.push({
+                pathname: `${router.pathname}/create`,
+                query: {
+                  ...router.query,
+                },
+              })
+            }}
+          >
+            Add Account
+          </Button>,
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}

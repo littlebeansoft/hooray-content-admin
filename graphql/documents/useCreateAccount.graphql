@@ -1,0 +1,9 @@
+mutation CreateAccount($input: CreateAccountInput!) {
+  createAccount(input: $input) {
+    code
+    message
+    payload {
+      _id
+    }
+  }
+}
