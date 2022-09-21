@@ -4,13 +4,13 @@ import { Menu, Dropdown, Button, Typography, Space, message, Popconfirm, Modal }
 
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
-import { ContactResponse } from 'graphql/interface'
+import { AccountResponse } from 'graphql/interface'
 import { Enum_Creat_Lead_Status, useDeleteContactMutation } from 'graphql/generated/operations'
 const { Text } = Typography
 const { confirm } = Modal
 
 interface props {
-  data: ContactResponse
+  data: AccountResponse
   setPagination: any
   refetch: Function
 }
@@ -19,13 +19,9 @@ const menuStatusNormal: EventMenu[] = [
     key: 'EDIT',
     value: 'Edit',
   },
-  {
-    key: 'DELETE',
-    value: 'Delete',
-  },
 ]
 
-const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetch }) => {
+const AccountDataTableDropDown: React.FC<props> = ({ data, setPagination, refetch }) => {
   const router = useRouter()
   const [menuData, setMenuData] = useState<EventMenu[]>([])
   const { parentKey = null } = router.query
@@ -50,9 +46,7 @@ const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetc
   }
 
   useEffect(() => {
-    if (data.status === 'ACTIVE') {
-      setMenuData(menuStatusNormal)
-    }
+    setMenuData(menuStatusNormal)
   }, [data])
 
   const [deleteLead] = useDeleteContactMutation({
@@ -118,7 +112,25 @@ const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetc
     }
   }
 
-  return <>{renderButton(data.status)}</>
+  return (
+    <>
+      <Dropdown.Button
+        onClick={() => {
+          // router.push({
+          //   pathname: `${router.pathname}/[contactId]`,
+          //   query: {
+          //     ...router.query,
+          //     contactId: data._id,
+          //   },
+          // })
+        }}
+        overlay={menu}
+        trigger={['click']}
+      >
+        View
+      </Dropdown.Button>
+    </>
+  )
 }
 
-export default ContactDataTableDropDown
+export default AccountDataTableDropDown

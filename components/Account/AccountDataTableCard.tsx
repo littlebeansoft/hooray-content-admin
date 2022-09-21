@@ -12,6 +12,7 @@ import { AccountResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
 import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
+import AccountDataTableDropDown from './AccountDataTableDropDown'
 
 const { Search } = Input
 const { Text } = Typography
@@ -23,7 +24,7 @@ const AccountDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetDataAccountQuery({
+  const accountData = useGetDataAccountQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -45,7 +46,7 @@ const AccountDataTableCard: React.FC = () => {
     },
   })
 
-  const LeadData = leadData.data?.getDataAccount.payload
+  const AccountData = accountData.data?.getDataAccount.payload
   const columns: ColumnsType<AccountResponse> = [
     {
       title: 'Organization Name',
@@ -155,14 +156,14 @@ const AccountDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
     },
-    // {
-    //   fixed: 'right',
-    //   key: 'eventAction',
-    //   width: 140,
-    //   render: (_text, record) => (
-    //     <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
-    //   ),
-    // },
+    {
+      fixed: 'right',
+      key: 'eventAction',
+      width: 140,
+      render: (_text, record) => (
+        <AccountDataTableDropDown data={record} setPagination={setPagination} refetch={accountData.refetch} />
+      ),
+    },
   ]
 
   // const onSelectItems = (selectedRowKeys: React.Key[]) => {
@@ -210,7 +211,7 @@ const AccountDataTableCard: React.FC = () => {
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}
-        loading={leadData.loading}
+        loading={accountData.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -220,7 +221,7 @@ const AccountDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={LeadData}
+        dataSource={AccountData}
       />
     </Card>
   )
