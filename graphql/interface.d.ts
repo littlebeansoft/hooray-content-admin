@@ -1008,3 +1008,19 @@ export interface ContactResponse {
   createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
   updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
 }
+
+export interface AddressResponse {
+  _id: string
+  orgKey: string
+  refId: string
+  address: string
+  subDistrict: string
+  district: string
+  province: string
+  postcode: string
+  country: string
+  latitude: string
+  longitude: string
+  type: Enum_Address_Type
+  defaultSend: Enum_Address_Default_Send
+}

@@ -1,0 +1,27 @@
+query GetDataAddress($input: FindAddressInput) {
+  getDataAddress(input: $input) {
+    code
+    message
+    payload {
+      _id
+      orgKey
+      refId
+      address
+      subDistrict
+      district
+      province
+      postcode
+      country
+      latitude
+      longitude
+      type
+      defaultSend
+    }
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+  }
+}

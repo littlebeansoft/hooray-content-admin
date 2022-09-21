@@ -5514,6 +5514,33 @@ export type GetDataAccountQuery = {
   }
 }
 
+export type GetDataAddressQueryVariables = Exact<{
+  input?: InputMaybe<FindAddressInput>
+}>
+
+export type GetDataAddressQuery = {
+  getDataAddress: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      orgKey: string
+      refId: string
+      address: string
+      subDistrict: string
+      district: string
+      province: string
+      postcode: string
+      country: string
+      latitude: string
+      longitude: string
+      type: Enum_Address_Type
+      defaultSend: Enum_Address_Default_Send
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
 export type GetDataContactQueryVariables = Exact<{
   input?: InputMaybe<FindContactInput>
 }>
@@ -5617,6 +5644,7 @@ export declare const CreateLeadToUser: import('graphql').DocumentNode
 export declare const DeleteContact: import('graphql').DocumentNode
 export declare const DeleteLead: import('graphql').DocumentNode
 export declare const GetDataAccount: import('graphql').DocumentNode
+export declare const GetDataAddress: import('graphql').DocumentNode
 export declare const GetDataContact: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
 export declare const GetMasterData: import('graphql').DocumentNode
@@ -5961,6 +5989,67 @@ export function useGetDataAccountLazyQuery(
 export type GetDataAccountQueryHookResult = ReturnType<typeof useGetDataAccountQuery>
 export type GetDataAccountLazyQueryHookResult = ReturnType<typeof useGetDataAccountLazyQuery>
 export type GetDataAccountQueryResult = Apollo.QueryResult<GetDataAccountQuery, GetDataAccountQueryVariables>
+export const GetDataAddressDocument = gql`
+  query GetDataAddress($input: FindAddressInput) {
+    getDataAddress(input: $input) {
+      code
+      message
+      payload {
+        _id
+        orgKey
+        refId
+        address
+        subDistrict
+        district
+        province
+        postcode
+        country
+        latitude
+        longitude
+        type
+        defaultSend
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetDataAddressQuery__
+ *
+ * To run a query within a React component, call `useGetDataAddressQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataAddressQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetDataAddressQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetDataAddressQuery, GetDataAddressQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetDataAddressQuery, GetDataAddressQueryVariables>(GetDataAddressDocument, options)
+}
+export function useGetDataAddressLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetDataAddressQuery, GetDataAddressQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetDataAddressQuery, GetDataAddressQueryVariables>(GetDataAddressDocument, options)
+}
+export type GetDataAddressQueryHookResult = ReturnType<typeof useGetDataAddressQuery>
+export type GetDataAddressLazyQueryHookResult = ReturnType<typeof useGetDataAddressLazyQuery>
+export type GetDataAddressQueryResult = Apollo.QueryResult<GetDataAddressQuery, GetDataAddressQueryVariables>
 export const GetDataContactDocument = gql`
   query GetDataContact($input: FindContactInput) {
     getDataContact(input: $input) {

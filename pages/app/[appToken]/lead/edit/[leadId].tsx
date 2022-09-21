@@ -3,13 +3,14 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import { GetDataLeadQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import { GetDataLeadQuery, useGetDataAddressQuery, useGetDataLeadQuery } from 'graphql/generated/operations'
+import { AddressResponse, LeadDataAPIPayload } from 'graphql/interface'
 import LeadUpdateCard from 'components/Lead/LeadUpdateCard'
 
 const UpdateLeadPage: React.FC = () => {
   const router = useRouter()
   const [leadData, setLeadData] = React.useState<LeadDataAPIPayload>()
+  const [addressData, setAddressData] = React.useState<AddressResponse>()
   const { leadId = '' } = router.query
 
   const lead = useGetDataLeadQuery({
@@ -28,6 +29,22 @@ const UpdateLeadPage: React.FC = () => {
     },
   })
 
+  const getAddressData = useGetDataAddressQuery({
+    // skip: !router.isReady,
+    context: { clientType: 'LOCATION' },
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      input: {
+        query: {
+          refId: leadId as string,
+        },
+      },
+    },
+    onCompleted(resp) {
+      setAddressData(resp.getDataAddress.payload[0])
+    },
+  })
+
   return (
     <MainLayout breadcrumb={['Home', '']}>
       <TitleComponent
@@ -42,7 +59,7 @@ const UpdateLeadPage: React.FC = () => {
           })
         }
       />
-      <LeadUpdateCard leadData={leadData} loading={lead.loading} edit={true} />
+      <LeadUpdateCard leadData={leadData} loading={lead.loading} edit={true} addressData={addressData} />
     </MainLayout>
   )
 }

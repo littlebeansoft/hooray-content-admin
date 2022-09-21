@@ -1,7 +1,7 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import { useUpdateLeadMutation } from 'graphql/generated/operations'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import { AddressResponse, LeadDataAPIPayload } from 'graphql/interface'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LeadCreateForm from './LeadCreate/LeadCreateForm'
@@ -10,14 +10,15 @@ interface LeadUpdateCardProps {
   leadData?: LeadDataAPIPayload
   loading?: boolean
   edit?: boolean
+  addressData?: AddressResponse
 }
 
-const LeadUpdateCard: React.FC<LeadUpdateCardProps> = ({ leadData, loading, edit }) => {
+const LeadUpdateCard: React.FC<LeadUpdateCardProps> = ({ leadData, loading, edit, addressData }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  console.log('leadData-->', leadData)
+  // console.log('leadData-->', leadData)
 
   const [updateLead] = useUpdateLeadMutation({
     onCompleted() {
@@ -54,7 +55,13 @@ const LeadUpdateCard: React.FC<LeadUpdateCardProps> = ({ leadData, loading, edit
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <LeadCreateForm form={form} onFinish={onFinish} leadData={leadData} loading={loading} />
+        <LeadCreateForm
+          form={form}
+          onFinish={onFinish}
+          leadData={leadData}
+          loading={loading}
+          addressData={addressData}
+        />
       </FullWidthSpace>
     </Card>
   )
