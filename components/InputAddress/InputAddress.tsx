@@ -1,4 +1,4 @@
-import { Form, Input, Select, Spin, Typography } from 'antd'
+import { Form, FormInstance, Input, Select, Spin, Typography } from 'antd'
 import { useGetMasterDataQuery } from 'graphql/generated/operations'
 import { MasterDataLocationPayload } from 'graphql/interface'
 import _ from 'lodash'
@@ -10,16 +10,23 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
+const InputAddress: React.FC<InputAddressProps> = ({ addressRes, form }) => {
   const [thailand, setThailand] = useState('none')
   const [provicesKey, setProvicesKey] = useState('none')
   const [districtKey, setDistrictKey] = useState('none')
 
   useEffect(() => {
-    if (!addressRes) {
-    } else {
+    // console.log('addressRes-->', addressRes)
+    if (addressRes && form) {
+      form.setFieldsValue({
+        country: addressRes?.country,
+        province: addressRes?.province,
+        district: addressRes?.district,
+        subDistrict: addressRes?.subDistrict,
+        postcode: addressRes?.postcode,
+      })
     }
-  }, [addressRes])
+  }, [addressRes, form])
 
   const countries = useGetMasterDataQuery({
     context: { clientType: 'CORE' },
@@ -116,7 +123,6 @@ const InputAddress: React.FC<InputAddressProps> = ({ addressRes }) => {
               setThailand('PROVINCE')
             }
           }}
-          defaultValue={addressRes?.country}
           notFoundContent={countries.loading ? <Spin size="small" /> : null}
           options={getOptions(countries?.data?.getMasterData?.payload ?? null)}
         />

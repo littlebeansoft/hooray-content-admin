@@ -18,7 +18,7 @@ export default async function handler(req: any, res: any) {
       pattern: '${endpoint}/app/${authorization_code}/${path}?credentialKey=${credentialKey}',
       menuList: [
         {
-          name: { en: 'Lead', th: 'ผู้มุ้งหวัง' },
+          name: { en: 'Lead', th: 'ผู้มุ่งหวัง' },
           path: 'lead',
           icon: 'user-clock',
           permissionList: [

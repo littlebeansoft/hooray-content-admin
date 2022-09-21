@@ -18,7 +18,7 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading, onFinish, edit }) => {
+const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading, onFinish, edit, addressData }) => {
   const [leadType, setLeadType] = useState('')
 
   const handleFinished = (values: any) => {
@@ -34,9 +34,10 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
         image: [leadData?.image],
         phone: leadData?.phone[0]?.value,
         email: leadData?.email[0]?.value,
+        addressNo: addressData?.address,
       })
     }
-  }, [leadData])
+  }, [leadData, addressData])
 
   return (
     <Form
@@ -135,7 +136,7 @@ const LeadCreateForm: React.FC<LeadCreateFormProps> = ({ leadData, form, loading
       <Form.Item name="addressNo" label="ที่อยุ่">
         <TextArea rows={2} style={{ width: 395 }} />
       </Form.Item>
-      <InputAddress />
+      <InputAddress addressRes={addressData} form={form} />
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30, marginTop: 30 }}>
         ข้อมูลเพิ่มเติม
       </Title>

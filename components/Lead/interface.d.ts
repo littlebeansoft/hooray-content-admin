@@ -1,5 +1,5 @@
 import { FormInstance } from 'antd'
-import { LeadDataAPIPayload } from 'graphql/interface'
+import { LeadDataAPIPayload, AddressResponse } from 'graphql/interface'
 
 export interface LeadDataProp {
   id: String
@@ -42,4 +42,5 @@ export interface LeadCreateFormProps {
   onFinish?: (fieldValue: any) => void
   onCancel?: () => void
   edit?: boolean
+  addressData?: AddressResponse
 }
