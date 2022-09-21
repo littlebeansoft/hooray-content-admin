@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, Input, Typography } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons'
 
 import { defaultPagination } from 'config/paginationConfig'
 import CustomTable from 'components/CustomTable'
@@ -11,16 +11,20 @@ import type { Pagination } from 'graphql/graphQL-service-hook'
 import { AccountResponse } from 'graphql/interface'
 import { dateUnixFormatter } from 'utils/utils'
 import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
+import { useRouter } from 'next/router'
+import AccountDataTableDropDown from './AccountDataTableDropDown'
 
 const { Search } = Input
 const { Text } = Typography
 
 const AccountDataTableCard: React.FC = () => {
+  const router = useRouter()
+
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const leadData = useGetDataAccountQuery({
+  const accountData = useGetDataAccountQuery({
     // skip: !router.isReady,
     context: { clientType: 'CUSTOMER' },
     fetchPolicy: 'cache-and-network',
@@ -42,13 +46,13 @@ const AccountDataTableCard: React.FC = () => {
     },
   })
 
-  const LeadData = leadData.data?.getDataAccount.payload
+  const AccountData = accountData.data?.getDataAccount.payload
   const columns: ColumnsType<AccountResponse> = [
     {
       title: 'Organization Name',
       key: 'organizationName',
       fixed: 'left',
-      width: 150,
+      width: 180,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.name),
     },
@@ -56,18 +60,18 @@ const AccountDataTableCard: React.FC = () => {
       title: 'Organization Type',
       key: 'Type',
       fixed: 'left',
-      width: 150,
+      width: 180,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.leadType),
     },
-    {
-      title: 'Organization Owner',
-      key: 'Type',
-      fixed: 'left',
-      width: 150,
-      ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.resourceOwner),
-    },
+    // {
+    //   title: 'Organization Owner',
+    //   key: 'Type',
+    //   fixed: 'left',
+    //   width: 180,
+    //   ellipsis: true,
+    //   render: (_text: AccountResponse) => fallBackValueTable(_text?.resourceOwner),
+    // },
     {
       title: 'Status',
       key: 'Status',
@@ -88,9 +92,33 @@ const AccountDataTableCard: React.FC = () => {
             _tColor = '#FFC107'
             _text = 'Reviwing'
             break
+          case 'PREPARING':
+            _tColor = '#FFC107'
+            _text = 'Preparing'
+            break
+          case 'NEED_MORE_INFORMATION':
+            _tColor = '#FFC107'
+            _text = 'Need More Information'
+            break
+          case 'SUSPENDED':
+            _tColor = '#FFC107'
+            _text = 'Suspended'
+            break
+          case 'REJECTED':
+            _tColor = '#FF0000'
+            _text = 'Rejected'
+            break
+          case 'BLOCKED':
+            _tColor = '#FF0000'
+            _text = 'Blocked'
+            break
           case 'DECLINED':
             _tColor = '#FF0000'
             _text = 'Declined'
+            break
+          case 'CLOSED':
+            _tColor = '#FF0000'
+            _text = 'Closed'
             break
         }
         return (
@@ -128,21 +156,21 @@ const AccountDataTableCard: React.FC = () => {
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.createdAtBy?.email[0].value || '-'),
     },
-    // {
-    //   fixed: 'right',
-    //   key: 'eventAction',
-    //   width: 140,
-    //   render: (_text, record) => (
-    //     <LeadDataTableDropDown leadData={record} setPagination={setPagination} refetch={leadData.refetch} />
-    //   ),
-    // },
+    {
+      fixed: 'right',
+      key: 'eventAction',
+      width: 140,
+      render: (_text, record) => (
+        <AccountDataTableDropDown data={record} setPagination={setPagination} refetch={accountData.refetch} />
+      ),
+    },
   ]
 
-  const onSelectItems = (selectedRowKeys: React.Key[]) => {
-    setSelectRowKeys(selectedRowKeys)
-  }
+  // const onSelectItems = (selectedRowKeys: React.Key[]) => {
+  //   setSelectRowKeys(selectedRowKeys)
+  // }
 
-  const hasSelected = selectedRowKeys.length > 0
+  // const hasSelected = selectedRowKeys.length > 0
 
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
@@ -150,11 +178,11 @@ const AccountDataTableCard: React.FC = () => {
         // rowSelection={{ selectedRowKeys, onChange: onSelectItems }}
         // rowSelectAmount={selectedRowKeys.length}
         header={[
-          hasSelected ? (
-            <Button key="deleteButton" danger>
-              Delete
-            </Button>
-          ) : null,
+          // hasSelected ? (
+          //   <Button key="deleteButton" danger>
+          //     Delete
+          //   </Button>
+          // ) : null,
           <Search
             key="searchButton"
             placeholder={'Input search text'}
@@ -165,25 +193,25 @@ const AccountDataTableCard: React.FC = () => {
               setSearch(value)
             }}
           />,
-          // <Button
-          //   key="addProductType"
-          //   type="primary"
-          //   icon={<PlusCircleOutlined />}
-          //   onClick={() => {
-          //     router.push({
-          //       pathname: `${router.pathname}/create`,
-          //       query: {
-          //         ...router.query,
-          //       },
-          //     })
-          //   }}
-          // >
-          //   Add New User
-          // </Button>,
+          <Button
+            key="addProductType"
+            type="primary"
+            icon={<PlusCircleOutlined />}
+            onClick={() => {
+              router.push({
+                pathname: `${router.pathname}/create`,
+                query: {
+                  ...router.query,
+                },
+              })
+            }}
+          >
+            Add Account
+          </Button>,
         ]}
         rowKey="_id"
         scroll={{ x: 800, y: 400 }}
-        loading={leadData.loading}
+        loading={accountData.loading}
         pagination={{
           current: pagination?.page,
           pageSize: pagination?.limit,
@@ -193,7 +221,7 @@ const AccountDataTableCard: React.FC = () => {
           },
         }}
         columns={columns}
-        dataSource={LeadData}
+        dataSource={AccountData}
       />
     </Card>
   )

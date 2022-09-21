@@ -35,7 +35,7 @@ const LeadCreateCard: React.FC = () => {
   })
 
   const onFinish = (values: any) => {
-    //console.log("Value: -->" + JSON.stringify(values));
+    console.log('Value: -->' + JSON.stringify(values))
     if (values.leadType === 'FACTORY' || values.leadType === 'AGENT') {
       createLead({
         context: { clientType: 'CUSTOMER' },

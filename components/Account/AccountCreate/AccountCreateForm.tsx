@@ -5,7 +5,10 @@ import UploadImage from 'components/UploadImage'
 import UploadFileDocument from 'components/UploadFileDocument'
 import { allowFileExtensionsDocument, allowFileExtensionsImage } from 'config'
 import React, { useEffect, useState } from 'react'
-import { UserCreateFormProps } from '../interface'
+import { AccountCreateFormProps } from '../interface'
+import { accountTypeOptions, leadTypeOptions } from 'constant/option'
+import CategorySelectInput from 'components/CategorySelectInput/CategorySelectInput'
+import InputAddress from 'components/InputAddress/InputAddress'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -17,7 +20,7 @@ const ruleRequired = {
   message: 'Required',
 }
 
-const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading, onFinish, onCancel }) => {
+const AccountCreateForm: React.FC<AccountCreateFormProps> = ({ account, form, loading, onFinish, onCancel }) => {
   const handleFinished = (values: any) => {
     onFinish?.({
       ...values,
@@ -27,7 +30,7 @@ const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
   return (
     <Form
       labelCol={{ span: 4 }}
-      wrapperCol={{ span: 20 }}
+      wrapperCol={{ span: 18 }}
       id="content-pack"
       name="content-pack"
       form={form}
@@ -35,60 +38,16 @@ const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
       onValuesChange={() => {}}
       labelAlign="left"
     >
-      <Title level={5} style={{ color: '#2699FB', marginBottom: 30 }}>
-        ข้อมูล User
-      </Title>
-      <Form.Item name="profileImage" label="Profile Image">
-        <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} maximumUploadItems={1} />
-      </Form.Item>
-      <Form.Item name="type" label="Type">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="status" label="Status">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="fistname" label="First Name" rules={[ruleRequired]}>
-        <Input placeholder="First Name" style={{ width: 221 }} />
-      </Form.Item>
-      <Form.Item name="lastName" label="Last Name" rules={[ruleRequired]}>
-        <Input placeholder="Last Name" style={{ width: 221 }} />
-      </Form.Item>
-      <Form.Item name="phoneNumber" label="Phone Number" rules={[ruleRequired]}>
-        <Input placeholder="Phone Number" style={{ width: 221 }} />
-      </Form.Item>
-      <Form.Item name="email" label="Email" rules={[ruleRequired]}>
-        <Input type={'email'} placeholder="Email" style={{ width: 221 }} />
-      </Form.Item>
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30, marginTop: 30 }}>
         ข้อมูลหน่วยงาน
       </Title>
-      <Form.Item name="factoryThumbnail" label="รูปโรงงาน">
+      <Form.Item name="fileList" label="รูปโรงงาน">
         <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} />
       </Form.Item>
-      <Form.Item name="productThumbnail" label="รูปภาพ สินค้าที่ขาย">
+      <Form.Item name="imageList" label="รูปภาพ สินค้าที่ขาย">
         <UploadImage isEdit allowFileExtensions={allowFileExtensionsImage} />
       </Form.Item>
-      <Form.Item name="orgType" label="ประเภทOrg(โรงงาน)">
+      <Form.Item name="status" label="Status" rules={[ruleRequired]}>
         <Select
           //showSearch
           allowClear
@@ -98,10 +57,10 @@ const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
           // onSearch={categoryProperty.onSearch}
           filterOption={false}
           //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
+          options={accountTypeOptions}
         />
       </Form.Item>
-      <Form.Item name="productType" label="ประเภทสินค้า">
+      <Form.Item name="accountType" label="ประเภท(หน่วยงาน)" rules={[ruleRequired]}>
         <Select
           //showSearch
           allowClear
@@ -111,78 +70,31 @@ const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
           // onSearch={categoryProperty.onSearch}
           filterOption={false}
           //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
+          options={leadTypeOptions}
         />
       </Form.Item>
-      <Form.Item name="factoryName" label="ชื่อโรงงาน" rules={[ruleRequired]}>
+      <CategorySelectInput />
+      <Form.Item name="name" label="ชื่อโรงงาน" rules={[ruleRequired]}>
         <Input placeholder="ชื่อโรงงาน" style={{ width: 221 }} />
       </Form.Item>
-      <Form.Item name="address" label="ที่อยุ่">
+      <Form.Item name="phone" label="เบอร์โทรศัพท์มือถือ" rules={[ruleRequired]}>
+        <Input placeholder="เบอร์โทรศัพท์มือถือ" style={{ width: 221 }} />
+      </Form.Item>
+      <Form.Item name="email" label="อีเมล" rules={[ruleRequired]}>
+        <Input placeholder="Email" style={{ width: 221 }} />
+      </Form.Item>
+      <Form.Item name="website" label="เว็บไซต์">
+        <Input placeholder="เว็บไซต์" style={{ width: 221 }} />
+      </Form.Item>
+      <Form.Item name="addressNo" label="ที่อยุ่">
         <TextArea rows={2} style={{ width: 395 }} />
       </Form.Item>
-      <Form.Item name="country" label="ประเทศ">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="provice" label="จังหวัด">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="district" label="เขต/อำเภอ">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="tambon" label="แขวง/ตำบล">
-        <Select
-          //showSearch
-          allowClear
-          showArrow
-          style={{ width: 207 }}
-          placeholder="Please Select"
-          // onSearch={categoryProperty.onSearch}
-          filterOption={false}
-          //  notFoundContent={categoryProperty.loading ? <Spin size="small" /> : null}
-          // options={categoryProperty.options}
-        />
-      </Form.Item>
-      <Form.Item name="zipCode" label="เลขที่ไปรษณีย์" rules={[ruleRequired]}>
-        <Input placeholder="เลขที่ไปรษณีย์" style={{ width: 221 }} />
-      </Form.Item>
+      <InputAddress />
       <Title level={5} style={{ color: '#2699FB', marginBottom: 30, marginTop: 30 }}>
         ข้อมูลเพิ่มเติม
       </Title>
-      <Form.Item name="remark" label="โน๊ต">
+      <Form.Item name="note" label="โน๊ต">
         <TextArea rows={2} style={{ width: 395 }} />
-      </Form.Item>
-      <Form.Item name="attachmentList" label="ไฟล์">
-        <UploadFileDocument isEdit allowFileExtensions={allowFileExtensionsDocument} />
       </Form.Item>
       <Form.Item>
         <FullWidthSpace style={{ display: 'flex' }}>
@@ -201,4 +113,4 @@ const UserCreateForm: React.FC<UserCreateFormProps> = ({ product, form, loading,
   )
 }
 
-export default UserCreateForm
+export default AccountCreateForm

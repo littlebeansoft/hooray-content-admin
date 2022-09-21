@@ -853,6 +853,17 @@ export type ADDRESS_TYPE =
   | 'ADDRESS_OFFICE'
   | 'NONE'
 
+export type ORGANIZATION_STATUS =
+  | 'APPROVED'
+  | 'DECLINED'
+  | 'REVIEWING'
+  | 'BLOCKED'
+  | 'CLOSED'
+  | 'PREPARING'
+  | 'NEED_MORE_INFORMATION'
+  | 'REJECTED'
+  | 'SUSPENDED'
+
 export type ADDRESS_DEFAULT_SEND = 'DEFAULT' | 'NOT_DEFAULT'
 
 export type ATRRIBUTE_TYPE = 'CHECKBOX' | 'RADIO' | 'TEXT' | 'NUMBER'
@@ -899,6 +910,12 @@ export interface LeadDataAPIPayload {
 export interface LeadTypeOption {
   label: string
   value: LEAD_TYPE_RESPONSE
+  text: string
+}
+
+export interface AccountTypeOption {
+  label: string
+  value: ORGANIZATION_STATUS
   text: string
 }
 

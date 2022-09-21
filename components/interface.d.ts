@@ -10,6 +10,17 @@ export type EFormStatus = 'ADD' | 'EDIT'
 export type FormFieldStatus = 'ADD' | 'EDIT'
 export type EventStatus = 'ADD' | 'EDIT'
 
+export type ORGANIZATION_STATUS =
+  | 'APPROVED'
+  | 'DECLINED'
+  | 'REVIEWING'
+  | 'BLOCKED'
+  | 'CLOSED'
+  | 'PREPARING'
+  | 'NEED_MORE_INFORMATION'
+  | 'REJECTED'
+  | 'SUSPENDED'
+
 export interface TitleComponentProps {
   title: string
   noMargin?: boolean

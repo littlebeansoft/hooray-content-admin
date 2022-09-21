@@ -1,18 +1,33 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import { useUpdateLeadMutation } from 'graphql/generated/operations'
+import { LeadDataAPIPayload } from 'graphql/interface'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LeadCreateForm from './LeadCreate/LeadCreateForm'
 
-const LeadUpdateCard: React.FC = () => {
+interface LeadUpdateCardProps {
+  leadData?: LeadDataAPIPayload
+  loading?: boolean
+  edit?: boolean
+}
+
+const LeadUpdateCard: React.FC<LeadUpdateCardProps> = ({ leadData, loading, edit }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [createLead, createLeadResp] = useUpdateLeadMutation({
+  console.log('leadData-->', leadData)
+
+  const [updateLead] = useUpdateLeadMutation({
     onCompleted() {
-      message.success('Create Transfer In Successfully')
+      message.success('Update Lead was successfully')
+      router.push({
+        pathname: `/app/[appToken]/lead`,
+        query: {
+          ...router.query,
+        },
+      })
     },
     onError(err) {
       message.error(err.message)
@@ -22,10 +37,10 @@ const LeadUpdateCard: React.FC = () => {
   const onFinish = (values: any) => {
     // console.log('Value: -->' + JSON.stringify(values))
 
-    createLead({
+    updateLead({
       context: { clientType: 'CUSTOMER' },
       variables: {
-        leadId: '',
+        leadId: leadData?._id as string,
         input: {
           ...values,
           image: values?.image[0],
@@ -39,7 +54,7 @@ const LeadUpdateCard: React.FC = () => {
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <LeadCreateForm form={form} onFinish={onFinish} />
+        <LeadCreateForm form={form} onFinish={onFinish} leadData={leadData} loading={loading} />
       </FullWidthSpace>
     </Card>
   )

@@ -69,6 +69,15 @@ const LeadDataTableDropDown: React.FC<props> = ({ leadData, setPagination, refet
       case 'DELETE':
         showConfirmDelete()
         break
+      case 'EDIT':
+        router.push({
+          pathname: `${router.pathname}/edit/[leadId]`,
+          query: {
+            ...router.query,
+            leadId: leadData._id,
+          },
+        })
+        break
       default:
         break
     }
