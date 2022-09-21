@@ -9,9 +9,9 @@ const UserCreate: React.FC = () => {
   const router = useRouter()
 
   return (
-    <MainLayout breadcrumb={['Home', 'Account']}>
+    <MainLayout breadcrumb={['Home', 'Contact']}>
       <TitleComponent
-        title="Account"
+        title="Contact"
         onBack={() =>
           router.push({
             pathname: `/app/[appToken]/contact`,

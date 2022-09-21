@@ -29,9 +29,9 @@ export default async function handler(req: any, res: any) {
           ],
         },
         {
-          name: { en: 'Account', th: 'หน่วยงาน' },
-          path: 'account',
-          icon: 'user-unlock',
+          name: { en: 'Contact', th: 'ผู้ติดต่อ' },
+          path: 'contact',
+          icon: 'address-book',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
@@ -40,9 +40,9 @@ export default async function handler(req: any, res: any) {
           // ],
         },
         {
-          name: { en: 'Contact', th: 'ผู้ติดต่อ' },
-          path: 'contact',
-          icon: 'address-book',
+          name: { en: 'Account', th: 'หน่วยงาน' },
+          path: 'users',
+          icon: 'user-unlock',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',

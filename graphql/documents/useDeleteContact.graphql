@@ -1,0 +1,9 @@
+mutation DeleteContact($contactId: String!) {
+  deleteContact(contactId: $contactId) {
+    code
+    message
+    payload {
+      _id
+    }
+  }
+}

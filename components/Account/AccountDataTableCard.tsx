@@ -50,7 +50,7 @@ const AccountDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.name + ' ' + _text?.name),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.name),
     },
     {
       title: 'Lead Type',
