@@ -41,8 +41,8 @@ export default async function handler(req: any, res: any) {
         },
         {
           name: { en: 'Account', th: 'หน่วยงาน' },
-          path: 'users',
-          icon: 'user-unlock',
+          path: 'account',
+          icon: 'users',
           // permissionList: [
           //   {
           //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
