@@ -33,6 +33,13 @@ const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetc
     const key: EventMenuKey = e.key
     switch (key) {
       case 'EDIT':
+        router.push({
+          pathname: `${router.pathname}/edit/[contactId]`,
+          query: {
+            ...router.query,
+            contactId: data._id,
+          },
+        })
         break
       case 'DELETE':
         showConfirmDelete()
@@ -90,7 +97,19 @@ const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetc
     switch (status) {
       case 'ACTIVE':
         return (
-          <Dropdown.Button onClick={() => {}} overlay={menu} trigger={['click']}>
+          <Dropdown.Button
+            onClick={() => {
+              router.push({
+                pathname: `${router.pathname}/[contactId]`,
+                query: {
+                  ...router.query,
+                  contactId: data._id,
+                },
+              })
+            }}
+            overlay={menu}
+            trigger={['click']}
+          >
             View
           </Dropdown.Button>
         )

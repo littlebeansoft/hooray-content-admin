@@ -45,28 +45,28 @@ const AccountDataTableCard: React.FC = () => {
   const LeadData = leadData.data?.getDataAccount.payload
   const columns: ColumnsType<AccountResponse> = [
     {
-      title: 'Name',
-      key: 'firstName',
+      title: 'Organization Name',
+      key: 'organizationName',
       fixed: 'left',
       width: 150,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.name),
     },
     {
-      title: 'Lead Type',
+      title: 'Organization Type',
       key: 'Type',
       fixed: 'left',
-      width: 120,
+      width: 150,
       ellipsis: true,
       render: (_text: AccountResponse) => fallBackValueTable(_text?.leadType),
     },
     {
-      title: 'Citizen ID',
-      key: 'TOrganizationype',
+      title: 'Organization Owner',
+      key: 'Type',
       fixed: 'left',
-      width: 160,
+      width: 150,
       ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.citizenId),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.resourceOwner),
     },
     {
       title: 'Status',
@@ -80,17 +80,17 @@ const AccountDataTableCard: React.FC = () => {
         let _text
         switch (text.status) {
           default:
-          case 'NORMAL':
-            _tColor = '#FFB200'
-            _text = 'Normal'
-            break
-          case 'DISQUALIFY':
-            _tColor = '#A30404'
-            _text = 'Disqualify'
-            break
-          case 'QUALIFY':
+          case 'APPROVED':
             _tColor = '#34B53A'
-            _text = 'Qualify'
+            _text = 'Approved'
+            break
+          case 'REVIWING':
+            _tColor = '#FFC107'
+            _text = 'Reviwing'
+            break
+          case 'DECLINED':
+            _tColor = '#FF0000'
+            _text = 'Declined'
             break
         }
         return (
@@ -99,20 +99,6 @@ const AccountDataTableCard: React.FC = () => {
           </>
         ) // just for decoration
       },
-    },
-    {
-      title: 'Telephone',
-      key: 'Telephone',
-      width: 120,
-      ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.phone[0]?.value),
-    },
-    {
-      title: 'Email',
-      key: 'Email',
-      width: 180,
-      ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.email[0]?.value),
     },
     {
       title: 'Modify Date',

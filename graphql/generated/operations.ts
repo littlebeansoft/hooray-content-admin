@@ -5613,6 +5613,13 @@ export type QualifyLeadMutationVariables = Exact<{
 
 export type QualifyLeadMutation = { qualifyLead: { code: string; message: string; payload: { _id: string } } }
 
+export type UpdateContactMutationVariables = Exact<{
+  input: CreateContactInput
+  contactId: Scalars['String']
+}>
+
+export type UpdateContactMutation = { updateContact: { code: string; message: string; payload: { _id: string } } }
+
 export type UpdateLeadMutationVariables = Exact<{
   input: CreateLeadInput
   leadId: Scalars['String']
@@ -5630,6 +5637,7 @@ export declare const GetDataContact: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
 export declare const GetMasterData: import('graphql').DocumentNode
 export declare const QualifyLead: import('graphql').DocumentNode
+export declare const UpdateContact: import('graphql').DocumentNode
 export declare const UpdateLead: import('graphql').DocumentNode
 
 export const CreateContactDocument = gql`
@@ -6239,6 +6247,49 @@ export function useQualifyLeadMutation(
 export type QualifyLeadMutationHookResult = ReturnType<typeof useQualifyLeadMutation>
 export type QualifyLeadMutationResult = Apollo.MutationResult<QualifyLeadMutation>
 export type QualifyLeadMutationOptions = Apollo.BaseMutationOptions<QualifyLeadMutation, QualifyLeadMutationVariables>
+export const UpdateContactDocument = gql`
+  mutation UpdateContact($input: CreateContactInput!, $contactId: String!) {
+    updateContact(input: $input, contactId: $contactId) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type UpdateContactMutationFn = Apollo.MutationFunction<UpdateContactMutation, UpdateContactMutationVariables>
+
+/**
+ * __useUpdateContactMutation__
+ *
+ * To run a mutation, you first call `useUpdateContactMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContactMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContactMutation, { data, loading, error }] = useUpdateContactMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *      contactId: // value for 'contactId'
+ *   },
+ * });
+ */
+export function useUpdateContactMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateContactMutation, UpdateContactMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateContactMutation, UpdateContactMutationVariables>(UpdateContactDocument, options)
+}
+export type UpdateContactMutationHookResult = ReturnType<typeof useUpdateContactMutation>
+export type UpdateContactMutationResult = Apollo.MutationResult<UpdateContactMutation>
+export type UpdateContactMutationOptions = Apollo.BaseMutationOptions<
+  UpdateContactMutation,
+  UpdateContactMutationVariables
+>
 export const UpdateLeadDocument = gql`
   mutation UpdateLead($input: CreateLeadInput!, $leadId: String!) {
     updateLead(input: $input, leadId: $leadId) {

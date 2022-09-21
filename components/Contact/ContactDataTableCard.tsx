@@ -52,14 +52,14 @@ const ContactDataTableCard: React.FC = () => {
   const columns: ColumnsType<ContactResponse> = [
     {
       title: 'Name',
-      key: 'firstName',
+      key: 'Name',
       fixed: 'left',
       width: 150,
       ellipsis: true,
       render: (_text: ContactResponse) => fallBackValueTable(_text?.firstName + ' ' + _text?.lastName),
     },
     {
-      title: 'Lead Type',
+      title: 'Contact Type',
       key: 'Type',
       fixed: 'left',
       width: 120,
