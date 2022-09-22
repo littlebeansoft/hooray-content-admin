@@ -15,7 +15,7 @@ query GetDataContact($input: FindContactInput) {
         value
       }
       dataSource
-      leadType
+      contactType
       resourceOwner
       status
       image

@@ -3,27 +3,27 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import PropertyCreateCard from 'components/Attribute/AttributeCreate/AttributeCreateCard'
+import AttributeCreateCard from 'components/Attribute/AttributeCreate/AttributeCreateCard'
 
-const CategoryCreatePack: React.FC = () => {
+const CategoryCreate: React.FC = () => {
   const router = useRouter()
 
   return (
-    <MainLayout breadcrumb={['Home', 'Add New Property']}>
+    <MainLayout breadcrumb={['Home', 'Add New Attribute']}>
       <TitleComponent
-        title="Add New Property"
+        title="Add New Attribute"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/attribute`,
+            pathname: `/app/[appToken]/attribute`,
             query: {
               ...router.query,
             },
           })
         }
       />
-      <PropertyCreateCard />
+      <AttributeCreateCard />
     </MainLayout>
   )
 }
 
-export default withAuth(CategoryCreatePack)
+export default withAuth(CategoryCreate)

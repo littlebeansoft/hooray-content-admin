@@ -954,7 +954,7 @@ export interface AccountResponse {
   citizenId: string
   passport: string
   dataSource: string
-  leadType: string
+  accountType: string
   resourceOwner: string
   status: string
   image: string
@@ -972,13 +972,11 @@ export interface AccountResponse {
       citizenId: string
       passport: string
       dataSource: string
-      leadType: string
+      contactType: string
       resourceOwner: string
       status: string
       image: string
       organizationName: string
-      createdAt: any
-      updatedAt: any
       phone: Array<{ value: string }>
       email: Array<{ value: string }>
       createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
@@ -996,7 +994,7 @@ export interface ContactResponse {
   citizenId: string
   passport: string
   dataSource: string
-  leadType: string
+  contactType: string
   resourceOwner: string
   status: string
   image: string
@@ -1023,4 +1021,31 @@ export interface AddressResponse {
   longitude: string
   type: Enum_Address_Type
   defaultSend: Enum_Address_Default_Send
+}
+
+export enum AttributeType {
+  Checkbox = 'CHECKBOX',
+  Number = 'NUMBER',
+  Radio = 'RADIO',
+  Text = 'TEXT',
+}
+
+export enum EnabledStatus {
+  Disabled = 'DISABLED',
+  Enabled = 'ENABLED',
+}
+
+export interface AttribueResponse {
+  _id: string
+  attributeKey: string
+  name: string
+  descriptions: string
+  type: AttributeType
+  ruleRegExpList: Array<string>
+  status: EnabledStatus
+  createdAt: any
+  updatedAt: any
+  createdBy: string
+  updatedBy: string
+  optionList: Array<{ order: number; name: string; value: string }>
 }

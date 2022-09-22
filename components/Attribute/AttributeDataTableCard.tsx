@@ -9,11 +9,12 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import getAttribute from 'graphql/useGetAttribute'
 import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 import CategoryDataTableDropDown from './AttributeDataTableDropDown'
 import dayjs from 'dayjs'
 import { formatDate } from 'helpers/formatter'
+import { useGetAttributeQuery } from 'graphql/generated/operations'
+import { AttribueResponse } from 'graphql/interface'
 
 const { Search } = Input
 const { Text } = Typography
@@ -24,7 +25,7 @@ const PropertyDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const attributeList = getAttribute({
+  const attributeList = useGetAttributeQuery({
     context: {
       clientType: 'LABEL',
     },
@@ -44,14 +45,14 @@ const PropertyDataTableCard: React.FC = () => {
   })
 
   const attributeListData = attributeList.data?.getAttribute.payload
-  const columns: ColumnsType<GetAttributeResp> = [
+  const columns: ColumnsType<AttribueResponse> = [
     {
       title: 'Property Name',
       key: 'Name',
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: GetAttributeResp) => fallBackValueTable(_text?.name),
+      render: (_text: AttribueResponse) => fallBackValueTable(_text?.name),
     },
     {
       title: 'Property Type',
@@ -59,7 +60,7 @@ const PropertyDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 150,
       ellipsis: true,
-      render: (_text: GetAttributeResp) => fallBackValueTable(_text?.type),
+      render: (_text: AttribueResponse) => fallBackValueTable(_text?.type),
     },
 
     {
@@ -68,7 +69,7 @@ const PropertyDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 100,
       ellipsis: true,
-      render: (text: GetAttributeResp, record) => {
+      render: (text: AttribueResponse, record) => {
         let _tColor
         let _iCon
         let _text
@@ -95,7 +96,7 @@ const PropertyDataTableCard: React.FC = () => {
       key: 'ModifyDate',
       width: 100,
       ellipsis: true,
-      render: (_text: GetAttributeResp) => (_text.updatedAt ? formatDate(_text?.updatedAt) : '-'),
+      render: (_text: AttribueResponse) => (_text.updatedAt ? formatDate(_text?.updatedAt) : '-'),
     },
     // {
     //   title: 'Modify By',
@@ -111,7 +112,7 @@ const PropertyDataTableCard: React.FC = () => {
       key: 'CreateDate',
       width: 100,
       ellipsis: true,
-      render: (_text: GetAttributeResp) => (_text.createdAt ? formatDate(_text?.createdAt) : '-'),
+      render: (_text: AttribueResponse) => (_text.createdAt ? formatDate(_text?.createdAt) : '-'),
     },
     // {
     //   title: 'Create By',

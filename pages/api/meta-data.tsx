@@ -51,6 +51,28 @@ export default async function handler(req: any, res: any) {
           // ],
         },
         {
+          name: { en: 'Category', th: 'หมวดหมู่สินค้า' },
+          path: 'category',
+          icon: 'boxes',
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
+        },
+        {
+          name: { en: 'Attribute', th: 'คุณสมบัติ' },
+          path: 'attribute',
+          icon: 'book',
+          // permissionList: [
+          //   {
+          //     permissionKey: 'ORG.MASTER_DATA.LOCATION',
+          //     code: ['READ'],
+          //   },
+          // ],
+        },
+        {
           name: { en: 'Setting', th: 'ตั้งค่า' },
           icon: 'box',
           permissionList: [

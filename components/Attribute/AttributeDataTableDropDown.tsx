@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Menu, Dropdown, Button, Typography, Space, Modal, message } from 'antd'
 
-import { defaultPagination } from 'config/paginationConfig'
-import { DownOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
-import useDeleteAttribute from 'graphql/useDeleteAttribute'
 import useUpdateAttribute from 'graphql/useUpdateAttribute'
+import { EnabledStatus, useDeleteAttributeMutation, useUpdateAttributeMutation } from 'graphql/generated/operations'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -39,14 +38,14 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
   const [menuData, setMenuData] = useState<EventMenu[]>([])
   const { parentKey = null } = router.query
 
-  const [deleteAttribute] = useDeleteAttribute({
+  const [deleteAttribute] = useDeleteAttributeMutation({
     onCompleted() {
       message.success('Delete lead was Successfully')
       refetch()
     },
   })
 
-  const [updateStatus] = useUpdateAttribute({
+  const [updateStatus] = useUpdateAttributeMutation({
     onCompleted() {
       message.success('Update lead status was Successfully')
       refetch()
@@ -65,7 +64,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
             clientType: 'LABEL',
           },
           variables: {
-            deleteAttributeId: data._id,
+            deleteAttributeId: data._id as string,
           },
         })
       },
@@ -85,9 +84,9 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
             clientType: 'LABEL',
           },
           variables: {
-            updateAttributeId: data._id,
+            updateAttributeId: data._id as string,
             input: {
-              status: 'DISABLED',
+              status: 'DISABLED' as EnabledStatus,
             },
           },
         })
@@ -110,9 +109,9 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
             clientType: 'LABEL',
           },
           variables: {
-            updateAttributeId: data._id,
+            updateAttributeId: data._id as string,
             input: {
-              status: 'ENABLED',
+              status: 'ENABLED' as EnabledStatus,
             },
           },
         })

@@ -2,15 +2,15 @@ import React from 'react'
 import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
-import PropertyDataTableCard from 'components/Attribute/AttributeDataTableCard'
+import AttributeDataTableCard from 'components/Attribute/AttributeDataTableCard'
 
-const AllProperty: React.FC = () => {
+const AllAttribute: React.FC = () => {
   return (
     <MainLayout breadcrumb={['Home', '']}>
-      <TitleComponent title="All Property" />
-      <PropertyDataTableCard />
+      <TitleComponent title="Attribue" />
+      <AttributeDataTableCard />
     </MainLayout>
   )
 }
 
-export default withAuth(AllProperty)
+export default withAuth(AllAttribute)

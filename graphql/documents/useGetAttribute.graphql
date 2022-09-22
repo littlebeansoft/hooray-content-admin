@@ -1,0 +1,30 @@
+query GetAttribute($input: GetAttributeInPut!) {
+  getAttribute(input: $input) {
+    code
+    message
+    payload {
+      _id
+      attributeKey
+      name
+      descriptions
+      type
+      optionList {
+        order
+        name
+        value
+      }
+      ruleRegExpList
+      status
+      createdAt
+      updatedAt
+      createdBy
+      updatedBy
+    }
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+  }
+}

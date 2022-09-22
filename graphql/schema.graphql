@@ -39,6 +39,7 @@ type AccountPhoneResp {
 
 type AccountResp {
   _id: ID
+  accountType: String
   citizenId: String
   contactList: [ContactInAccountResp!]
 
@@ -48,7 +49,6 @@ type AccountResp {
   dataSource: String
   email: [AccountEmailResp!]
   image: String
-  leadType: String
   name: String
   passport: String
   phone: [AccountPhoneResp!]
@@ -301,6 +301,7 @@ type ContactPhoneResp {
 type ContactResp {
   _id: ID
   citizenId: String
+  contactType: String
 
   """วันที่ลงทะเบียน"""
   createdAt: DateTime!
@@ -310,7 +311,6 @@ type ContactResp {
   firstName: String
   image: String
   lastName: String
-  leadType: String
   organizationName: String
   passport: String
   phone: [ContactPhoneResp!]
@@ -769,6 +769,11 @@ enum ENUM_APP_STATUS {
 enum ENUM_AUTH_TYPE {
   AUTH_CODE
   AUTH_TOKEN
+}
+
+enum ENUM_CATEGORY_STATUS {
+  ACTIVE
+  INACTIVE
 }
 
 enum ENUM_CONFIG_PRIVACY {
@@ -1527,6 +1532,11 @@ input INPUT_ATTRIBUTE {
   value: String
 }
 
+input INPUT_CATEGORY {
+  name: String
+  status: ENUM_CATEGORY_STATUS
+}
+
 input INPUT_CONFIG_FORM {
   configKey: String
   configName: String
@@ -1697,6 +1707,7 @@ input INPUT_ORGANIZATION_APPROVAL_FORM {
 input INPUT_ORGANIZATION_FORM {
   address: JSON
   attribute: JSON
+  categoryList: [ID]
   contactEmailList: [String]
   contactName: String
   location: INPUT_ORGANIZATION_LOCATION
@@ -1729,6 +1740,7 @@ input INPUT_ORGANIZATION_TAG_LIST {
 input INPUT_ORGANIZATION_UPDATE {
   address: JSON
   attribute: JSON
+  categoryList: [ID]
   contactEmailList: [String]
   contactName: String
   location: INPUT_ORGANIZATION_LOCATION
@@ -2144,13 +2156,13 @@ type Mutation {
   createAddress(input: CreateAddressInput!): AddressInputResponse!
   createApp(input: INPUT_APP_FORM): TYPE_APP
 
-  """สร้าง order """
+  """สร้าง Attribute """
   createAttribute(
     """ช้อมูล Attribute"""
     input: CreateAttributeInput!
   ): GetAttributeRespon!
 
-  """สร้าง order """
+  """สร้าง Category """
   createCategory(
     """ช้อมูล Category"""
     input: CreateCategoryInput!
@@ -2196,13 +2208,13 @@ type Mutation {
   deleteAddress(addressId: String!): AddressInputResponse!
   deleteApp(appKey: String!): TYPE_APP
 
-  """สร้าง order """
+  """deleteAttribute"""
   deleteAttribute(
     """id ของ Attribute ที่จะอัพเดต"""
     id: String!
   ): GetAttributeRespon!
 
-  """สร้าง order """
+  """deleteCategory"""
   deleteCategory(
     """id ของ Category ที่จะอัพเดต"""
     id: String!
@@ -2346,7 +2358,7 @@ type Mutation {
     input: CreateAttributeInput!
   ): GetAttributeRespon!
 
-  """สร้าง order """
+  """updateCategory"""
   updateCategory(
     """id ของ Category ที่จะอัพเดต"""
     id: String!
@@ -2876,7 +2888,7 @@ type Query {
   getOrganizationLabel(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_LABEL_LIST
   getOrganizationType(find: INPUT_FIND_DATA): TYPE_ORGANIZATION_TYPE_LIST
 
-  """ดึงข้อมูล Category """
+  """getParentCategory"""
   getParentCategory(id: String!): GetCategoryResponse!
   getPermissionRole(roleKey: String!): TYPE_PERMISSION_LIST
   getProductAttribute(productId: String!): ProductAttributeKeyPairResponse!
@@ -3256,6 +3268,29 @@ type TYPE_AWS {
   cloudWatchEnable: Boolean
   endpoint: String
   secretKey: String
+}
+
+type TYPE_CATEGORY {
+  code: String
+  message: String
+  payload: TYPE_CATEGORY_SCHEMA
+}
+
+type TYPE_CATEGORY_LIST {
+  code: String
+  message: String
+  pagination: TYPE_PAGINATION
+  payload: [TYPE_CATEGORY_SCHEMA]
+}
+
+type TYPE_CATEGORY_SCHEMA {
+  _id: ID
+  createdAt: Date
+  createdBy: TYPE_USER_PROFILE
+  name: String
+  status: ENUM_CATEGORY_STATUS
+  updatedAt: Date
+  updatedBy: TYPE_USER_PROFILE
 }
 
 type TYPE_CHECK_VERIFY_EMAIL {
@@ -3756,6 +3791,7 @@ type TYPE_ORGANIZATION_MASTER_DETAIL_LIST {
 type TYPE_ORGANIZATION_RESPONSE {
   address: JSON
   attribute: JSON
+  categoryList: [TYPE_CATEGORY_SCHEMA]
   contactEmailList: [String]
   contactName: String
   createdAt: Date
