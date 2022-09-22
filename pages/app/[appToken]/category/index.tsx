@@ -7,7 +7,7 @@ import CategoryDataTableCard from 'components/Category/CategoryDataTableCard'
 const AllCategory: React.FC = () => {
   return (
     <MainLayout breadcrumb={['Home', '']}>
-      <TitleComponent title="All Category" />
+      <TitleComponent title="Category" />
       <CategoryDataTableCard />
     </MainLayout>
   )

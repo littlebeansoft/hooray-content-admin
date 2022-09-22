@@ -118,7 +118,26 @@ const ContactDataTableDropDown: React.FC<props> = ({ data, setPagination, refetc
     }
   }
 
-  return <>{renderButton(data.status)}</>
+  return (
+    <>
+      {' '}
+      <Dropdown.Button
+        onClick={() => {
+          router.push({
+            pathname: `${router.pathname}/[contactId]`,
+            query: {
+              ...router.query,
+              contactId: data._id,
+            },
+          })
+        }}
+        overlay={menu}
+        trigger={['click']}
+      >
+        View
+      </Dropdown.Button>
+    </>
+  )
 }
 
 export default ContactDataTableDropDown

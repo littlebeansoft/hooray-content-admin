@@ -9,10 +9,10 @@ import { fallBackValueTable } from 'helpers/util'
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
 import { AccountResponse } from 'graphql/interface'
-import { dateUnixFormatter } from 'utils/utils'
 import { GetDataAccountQuery, useGetDataAccountQuery } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
 import AccountDataTableDropDown from './AccountDataTableDropDown'
+import { formatDate } from 'helpers/formatter'
 
 const { Search } = Input
 const { Text } = Typography
@@ -62,7 +62,7 @@ const AccountDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 180,
       ellipsis: true,
-      render: (_text: AccountResponse) => fallBackValueTable(_text?.leadType),
+      render: (_text: AccountResponse) => fallBackValueTable(_text?.accountType),
     },
     // {
     //   title: 'Organization Owner',
@@ -133,7 +133,7 @@ const AccountDataTableCard: React.FC = () => {
       key: 'ModifyDate',
       width: 150,
       ellipsis: true,
-      render: (_text: AccountResponse) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
+      render: (_text: AccountResponse) => (_text?.updatedAt ? formatDate(_text?.updatedAt) : '-'),
     },
     {
       title: 'Modify By',
@@ -147,7 +147,7 @@ const AccountDataTableCard: React.FC = () => {
       key: 'CreateDate',
       width: 150,
       ellipsis: true,
-      render: (_text: AccountResponse) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
+      render: (_text: AccountResponse) => (_text?.createdAt ? formatDate(_text?.createdAt) : '-'),
     },
     {
       title: 'Create By',

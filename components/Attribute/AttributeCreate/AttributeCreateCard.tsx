@@ -1,24 +1,24 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useCreateProductAttribute from 'graphql/useCreateAttribute'
 import { useRouter } from 'next/router'
 import React from 'react'
 import CategoryCreateForm from './AttributeCreateForm'
-import GET_ATTRIBUTE from 'graphql/useGetAttribute/getAttribute'
+import { EnabledStatus, useCreateAttributeMutation } from 'graphql/generated/operations'
 
 const PropertyCreateCard: React.FC = () => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [createProductAttribute, createProductAttributeRes] = useCreateProductAttribute({
+  const [createProductAttribute] = useCreateAttributeMutation({
     context: { clientType: 'LABEL' },
     onCompleted: () => {
       message.success('Create Product Property success')
       router.push({
-        pathname: `/org/[orgToken]/attribute`,
+        pathname: `/app/[appToken]/attribute`,
         query: {
-          ...router.query,
+          credentialKey: router.query.credentialKey,
+          appToken: router.query.appToken,
         },
       })
     },
@@ -56,7 +56,7 @@ const PropertyCreateCard: React.FC = () => {
           type: values.propertyType,
           optionList: values.array,
           ruleRegExpList: [],
-          status: 'ENABLED',
+          status: 'ENABLED' as EnabledStatus,
         },
       },
     })

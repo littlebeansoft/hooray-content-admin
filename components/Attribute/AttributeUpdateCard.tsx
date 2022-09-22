@@ -16,7 +16,7 @@ const AttributeCreateCard: React.FC<AttributeUpdateProps> = ({ attribute, loadin
     onCompleted: () => {
       message.success('Update Attribute success')
       router.push({
-        pathname: `/org/[orgToken]/attribute`,
+        pathname: `/app/[appToken]/attribute`,
         query: {
           ...router.query,
         },

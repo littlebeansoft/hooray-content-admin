@@ -38,9 +38,10 @@ const AttributeUpdate: React.FC = () => {
         title={attribute?.name || ''}
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/attribute`,
+            pathname: `/app/[appToken]/attribute`,
             query: {
-              ...router.query,
+              credentialKey: router.query.credentialKey,
+              appToken: router.query.appToken,
             },
           })
         }

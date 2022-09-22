@@ -5,7 +5,7 @@ import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
 import CategoryCreateCard from 'components/Category/CategoryCreate/CategoryCreateCard'
 
-const CategoryCreatePack: React.FC = () => {
+const CategoryCreate: React.FC = () => {
   const router = useRouter()
 
   return (
@@ -14,7 +14,7 @@ const CategoryCreatePack: React.FC = () => {
         title="Add New Category"
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/category`,
+            pathname: `/app/[appToken]/category`,
             query: {
               ...router.query,
             },
@@ -26,4 +26,4 @@ const CategoryCreatePack: React.FC = () => {
   )
 }
 
-export default withAuth(CategoryCreatePack)
+export default withAuth(CategoryCreate)

@@ -36,7 +36,7 @@ const CategoryUpdate: React.FC = () => {
         title={category?.name || ''}
         onBack={() =>
           router.push({
-            pathname: `/org/[orgToken]/category`,
+            pathname: `/app/[appToken]/category`,
             query: {
               ...router.query,
             },

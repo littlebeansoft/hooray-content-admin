@@ -9,10 +9,10 @@ import { fallBackValueTable } from 'helpers/util'
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
 import { ContactResponse } from 'graphql/interface'
-import { dateUnixFormatter } from 'utils/utils'
 import { GetDataContactQuery, useGetDataContactQuery } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
 import ContactDataTableDropDown from './ContactDataTableDropDown'
+import { formatDate } from 'helpers/formatter'
 
 const { Search } = Input
 const { Text } = Typography
@@ -64,7 +64,7 @@ const ContactDataTableCard: React.FC = () => {
       fixed: 'left',
       width: 120,
       ellipsis: true,
-      render: (_text: ContactResponse) => fallBackValueTable(_text?.leadType),
+      render: (_text: ContactResponse) => fallBackValueTable(_text?.contactType),
     },
     {
       title: 'Citizen ID',
@@ -117,7 +117,7 @@ const ContactDataTableCard: React.FC = () => {
       key: 'ModifyDate',
       width: 150,
       ellipsis: true,
-      render: (_text: ContactResponse) => (_text?.updatedAt ? dateUnixFormatter(parseInt(_text?.updatedAt)) : '-'),
+      render: (_text: ContactResponse) => (_text?.updatedAt ? formatDate(_text?.updatedAt) : '-'),
     },
     {
       title: 'Modify By',
@@ -131,7 +131,7 @@ const ContactDataTableCard: React.FC = () => {
       key: 'CreateDate',
       width: 150,
       ellipsis: true,
-      render: (_text: ContactResponse) => (_text?.createdAt ? dateUnixFormatter(parseInt(_text?.createdAt)) : '-'),
+      render: (_text: ContactResponse) => (_text?.createdAt ? formatDate(_text?.createdAt) : '-'),
     },
     {
       title: 'Create By',

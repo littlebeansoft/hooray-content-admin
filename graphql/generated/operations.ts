@@ -61,6 +61,7 @@ export type AccountPhoneResp = {
 
 export type AccountResp = {
   _id: Maybe<Scalars['ID']>
+  accountType: Maybe<Scalars['String']>
   citizenId: Maybe<Scalars['String']>
   contactList: Maybe<Array<ContactInAccountResp>>
   /** วันที่ลงทะเบียน */
@@ -69,7 +70,6 @@ export type AccountResp = {
   dataSource: Maybe<Scalars['String']>
   email: Maybe<Array<AccountEmailResp>>
   image: Maybe<Scalars['String']>
-  leadType: Maybe<Scalars['String']>
   name: Maybe<Scalars['String']>
   passport: Maybe<Scalars['String']>
   phone: Maybe<Array<AccountPhoneResp>>
@@ -282,6 +282,7 @@ export type ContactPhoneResp = {
 export type ContactResp = {
   _id: Maybe<Scalars['ID']>
   citizenId: Maybe<Scalars['String']>
+  contactType: Maybe<Scalars['String']>
   /** วันที่ลงทะเบียน */
   createdAt: Scalars['DateTime']
   createdAtBy: Maybe<UserResp>
@@ -290,7 +291,6 @@ export type ContactResp = {
   firstName: Maybe<Scalars['String']>
   image: Maybe<Scalars['String']>
   lastName: Maybe<Scalars['String']>
-  leadType: Maybe<Scalars['String']>
   organizationName: Maybe<Scalars['String']>
   passport: Maybe<Scalars['String']>
   phone: Maybe<Array<ContactPhoneResp>>
@@ -683,6 +683,11 @@ export enum Enum_Auth_Type {
   AuthToken = 'AUTH_TOKEN',
 }
 
+export enum Enum_Category_Status {
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+}
+
 export enum Enum_Config_Privacy {
   /** ไม่ระบุตัวตน */
   Anonymous = 'ANONYMOUS',
@@ -1040,21 +1045,6 @@ export type GetAttributeInPut = {
   sort?: InputMaybe<Scalars['JSON']>
 }
 
-export type GetAttributeQuery = {
-  /** ค้นหาด้วย AttributeId */
-  attributeId?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย AttributeKey */
-  attributeKey?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย descriptions แบบ Regex */
-  descriptions?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย name แบบ Regex */
-  name?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
-  status?: InputMaybe<EnabledStatus>
-  /** ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด */
-  type?: InputMaybe<AttributeType>
-}
-
 export type GetAttributeResp = {
   /** id ของ Attribute */
   _id: Maybe<Scalars['String']>
@@ -1190,26 +1180,6 @@ export type GetCategoryInPut = {
    *
    */
   sort?: InputMaybe<Scalars['JSON']>
-}
-
-export type GetCategoryQuery = {
-  /** ค้นหาด้วย categoryId */
-  categoryId?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย categoryKey */
-  categoryKey?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย descriptions แบบ Regex */
-  descriptions?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย name แบบ Regex */
-  name?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย path ถ้าจะค้นหาตัวที่ไม่มีแม่ ให้ใส่ NONE */
-  path?: InputMaybe<Scalars['String']>
-  /**
-   * ค้นหาด้วย path แบบ Regex ซึ้ง
-   *     For queries from the root Books sub-tree (e.g. /^,Books,/ or /^,Books,Programming,/), an index on the path field improves the query performance significantly.
-   */
-  pathRegex?: InputMaybe<Scalars['String']>
-  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
-  status?: InputMaybe<EnabledStatus>
 }
 
 export type GetCategoryResp = {
@@ -1393,6 +1363,11 @@ export type Input_Attribute = {
   value?: InputMaybe<Scalars['String']>
 }
 
+export type Input_Category = {
+  name?: InputMaybe<Scalars['String']>
+  status?: InputMaybe<Enum_Category_Status>
+}
+
 export type Input_Config_Form = {
   configKey?: InputMaybe<Scalars['String']>
   configName?: InputMaybe<Scalars['String']>
@@ -1563,6 +1538,7 @@ export type Input_Organization_Approval_Form = {
 export type Input_Organization_Form = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
+  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -1595,6 +1571,7 @@ export type Input_Organization_Tag_List = {
 export type Input_Organization_Update = {
   address?: InputMaybe<Scalars['JSON']>
   attribute?: InputMaybe<Scalars['JSON']>
+  categoryList?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   contactEmailList?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   contactName?: InputMaybe<Scalars['String']>
   location?: InputMaybe<Input_Organization_Location>
@@ -1983,9 +1960,9 @@ export type Mutation = {
   /** สร้างที่อยู่แต่ละประเภท */
   createAddress: AddressInputResponse
   createApp: Maybe<Type_App>
-  /** สร้าง order  */
+  /** สร้าง Attribute  */
   createAttribute: GetAttributeRespon
-  /** สร้าง order  */
+  /** สร้าง Category  */
   createCategory: GetCategoryRespon
   /** สร้าง CategoryAttribute  */
   createCategoryAttribute: GetCategoryAttributeRespon
@@ -2019,9 +1996,9 @@ export type Mutation = {
   /** ลบที่อยู่แต่ละประเภท */
   deleteAddress: AddressInputResponse
   deleteApp: Maybe<Type_App>
-  /** สร้าง order  */
+  /** deleteAttribute */
   deleteAttribute: GetAttributeRespon
-  /** สร้าง order  */
+  /** deleteCategory */
   deleteCategory: GetCategoryRespon
   /** deleteAttribute  */
   deleteCategoryAttribute: GetCategoryAttributeRespon
@@ -2128,7 +2105,7 @@ export type Mutation = {
   updateAppAttribute: Maybe<Type_App>
   /** updateAttribute */
   updateAttribute: GetAttributeRespon
-  /** สร้าง order  */
+  /** updateCategory */
   updateCategory: GetCategoryRespon
   /** update CategoryAttribute  */
   updateCategoryAttribute: GetCategoryAttributeRespon
@@ -3448,7 +3425,7 @@ export type Query = {
   getOrganizationByName: Maybe<Organization_List>
   getOrganizationLabel: Maybe<Type_Organization_Label_List>
   getOrganizationType: Maybe<Type_Organization_Type_List>
-  /** ดึงข้อมูล Category  */
+  /** getParentCategory */
   getParentCategory: GetCategoryResponse
   getPermissionRole: Maybe<Type_Permission_List>
   getProductAttribute: ProductAttributeKeyPairResponse
@@ -4151,6 +4128,29 @@ export type Type_Aws = {
   secretKey: Maybe<Scalars['String']>
 }
 
+export type Type_Category = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  payload: Maybe<Type_Category_Schema>
+}
+
+export type Type_Category_List = {
+  code: Maybe<Scalars['String']>
+  message: Maybe<Scalars['String']>
+  pagination: Maybe<Type_Pagination>
+  payload: Maybe<Array<Maybe<Type_Category_Schema>>>
+}
+
+export type Type_Category_Schema = {
+  _id: Maybe<Scalars['ID']>
+  createdAt: Maybe<Scalars['Date']>
+  createdBy: Maybe<Type_User_Profile>
+  name: Maybe<Scalars['String']>
+  status: Maybe<Enum_Category_Status>
+  updatedAt: Maybe<Scalars['Date']>
+  updatedBy: Maybe<Type_User_Profile>
+}
+
 export type Type_Check_Verify_Email = {
   code: Maybe<Scalars['String']>
   message: Maybe<Scalars['String']>
@@ -4649,6 +4649,7 @@ export type Type_Organization_Master_Detail_List = {
 export type Type_Organization_Response = {
   address: Maybe<Scalars['JSON']>
   attribute: Maybe<Scalars['JSON']>
+  categoryList: Maybe<Array<Maybe<Type_Category_Schema>>>
   contactEmailList: Maybe<Array<Maybe<Scalars['String']>>>
   contactName: Maybe<Scalars['String']>
   createdAt: Maybe<Scalars['Date']>
@@ -5455,6 +5456,31 @@ export type CreateAccountMutationVariables = Exact<{
 
 export type CreateAccountMutation = { createAccount: { code: string; message: string; payload: { _id: string } } }
 
+export type CreateAttributeMutationVariables = Exact<{
+  input: CreateAttributeInput
+}>
+
+export type CreateAttributeMutation = {
+  createAttribute: {
+    code: string
+    message: string
+    payload: {
+      _id: string
+      attributeKey: string
+      name: string
+      descriptions: string
+      type: AttributeType
+      ruleRegExpList: Array<string>
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      optionList: Array<{ order: number; name: string; value: string }>
+    }
+  }
+}
+
 export type CreateContactMutationVariables = Exact<{
   input: CreateContactInput
 }>
@@ -5473,6 +5499,31 @@ export type CreateLeadToUserMutationVariables = Exact<{
 
 export type CreateLeadToUserMutation = { createLeadToUser: { code: string; message: string; payload: { _id: string } } }
 
+export type DeleteAttributeMutationVariables = Exact<{
+  deleteAttributeId: Scalars['String']
+}>
+
+export type DeleteAttributeMutation = {
+  deleteAttribute: {
+    code: string
+    message: string
+    payload: {
+      _id: string
+      attributeKey: string
+      name: string
+      descriptions: string
+      type: AttributeType
+      ruleRegExpList: Array<string>
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      optionList: Array<{ order: number; name: string; value: string }>
+    }
+  }
+}
+
 export type DeleteContactMutationVariables = Exact<{
   contactId: Scalars['String']
 }>
@@ -5484,6 +5535,68 @@ export type DeleteLeadMutationVariables = Exact<{
 }>
 
 export type DeleteLeadMutation = { deleteLead: { code: string; message: string; payload: { _id: string } } }
+
+export type GetAttributeQueryVariables = Exact<{
+  input: GetAttributeInPut
+}>
+
+export type GetAttributeQuery = {
+  getAttribute: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      attributeKey: string
+      name: string
+      descriptions: string
+      type: AttributeType
+      ruleRegExpList: Array<string>
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      optionList: Array<{ order: number; name: string; value: string }>
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
+export type GetCategoryQueryVariables = Exact<{
+  input: GetCategoryInPut
+}>
+
+export type GetCategoryQuery = {
+  getCategory: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      categoryKey: string
+      path: string
+      name: string
+      descriptions: string
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      parentCategory: {
+        _id: string
+        categoryKey: string
+        path: string
+        name: string
+        descriptions: string
+        status: EnabledStatus
+        createdAt: any
+        updatedAt: any
+        createdBy: string
+        updatedBy: string
+      }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
 
 export type GetDataAccountQueryVariables = Exact<{
   input?: InputMaybe<FindAccountInput>
@@ -5499,7 +5612,7 @@ export type GetDataAccountQuery = {
       citizenId: string
       passport: string
       dataSource: string
-      leadType: string
+      accountType: string
       resourceOwner: string
       status: string
       image: string
@@ -5507,6 +5620,27 @@ export type GetDataAccountQuery = {
       updatedAt: any
       phone: Array<{ value: string }>
       email: Array<{ value: string }>
+      contactList: Array<{
+        position: string
+        isMainContact: boolean
+        contactAtBy: {
+          _id: string
+          firstName: string
+          lastName: string
+          citizenId: string
+          passport: string
+          dataSource: string
+          contactType: string
+          resourceOwner: string
+          status: string
+          image: string
+          organizationName: string
+          phone: Array<{ value: string }>
+          email: Array<{ value: string }>
+          createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+          updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
+        }
+      }>
       createdAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
       updatedAtBy: { _id: string; attribute: any; phone: Array<{ value: string }>; email: Array<{ value: string }> }
     }>
@@ -5556,7 +5690,7 @@ export type GetDataContactQuery = {
       citizenId: string
       passport: string
       dataSource: string
-      leadType: string
+      contactType: string
       resourceOwner: string
       status: string
       image: string
@@ -5623,6 +5757,32 @@ export type QualifyLeadMutationVariables = Exact<{
 
 export type QualifyLeadMutation = { qualifyLead: { code: string; message: string; payload: { _id: string } } }
 
+export type UpdateAttributeMutationVariables = Exact<{
+  updateAttributeId: Scalars['String']
+  input: CreateAttributeInput
+}>
+
+export type UpdateAttributeMutation = {
+  updateAttribute: {
+    code: string
+    message: string
+    payload: {
+      _id: string
+      attributeKey: string
+      name: string
+      descriptions: string
+      type: AttributeType
+      ruleRegExpList: Array<string>
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      optionList: Array<{ order: number; name: string; value: string }>
+    }
+  }
+}
+
 export type UpdateContactMutationVariables = Exact<{
   input: CreateContactInput
   contactId: Scalars['String']
@@ -5638,17 +5798,22 @@ export type UpdateLeadMutationVariables = Exact<{
 export type UpdateLeadMutation = { updateLead: { code: string; message: string; payload: { _id: string } } }
 
 export declare const CreateAccount: import('graphql').DocumentNode
+export declare const CreateAttribute: import('graphql').DocumentNode
 export declare const CreateContact: import('graphql').DocumentNode
 export declare const CreateLead: import('graphql').DocumentNode
 export declare const CreateLeadToUser: import('graphql').DocumentNode
+export declare const DeleteAttribute: import('graphql').DocumentNode
 export declare const DeleteContact: import('graphql').DocumentNode
 export declare const DeleteLead: import('graphql').DocumentNode
+export declare const GetAttribute: import('graphql').DocumentNode
+export declare const GetCategory: import('graphql').DocumentNode
 export declare const GetDataAccount: import('graphql').DocumentNode
 export declare const GetDataAddress: import('graphql').DocumentNode
 export declare const GetDataContact: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
 export declare const GetMasterData: import('graphql').DocumentNode
 export declare const QualifyLead: import('graphql').DocumentNode
+export declare const UpdateAttribute: import('graphql').DocumentNode
 export declare const UpdateContact: import('graphql').DocumentNode
 export declare const UpdateLead: import('graphql').DocumentNode
 
@@ -5693,6 +5858,66 @@ export type CreateAccountMutationResult = Apollo.MutationResult<CreateAccountMut
 export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<
   CreateAccountMutation,
   CreateAccountMutationVariables
+>
+export const CreateAttributeDocument = gql`
+  mutation CreateAttribute($input: CreateAttributeInput!) {
+    createAttribute(input: $input) {
+      code
+      message
+      payload {
+        _id
+        attributeKey
+        name
+        descriptions
+        type
+        optionList {
+          order
+          name
+          value
+        }
+        ruleRegExpList
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+    }
+  }
+`
+export type CreateAttributeMutationFn = Apollo.MutationFunction<
+  CreateAttributeMutation,
+  CreateAttributeMutationVariables
+>
+
+/**
+ * __useCreateAttributeMutation__
+ *
+ * To run a mutation, you first call `useCreateAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAttributeMutation, { data, loading, error }] = useCreateAttributeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateAttributeMutation, CreateAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateAttributeMutation, CreateAttributeMutationVariables>(CreateAttributeDocument, options)
+}
+export type CreateAttributeMutationHookResult = ReturnType<typeof useCreateAttributeMutation>
+export type CreateAttributeMutationResult = Apollo.MutationResult<CreateAttributeMutation>
+export type CreateAttributeMutationOptions = Apollo.BaseMutationOptions<
+  CreateAttributeMutation,
+  CreateAttributeMutationVariables
 >
 export const CreateContactDocument = gql`
   mutation CreateContact($input: CreateContactInput!) {
@@ -5823,6 +6048,66 @@ export type CreateLeadToUserMutationOptions = Apollo.BaseMutationOptions<
   CreateLeadToUserMutation,
   CreateLeadToUserMutationVariables
 >
+export const DeleteAttributeDocument = gql`
+  mutation DeleteAttribute($deleteAttributeId: String!) {
+    deleteAttribute(id: $deleteAttributeId) {
+      code
+      message
+      payload {
+        _id
+        attributeKey
+        name
+        descriptions
+        type
+        optionList {
+          order
+          name
+          value
+        }
+        ruleRegExpList
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+    }
+  }
+`
+export type DeleteAttributeMutationFn = Apollo.MutationFunction<
+  DeleteAttributeMutation,
+  DeleteAttributeMutationVariables
+>
+
+/**
+ * __useDeleteAttributeMutation__
+ *
+ * To run a mutation, you first call `useDeleteAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAttributeMutation, { data, loading, error }] = useDeleteAttributeMutation({
+ *   variables: {
+ *      deleteAttributeId: // value for 'deleteAttributeId'
+ *   },
+ * });
+ */
+export function useDeleteAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteAttributeMutation, DeleteAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteAttributeMutation, DeleteAttributeMutationVariables>(DeleteAttributeDocument, options)
+}
+export type DeleteAttributeMutationHookResult = ReturnType<typeof useDeleteAttributeMutation>
+export type DeleteAttributeMutationResult = Apollo.MutationResult<DeleteAttributeMutation>
+export type DeleteAttributeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAttributeMutation,
+  DeleteAttributeMutationVariables
+>
 export const DeleteContactDocument = gql`
   mutation DeleteContact($contactId: String!) {
     deleteContact(contactId: $contactId) {
@@ -5904,6 +6189,138 @@ export function useDeleteLeadMutation(
 export type DeleteLeadMutationHookResult = ReturnType<typeof useDeleteLeadMutation>
 export type DeleteLeadMutationResult = Apollo.MutationResult<DeleteLeadMutation>
 export type DeleteLeadMutationOptions = Apollo.BaseMutationOptions<DeleteLeadMutation, DeleteLeadMutationVariables>
+export const GetAttributeDocument = gql`
+  query GetAttribute($input: GetAttributeInPut!) {
+    getAttribute(input: $input) {
+      code
+      message
+      payload {
+        _id
+        attributeKey
+        name
+        descriptions
+        type
+        optionList {
+          order
+          name
+          value
+        }
+        ruleRegExpList
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetAttributeQuery__
+ *
+ * To run a query within a React component, call `useGetAttributeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAttributeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAttributeQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetAttributeQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAttributeQuery, GetAttributeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAttributeQuery, GetAttributeQueryVariables>(GetAttributeDocument, options)
+}
+export function useGetAttributeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAttributeQuery, GetAttributeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAttributeQuery, GetAttributeQueryVariables>(GetAttributeDocument, options)
+}
+export type GetAttributeQueryHookResult = ReturnType<typeof useGetAttributeQuery>
+export type GetAttributeLazyQueryHookResult = ReturnType<typeof useGetAttributeLazyQuery>
+export type GetAttributeQueryResult = Apollo.QueryResult<GetAttributeQuery, GetAttributeQueryVariables>
+export const GetCategoryDocument = gql`
+  query GetCategory($input: GetCategoryInPut!) {
+    getCategory(input: $input) {
+      code
+      message
+      payload {
+        _id
+        categoryKey
+        path
+        parentCategory {
+          _id
+          categoryKey
+          path
+          name
+          descriptions
+          status
+          createdAt
+          updatedAt
+          createdBy
+          updatedBy
+        }
+        name
+        descriptions
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+
+/**
+ * __useGetCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoryQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options)
+}
+export function useGetCategoryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options)
+}
+export type GetCategoryQueryHookResult = ReturnType<typeof useGetCategoryQuery>
+export type GetCategoryLazyQueryHookResult = ReturnType<typeof useGetCategoryLazyQuery>
+export type GetCategoryQueryResult = Apollo.QueryResult<GetCategoryQuery, GetCategoryQueryVariables>
 export const GetDataAccountDocument = gql`
   query GetDataAccount($input: FindAccountInput) {
     getDataAccount(input: $input) {
@@ -5921,10 +6338,53 @@ export const GetDataAccountDocument = gql`
           value
         }
         dataSource
-        leadType
+        accountType
         resourceOwner
         status
         image
+        contactList {
+          contactAtBy {
+            _id
+            firstName
+            lastName
+            citizenId
+            passport
+            phone {
+              value
+            }
+            email {
+              value
+            }
+            dataSource
+            contactType
+            resourceOwner
+            status
+            image
+            organizationName
+            createdAtBy {
+              _id
+              phone {
+                value
+              }
+              email {
+                value
+              }
+              attribute
+            }
+            updatedAtBy {
+              _id
+              phone {
+                value
+              }
+              email {
+                value
+              }
+              attribute
+            }
+          }
+          position
+          isMainContact
+        }
         createdAt
         updatedAt
         createdAtBy {
@@ -6068,7 +6528,7 @@ export const GetDataContactDocument = gql`
           value
         }
         dataSource
-        leadType
+        contactType
         resourceOwner
         status
         image
@@ -6317,6 +6777,67 @@ export function useQualifyLeadMutation(
 export type QualifyLeadMutationHookResult = ReturnType<typeof useQualifyLeadMutation>
 export type QualifyLeadMutationResult = Apollo.MutationResult<QualifyLeadMutation>
 export type QualifyLeadMutationOptions = Apollo.BaseMutationOptions<QualifyLeadMutation, QualifyLeadMutationVariables>
+export const UpdateAttributeDocument = gql`
+  mutation UpdateAttribute($updateAttributeId: String!, $input: CreateAttributeInput!) {
+    updateAttribute(id: $updateAttributeId, input: $input) {
+      code
+      message
+      payload {
+        _id
+        attributeKey
+        name
+        descriptions
+        type
+        optionList {
+          order
+          name
+          value
+        }
+        ruleRegExpList
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+    }
+  }
+`
+export type UpdateAttributeMutationFn = Apollo.MutationFunction<
+  UpdateAttributeMutation,
+  UpdateAttributeMutationVariables
+>
+
+/**
+ * __useUpdateAttributeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAttributeMutation, { data, loading, error }] = useUpdateAttributeMutation({
+ *   variables: {
+ *      updateAttributeId: // value for 'updateAttributeId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateAttributeMutation, UpdateAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateAttributeMutation, UpdateAttributeMutationVariables>(UpdateAttributeDocument, options)
+}
+export type UpdateAttributeMutationHookResult = ReturnType<typeof useUpdateAttributeMutation>
+export type UpdateAttributeMutationResult = Apollo.MutationResult<UpdateAttributeMutation>
+export type UpdateAttributeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAttributeMutation,
+  UpdateAttributeMutationVariables
+>
 export const UpdateContactDocument = gql`
   mutation UpdateContact($input: CreateContactInput!, $contactId: String!) {
     updateContact(input: $input, contactId: $contactId) {
