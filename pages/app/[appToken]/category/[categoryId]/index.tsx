@@ -3,7 +3,7 @@ import MainLayout from 'layouts/MainLayout/MainLayout'
 import TitleComponent from 'components/TitleComponent'
 import withAuth from 'middlewares/withAuth'
 import { useRouter } from 'next/router'
-import CategoryUpdateCard from 'components/Category/CategoryUpdateCard'
+import CategoryUpdateCard from 'components/Category/CategoryUpdate/CategoryUpdateCard'
 import getCategory from 'graphql/useGetCategory'
 import { CategoryData, GetCategoryResp } from 'graphql/useGetCategory/interface'
 

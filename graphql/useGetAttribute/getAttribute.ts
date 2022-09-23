@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 const GET_ATTRIBUTE = gql`
-  query getAttribute($input: INPUT_GET_ATTRIBUTE!) {
+  query getAttribute($input: GetAttributeInPut!) {
     getAttribute(input: $input) {
       message
       code

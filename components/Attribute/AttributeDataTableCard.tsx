@@ -9,12 +9,10 @@ import { fallBackValueTable } from 'helpers/util'
 
 import type { ColumnsType } from 'antd/lib/table'
 import type { Pagination } from 'graphql/graphQL-service-hook'
-import { GetAttributeResp } from 'graphql/useGetAttribute/interface'
 import CategoryDataTableDropDown from './AttributeDataTableDropDown'
-import dayjs from 'dayjs'
 import { formatDate } from 'helpers/formatter'
-import { useGetAttributeQuery } from 'graphql/generated/operations'
 import { AttribueResponse } from 'graphql/interface'
+import getAttribute from 'graphql/useGetAttribute'
 
 const { Search } = Input
 const { Text } = Typography
@@ -25,7 +23,7 @@ const PropertyDataTableCard: React.FC = () => {
   const [search, setSearch] = useState<string>()
   const [selectedRowKeys, setSelectRowKeys] = useState<React.Key[]>([])
 
-  const attributeList = useGetAttributeQuery({
+  const attributeList = getAttribute({
     context: {
       clientType: 'LABEL',
     },

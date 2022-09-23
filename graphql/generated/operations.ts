@@ -1045,6 +1045,21 @@ export type GetAttributeInPut = {
   sort?: InputMaybe<Scalars['JSON']>
 }
 
+export type GetAttributeQuery = {
+  /** ค้นหาด้วย AttributeId */
+  attributeId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย AttributeKey */
+  attributeKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย descriptions แบบ Regex */
+  descriptions?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย name แบบ Regex */
+  name?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
+  status?: InputMaybe<EnabledStatus>
+  /** ประเภท ของ Attribute ว่าเป็นตัวแปรประเภทใด */
+  type?: InputMaybe<AttributeType>
+}
+
 export type GetAttributeResp = {
   /** id ของ Attribute */
   _id: Maybe<Scalars['String']>
@@ -1180,6 +1195,26 @@ export type GetCategoryInPut = {
    *
    */
   sort?: InputMaybe<Scalars['JSON']>
+}
+
+export type GetCategoryQuery = {
+  /** ค้นหาด้วย categoryId */
+  categoryId?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย categoryKey */
+  categoryKey?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย descriptions แบบ Regex */
+  descriptions?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย name แบบ Regex */
+  name?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย path ถ้าจะค้นหาตัวที่ไม่มีแม่ ให้ใส่ NONE */
+  path?: InputMaybe<Scalars['String']>
+  /**
+   * ค้นหาด้วย path แบบ Regex ซึ้ง
+   *     For queries from the root Books sub-tree (e.g. /^,Books,/ or /^,Books,Programming,/), an index on the path field improves the query performance significantly.
+   */
+  pathRegex?: InputMaybe<Scalars['String']>
+  /** ค้นหาด้วย status ถ้าส่ง null จะแสดงทั้งหมด */
+  status?: InputMaybe<EnabledStatus>
 }
 
 export type GetCategoryResp = {
@@ -5450,6 +5485,29 @@ export type VariantListResponse = {
   payload: Maybe<Array<Maybe<VaraintList>>>
 }
 
+export type AddCategoryAttributeMutationVariables = Exact<{
+  input: AddCategoryAttributeInput
+}>
+
+export type AddCategoryAttributeMutation = {
+  addCategoryAttribute: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      categoryKey: string
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      category: { _id: string; name: string }
+      attribute: { _id: string; name: string }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
 export type CreateAccountMutationVariables = Exact<{
   input: CreateAccountInput
 }>
@@ -5524,6 +5582,20 @@ export type DeleteAttributeMutation = {
   }
 }
 
+export type MutationMutationVariables = Exact<{
+  deleteCategoryId: Scalars['String']
+}>
+
+export type MutationMutation = { deleteCategory: { code: string; message: string; payload: { _id: string } } }
+
+export type DeleteCategoryAttributeMutationVariables = Exact<{
+  deleteCategoryAttributeId: Scalars['String']
+}>
+
+export type DeleteCategoryAttributeMutation = {
+  deleteCategoryAttribute: { code: string; message: string; payload: { _id: string } }
+}
+
 export type DeleteContactMutationVariables = Exact<{
   contactId: Scalars['String']
 }>
@@ -5535,68 +5607,6 @@ export type DeleteLeadMutationVariables = Exact<{
 }>
 
 export type DeleteLeadMutation = { deleteLead: { code: string; message: string; payload: { _id: string } } }
-
-export type GetAttributeQueryVariables = Exact<{
-  input: GetAttributeInPut
-}>
-
-export type GetAttributeQuery = {
-  getAttribute: {
-    code: string
-    message: string
-    payload: Array<{
-      _id: string
-      attributeKey: string
-      name: string
-      descriptions: string
-      type: AttributeType
-      ruleRegExpList: Array<string>
-      status: EnabledStatus
-      createdAt: any
-      updatedAt: any
-      createdBy: string
-      updatedBy: string
-      optionList: Array<{ order: number; name: string; value: string }>
-    }>
-    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
-  }
-}
-
-export type GetCategoryQueryVariables = Exact<{
-  input: GetCategoryInPut
-}>
-
-export type GetCategoryQuery = {
-  getCategory: {
-    code: string
-    message: string
-    payload: Array<{
-      _id: string
-      categoryKey: string
-      path: string
-      name: string
-      descriptions: string
-      status: EnabledStatus
-      createdAt: any
-      updatedAt: any
-      createdBy: string
-      updatedBy: string
-      parentCategory: {
-        _id: string
-        categoryKey: string
-        path: string
-        name: string
-        descriptions: string
-        status: EnabledStatus
-        createdAt: any
-        updatedAt: any
-        createdBy: string
-        updatedBy: string
-      }
-    }>
-    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
-  }
-}
 
 export type GetDataAccountQueryVariables = Exact<{
   input?: InputMaybe<FindAccountInput>
@@ -5757,6 +5767,19 @@ export type QualifyLeadMutationVariables = Exact<{
 
 export type QualifyLeadMutation = { qualifyLead: { code: string; message: string; payload: { _id: string } } }
 
+export type RemoveCategoryAttributeMutationVariables = Exact<{
+  input: RemoveCategoryAttributeInput
+}>
+
+export type RemoveCategoryAttributeMutation = {
+  removeCategoryAttribute: {
+    code: string
+    message: string
+    payload: Array<{ _id: string }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
 export type UpdateAttributeMutationVariables = Exact<{
   updateAttributeId: Scalars['String']
   input: CreateAttributeInput
@@ -5783,6 +5806,61 @@ export type UpdateAttributeMutation = {
   }
 }
 
+export type UpdateCategoryMutationVariables = Exact<{
+  updateCategoryId: Scalars['String']
+  input: CreateCategoryInput
+}>
+
+export type UpdateCategoryMutation = { updateCategory: { code: string; message: string; payload: { _id: string } } }
+
+export type UpdateCategoryAttributeMutationVariables = Exact<{
+  updateCategoryAttributeId: Scalars['String']
+  input: CreateCategoryAttributeInput
+}>
+
+export type UpdateCategoryAttributeMutation = {
+  updateCategoryAttribute: {
+    code: string
+    message: string
+    payload: {
+      _id: string
+      categoryKey: string
+      attributeKey: string
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      category: {
+        _id: string
+        categoryKey: string
+        path: string
+        name: string
+        descriptions: string
+        status: EnabledStatus
+        createdAt: any
+        updatedAt: any
+        createdBy: string
+        updatedBy: string
+      }
+      attribute: {
+        _id: string
+        attributeKey: string
+        name: string
+        descriptions: string
+        type: AttributeType
+        ruleRegExpList: Array<string>
+        status: EnabledStatus
+        createdAt: any
+        updatedAt: any
+        createdBy: string
+        updatedBy: string
+        optionList: Array<{ order: number; name: string; value: string }>
+      }
+    }
+  }
+}
+
 export type UpdateContactMutationVariables = Exact<{
   input: CreateContactInput
   contactId: Scalars['String']
@@ -5797,26 +5875,98 @@ export type UpdateLeadMutationVariables = Exact<{
 
 export type UpdateLeadMutation = { updateLead: { code: string; message: string; payload: { _id: string } } }
 
+export declare const AddCategoryAttribute: import('graphql').DocumentNode
 export declare const CreateAccount: import('graphql').DocumentNode
 export declare const CreateAttribute: import('graphql').DocumentNode
 export declare const CreateContact: import('graphql').DocumentNode
 export declare const CreateLead: import('graphql').DocumentNode
 export declare const CreateLeadToUser: import('graphql').DocumentNode
 export declare const DeleteAttribute: import('graphql').DocumentNode
+export declare const Mutation: import('graphql').DocumentNode
+export declare const DeleteCategoryAttribute: import('graphql').DocumentNode
 export declare const DeleteContact: import('graphql').DocumentNode
 export declare const DeleteLead: import('graphql').DocumentNode
-export declare const GetAttribute: import('graphql').DocumentNode
-export declare const GetCategory: import('graphql').DocumentNode
 export declare const GetDataAccount: import('graphql').DocumentNode
 export declare const GetDataAddress: import('graphql').DocumentNode
 export declare const GetDataContact: import('graphql').DocumentNode
 export declare const GetDataLead: import('graphql').DocumentNode
 export declare const GetMasterData: import('graphql').DocumentNode
 export declare const QualifyLead: import('graphql').DocumentNode
+export declare const RemoveCategoryAttribute: import('graphql').DocumentNode
 export declare const UpdateAttribute: import('graphql').DocumentNode
+export declare const UpdateCategory: import('graphql').DocumentNode
+export declare const UpdateCategoryAttribute: import('graphql').DocumentNode
 export declare const UpdateContact: import('graphql').DocumentNode
 export declare const UpdateLead: import('graphql').DocumentNode
 
+export const AddCategoryAttributeDocument = gql`
+  mutation AddCategoryAttribute($input: AddCategoryAttributeInput!) {
+    addCategoryAttribute(input: $input) {
+      code
+      message
+      payload {
+        _id
+        categoryKey
+        category {
+          _id
+          name
+        }
+        attribute {
+          _id
+          name
+        }
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+export type AddCategoryAttributeMutationFn = Apollo.MutationFunction<
+  AddCategoryAttributeMutation,
+  AddCategoryAttributeMutationVariables
+>
+
+/**
+ * __useAddCategoryAttributeMutation__
+ *
+ * To run a mutation, you first call `useAddCategoryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCategoryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCategoryAttributeMutation, { data, loading, error }] = useAddCategoryAttributeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddCategoryAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<AddCategoryAttributeMutation, AddCategoryAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<AddCategoryAttributeMutation, AddCategoryAttributeMutationVariables>(
+    AddCategoryAttributeDocument,
+    options
+  )
+}
+export type AddCategoryAttributeMutationHookResult = ReturnType<typeof useAddCategoryAttributeMutation>
+export type AddCategoryAttributeMutationResult = Apollo.MutationResult<AddCategoryAttributeMutation>
+export type AddCategoryAttributeMutationOptions = Apollo.BaseMutationOptions<
+  AddCategoryAttributeMutation,
+  AddCategoryAttributeMutationVariables
+>
 export const CreateAccountDocument = gql`
   mutation CreateAccount($input: CreateAccountInput!) {
     createAccount(input: $input) {
@@ -6108,6 +6258,93 @@ export type DeleteAttributeMutationOptions = Apollo.BaseMutationOptions<
   DeleteAttributeMutation,
   DeleteAttributeMutationVariables
 >
+export const MutationDocument = gql`
+  mutation Mutation($deleteCategoryId: String!) {
+    deleteCategory(id: $deleteCategoryId) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type MutationMutationFn = Apollo.MutationFunction<MutationMutation, MutationMutationVariables>
+
+/**
+ * __useMutationMutation__
+ *
+ * To run a mutation, you first call `useMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [mutationMutation, { data, loading, error }] = useMutationMutation({
+ *   variables: {
+ *      deleteCategoryId: // value for 'deleteCategoryId'
+ *   },
+ * });
+ */
+export function useMutationMutation(
+  baseOptions?: Apollo.MutationHookOptions<MutationMutation, MutationMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<MutationMutation, MutationMutationVariables>(MutationDocument, options)
+}
+export type MutationMutationHookResult = ReturnType<typeof useMutationMutation>
+export type MutationMutationResult = Apollo.MutationResult<MutationMutation>
+export type MutationMutationOptions = Apollo.BaseMutationOptions<MutationMutation, MutationMutationVariables>
+export const DeleteCategoryAttributeDocument = gql`
+  mutation DeleteCategoryAttribute($deleteCategoryAttributeId: String!) {
+    deleteCategoryAttribute(id: $deleteCategoryAttributeId) {
+      code
+      payload {
+        _id
+      }
+      message
+    }
+  }
+`
+export type DeleteCategoryAttributeMutationFn = Apollo.MutationFunction<
+  DeleteCategoryAttributeMutation,
+  DeleteCategoryAttributeMutationVariables
+>
+
+/**
+ * __useDeleteCategoryAttributeMutation__
+ *
+ * To run a mutation, you first call `useDeleteCategoryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCategoryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCategoryAttributeMutation, { data, loading, error }] = useDeleteCategoryAttributeMutation({
+ *   variables: {
+ *      deleteCategoryAttributeId: // value for 'deleteCategoryAttributeId'
+ *   },
+ * });
+ */
+export function useDeleteCategoryAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteCategoryAttributeMutation, DeleteCategoryAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteCategoryAttributeMutation, DeleteCategoryAttributeMutationVariables>(
+    DeleteCategoryAttributeDocument,
+    options
+  )
+}
+export type DeleteCategoryAttributeMutationHookResult = ReturnType<typeof useDeleteCategoryAttributeMutation>
+export type DeleteCategoryAttributeMutationResult = Apollo.MutationResult<DeleteCategoryAttributeMutation>
+export type DeleteCategoryAttributeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteCategoryAttributeMutation,
+  DeleteCategoryAttributeMutationVariables
+>
 export const DeleteContactDocument = gql`
   mutation DeleteContact($contactId: String!) {
     deleteContact(contactId: $contactId) {
@@ -6189,138 +6426,6 @@ export function useDeleteLeadMutation(
 export type DeleteLeadMutationHookResult = ReturnType<typeof useDeleteLeadMutation>
 export type DeleteLeadMutationResult = Apollo.MutationResult<DeleteLeadMutation>
 export type DeleteLeadMutationOptions = Apollo.BaseMutationOptions<DeleteLeadMutation, DeleteLeadMutationVariables>
-export const GetAttributeDocument = gql`
-  query GetAttribute($input: GetAttributeInPut!) {
-    getAttribute(input: $input) {
-      code
-      message
-      payload {
-        _id
-        attributeKey
-        name
-        descriptions
-        type
-        optionList {
-          order
-          name
-          value
-        }
-        ruleRegExpList
-        status
-        createdAt
-        updatedAt
-        createdBy
-        updatedBy
-      }
-      pagination {
-        limit
-        page
-        totalItems
-        totalPages
-      }
-    }
-  }
-`
-
-/**
- * __useGetAttributeQuery__
- *
- * To run a query within a React component, call `useGetAttributeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAttributeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAttributeQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetAttributeQuery(
-  baseOptions: Apollo.QueryHookOptions<GetAttributeQuery, GetAttributeQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetAttributeQuery, GetAttributeQueryVariables>(GetAttributeDocument, options)
-}
-export function useGetAttributeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAttributeQuery, GetAttributeQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetAttributeQuery, GetAttributeQueryVariables>(GetAttributeDocument, options)
-}
-export type GetAttributeQueryHookResult = ReturnType<typeof useGetAttributeQuery>
-export type GetAttributeLazyQueryHookResult = ReturnType<typeof useGetAttributeLazyQuery>
-export type GetAttributeQueryResult = Apollo.QueryResult<GetAttributeQuery, GetAttributeQueryVariables>
-export const GetCategoryDocument = gql`
-  query GetCategory($input: GetCategoryInPut!) {
-    getCategory(input: $input) {
-      code
-      message
-      payload {
-        _id
-        categoryKey
-        path
-        parentCategory {
-          _id
-          categoryKey
-          path
-          name
-          descriptions
-          status
-          createdAt
-          updatedAt
-          createdBy
-          updatedBy
-        }
-        name
-        descriptions
-        status
-        createdAt
-        updatedAt
-        createdBy
-        updatedBy
-      }
-      pagination {
-        limit
-        page
-        totalItems
-        totalPages
-      }
-    }
-  }
-`
-
-/**
- * __useGetCategoryQuery__
- *
- * To run a query within a React component, call `useGetCategoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCategoryQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options)
-}
-export function useGetCategoryLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetCategoryQuery, GetCategoryQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetCategoryQuery, GetCategoryQueryVariables>(GetCategoryDocument, options)
-}
-export type GetCategoryQueryHookResult = ReturnType<typeof useGetCategoryQuery>
-export type GetCategoryLazyQueryHookResult = ReturnType<typeof useGetCategoryLazyQuery>
-export type GetCategoryQueryResult = Apollo.QueryResult<GetCategoryQuery, GetCategoryQueryVariables>
 export const GetDataAccountDocument = gql`
   query GetDataAccount($input: FindAccountInput) {
     getDataAccount(input: $input) {
@@ -6777,6 +6882,60 @@ export function useQualifyLeadMutation(
 export type QualifyLeadMutationHookResult = ReturnType<typeof useQualifyLeadMutation>
 export type QualifyLeadMutationResult = Apollo.MutationResult<QualifyLeadMutation>
 export type QualifyLeadMutationOptions = Apollo.BaseMutationOptions<QualifyLeadMutation, QualifyLeadMutationVariables>
+export const RemoveCategoryAttributeDocument = gql`
+  mutation RemoveCategoryAttribute($input: RemoveCategoryAttributeInput!) {
+    removeCategoryAttribute(input: $input) {
+      code
+      message
+      payload {
+        _id
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
+      }
+    }
+  }
+`
+export type RemoveCategoryAttributeMutationFn = Apollo.MutationFunction<
+  RemoveCategoryAttributeMutation,
+  RemoveCategoryAttributeMutationVariables
+>
+
+/**
+ * __useRemoveCategoryAttributeMutation__
+ *
+ * To run a mutation, you first call `useRemoveCategoryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveCategoryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeCategoryAttributeMutation, { data, loading, error }] = useRemoveCategoryAttributeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveCategoryAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<RemoveCategoryAttributeMutation, RemoveCategoryAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<RemoveCategoryAttributeMutation, RemoveCategoryAttributeMutationVariables>(
+    RemoveCategoryAttributeDocument,
+    options
+  )
+}
+export type RemoveCategoryAttributeMutationHookResult = ReturnType<typeof useRemoveCategoryAttributeMutation>
+export type RemoveCategoryAttributeMutationResult = Apollo.MutationResult<RemoveCategoryAttributeMutation>
+export type RemoveCategoryAttributeMutationOptions = Apollo.BaseMutationOptions<
+  RemoveCategoryAttributeMutation,
+  RemoveCategoryAttributeMutationVariables
+>
 export const UpdateAttributeDocument = gql`
   mutation UpdateAttribute($updateAttributeId: String!, $input: CreateAttributeInput!) {
     updateAttribute(id: $updateAttributeId, input: $input) {
@@ -6837,6 +6996,135 @@ export type UpdateAttributeMutationResult = Apollo.MutationResult<UpdateAttribut
 export type UpdateAttributeMutationOptions = Apollo.BaseMutationOptions<
   UpdateAttributeMutation,
   UpdateAttributeMutationVariables
+>
+export const UpdateCategoryDocument = gql`
+  mutation UpdateCategory($updateCategoryId: String!, $input: CreateCategoryInput!) {
+    updateCategory(id: $updateCategoryId, input: $input) {
+      code
+      message
+      payload {
+        _id
+      }
+    }
+  }
+`
+export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMutation, UpdateCategoryMutationVariables>
+
+/**
+ * __useUpdateCategoryMutation__
+ *
+ * To run a mutation, you first call `useUpdateCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCategoryMutation, { data, loading, error }] = useUpdateCategoryMutation({
+ *   variables: {
+ *      updateCategoryId: // value for 'updateCategoryId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateCategoryMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, options)
+}
+export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>
+export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>
+export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<
+  UpdateCategoryMutation,
+  UpdateCategoryMutationVariables
+>
+export const UpdateCategoryAttributeDocument = gql`
+  mutation UpdateCategoryAttribute($updateCategoryAttributeId: String!, $input: CreateCategoryAttributeInput!) {
+    updateCategoryAttribute(id: $updateCategoryAttributeId, input: $input) {
+      code
+      message
+      payload {
+        _id
+        categoryKey
+        category {
+          _id
+          categoryKey
+          path
+          name
+          descriptions
+          status
+          createdAt
+          updatedAt
+          createdBy
+          updatedBy
+        }
+        attributeKey
+        attribute {
+          _id
+          attributeKey
+          name
+          descriptions
+          type
+          optionList {
+            order
+            name
+            value
+          }
+          ruleRegExpList
+          status
+          createdAt
+          updatedAt
+          createdBy
+          updatedBy
+        }
+        status
+        createdAt
+        updatedAt
+        createdBy
+        updatedBy
+      }
+    }
+  }
+`
+export type UpdateCategoryAttributeMutationFn = Apollo.MutationFunction<
+  UpdateCategoryAttributeMutation,
+  UpdateCategoryAttributeMutationVariables
+>
+
+/**
+ * __useUpdateCategoryAttributeMutation__
+ *
+ * To run a mutation, you first call `useUpdateCategoryAttributeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCategoryAttributeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCategoryAttributeMutation, { data, loading, error }] = useUpdateCategoryAttributeMutation({
+ *   variables: {
+ *      updateCategoryAttributeId: // value for 'updateCategoryAttributeId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateCategoryAttributeMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateCategoryAttributeMutation, UpdateCategoryAttributeMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateCategoryAttributeMutation, UpdateCategoryAttributeMutationVariables>(
+    UpdateCategoryAttributeDocument,
+    options
+  )
+}
+export type UpdateCategoryAttributeMutationHookResult = ReturnType<typeof useUpdateCategoryAttributeMutation>
+export type UpdateCategoryAttributeMutationResult = Apollo.MutationResult<UpdateCategoryAttributeMutation>
+export type UpdateCategoryAttributeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateCategoryAttributeMutation,
+  UpdateCategoryAttributeMutationVariables
 >
 export const UpdateContactDocument = gql`
   mutation UpdateContact($input: CreateContactInput!, $contactId: String!) {
