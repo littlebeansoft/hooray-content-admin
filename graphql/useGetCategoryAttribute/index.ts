@@ -1,1 +1,1 @@
-export { default } from './useGetCategory'
+export { default } from './useGetCategoryAttribute'

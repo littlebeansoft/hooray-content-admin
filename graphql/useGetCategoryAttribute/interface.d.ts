@@ -46,3 +46,121 @@ export interface CategoryAttributeDataVars {
 export interface CategoryAttributeData {
   getCategoryAttribute: APIPayloadResponseWithPagination<TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]>
 }
+
+export enum AttributeType {
+  Checkbox = 'CHECKBOX',
+  Number = 'NUMBER',
+  Radio = 'RADIO',
+  Text = 'TEXT',
+}
+
+export type GetCategoryAttributeQuery = {
+  getCategoryAttribute: {
+    code: string
+    message: string
+    payload: Array<{
+      _id: string
+      categoryKey: string
+      attributeKey: string
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+      category: {
+        _id: string
+        name: string
+        categoryKey: string
+        path: string
+        descriptions: string
+        status: EnabledStatus
+        createdAt: any
+        updatedAt: any
+        createdBy: string
+        updatedBy: string
+        parentCategory: {
+          _id: string
+          categoryKey: string
+          path: string
+          name: string
+          descriptions: string
+          status: EnabledStatus
+          createdAt: any
+          updatedAt: any
+          createdBy: string
+          updatedBy: string
+        }
+      }
+      attribute: {
+        _id: string
+        name: string
+        descriptions: string
+        type: AttributeType
+        ruleRegExpList: Array<string>
+        status: EnabledStatus
+        createdAt: any
+        updatedAt: any
+        createdBy: string
+        updatedBy: string
+        attributeKey: string
+        optionList: Array<{ order: number; name: string; value: string }>
+      }
+    }>
+    pagination: { limit: number; page: number; totalItems: number; totalPages: number }
+  }
+}
+
+export type CategoryAttributeRes = {
+  _id: string
+  categoryKey: string
+  attributeKey: string
+  status: EnabledStatus
+  createdAt: any
+  updatedAt: any
+  createdBy: string
+  updatedBy: string
+  category: {
+    _id: string
+    name: string
+    categoryKey: string
+    path: string
+    descriptions: string
+    status: EnabledStatus
+    createdAt: any
+    updatedAt: any
+    createdBy: string
+    updatedBy: string
+    parentCategory: {
+      _id: string
+      categoryKey: string
+      path: string
+      name: string
+      descriptions: string
+      status: EnabledStatus
+      createdAt: any
+      updatedAt: any
+      createdBy: string
+      updatedBy: string
+    }
+  }
+  attribute: {
+    _id: string
+    name: string
+    descriptions: string
+    type: AttributeType
+    ruleRegExpList: Array<string>
+    status: EnabledStatus
+    createdAt: any
+    updatedAt: any
+    createdBy: string
+    updatedBy: string
+    attributeKey: string
+    optionList: Array<{ order: number; name: string; value: string }>
+  }
+}
+
+/** สถานะการเปิดใช้งาน */
+export enum EnabledStatus {
+  Disabled = 'DISABLED',
+  Enabled = 'ENABLED',
+}

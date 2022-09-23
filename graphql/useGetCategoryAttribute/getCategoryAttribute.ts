@@ -1,28 +1,30 @@
 import { gql } from '@apollo/client'
 
 const GET_CATEGORY = gql`
-  query GetCategoryAttribute($input: INPUT_GET_CATEGORY_ATTRIBUTE!) {
+  query GetAttribute($input: GetCategoryAttributeInPut!) {
     getCategoryAttribute(input: $input) {
-      message
       code
-      pagination {
-        limit
-        page
-        totalItems
-        totalPages
-      }
+      message
       payload {
         _id
         categoryKey
         category {
           _id
+          name
           categoryKey
           path
           parentCategory {
             _id
+            categoryKey
+            path
             name
+            descriptions
+            status
+            createdAt
+            updatedAt
+            createdBy
+            updatedBy
           }
-          name
           descriptions
           status
           createdAt
@@ -33,7 +35,6 @@ const GET_CATEGORY = gql`
         attributeKey
         attribute {
           _id
-          attributeKey
           name
           descriptions
           type
@@ -48,12 +49,19 @@ const GET_CATEGORY = gql`
           updatedAt
           createdBy
           updatedBy
+          attributeKey
         }
         status
         createdAt
         updatedAt
         createdBy
         updatedBy
+      }
+      pagination {
+        limit
+        page
+        totalItems
+        totalPages
       }
     }
   }

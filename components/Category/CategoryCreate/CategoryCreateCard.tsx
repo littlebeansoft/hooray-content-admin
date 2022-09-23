@@ -1,5 +1,6 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
+import { useAddCategoryAttributeMutation } from 'graphql/generated/operations'
 import useCreateCategory from 'graphql/useCreateCategory'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -12,10 +13,14 @@ const CategoryCreateCard: React.FC = () => {
 
   const [createCategory] = useCreateCategory({
     context: { clientType: 'LABEL' },
+  })
+
+  const [addCategoryAttribute] = useAddCategoryAttributeMutation({
+    context: { clientType: 'LABEL' },
     onCompleted() {
-      message.success('Create Category was Successfully')
+      message.success('Add Category Attribute was Successfully')
       router.push({
-        pathname: `/org/[orgToken]/category`,
+        pathname: `/app/[appToken]/category`,
         query: {
           ...router.query,
         },
@@ -24,17 +29,55 @@ const CategoryCreateCard: React.FC = () => {
   })
 
   const onFinish = (values: any) => {
-    //console.log('value: ', values)
-    createCategory({
-      variables: {
-        input: {
-          name: values.name,
-          status: 'ENABLED',
-          descriptions: '',
-          parentCategoryKey: values.parentCategoryKey,
+    console.log('value: ', values)
+    if (values.parentCategoryKey !== undefined) {
+      console.log('values.parentCategoryKey: ', values.parentCategoryKey)
+      createCategory({
+        variables: {
+          input: {
+            name: values.name,
+            status: 'ENABLED',
+            descriptions: '',
+            parentCategoryKey: values.parentCategoryKey,
+          },
         },
-      },
-    })
+        onCompleted(resp: any) {
+          const { _id } = resp.createCategory.payload
+          addCategoryAttribute({
+            variables: {
+              input: {
+                categoryId: _id as string,
+                attributeIdList: values.selectAttribute,
+              },
+            },
+          })
+        },
+      })
+    } else {
+      console.log('values.parentCategoryKey: ', 'NONE')
+
+      createCategory({
+        variables: {
+          input: {
+            name: values.name,
+            status: 'ENABLED',
+            descriptions: '',
+            parentCategoryKey: 'NONE',
+          },
+        },
+        onCompleted(resp: any) {
+          const { _id } = resp.createCategory.payload
+          addCategoryAttribute({
+            variables: {
+              input: {
+                categoryId: _id as string,
+                attributeIdList: values.selectAttribute,
+              },
+            },
+          })
+        },
+      })
+    }
   }
 
   return (

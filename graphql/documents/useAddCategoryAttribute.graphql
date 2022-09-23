@@ -1,19 +1,18 @@
-query GetAttribute($input: GetAttributeInPut!) {
-  getAttribute(input: $input) {
+mutation AddCategoryAttribute($input: AddCategoryAttributeInput!) {
+  addCategoryAttribute(input: $input) {
     code
     message
     payload {
       _id
-      attributeKey
-      name
-      descriptions
-      type
-      optionList {
-        order
+      categoryKey
+      category {
+        _id
         name
-        value
       }
-      ruleRegExpList
+      attribute {
+        _id
+        name
+      }
       status
       createdAt
       updatedAt

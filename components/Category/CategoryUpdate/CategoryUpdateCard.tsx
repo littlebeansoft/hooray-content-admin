@@ -1,26 +1,24 @@
 import { Card, Form, message } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
-import useGetCategoryAttribute from 'graphql/useGetCategoryAttribute'
-import { TYPE_CATEGORY_ATTRIBUTE_RESPONSE } from 'graphql/useGetCategoryAttribute/interface'
-import useUpdateCategory from 'graphql/useUpdateCategory'
+import { EnabledStatus, useUpdateCategoryMutation } from 'graphql/generated/operations'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import CategoryCreateForm from './CategoryCreate/CategoryCreateForm'
-import { CategoryUpdateProps } from './interface'
+import { CategoryUpdateProps } from '../interface'
+import CategoryUpdateForm from './CategoryUpdateForm'
 
 const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading, categoryId }) => {
   const router = useRouter()
 
   const [form] = Form.useForm()
 
-  const [categoryAttribute, setCategoryAttribute] = useState<TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]>()
+  // const [categoryAttribute, setCategoryAttribute] = useState<TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]>()
 
-  const [createCategory] = useUpdateCategory({
+  const [updateCategory] = useUpdateCategoryMutation({
     context: { clientType: 'LABEL' },
     onCompleted() {
       message.success('Create Category was Successfully')
       router.push({
-        pathname: `/org/[orgToken]/category`,
+        pathname: `/app/[appToken]/category`,
         query: {
           ...router.query,
         },
@@ -30,42 +28,28 @@ const CategoryCreateCard: React.FC<CategoryUpdateProps> = ({ category, loading, 
 
   const onFinish = (values: any) => {
     //console.log('value: ', values)
-    createCategory({
+    updateCategory({
       variables: {
-        updateCategoryId: category?._id,
+        updateCategoryId: category?._id as string,
         input: {
           name: values.name,
-          status: 'ENABLED',
-          descriptions: '',
+          status: values.enabled as EnabledStatus,
+          descriptions: values.descriptions,
           parentCategoryKey: values.parentCategoryKey,
         },
       },
     })
   }
 
-  const getCategoryAttributes = useGetCategoryAttribute({
-    context: { clientType: 'LABEL' },
-    variables: {
-      input: {
-        query: {
-          categoryId: categoryId,
-        },
-      },
-    },
-    onCompleted: (res) => {
-      setCategoryAttribute(res?.getCategoryAttribute?.payload)
-    },
-  })
-
   return (
     <Card className="w-100" style={{ marginTop: '1.5em' }}>
       <FullWidthSpace direction="vertical">
-        <CategoryCreateForm
+        <CategoryUpdateForm
           category={category}
           form={form}
           onFinish={onFinish}
           loading={loading}
-          categoryAttribute={categoryAttribute}
+          categoryId={categoryId}
         />
       </FullWidthSpace>
     </Card>

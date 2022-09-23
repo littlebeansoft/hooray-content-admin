@@ -43,6 +43,7 @@ export interface CategoryCreateFormProps {
   onFinish?: (fieldValue: any) => void
   onCancel?: () => void
   categoryAttribute?: TYPE_CATEGORY_ATTRIBUTE_RESPONSE[]
+  categoryId?: string
 }
 
 export interface CategoryUpdateProps {

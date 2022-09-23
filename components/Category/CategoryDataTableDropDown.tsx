@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Menu, Dropdown, Button, Typography, Space, Modal, message } from 'antd'
 
-import { defaultPagination } from 'config/paginationConfig'
-import { DownOutlined, ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons'
+import { ExclamationCircleOutlined, FormOutlined } from '@ant-design/icons'
 import type { EventMenu, EventMenuKey } from 'components/interface'
 import { GetCategoryResp } from 'graphql/useGetCategory/interface'
-import useUpdateCategory from 'graphql/useUpdateCategory'
 import useDeleteCategory from 'graphql/useDeleteCategory'
+import { EnabledStatus, useUpdateCategoryMutation } from 'graphql/generated/operations'
 const { Text } = Typography
 const { confirm } = Modal
 
@@ -46,7 +45,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
     },
   })
 
-  const [updateStatus] = useUpdateCategory({
+  const [updateStatus] = useUpdateCategoryMutation({
     onCompleted() {
       message.success('Update Category status was Successfully')
       refetch()
@@ -87,7 +86,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
           variables: {
             updateCategoryId: data._id,
             input: {
-              status: 'DISABLED',
+              status: 'DISABLED' as EnabledStatus,
             },
           },
         })
@@ -112,7 +111,7 @@ const CategoryDataTableDropDown: React.FC<props> = ({ data, setPagination, refet
           variables: {
             updateCategoryId: data._id,
             input: {
-              status: 'ENABLED',
+              status: 'ENABLED' as EnabledStatus,
             },
           },
         })

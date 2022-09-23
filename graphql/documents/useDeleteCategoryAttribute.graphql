@@ -1,0 +1,9 @@
+mutation DeleteCategoryAttribute($deleteCategoryAttributeId: String!) {
+  deleteCategoryAttribute(id: $deleteCategoryAttributeId) {
+    code
+    payload {
+      _id
+    }
+    message
+  }
+}

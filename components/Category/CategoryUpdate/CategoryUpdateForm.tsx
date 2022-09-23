@@ -1,5 +1,5 @@
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Select, Spin, Typography } from 'antd'
+import { Breadcrumb, Button, Col, DatePicker, Form, Input, message, Row, Select, Spin, Typography } from 'antd'
 import FullWidthSpace from 'components/FullWidthSpace'
 import React, { useEffect, useRef, useState } from 'react'
 import { CategoryCreateFormProps } from '../interface'
@@ -12,6 +12,11 @@ import useGetCategoryAttribute from 'graphql/useGetCategoryAttribute'
 import { CategoryAttributeRes } from 'graphql/useGetCategoryAttribute/interface'
 import getAttribute from 'graphql/useGetAttribute'
 import { AttribueResponse } from 'graphql/interface'
+import {
+  useAddCategoryAttributeMutation,
+  useDeleteCategoryAttributeMutation,
+  useRemoveCategoryAttributeMutation,
+} from 'graphql/generated/operations'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -26,9 +31,10 @@ const ruleRequired = {
 interface OptionDefault {
   key: string
   value: string
+  id: string
 }
 
-const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loading, onFinish, onCancel }) => {
+const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loading, onFinish, categoryId }) => {
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
   const [searchAttribute, setSearchAttribute] = useState<string | undefined>(undefined)
   const [parentId, setParentId] = useState<string | ''>('')
@@ -92,13 +98,37 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
     },
   })
 
+  const [addCategoryAttribute] = useAddCategoryAttributeMutation({
+    context: { clientType: 'LABEL' },
+    onCompleted() {
+      message.success('Add Category Attribute was Successfully')
+      categoryAttribute.refetch()
+    },
+  })
+
+  const [removeCategoryAttribute] = useRemoveCategoryAttributeMutation({
+    context: { clientType: 'LABEL' },
+    onCompleted() {
+      message.success('Remove Category Attribute was Successfully')
+      categoryAttribute.refetch()
+    },
+  })
+
+  const [deleteCategoryAttribute] = useDeleteCategoryAttributeMutation({
+    context: { clientType: 'LABEL' },
+    onCompleted() {
+      message.success('Delete Category Attribute was Successfully')
+      categoryAttribute.refetch()
+    },
+  })
+
   const categoryAttribute = useGetCategoryAttribute({
     context: { clientType: 'LABEL' },
     fetchPolicy: 'network-only',
     variables: {
       input: {
         query: {
-          categoryId: parentId !== '' ? parentId : 'undefined',
+          categoryId: categoryId,
         },
         pagination: {
           limit: 999,
@@ -109,7 +139,7 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
     onCompleted: (data) => {
       setCategoryAttributeData(data.getCategoryAttribute.payload)
       const defaultData = data.getCategoryAttribute.payload.map((item) => {
-        return { key: item.attribute._id, value: item.attribute.name }
+        return { key: item.attribute._id, value: item.attribute.name, id: item._id }
       })
       setCategoryAttributeDefault(defaultData)
       form.setFieldsValue({
@@ -152,10 +182,31 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
     children.push(<Option key={item._id}>{item.name}</Option>)
   })
 
-  const handleChange = (value: string[]) => {}
+  const handleChange = (value: string[]) => {
+    console.log('handleChange', value)
+  }
+
+  const handleOnDeselect = (value: string) => {
+    console.log('onDeselect', value)
+    console.log('categoryAttributeDefault', categoryAttributeDefault)
+    const id = categoryAttributeDefault?.find((item) => item.value === value)?.id
+    console.log('id', id)
+    deleteCategoryAttribute({
+      variables: {
+        deleteCategoryAttributeId: id as string,
+      },
+    })
+  }
 
   const handleSelectAttribute = (value: string) => {
-    setSelectAttribute([...selectAttribute, value])
+    addCategoryAttribute({
+      variables: {
+        input: {
+          categoryId: categoryId as string,
+          attributeIdList: [value],
+        },
+      },
+    })
   }
 
   const getOptions = (payload: GetCategoryResp[] | null) => {
@@ -229,6 +280,7 @@ const LeadCreateForm: React.FC<CategoryCreateFormProps> = ({ category, form, loa
           filterOption={false}
           notFoundContent={attributeList.loading ? <Spin size="small" /> : null}
           onSelect={handleSelectAttribute}
+          onDeselect={handleOnDeselect}
         >
           {children}
         </Select>

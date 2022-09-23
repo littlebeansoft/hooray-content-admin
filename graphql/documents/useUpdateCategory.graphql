@@ -1,0 +1,9 @@
+mutation UpdateCategory($updateCategoryId: String!, $input: CreateCategoryInput!) {
+  updateCategory(id: $updateCategoryId, input: $input) {
+    code
+    message
+    payload {
+      _id
+    }
+  }
+}
