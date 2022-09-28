@@ -2,7 +2,7 @@ pipeline {
     environment {
         REGISTRY = "registry.hooray.site"
         REGISTRY_CREDENTIAL = 'komphet-hooray-registry-credentials'
-        DOCKER_IMAGE = 'hooray/bangbow/admin'
+        DOCKER_IMAGE = 'hooray/label/admin'
         DOCKER_BUILDKIT = '1'
     }
     agent any
