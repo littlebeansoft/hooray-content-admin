@@ -37,7 +37,7 @@ export default withApollo(({ initialState, ctx }: any) => {
       if (accessToken) {
         const decoded: any = JwtDecode(accessToken)
         if (Date.now() >= decoded.exp * 1000) {
-          console.log('Expire token from Crm Admin App')
+          console.log('Expire token from Admin App')
           const client = new ApolloClient({
             link: createHttpLink({
               uri: API.CORE.GRAPHQL.ADMIN['1.0'],
