@@ -1,11 +1,8 @@
 import React, { Fragment } from 'react'
-import { Button, Input, Space, Table, Typography } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { Space, Table } from 'antd'
 
 import FullWidthSpace from './FullWidthSpace'
 import type { TableCardProps } from './interface'
-
-const { Search } = Input
 
 const CustomTable: React.FunctionComponent<Omit<TableCardProps, 'children'>> = ({
   onSearch,
