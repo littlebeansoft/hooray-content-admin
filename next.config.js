@@ -8,4 +8,8 @@ module.exports = withAntdLess({
   webpack(config) {
     return config
   },
+  i18n: {
+    locales: ['en', 'th'],
+    defaultLocale: 'en',
+  },
 })

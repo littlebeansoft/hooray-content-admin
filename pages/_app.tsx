@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { ApolloProvider } from '@apollo/client/react'
 import type { ApolloClient } from '@apollo/client'
 import dayjs from 'dayjs'
+import dateTH from 'dayjs/locale/th'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import duration from 'dayjs/plugin/duration'
 import utc from 'dayjs/plugin/utc'
@@ -17,14 +18,14 @@ import '../styles/globals.scss'
 import '../styles/image_picker.scss'
 import 'antd/dist/antd.css'
 
-import '../config/i18n'
-
 import withApollo from 'middlewares/withApollo'
 
 import { persistor, wrapper } from 'redux/store'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import i18n from 'locales/i18n'
 
+dayjs.locale(dateTH)
 dayjs.extend(relativeTime)
 dayjs.extend(duration)
 dayjs.extend(utc)
@@ -41,6 +42,9 @@ function MyApp({ Component, pageProps, apollo }: AppPropsWithApollo) {
   const dispatch = useDispatch()
   const { appToken, orgToken, credentialKey } = router.query
   const { appToken: appTokenCurrent, orgToken: orgTokenCurrent } = store.getState().auth
+
+  i18n.changeLanguage(router.locale)
+
   React.useEffect(() => {
     if (appToken && !appTokenCurrent.accessToken) {
       dispatch(setTokenAppRef({ appToken, credentialKey }))

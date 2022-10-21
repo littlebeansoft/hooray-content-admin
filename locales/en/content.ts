@@ -1,0 +1,72 @@
+const content = {
+  title: {
+    main: 'Course',
+    detail: 'Course detail',
+  },
+  table: {
+    column: {
+      courseName: 'Course Name',
+      studying: 'Studying',
+      complete: 'Complete',
+      allLearner: 'All Learner',
+      preTest: 'Pre-test(AVG score)',
+      postTest: 'Post-test(AVG score)',
+      courseTest: 'Course-test(AVG score)',
+      status: 'Status',
+      beforeLearn: 'Before Class',
+      afterLearn: 'After Class',
+    },
+    button: {
+      search: 'Search',
+      export: 'Export',
+      addCourse: 'Add Course',
+      action: 'Action',
+      editCourse: 'Edit course',
+      editTest: 'Edit test',
+    },
+  },
+  modal: {
+    title: 'Add Course',
+    body: {
+      name: 'Name',
+      category: 'Category',
+      tag: 'Tag',
+    },
+    button: {
+      addCourse: 'Add course',
+    },
+  },
+  card: {
+    approval: 'Approval',
+    name: 'Name',
+    courseKey: 'Course Key',
+    tag: 'Tag',
+    caption: 'Caption',
+    credit: 'Credit',
+    cover: 'Cover',
+    coverWithSize: 'Cover Horizontal {{size}}',
+    coverType: { label: 'Cover type', option: { image: 'Image', video: 'Video' } },
+    thumbnail: 'Thumbnail',
+    detail: 'Detail',
+    objective: 'Objective',
+    form: 'E-Form',
+    required: 'Required Course',
+    category: 'Category',
+    skipLesson: 'Skip lesson',
+    haveCertificate: 'Print Certificate',
+    status: 'Status',
+    remark: 'Remark',
+    button: {
+      delete: 'Delete this Course',
+      preview: 'Preview Course',
+    },
+  },
+  form: {
+    remarkReq: 'Please enter remark',
+    updateSuccess: 'Update course successfully',
+    approveSuccess: 'Approve course successfully',
+    createSuccess: 'Create course successfully',
+    updateFailed: 'Update course failed',
+  },
+}
+export default content
