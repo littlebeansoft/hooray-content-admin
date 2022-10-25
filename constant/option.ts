@@ -90,3 +90,5 @@ export const leadStatusOptions: LeadStatus[] = [
     value: 'DISQUALIFY',
   },
 ]
+
+export const STATUS = { ACTIVE: 'ACTIVE', INACTIVE: 'INACTIVE' }
