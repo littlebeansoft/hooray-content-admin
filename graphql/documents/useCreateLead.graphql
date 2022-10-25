@@ -1,9 +1,0 @@
-mutation CreateLead($input: CreateLeadInput!) {
-  createLead(input: $input) {
-    code
-    message
-    payload {
-      _id
-    }
-  }
-}

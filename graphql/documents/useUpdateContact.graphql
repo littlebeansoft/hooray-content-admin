@@ -1,9 +1,0 @@
-mutation UpdateContact($input: CreateContactInput!, $contactId: String!) {
-  updateContact(input: $input, contactId: $contactId) {
-    code
-    message
-    payload {
-      _id
-    }
-  }
-}

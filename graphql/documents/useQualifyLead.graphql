@@ -1,9 +1,0 @@
-mutation QualifyLead($leadId: String!) {
-  qualifyLead(leadId: $leadId) {
-    code
-    message
-    payload {
-      _id
-    }
-  }
-}
