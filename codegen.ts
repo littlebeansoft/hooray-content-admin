@@ -4,17 +4,26 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: [
     'https://kara-core-service.hooray.site/graphql/admin/v1.0',
-    'https://kara-core-service.hooray.site/graphql/system-admin/v1.0',
     'http://kara-content-service.hooray.site/graphql',
   ],
-  documents: 'src/**/*.tsx',
+  ignoreNoDocuments: true,
+  documents: 'graphql/documents/**/*.graphql',
   generates: {
-    'src/gql': {
+    'graphql/generated': {
       preset: 'client',
       plugins: [],
     },
     './graphql.schema.json': {
-      plugins: ['introspection'],
+      plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
+      config: {
+        avoidOptionals: {
+          field: true,
+        },
+        maybeValue: 'T',
+        skipTypename: true,
+        skipTypeNameForRoot: true,
+        useTypeImports: true,
+      },
     },
   },
 }
