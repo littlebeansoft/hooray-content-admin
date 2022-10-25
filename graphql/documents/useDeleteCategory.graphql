@@ -1,9 +1,0 @@
-mutation Mutation($deleteCategoryId: String!) {
-  deleteCategory(id: $deleteCategoryId) {
-    code
-    message
-    payload {
-      _id
-    }
-  }
-}

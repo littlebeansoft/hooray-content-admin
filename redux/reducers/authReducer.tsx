@@ -63,7 +63,9 @@ const authReducer = (state = INITIAL_STATE, { type, payload }: any) => {
           accessTokenOrg: payload.accessTokenOrg,
           refreshTokenOrg: payload.refreshTokenOrg,
           loading: payload.loading,
-          error: payload.error,
+          error: false,
+          //bypass
+          // error: payload.error,
         },
       }
 

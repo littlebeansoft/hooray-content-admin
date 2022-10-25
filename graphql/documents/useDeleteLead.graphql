@@ -1,9 +1,0 @@
-mutation DeleteLead($leadId: String!) {
-  deleteLead(leadId: $leadId) {
-    code
-    message
-    payload {
-      _id
-    }
-  }
-}
