@@ -11,32 +11,6 @@ const global = {
       lockedUser: 'Locked User',
       attendees: 'Attendees',
     },
-    courseCategory: {
-      main: 'Course Category',
-      detail: 'Course Category Detail',
-    },
-    test: {
-      detail: 'Test Detail',
-      question: 'Question',
-    },
-    form: {
-      main: 'E-Form',
-      detail: 'Form Detail',
-      field: 'Field',
-      requiredField: "'${label}' is required!",
-      review: {
-        main: 'Review',
-        summary: 'Summary',
-        result: 'View result',
-      },
-    },
-    event: {
-      main: 'Event',
-      detail: 'Event detail',
-      code: 'Code',
-      vote: 'Vote',
-      attendees: 'Attendees',
-    },
     profile: 'Instructor Profile',
     certificate: 'Certificate',
   },
