@@ -12,10 +12,12 @@ import type { Pagination } from 'graphql/graphQL-service-hook'
 
 import { LeadDataAPIPayload } from 'graphql/interface'
 import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
 
 const { Search } = Input
 
 const ContentDataTableCard: React.FC = () => {
+  const { t, i18n } = useTranslation()
   const router = useRouter()
   const [pagination, setPagination] = useState<Pagination>(defaultPagination)
   const [search, setSearch] = useState<string>()
@@ -119,7 +121,7 @@ const ContentDataTableCard: React.FC = () => {
               })
             }}
           >
-            Add New Content
+            {t('content:button:addNewContent')}
           </Button>,
         ]}
         rowKey="_id"
