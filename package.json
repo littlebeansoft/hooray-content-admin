@@ -1,6 +1,6 @@
 {
-  "name": "content-admin",
-  "version": "0.1.0",
+  "name": "hooray-content-admin",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "PORT=4200 REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "PORT=4200 REACT_APP_VERSION=$npm_package_version react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
