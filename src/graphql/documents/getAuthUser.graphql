@@ -1,0 +1,34 @@
+query getAuthUser($tokenRef: String!, $credentialKey: String!) {
+  getOrgAccessTokenWithRef(tokenRef: $tokenRef) {
+    payload {
+      token {
+        orgAccessToken
+        orgRefreshToken
+      }
+    }
+  }
+
+  getAppByCredential(credentialKey: $credentialKey) {
+    payload {
+      app {
+        appKey
+        configurationList {
+          configName
+          configKey
+          value {
+            apiKey
+            publicEndpoint
+            bucket
+            serviceEndpoint
+          }
+        }
+      }
+      credential {
+        name
+        status
+        type
+        credentialKey
+      }
+    }
+  }
+}
