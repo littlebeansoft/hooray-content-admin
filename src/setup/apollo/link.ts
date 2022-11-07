@@ -1,15 +1,19 @@
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 
+import { getCredentialKeyFromQueryString } from 'helpers/utils'
+
 import { accessToken } from 'services/localStorage'
 
 export const authLink = setContext((_, { headers }) => {
   const token = accessToken.get()
+  const credentialKey = getCredentialKeyFromQueryString()
 
   return {
     headers: {
       ...headers,
       authorization: token || '',
+      credentialKey,
     },
   }
 })
