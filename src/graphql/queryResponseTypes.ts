@@ -1,7 +1,13 @@
-import { GetAuthUserQuery } from './__generated/operations'
+import {
+  GetAppAuthUserQuery,
+  GetOrgAuthUserQuery,
+} from './__generated/operations'
 
 export type QR_GetOrgAccessTokenWithRefResult =
-  GetAuthUserQuery['getOrgAccessTokenWithRef']['payload']
+  GetOrgAuthUserQuery['getOrgAccessTokenWithRef']['payload']
 
 export type QR_GetAppByCredentialResult =
-  GetAuthUserQuery['getAppByCredential']['payload']
+  GetOrgAuthUserQuery['getAppByCredential']['payload']
+
+export type QR_GetTokenAuthCodeResult =
+  GetAppAuthUserQuery['getTokenAuthCode']['payload']
