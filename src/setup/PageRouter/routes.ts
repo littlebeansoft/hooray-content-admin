@@ -5,6 +5,8 @@ export type RouteKey =
   | 'contentUpdate'
   | 'orgTokenRef'
   | 'appTokenRef'
+  | 'test'
+  | 'about'
 
 export const paths: Record<RouteKey, string> = {
   root: '/',
@@ -16,4 +18,7 @@ export const paths: Record<RouteKey, string> = {
   content: 'content',
   contentCreate: 'content/create',
   contentUpdate: 'content/:id',
+
+  test: '/test',
+  about: '/about',
 }
