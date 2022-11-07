@@ -1,6 +1,8 @@
 import store from 'store'
 
-type StorageKey = 'orgAccessToken' | 'orgRefreshToken' | 'version'
+import type { QR_GetAppByCredentialResult } from 'graphql/queryResponseTypes'
+
+type StorageKey = 'orgAccessToken' | 'orgRefreshToken' | 'app' | 'version'
 
 const storagePrefix = 'hooray-content'
 
@@ -9,6 +11,7 @@ const storageVersion = process.env.REACT_APP_STORAGE_VERSION
 const storageName: Record<StorageKey, string> = {
   orgAccessToken: `${storagePrefix}:accessToken`,
   orgRefreshToken: `${storagePrefix}:refreshToken`,
+  app: `${storagePrefix}:app`,
   version: `${storagePrefix}:version`,
 }
 
@@ -20,6 +23,11 @@ export const accessToken = {
 export const refreshToken = {
   get: () => store.get(storageName.orgRefreshToken),
   set: (token: string) => store.set(storageName.orgRefreshToken, token),
+}
+
+export const app = {
+  get: () => store.get(storageName.app),
+  set: (app: QR_GetAppByCredentialResult) => store.set(storageName.app, app),
 }
 
 export const version = {
