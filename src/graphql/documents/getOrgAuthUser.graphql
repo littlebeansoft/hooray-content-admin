@@ -1,4 +1,4 @@
-query getAuthUser($tokenRef: String!, $credentialKey: String!) {
+query getOrgAuthUser($tokenRef: String!, $credentialKey: String!) {
   getOrgAccessTokenWithRef(tokenRef: $tokenRef) {
     payload {
       token {
