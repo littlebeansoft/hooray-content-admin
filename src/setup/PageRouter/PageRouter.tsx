@@ -1,11 +1,8 @@
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
-
-import { OrgAuthProvider } from 'contexts/useOrgAuthContext'
-import { AppAuthProvider } from 'contexts/useAppAuthContext'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import ErrorPage from 'pages/ErrorPage'
 
-import { isValidURL } from 'helpers/auth'
+import { appAuthValidUser, orgAuthValidUser } from 'helpers/auth'
 
 import { paths } from 'setup/PageRouter/routes'
 
@@ -16,41 +13,39 @@ const PageRouter = () => {
       children: [
         {
           path: paths.orgTokenRef,
-          loader: isValidURL,
-          element: <OrgTokenRefPageOutlet />,
+          loader: orgAuthValidUser,
           errorElement: <ErrorPage />,
           children: [
             {
               path: paths.content,
-              element: <>This is org content page</>,
+              element: <h1>This is org content page</h1>,
             },
             {
               path: paths.contentCreate,
-              element: <>This is org content create page</>,
+              element: <h1>This is org content create page</h1>,
             },
             {
               path: paths.contentUpdate,
-              element: <>This is org content update page</>,
+              element: <h1>This is org content update page</h1>,
             },
           ],
         },
         {
           path: paths.appTokenRef,
-          loader: isValidURL,
-          element: <AppTokenRefPageOutlet />,
+          loader: appAuthValidUser,
           errorElement: <ErrorPage />,
           children: [
             {
               path: paths.content,
-              element: <>This is app content page</>,
+              element: <h1>This is app content page</h1>,
             },
             {
               path: paths.contentCreate,
-              element: <>This is app content create page</>,
+              element: <h1>This is app content create page</h1>,
             },
             {
               path: paths.contentUpdate,
-              element: <>This is app content update page</>,
+              element: <h1>This is app content update page</h1>,
             },
           ],
         },
@@ -62,19 +57,3 @@ const PageRouter = () => {
 }
 
 export default PageRouter
-
-const OrgTokenRefPageOutlet = () => {
-  return (
-    <OrgAuthProvider>
-      <Outlet />
-    </OrgAuthProvider>
-  )
-}
-
-const AppTokenRefPageOutlet = () => {
-  return (
-    <AppAuthProvider>
-      <Outlet />
-    </AppAuthProvider>
-  )
-}
