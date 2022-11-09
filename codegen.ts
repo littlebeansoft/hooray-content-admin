@@ -24,6 +24,12 @@ const config: CodegenConfig = {
         skipTypename: true,
         skipTypeNameForRoot: true,
         useTypeImports: true,
+        namingConvention: {
+          typeNames: 'change-case-all#pascalCase',
+          enumValues: 'change-case-all#pascalCase',
+        },
+        addOperationExport: true,
+        flattenGeneratedTypes: true,
       },
     },
   },
