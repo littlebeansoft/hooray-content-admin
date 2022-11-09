@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.7.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -14,7 +15,12 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "antd": "^4.24.1",
+    "dayjs": "^1.11.6",
     "graphql": "^16.6.0",
+    "humanize-duration": "^3.27.3",
+    "lodash": "^4.17.21",
+    "numeral": "^2.0.6",
+    "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
@@ -22,6 +28,7 @@
     "react-use": "^17.4.0",
     "store": "^2.0.12",
     "typescript": "^4.8.4",
+    "use-query-params": "^2.1.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -31,7 +38,7 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "format": "prettier --write --ignore-unknown '**/*.{js,jsx,ts,tsx,json,md,css,graphql,gql}'",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts && yarn format"
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +64,9 @@
     "@graphql-codegen/typescript": "^2.8.1",
     "@graphql-codegen/typescript-operations": "^2.5.6",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
+    "@types/humanize-duration": "^3.27.1",
+    "@types/lodash": "^4.14.188",
+    "@types/numeral": "^2.0.2",
     "@types/store": "^2.0.2",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",

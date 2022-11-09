@@ -1,3 +1,4 @@
+import { ConfigProvider } from 'antd'
 import { ApolloProvider } from '@apollo/client'
 
 import PageRouter from 'setup/PageRouter'
@@ -5,9 +6,16 @@ import { contentClient } from 'setup/apollo'
 
 const App = () => {
   return (
-    <ApolloProvider client={contentClient}>
-      <PageRouter />
-    </ApolloProvider>
+    <ConfigProvider
+      componentSize="large"
+      space={{
+        size: 'large',
+      }}
+    >
+      <ApolloProvider client={contentClient}>
+        <PageRouter />
+      </ApolloProvider>
+    </ConfigProvider>
   )
 }
 

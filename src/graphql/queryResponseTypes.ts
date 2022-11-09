@@ -1,5 +1,6 @@
 import {
   GetAppAuthUserQuery,
+  GetContentPackListQuery,
   GetOrgAuthUserQuery,
 } from './__generated/operations'
 
@@ -11,3 +12,6 @@ export type QR_GetAppByCredentialResult =
 
 export type QR_GetTokenAuthCodeResult =
   GetAppAuthUserQuery['getTokenAuthCode']['payload']
+
+export type QR_GetContentPackListResult =
+  GetContentPackListQuery['getContentPackList']['payload'][number]
