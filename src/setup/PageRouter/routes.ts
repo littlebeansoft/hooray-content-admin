@@ -1,24 +1,20 @@
 export type RouteKey =
   | 'root'
-  | 'content'
-  | 'contentCreate'
-  | 'contentUpdate'
-  | 'orgTokenRef'
-  | 'appTokenRef'
-  | 'test'
-  | 'about'
+  | 'orgContent'
+  | 'orgContentCreate'
+  | 'orgContentUpdate'
+  | 'appContent'
+  | 'appContentCreate'
+  | 'appContentUpdate'
 
 export const paths: Record<RouteKey, string> = {
   root: '/',
 
-  orgTokenRef: '/org/:ref',
+  orgContent: '/org/:ref/content',
+  orgContentCreate: '/org/:ref/content/create',
+  orgContentUpdate: '/org/:ref/content/:id',
 
-  appTokenRef: '/app/:ref',
-
-  content: 'content',
-  contentCreate: 'content/create',
-  contentUpdate: 'content/:id',
-
-  test: '/test',
-  about: '/about',
+  appContent: '/app/:ref/content',
+  appContentCreate: '/app/:ref/content/create',
+  appContentUpdate: '/app/:ref/content/:id',
 }
