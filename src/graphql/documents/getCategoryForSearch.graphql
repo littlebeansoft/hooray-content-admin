@@ -1,0 +1,8 @@
+query getCategoryForSearch($input: GetCategoryInPut!) {
+  getCategory(input: $input) {
+    payload {
+      _id
+      name
+    }
+  }
+}
