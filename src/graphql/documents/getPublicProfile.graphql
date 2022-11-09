@@ -1,0 +1,8 @@
+query getPublicProfile($userIdList: [ID]!) {
+  getPublicProfile(userIdList: $userIdList) {
+    payload {
+      _id
+      attribute
+    }
+  }
+}
