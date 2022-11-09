@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from 'react-router-dom'
 
-import { accessToken, app, refreshToken } from 'services/localStorage'
+import { accessToken, app, refreshToken, tokenRef } from 'services/localStorage'
 
 import { coreClient } from 'setup/apollo'
 
@@ -51,6 +51,8 @@ export const orgAuthValidUser = async ({ params }: LoaderFunctionArgs) => {
     accessToken.set(token.orgAccessToken)
     refreshToken.set(token.orgRefreshToken)
 
+    tokenRef.set(ref)
+
     app.set(appResult)
   } catch (error) {
     throw Error()
@@ -78,6 +80,8 @@ export const appAuthValidUser = async ({ params }: LoaderFunctionArgs) => {
 
     accessToken.set(token.accessToken)
     refreshToken.set(token.refreshToken)
+
+    tokenRef.set(ref)
 
     app.set(appResult)
   } catch (error) {
