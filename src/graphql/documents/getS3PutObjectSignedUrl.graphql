@@ -1,0 +1,13 @@
+query getS3PutObjectSignedUrl(
+  $userId: ID
+  $inputs: [INPUT_S3_PUT_OBJECT_SIGNED_URL]
+) {
+  getS3PutObjectSignedUrl(userId: $userId, inputs: $inputs) {
+    payload {
+      fileKey
+      filename
+      publicUrl
+      signedUrl
+    }
+  }
+}
