@@ -25,3 +25,17 @@ export const routeTo = (path: string, options?: RouteToOptions) => {
 
   return `${pathname}?${stringify(query)}`
 }
+
+export const getActiveBooleanValue = (
+  active?: string | null
+): boolean | undefined => {
+  if (active == null || active === 'all') {
+    return undefined
+  }
+
+  if (active === 'true') {
+    return true
+  }
+
+  return false
+}
