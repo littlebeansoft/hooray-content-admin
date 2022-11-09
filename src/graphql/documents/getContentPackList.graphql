@@ -1,0 +1,26 @@
+query getContentPackList($input: ContentPackFindInput) {
+  getContentPackList(input: $input) {
+    code
+    message
+    payload {
+      _id
+      title
+      price {
+        basePrice
+        totalPrice
+      }
+      purchaseAmount
+      recommend
+      status
+      active
+      creatorIDs
+      categoryIDs
+    }
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+  }
+}
