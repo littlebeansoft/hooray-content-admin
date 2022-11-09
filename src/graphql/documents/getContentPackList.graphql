@@ -15,6 +15,14 @@ query getContentPackList($input: ContentPackFindInput) {
       active
       creatorIDs
       categoryIDs
+      categories {
+        _id
+        name
+      }
+      createdBy
+      createdAt
+      updatedBy
+      updatedAt
     }
     pagination {
       limit
