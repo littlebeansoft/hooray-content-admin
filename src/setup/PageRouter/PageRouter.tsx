@@ -4,8 +4,6 @@ import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
 
 import ErrorPage from 'pages/ErrorPage'
 
-import { appAuthValidUser, orgAuthValidUser } from 'helpers/auth'
-
 import { appRouteConfig, orgRouteConfig } from 'setup/PageRouter/routes'
 
 const PageRouter = () => {
@@ -15,12 +13,10 @@ const PageRouter = () => {
       errorElement: <ErrorPage />,
       children: [
         {
-          loader: orgAuthValidUser,
           errorElement: <ErrorPage />,
           children: orgRouteConfig,
         },
         {
-          loader: appAuthValidUser,
           errorElement: <ErrorPage />,
           children: appRouteConfig,
         },
