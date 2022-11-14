@@ -33,3 +33,19 @@ export const withS3URL = (fileKey = '') => {
 
   return `${url}/${fileKey}`
 }
+
+export const getTinyEditorAPIKey = () => {
+  const listConfigurations = getAppDataFromStorage()?.app.configurationList
+
+  let apiKey = ''
+
+  listConfigurations?.forEach((config) => {
+    if (config.configKey === 'TINY_EDITOR') {
+      apiKey = config.value.apiKey
+
+      return
+    }
+  })
+
+  return apiKey
+}
