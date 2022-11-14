@@ -7,5 +7,6 @@ declare namespace NodeJS {
     // API Endpoints
     REACT_APP_GRAPHQL_CORE_ENDPOINT: string
     REACT_APP_GRAPHQL_CONTENT_ENDPOINT: string
+    REACT_APP_GRAPHQL_LABEL_ENDPOINT: string
   }
 }
