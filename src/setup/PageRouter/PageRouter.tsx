@@ -4,6 +4,8 @@ import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
 
 import ErrorPage from 'pages/ErrorPage'
 
+import PageLayout from 'layouts/PageLayout'
+
 import { appRouteConfig, orgRouteConfig } from 'setup/PageRouter/routes'
 
 const PageRouter = () => {
@@ -36,7 +38,9 @@ export default PageRouter
 const RootProvider = () => {
   return (
     <QueryParamProvider adapter={ReactRouter6Adapter}>
-      <Outlet />
+      <PageLayout>
+        <Outlet />
+      </PageLayout>
     </QueryParamProvider>
   )
 }
