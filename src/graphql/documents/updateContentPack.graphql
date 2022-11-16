@@ -1,0 +1,7 @@
+mutation updateContentPack($id: String!, $input: UpdateContentPackInput!) {
+  updateContentPack(id: $id, input: $input) {
+    payload {
+      _id
+    }
+  }
+}

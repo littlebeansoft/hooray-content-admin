@@ -6,6 +6,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import ContentBlock from 'components/ContentBlock'
 import UploadFile from 'components/UploadFile'
 import TinyEditor from 'components/TinyEditor'
+import CategorySearchInput from 'components/CategorySearchInput'
 import Label, { LabelContainer } from 'components/Label'
 
 import { ruleRequired } from 'helpers/antdUtils'
@@ -45,11 +46,11 @@ const ContentFormGeneral = () => {
             <Input />
           </Form.Item>
         </Col>
-        {/* <Col span={12}>
+        <Col span={12}>
           <Form.Item label="หมวดหมู่" name="categoryIDs" rules={[ruleRequired]}>
             <CategorySearchInput />
           </Form.Item>
-        </Col> */}
+        </Col>
 
         <Col span={24}>
           <Form.Item
