@@ -17,7 +17,7 @@ const FormCreator = () => {
     <ContentBlock title="ข้อมูลผู้สอน">
       <Row gutter={[32, 16]}>
         <Col span={24}>
-          <Form.Item label="ผู้สอน">
+          <Form.Item label="ผู้สอน" name="creatorIDs">
             <Select mode="multiple" showSearch>
               {listCreators?.map((item) => (
                 <Select.Option key={item._id} value={item._id}>
