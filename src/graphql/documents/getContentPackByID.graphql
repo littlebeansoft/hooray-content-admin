@@ -1,0 +1,33 @@
+query GetContentPackByID($id: String!) {
+  getContentPackByID(id: $id) {
+    payload {
+      _id
+      active
+      categoryIDs
+      covers {
+        file
+        name
+      }
+      creatorIDs
+      description
+      objectives
+      price {
+        basePrice
+        totalPrice
+      }
+      recommend
+      requirements
+      status
+      suitables
+      thumbnails {
+        file
+        name
+      }
+      title
+      previewUrls {
+        file
+        name
+      }
+    }
+  }
+}
