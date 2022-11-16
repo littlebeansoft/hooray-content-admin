@@ -8,6 +8,7 @@ import { withS3URL } from 'helpers/app'
 
 import { getBase64 } from './utils'
 
+import type { FileInput } from 'graphql/__generated/operations'
 import type { FileListItemData, FilePreview } from './type'
 
 interface UploadContextData {
@@ -24,8 +25,8 @@ interface UploadContextData {
 }
 
 interface UploadProviderProps {
-  value?: string[]
-  onChange?: (value: string[]) => void
+  value?: FileInput[]
+  onChange?: (value: FileInput[]) => void
   children: ReactNode
 }
 
@@ -46,7 +47,10 @@ export const UploadProvider = ({
   const selfHandleOnChange = (fileList: FileListItemData[]) => {
     setFileList(fileList)
 
-    const result: string[] = fileList.map((item) => item.fileKey)
+    const result: FileInput[] = fileList.map((item) => ({
+      file: item.fileKey,
+      name: item.alt,
+    }))
 
     onChange?.(result)
   }
@@ -132,15 +136,15 @@ const useUploadContext = () => useContext<UploadContextData>(UploadContext)
 
 export default useUploadContext
 
-const createInitialFileList = (value?: string[]): FileListItemData[] => {
+const createInitialFileList = (value?: FileInput[]): FileListItemData[] => {
   if (value == null) {
     return []
   }
 
   return value.map((item) => ({
     id: uuidV4(),
-    url: withS3URL(item),
-    alt: item,
-    fileKey: item,
+    url: withS3URL(item.file),
+    alt: item.name,
+    fileKey: item.file,
   }))
 }
