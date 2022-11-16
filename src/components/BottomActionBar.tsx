@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
 
-const BottomActionBar = styled.div`
+const BottomActionBar = styled.div<{ visible?: boolean }>`
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: ${({ visible }) => (visible ? '0px' : '-72px')};
   right: 0;
   padding: 16px;
   display: flex;
@@ -11,6 +11,7 @@ const BottomActionBar = styled.div`
   min-height: 72px;
   background-color: #fff;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.05);
+  transition: 0.25s;
 `
 
 export default BottomActionBar

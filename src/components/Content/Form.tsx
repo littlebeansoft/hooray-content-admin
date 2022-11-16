@@ -43,7 +43,7 @@ const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
         </Col>
       </Row>
 
-      <BottomActionBar>
+      <BottomActionBar visible>
         <div
           style={{
             textAlign: 'right',

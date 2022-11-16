@@ -4,6 +4,8 @@ import ContentPage from 'pages/content/IndexPage'
 import ContentCreatePage from 'pages/content/CreatePage'
 import ContentUpdatePage from 'pages/content/UpdatePage'
 
+import ContentApprovalPage from 'pages/contentApproval/IndexPage'
+
 export type RouteKey =
   | 'root'
   | 'orgContent'
@@ -59,6 +61,6 @@ export const appRouteConfig: RouteObject[] = [
 
   {
     path: paths.appContentApproval,
-    element: <h1>This is app label page</h1>,
+    element: <ContentApprovalPage />,
   },
 ]

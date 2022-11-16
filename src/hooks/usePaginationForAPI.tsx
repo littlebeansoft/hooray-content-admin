@@ -38,6 +38,7 @@ const usePaginationForAPI = (): UsePaginationForAPIResponse => {
       total: defaultAPIPagination?.totalItems,
       showSizeChanger: false,
       hideOnSinglePage: true,
+      showTotal: (total) => `จำนวนทั้งหมด ${total} รายการ`,
     }
   }
 
