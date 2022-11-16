@@ -1,0 +1,7 @@
+mutation createContentPack($input: CreateContentPackInput!) {
+  createContentPack(input: $input) {
+    payload {
+      _id
+    }
+  }
+}
