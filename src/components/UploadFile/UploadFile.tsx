@@ -5,9 +5,11 @@ import UploadPreviewModal from './PreviewModal'
 
 import useUploadContext, { UploadProvider } from './context'
 
+import type { FileInput } from 'graphql/__generated/operations'
+
 interface UploadFileProps extends Omit<UploadProps, 'onChange'> {
-  value?: string[]
-  onChange?: (value?: string[]) => void
+  value?: FileInput[]
+  onChange?: (value?: FileInput[]) => void
   allowFileExtension?: string
   maxUploadItems?: number
   disabled?: boolean
