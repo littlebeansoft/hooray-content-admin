@@ -4,6 +4,10 @@ query GetContentPackByID($id: String!) {
       _id
       active
       categoryIDs
+      categories {
+        _id
+        name
+      }
       covers {
         file
         name
