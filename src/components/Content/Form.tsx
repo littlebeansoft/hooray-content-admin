@@ -2,6 +2,9 @@ import { Button, Col, Form, FormInstance, Row } from 'antd'
 
 import BottomActionBar from 'components/BottomActionBar'
 import ContentFormGeneral from './FormGeneral'
+import ContentFormSetting from './FormSetting'
+import ContentFormPrice from './FormPrice'
+import FormCreator from './FormCreator'
 
 import { baseFormProps } from 'helpers/antdUtils'
 
@@ -12,14 +15,22 @@ const { useForm, useFormInstance } = Form
 interface ContentFormProps {
   loading?: boolean
   form: FormInstance<FormValues>
+  onFinish?: (values: FormValues) => void
 }
 
-const ContentForm = ({ loading, form }: ContentFormProps) => {
+const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
   return (
-    <Form {...baseFormProps} form={form} onFinish={console.log}>
+    <Form {...baseFormProps} form={form} onFinish={onFinish}>
       <Row gutter={32}>
         <Col span={16}>
           <ContentFormGeneral />
+        </Col>
+        <Col span={8}>
+          <FormCreator />
+
+          <ContentFormSetting />
+
+          <ContentFormPrice />
         </Col>
       </Row>
 

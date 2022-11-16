@@ -3,6 +3,7 @@ import {
   GetCategoryForSearchQuery,
   GetContentPackByIdQuery,
   GetContentPackListQuery,
+  GetListCreatorsProfileQuery,
   GetOrgAuthUserQuery,
 } from './__generated/operations'
 
@@ -23,3 +24,6 @@ export type QR_GetContentPackByIDResult =
 
 export type QR_GetCategoryForSearchResult =
   GetCategoryForSearchQuery['getCategory']['payload']
+
+export type QR_GetCreatorResult =
+  GetListCreatorsProfileQuery['getResourceAdmin']['payload'][number]
