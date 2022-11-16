@@ -5,6 +5,7 @@ import ContentCreatePage from 'pages/content/CreatePage'
 import ContentUpdatePage from 'pages/content/UpdatePage'
 
 import ContentApprovalPage from 'pages/contentApproval/IndexPage'
+import ContentApprovalDetailPage from 'pages/contentApproval/DetailPage'
 
 export type RouteKey =
   | 'root'
@@ -15,6 +16,7 @@ export type RouteKey =
   | 'appLabelCreate'
   | 'appLabelUpdate'
   | 'appContentApproval'
+  | 'appContentApprovalDetail'
 
 export const paths: Record<RouteKey, string> = {
   root: '/',
@@ -28,6 +30,7 @@ export const paths: Record<RouteKey, string> = {
   appLabelUpdate: '/app/:ref/content/:id',
 
   appContentApproval: '/app/:ref/content-approval',
+  appContentApprovalDetail: '/app/:ref/content-approval/:id',
 }
 
 export const orgRouteConfig: RouteObject[] = [
@@ -62,5 +65,9 @@ export const appRouteConfig: RouteObject[] = [
   {
     path: paths.appContentApproval,
     element: <ContentApprovalPage />,
+  },
+  {
+    path: paths.appContentApprovalDetail,
+    element: <ContentApprovalDetailPage />,
   },
 ]
