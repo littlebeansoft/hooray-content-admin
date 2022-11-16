@@ -5,7 +5,6 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 import ContentBlock from 'components/ContentBlock'
 import UploadFile from 'components/UploadFile'
-import CategorySearchInput from 'components/CategorySearchInput'
 import TinyEditor from 'components/TinyEditor'
 import Label, { LabelContainer } from 'components/Label'
 
@@ -46,11 +45,11 @@ const ContentFormGeneral = () => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        {/* <Col span={12}>
           <Form.Item label="หมวดหมู่" name="categoryIDs" rules={[ruleRequired]}>
             <CategorySearchInput />
           </Form.Item>
-        </Col>
+        </Col> */}
 
         <Col span={24}>
           <Form.Item
@@ -134,7 +133,9 @@ const ContentFormGeneral = () => {
               requirementRef.current = handler
 
               if (fields.length === 0) {
-                return <NotFoundListItem>ยังไม่มีวัตถุประสงค์</NotFoundListItem>
+                return (
+                  <NotFoundListItem>ยังไม่มีข้อกำหนดการเรียน</NotFoundListItem>
+                )
               }
 
               return (
@@ -143,7 +144,7 @@ const ContentFormGeneral = () => {
                     <Form.Item key={field.key}>
                       <ListItemContainer>
                         <Form.Item {...field} rules={[ruleRequired]} noStyle>
-                          <Input placeholder="กรอกวัตถุประสงค์" />
+                          <Input placeholder="กรอกข้อกำหนดการเรียน" />
                         </Form.Item>
 
                         <MinusCircleOutlined
