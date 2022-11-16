@@ -1,4 +1,4 @@
-import { Col, Dropdown, Form, FormInstance, Row } from 'antd'
+import { Col, Dropdown, Form, FormInstance, Input, Row } from 'antd'
 import { CaretUpOutlined } from '@ant-design/icons'
 
 import BottomActionBar from 'components/BottomActionBar'
@@ -24,6 +24,12 @@ interface ContentFormProps {
 const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
   return (
     <Form {...baseFormProps} form={form} onFinish={onFinish}>
+      <Form.Item hidden>
+        <Form.Item name="status">
+          <Input />
+        </Form.Item>
+      </Form.Item>
+
       <Row gutter={32}>
         <Col span={16}>
           <ContentFormGeneral />
