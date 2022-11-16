@@ -1,10 +1,15 @@
 import type { ColumnsType } from 'antd/lib/table'
 
 import { Space, Table, TableProps, Tag } from 'antd'
+import { Link } from 'react-router-dom'
 
 import ActiveStatusTag from 'components/ActiveStatusTag'
 import ApprovalStatusTag from 'components/ApprovalStatusTag'
 import GetInstructorProfileName from 'components/GetInstructorProfileName'
+
+import { routeTo } from 'helpers/utils'
+
+import { paths } from 'setup/PageRouter'
 
 import type { QR_GetContentPackListResult } from 'graphql/queryResponseTypes'
 
@@ -18,7 +23,19 @@ const ContentApprovalListTable = (
       title: 'ชื่อหลักสูตร',
       fixed: true,
       width: 400,
-      dataIndex: 'title',
+      render: (_, { _id, title }) => {
+        return (
+          <Link
+            to={routeTo(paths.appContentApprovalDetail, {
+              params: {
+                id: _id,
+              },
+            })}
+          >
+            {title}
+          </Link>
+        )
+      },
     },
     {
       dataIndex: 'categories',
