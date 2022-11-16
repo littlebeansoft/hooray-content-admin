@@ -1,5 +1,5 @@
-query getListCreatorsProfile {
-  getResourceAdmin {
+query getListCreatorsProfile($find: INPUT_FIND_DATA) {
+  getResourceAdmin(find: $find) {
     payload {
       _id
       attribute
