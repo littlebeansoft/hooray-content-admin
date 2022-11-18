@@ -1,0 +1,25 @@
+query getListCategories($input: GetCategoryInPut!) {
+  getCategory(input: $input) {
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+    payload {
+      _id
+      name
+      categoryKey
+      createdAt
+      createdBy
+      descriptions
+      parentCategory {
+        _id
+        name
+      }
+      status
+      updatedAt
+      updatedBy
+    }
+  }
+}
