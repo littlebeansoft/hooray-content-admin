@@ -4,6 +4,8 @@ import humanizeDuration from 'humanize-duration'
 import { stringify, ParsedQuery } from 'query-string'
 import { tokenRef } from 'services/localStorage'
 
+import { EnabledStatus } from 'graphql/__generated/operations'
+
 interface RouteToOptions {
   params?: Record<string, string>
   query?: ParsedQuery
@@ -45,6 +47,20 @@ export const getActiveBooleanValue = (
   return false
 }
 
+export const getActiveToEnableStatus = (
+  active?: string | null
+): EnabledStatus | undefined => {
+  if (active == null || active === 'all') {
+    return undefined
+  }
+
+  if (active === 'true') {
+    return EnabledStatus.Enabled
+  }
+
+  return EnabledStatus.Disabled
+}
+
 const defaultDurationTimeFormatOptions: humanizeDuration.Options = {
   language: 'th',
 }
@@ -57,4 +73,16 @@ export const videoDurationTimeFormat = (
     delimiter: ' ',
     ...options,
   })
+}
+
+export const searchParamsToObject = <T = any>(
+  searchParams: URLSearchParams
+) => {
+  const query = {} as any
+
+  searchParams.forEach((value, key) => {
+    query[key] = value
+  })
+
+  return query as T
 }
