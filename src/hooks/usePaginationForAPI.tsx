@@ -2,6 +2,8 @@ import type { TablePaginationConfig, TableProps } from 'antd'
 
 import { useSearchParams } from 'react-router-dom'
 
+import { searchParamsToObject } from 'helpers/utils'
+
 import type {
   PaginatedFindType,
   TypePagination,
@@ -43,7 +45,10 @@ const usePaginationForAPI = (): UsePaginationForAPIResponse => {
   }
 
   const onAntdTableChange: OnAntdTableChangeType = (paginationConfig) => {
+    const restQuery = searchParamsToObject(searchParams)
+
     setSearchParams({
+      ...restQuery,
       page: `${paginationConfig.current}`,
     })
   }

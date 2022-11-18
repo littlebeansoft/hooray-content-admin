@@ -7,14 +7,18 @@ import ContentUpdatePage from 'pages/content/UpdatePage'
 import ContentApprovalPage from 'pages/contentApproval/IndexPage'
 import ContentApprovalDetailPage from 'pages/contentApproval/DetailPage'
 
+import CategoryPage from 'pages/category/IndexPage'
+import CategoryCreatePage from 'pages/category/CreatePage'
+import CategoryUpdatePage from 'pages/category/UpdatePage'
+
 export type RouteKey =
   | 'root'
   | 'orgContent'
   | 'orgContentCreate'
   | 'orgContentUpdate'
-  | 'appLabel'
-  | 'appLabelCreate'
-  | 'appLabelUpdate'
+  | 'appCategory'
+  | 'appCategoryCreate'
+  | 'appCategoryUpdate'
   | 'appContentApproval'
   | 'appContentApprovalDetail'
 
@@ -25,9 +29,9 @@ export const paths: Record<RouteKey, string> = {
   orgContentCreate: '/org/:ref/content/create',
   orgContentUpdate: '/org/:ref/content/:id',
 
-  appLabel: '/app/:ref/content',
-  appLabelCreate: '/app/:ref/content/create',
-  appLabelUpdate: '/app/:ref/content/:id',
+  appCategory: '/app/:ref/category',
+  appCategoryCreate: '/app/:ref/category/create',
+  appCategoryUpdate: '/app/:ref/category/:id',
 
   appContentApproval: '/app/:ref/content-approval',
   appContentApprovalDetail: '/app/:ref/content-approval/:id',
@@ -50,16 +54,16 @@ export const orgRouteConfig: RouteObject[] = [
 
 export const appRouteConfig: RouteObject[] = [
   {
-    path: paths.appLabel,
-    element: <h1>This is app label page</h1>,
+    path: paths.appCategory,
+    element: <CategoryPage />,
   },
   {
-    path: paths.appLabelCreate,
-    element: <h1>This is app label create page</h1>,
+    path: paths.appCategoryCreate,
+    element: <CategoryCreatePage />,
   },
   {
-    path: paths.appLabelUpdate,
-    element: <h1>This is app label update page</h1>,
+    path: paths.appCategoryUpdate,
+    element: <CategoryUpdatePage />,
   },
 
   {

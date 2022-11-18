@@ -2,7 +2,6 @@ import type { ColumnsType } from 'antd/lib/table'
 
 import { Link } from 'react-router-dom'
 import { Space, Table, TableProps, Tag } from 'antd'
-import dayjs from 'dayjs'
 
 import ActiveStatusTag from 'components/ActiveStatusTag'
 import ApprovalStatusTag from 'components/ApprovalStatusTag'
@@ -10,7 +9,7 @@ import GetUserProfileName from 'components/GetUserProfileName'
 import GetInstructorProfileName from 'components/GetInstructorProfileName'
 
 import { routeTo, videoDurationTimeFormat } from 'helpers/utils'
-import { HUMAN_READABLE_FORMAT, numberFormat } from 'helpers/formatter'
+import { humanReadableDateTimeFormat, numberFormat } from 'helpers/formatter'
 
 import { paths } from 'setup/PageRouter'
 
@@ -167,11 +166,3 @@ const ContentListTable = (
 }
 
 export default ContentListTable
-
-const humanReadableDateTimeFormat = (dateTime: Date) => {
-  if (dateTime == null) {
-    return '-'
-  }
-
-  return dayjs(dateTime).format(HUMAN_READABLE_FORMAT)
-}
