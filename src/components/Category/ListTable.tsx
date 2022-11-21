@@ -15,7 +15,7 @@ import { paths } from 'setup/PageRouter'
 
 import type { QR_GetCategoryResult } from 'graphql/queryResponseTypes'
 
-export type RecordType = QR_GetCategoryResult[number]
+export type RecordType = QR_GetCategoryResult
 
 const CategoryListTable = (props: Omit<TableProps<RecordType>, 'columns'>) => {
   const columns: ColumnsType<RecordType> = [
