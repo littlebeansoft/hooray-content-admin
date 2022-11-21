@@ -30,4 +30,4 @@ export type QR_GetCreatorResult =
   GetListCreatorsProfileQuery['getResourceAdmin']['payload'][number]
 
 export type QR_GetCategoryResult =
-  GetListCategoriesQuery['getCategory']['payload']
+  GetListCategoriesQuery['getCategory']['payload'][number]
