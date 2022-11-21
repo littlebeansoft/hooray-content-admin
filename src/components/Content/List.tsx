@@ -1,4 +1,12 @@
-import { Space, TablePaginationConfig, TableProps } from 'antd'
+import { Key, useState } from 'react'
+import {
+  Badge,
+  Button,
+  Popconfirm,
+  Space,
+  TablePaginationConfig,
+  TableProps,
+} from 'antd'
 import { useQueryParams, StringParam } from 'use-query-params'
 
 import {
@@ -12,6 +20,7 @@ import ContentListTable, { RecordType } from './ListTable'
 import ContentListControl, { Filter, OnFilterChangeType } from './ListControl'
 
 import { getActiveBooleanValue } from 'helpers/utils'
+import BottomActionBar from 'components/BottomActionBar'
 
 interface ContentListProps {
   loading?: boolean
@@ -20,6 +29,7 @@ interface ContentListProps {
   pagination?: TablePaginationConfig
   onFilterChange?: OnFilterChangeType
   onTableChange?: TableProps<RecordType>['onChange']
+  onDeleteListContentPacks?: (contentPackIDs: string[]) => void
 }
 
 const ContentList = ({
@@ -29,7 +39,10 @@ const ContentList = ({
   filter,
   onFilterChange,
   onTableChange,
+  onDeleteListContentPacks,
 }: ContentListProps) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
+
   return (
     <Space style={{ width: '100%' }} direction="vertical">
       <ContentListControl filter={filter} onFilterChange={onFilterChange} />
@@ -39,7 +52,35 @@ const ContentList = ({
         dataSource={dataSource}
         pagination={pagination}
         onChange={onTableChange}
+        rowSelection={{
+          selectedRowKeys,
+          onChange: setSelectedRowKeys,
+        }}
       />
+
+      <BottomActionBar visible={selectedRowKeys.length > 0}>
+        <Space>
+          <Space size="small">
+            <Badge count={selectedRowKeys.length} />
+            <span>จำนวนหลักสูตรที่เลือกไว้</span>
+          </Space>
+
+          <Popconfirm
+            title="แน่ใจที่จะลบหรือไม่?"
+            placement="topRight"
+            onConfirm={() => {
+              onDeleteListContentPacks?.(selectedRowKeys as string[])
+            }}
+            okButtonProps={{
+              danger: true,
+            }}
+          >
+            <Button type="primary" danger>
+              ลบ
+            </Button>
+          </Popconfirm>
+        </Space>
+      </BottomActionBar>
     </Space>
   )
 }
