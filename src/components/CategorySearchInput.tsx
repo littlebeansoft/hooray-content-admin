@@ -23,10 +23,10 @@ const CategorySearchInput = (props: SelectProps) => {
 
   return (
     <Select
+      mode="multiple"
       {...props}
       allowClear
       showSearch
-      mode="multiple"
       placeholder="ค้นหาหมวดหมู่"
       loading={query.loading}
       options={selectOptions}

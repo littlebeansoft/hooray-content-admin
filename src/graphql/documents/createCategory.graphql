@@ -1,0 +1,7 @@
+mutation createCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    payload {
+      _id
+    }
+  }
+}
