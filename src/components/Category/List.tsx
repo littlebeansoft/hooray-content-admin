@@ -66,9 +66,10 @@ export const useGetListCategories = () => {
         pagination: paginationVariables,
         query: {
           status: getActiveToEnableStatus(filter.active),
+        },
+        search: {
           name: filter.keyword,
           descriptions: filter.keyword,
-          categoryKey: filter.keyword,
         },
       },
     },
