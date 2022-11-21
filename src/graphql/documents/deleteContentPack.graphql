@@ -1,0 +1,7 @@
+mutation deleteContentPack($ids: [String!]!) {
+  deleteContentPack(ids: $ids) {
+    payload {
+      _id
+    }
+  }
+}
