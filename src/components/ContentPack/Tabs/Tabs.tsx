@@ -1,10 +1,8 @@
-import { Tabs } from 'antd'
+import { Tabs, TabsProps } from 'antd'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import ContentPackTabsDetail from './Detail'
 import ContentPackTabsSection from './Section'
-
-const { TabPane } = Tabs
 
 const ContentPackTabs = () => {
   const [tabKey, setTabKey] = useQueryParam(
@@ -12,17 +10,22 @@ const ContentPackTabs = () => {
     withDefault(StringParam, 'detail')
   )
 
-  return (
-    <Tabs defaultActiveKey={tabKey} onChange={setTabKey}>
-      <TabPane key="detail" tab="ข้อมูลหลัก">
-        <ContentPackTabsDetail />
-      </TabPane>
+  const items: TabsProps['items'] = [
+    {
+      key: 'detail',
+      tabKey: 'detail',
+      label: 'ข้อมูลหลัก',
+      children: <ContentPackTabsDetail />,
+    },
+    {
+      key: 'section',
+      tabKey: 'section',
+      label: 'บทเรียน',
+      children: <ContentPackTabsSection />,
+    },
+  ]
 
-      <TabPane key="section" tab="บทเรียน">
-        <ContentPackTabsSection />
-      </TabPane>
-    </Tabs>
-  )
+  return <Tabs defaultActiveKey={tabKey} onChange={setTabKey} items={items} />
 }
 
 export default ContentPackTabs

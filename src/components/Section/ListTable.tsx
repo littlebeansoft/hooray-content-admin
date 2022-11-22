@@ -44,6 +44,11 @@ const SectionListTable = (
       ),
     },
     {
+      title: 'จำนวนเนื้อหา',
+      width: 120,
+      dataIndex: 'numOfContent',
+    },
+    {
       dataIndex: 'updatedAt',
       title: 'แก้ไขเมื่อ',
       width: 200,
@@ -65,6 +70,7 @@ const SectionListTable = (
     {
       dataIndex: 'createdAt',
       title: 'สร้างเมื่อ',
+      width: 200,
       render: (createdAt) => {
         return humanReadableDateTimeFormat(createdAt)
       },
@@ -90,7 +96,7 @@ const SectionListTable = (
     },
   ]
 
-  return <Table {...tableProps} columns={columns} />
+  return <Table {...tableProps} rowKey="_id" columns={columns} />
 }
 
 export default SectionListTable
