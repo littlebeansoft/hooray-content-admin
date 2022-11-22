@@ -1,4 +1,4 @@
-import type { RcFile } from 'antd/lib/upload'
+import type { RcFile } from 'antd/es/upload'
 
 export interface FileListItemData {
   id: string

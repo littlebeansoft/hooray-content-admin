@@ -1,4 +1,4 @@
-import type { ColumnsType } from 'antd/lib/table'
+import type { ColumnsType } from 'antd/es/table'
 
 import { Table, TableProps } from 'antd'
 import { Link } from 'react-router-dom'

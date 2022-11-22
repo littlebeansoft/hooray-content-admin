@@ -1,4 +1,4 @@
-import type { RcFile, UploadFile } from 'antd/lib/upload'
+import type { RcFile, UploadFile } from 'antd/es/upload'
 
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'

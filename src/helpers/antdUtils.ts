@@ -1,4 +1,4 @@
-import type { Rule } from 'antd/lib/form'
+import type { Rule } from 'antd/es/form'
 
 import { FormProps } from 'antd'
 
