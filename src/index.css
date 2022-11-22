@@ -1,11 +1,6 @@
-@import '~antd/dist/antd.min.css';
+@import '~antd/dist/reset.css';
 
-* {
-  font-family: Prompt, sans-serif;
-  box-sizing: border-box;
-}
-
-.main-content {
+#main-content {
   background-color: rgb(240, 242, 245);
   padding: 16px 16px 80px 16px;
   min-height: 100vh;
