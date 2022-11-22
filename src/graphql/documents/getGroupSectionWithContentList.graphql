@@ -1,10 +1,10 @@
-query getGroupSectionWithContentList($id: String!) {
+query getGroupSectionWithContentList($id: String!, $input: ContentFindInput) {
   getSectionByID(id: $id) {
     payload {
       title
     }
   }
-  getContentList(sectionID: $id) {
+  getContentList(sectionID: $id, input: $input) {
     pagination {
       limit
       page

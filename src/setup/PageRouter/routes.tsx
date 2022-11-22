@@ -4,6 +4,10 @@ import ContentPackPage from 'pages/contentPack/IndexPage'
 import ContentPackCreatePage from 'pages/contentPack/CreatePage'
 import ContentPackUpdatePage from 'pages/contentPack/UpdatePage'
 
+import ContentPage from 'pages/content/IndexPage'
+import ContentCreatePage from 'pages/content/CreatePage'
+import ContentUpdatePage from 'pages/content/UpdatePage'
+
 import ContentApprovalPage from 'pages/contentApproval/IndexPage'
 import ContentApprovalDetailPage from 'pages/contentApproval/DetailPage'
 
@@ -59,6 +63,19 @@ export const orgRouteConfig: RouteObject[] = [
   {
     path: paths.orgContentPackUpdate,
     element: <ContentPackUpdatePage />,
+  },
+
+  {
+    path: paths.orgContent,
+    element: <ContentPage />,
+  },
+  {
+    path: paths.orgContentCreate,
+    element: <ContentCreatePage />,
+  },
+  {
+    path: paths.orgContentUpdate,
+    element: <ContentUpdatePage />,
   },
 ]
 
