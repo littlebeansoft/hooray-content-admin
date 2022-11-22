@@ -8,7 +8,7 @@ import useUploadContext from './context'
 import type { UploadFileContentProps } from './UploadFile'
 
 const UploadFileList = ({
-  allowFileExtension = '.gif,.jpeg,.jpg,.png,.mp4',
+  allowFileExtension = '.gif,.jpeg,.jpg,.png,.webp,.mp4',
   maxUploadItems = 1,
   disabled,
 }: UploadFileContentProps) => {
