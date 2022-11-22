@@ -11,7 +11,7 @@ import Label, { LabelContainer } from 'components/Label'
 
 import { ruleRequired } from 'helpers/antdUtils'
 
-const ContentFormGeneral = () => {
+const ContentPackFormGeneral = () => {
   const objectiveRef = useRef<FormListOperation>()
   const requirementRef = useRef<FormListOperation>()
   const suitableRef = useRef<FormListOperation>()
@@ -217,7 +217,7 @@ const ContentFormGeneral = () => {
   )
 }
 
-export default ContentFormGeneral
+export default ContentPackFormGeneral
 
 const NotFoundListItem = styled.div`
   width: 100%;

@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 
-import ContentForm, { useParentFormInstance } from 'components/ContentPack/Form'
+import ContentPackForm, {
+  useParentFormInstance,
+} from 'components/ContentPack/Form'
 import PageTitle from 'components/PageTitle'
 
 import { useCreateContentPackMutation } from 'graphql/__generated/operations'
@@ -30,7 +32,7 @@ const ContentPackCreatePage = () => {
         สร้างหลักสูตร
       </PageTitle>
 
-      <ContentForm
+      <ContentPackForm
         loading={loading}
         form={form}
         onFinish={(values) =>

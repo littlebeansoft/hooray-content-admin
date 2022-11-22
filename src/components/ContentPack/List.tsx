@@ -16,13 +16,16 @@ import {
 
 import usePaginationForAPI from 'hooks/usePaginationForAPI'
 
-import ContentListTable, { RecordType } from './ListTable'
-import ContentListControl, { Filter, OnFilterChangeType } from './ListControl'
+import ContentPackListTable, { RecordType } from './ListTable'
+import ContentPackListControl, {
+  Filter,
+  OnFilterChangeType,
+} from './ListControl'
 
 import { getActiveBooleanValue } from 'helpers/utils'
 import BottomActionBar from 'components/BottomActionBar'
 
-interface ContentListProps {
+interface ContentPackListProps {
   loading?: boolean
   filter?: Filter
   dataSource?: RecordType[]
@@ -32,7 +35,7 @@ interface ContentListProps {
   onDeleteListContentPacks?: (contentPackIDs: string[]) => void
 }
 
-const ContentList = ({
+const ContentPackList = ({
   loading,
   dataSource,
   pagination,
@@ -40,14 +43,14 @@ const ContentList = ({
   onFilterChange,
   onTableChange,
   onDeleteListContentPacks,
-}: ContentListProps) => {
+}: ContentPackListProps) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
 
   return (
     <Space style={{ width: '100%' }} direction="vertical">
-      <ContentListControl filter={filter} onFilterChange={onFilterChange} />
+      <ContentPackListControl filter={filter} onFilterChange={onFilterChange} />
 
-      <ContentListTable
+      <ContentPackListTable
         loading={loading}
         dataSource={dataSource}
         pagination={pagination}
@@ -85,9 +88,9 @@ const ContentList = ({
   )
 }
 
-export default ContentList
+export default ContentPackList
 
-export const useGetContentList = () => {
+export const useGetContentPackList = () => {
   const [filter, setFilter] = useQueryParams({
     active: StringParam,
     status: StringParam,

@@ -17,15 +17,15 @@ export type Filter = Record<FilterKey, string | null | undefined>
 
 export type OnFilterChangeType = (name: FilterKey, value: string) => void
 
-interface ContentListControlProps {
+interface ContentPackListControlProps {
   filter?: Filter
   onFilterChange?: OnFilterChangeType
 }
 
-const ContentListControl = ({
+const ContentPackListControl = ({
   filter,
   onFilterChange,
-}: ContentListControlProps) => {
+}: ContentPackListControlProps) => {
   return (
     <Row gutter={[32, 32]} align="bottom">
       <Col span={16}>
@@ -58,4 +58,4 @@ const ContentListControl = ({
   )
 }
 
-export default ContentListControl
+export default ContentPackListControl

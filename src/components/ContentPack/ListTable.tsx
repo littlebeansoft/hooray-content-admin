@@ -17,7 +17,7 @@ import type { QR_GetContentPackListResult } from 'graphql/queryResponseTypes'
 
 export type RecordType = QR_GetContentPackListResult
 
-const ContentListTable = (
+const ContentPackListTable = (
   tableProps: Omit<TableProps<RecordType>, 'columns'>
 ) => {
   const columns: ColumnsType<RecordType> = [
@@ -165,4 +165,4 @@ const ContentListTable = (
   )
 }
 
-export default ContentListTable
+export default ContentPackListTable

@@ -1,13 +1,13 @@
 import { message } from 'antd'
 
-import ContentList, { useGetContentList } from 'components/ContentPack/List'
+import ContentList, { useGetContentPackList } from 'components/ContentPack/List'
 import PageTitle from 'components/PageTitle'
 
 import { useDeleteContentPackMutation } from 'graphql/__generated/operations'
 
 const ContentPackPage = () => {
   const { filter, query, pagination, onFilterChange, onTableChange } =
-    useGetContentList()
+    useGetContentPackList()
 
   const [deleteContentPacks, { loading }] = useDeleteContentPackMutation({
     onCompleted() {
