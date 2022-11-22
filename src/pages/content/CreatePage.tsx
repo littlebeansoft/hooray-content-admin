@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { message, Space } from 'antd'
+import { message } from 'antd'
 
 import ContentForm, { useParentFormInstance } from 'components/Content/Form'
 import PageTitle from 'components/PageTitle'
@@ -26,10 +26,8 @@ const ContentCreatePage = () => {
   return (
     <>
       <PageTitle>
-        <Space>
-          <LeftOutlined onClick={() => navigate(-1)} />
-          สร้างหลักสูตร
-        </Space>
+        <LeftOutlined onClick={() => navigate(-1)} />
+        สร้างหลักสูตร
       </PageTitle>
 
       <ContentForm

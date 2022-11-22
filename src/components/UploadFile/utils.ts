@@ -1,4 +1,4 @@
-import { RcFile } from 'antd/lib/upload'
+import { RcFile } from 'antd/es/upload'
 
 type FileType = 'video' | 'image' | 'document'
 

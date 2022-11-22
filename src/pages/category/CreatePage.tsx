@@ -1,5 +1,6 @@
 import { message } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { LeftOutlined } from '@ant-design/icons'
 
 import CategoryForm, { useParentFormInstance } from 'components/Category/Form'
 import PageTitle from 'components/PageTitle'
@@ -29,7 +30,10 @@ const CategoryCreatePage = () => {
 
   return (
     <>
-      <PageTitle>สร้างหมวดหมู่หลักสูตร</PageTitle>
+      <PageTitle>
+        <LeftOutlined onClick={() => navigate(-1)} />
+        สร้างหมวดหมู่หลักสูตร
+      </PageTitle>
 
       <CategoryForm
         loading={loading}

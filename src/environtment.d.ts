@@ -2,6 +2,8 @@
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    // Version
+    REACT_APP_VERSION: string
     REACT_APP_STORAGE_VERSION: string
 
     // API Endpoints

@@ -1,4 +1,4 @@
-import type { RcFile } from 'antd/lib/upload'
+import type { RcFile } from 'antd/es/upload'
 
 import { useState } from 'react'
 import axios, { AxiosResponse } from 'axios'

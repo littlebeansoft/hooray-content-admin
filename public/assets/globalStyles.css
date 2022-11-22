@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Prompt', sans-serif;
+  src: url(./fonts/Prompt-Light.ttf);
+}
+
+* {
+  font-family: Prompt, sans-serif;
+  box-sizing: border-box;
+}

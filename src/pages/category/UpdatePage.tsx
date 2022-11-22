@@ -1,4 +1,4 @@
-import { Alert, message, Space } from 'antd'
+import { Alert, message } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import { LeftOutlined, LoadingOutlined } from '@ant-design/icons'
 
@@ -70,10 +70,8 @@ const CategoryUpdatePage = () => {
   return (
     <>
       <PageTitle>
-        <Space>
-          <LeftOutlined onClick={() => navigate(-1)} />
-          {data?.name}
-        </Space>
+        <LeftOutlined onClick={() => navigate(-1)} />
+        {data?.name}
       </PageTitle>
 
       <CategoryForm
