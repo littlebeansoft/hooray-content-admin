@@ -1,0 +1,27 @@
+query getGroupSectionWithContentList($id: String!) {
+  getSectionByID(id: $id) {
+    payload {
+      title
+    }
+  }
+  getContentList(sectionID: $id) {
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+    payload {
+      _id
+      active
+      canBePreviewed
+      title
+      sortOrder
+      createdAt
+      createdBy
+      updatedAt
+      updatedBy
+      length
+    }
+  }
+}
