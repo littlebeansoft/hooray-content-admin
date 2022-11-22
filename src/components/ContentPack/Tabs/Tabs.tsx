@@ -2,6 +2,7 @@ import { Tabs } from 'antd'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import ContentPackTabsDetail from './Detail'
+import ContentPackTabsSection from './Section'
 
 const { TabPane } = Tabs
 
@@ -18,7 +19,7 @@ const ContentPackTabs = () => {
       </TabPane>
 
       <TabPane key="section" tab="บทเรียน">
-        <h1>This is section</h1>
+        <ContentPackTabsSection />
       </TabPane>
     </Tabs>
   )
