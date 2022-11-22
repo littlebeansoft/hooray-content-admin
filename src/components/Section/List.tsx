@@ -69,6 +69,9 @@ export const useGetSectionList = () => {
         filter: {
           active: getActiveBooleanValue(filter.active),
         },
+        search: {
+          title: filter.keyword == null ? undefined : filter.keyword,
+        },
       },
     },
   })
