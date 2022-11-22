@@ -1,0 +1,7 @@
+mutation createSection($input: CreateSectionInput!) {
+  createSection(input: $input) {
+    payload {
+      _id
+    }
+  }
+}
