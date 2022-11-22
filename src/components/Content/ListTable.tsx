@@ -28,7 +28,7 @@ const ContentListTable = (
       render: (_, { _id, title }) => {
         return (
           <Link
-            to={routeTo(paths.orgContentUpdate, {
+            to={routeTo(paths.orgContentPackUpdate, {
               params: {
                 id: _id,
               },

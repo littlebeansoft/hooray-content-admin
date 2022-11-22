@@ -42,7 +42,7 @@ const ContentListControl = ({
       <Col span={8}>
         <div style={{ textAlign: 'right' }}>
           <Link
-            to={routeTo(paths.orgContentCreate, {
+            to={routeTo(paths.orgContentPackCreate, {
               params: {
                 ref: tokenRef.get(),
               },

@@ -13,9 +13,9 @@ import CategoryUpdatePage from 'pages/category/UpdatePage'
 
 export type RouteKey =
   | 'root'
-  | 'orgContent'
-  | 'orgContentCreate'
-  | 'orgContentUpdate'
+  | 'orgContentPack'
+  | 'orgContentPackCreate'
+  | 'orgContentPackUpdate'
   | 'appCategory'
   | 'appCategoryCreate'
   | 'appCategoryUpdate'
@@ -25,9 +25,9 @@ export type RouteKey =
 export const paths: Record<RouteKey, string> = {
   root: '/',
 
-  orgContent: '/org/:ref/content',
-  orgContentCreate: '/org/:ref/content/create',
-  orgContentUpdate: '/org/:ref/content/:id',
+  orgContentPack: '/org/:ref/content',
+  orgContentPackCreate: '/org/:ref/content/create',
+  orgContentPackUpdate: '/org/:ref/content/:id',
 
   appCategory: '/app/:ref/category',
   appCategoryCreate: '/app/:ref/category/create',
@@ -39,15 +39,15 @@ export const paths: Record<RouteKey, string> = {
 
 export const orgRouteConfig: RouteObject[] = [
   {
-    path: paths.orgContent,
+    path: paths.orgContentPack,
     element: <ContentPage />,
   },
   {
-    path: paths.orgContentCreate,
+    path: paths.orgContentPackCreate,
     element: <ContentCreatePage />,
   },
   {
-    path: paths.orgContentUpdate,
+    path: paths.orgContentPackUpdate,
     element: <ContentUpdatePage />,
   },
 ]
