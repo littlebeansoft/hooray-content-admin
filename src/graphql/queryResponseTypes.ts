@@ -7,6 +7,7 @@ import {
   GetOrgAuthUserQuery,
   GetListCategoriesQuery,
   GetSectionListQuery,
+  GetGroupSectionWithContentListQuery,
 } from './__generated/operations'
 
 export type QR_GetOrgAccessTokenWithRefResult =
@@ -34,3 +35,6 @@ export type QR_GetCategoryResult =
   GetListCategoriesQuery['getCategory']['payload'][number]
 
 export type QR_GetSectionResult = GetSectionListQuery['getSectionList']
+
+export type QR_ContentListResult =
+  GetGroupSectionWithContentListQuery['getContentList']['payload']
