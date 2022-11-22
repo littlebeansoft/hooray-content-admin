@@ -1,0 +1,7 @@
+mutation deleteSection($ids: [String!]!) {
+  deleteSection(ids: $ids) {
+    payload {
+      _id
+    }
+  }
+}
