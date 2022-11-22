@@ -65,3 +65,10 @@ export default CategoryForm
 export const useParentFormInstance = () => useForm<FormValues>()
 
 export const useChildFormInstance = () => useFormInstance<FormValues>()
+
+export const createInitialValues = (category: FormValues): any => {
+  return {
+    ...category,
+    active: category.status === EnabledStatus.Enabled ? true : false,
+  }
+}

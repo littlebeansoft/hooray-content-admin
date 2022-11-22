@@ -36,7 +36,7 @@ const CategoryListTable = (props: Omit<TableProps<RecordType>, 'columns'>) => {
     },
     {
       title: 'คำอธิบายหมวดหมู่',
-      dataIndex: 'description',
+      dataIndex: 'descriptions',
       width: 400,
       render: (description) => description || '-',
     },
@@ -89,7 +89,7 @@ const CategoryListTable = (props: Omit<TableProps<RecordType>, 'columns'>) => {
     },
   ]
 
-  return <Table {...props} columns={columns} />
+  return <Table {...props} rowKey="_id" columns={columns} />
 }
 
 export default CategoryListTable
