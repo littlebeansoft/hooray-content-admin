@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { message } from 'antd'
 
-import ContentForm, { useParentFormInstance } from 'components/Content/Form'
+import ContentForm, { useParentFormInstance } from 'components/ContentPack/Form'
 import PageTitle from 'components/PageTitle'
 
 import { useCreateContentPackMutation } from 'graphql/__generated/operations'

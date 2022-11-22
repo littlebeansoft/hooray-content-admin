@@ -1,6 +1,6 @@
 import { message } from 'antd'
 
-import ContentList, { useGetContentList } from 'components/Content/List'
+import ContentList, { useGetContentList } from 'components/ContentPack/List'
 import PageTitle from 'components/PageTitle'
 
 import { useDeleteContentPackMutation } from 'graphql/__generated/operations'

@@ -2,7 +2,7 @@ import { LeftOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 
 import PageTitle from 'components/PageTitle'
-import ContentTabs from 'components/Content/Tabs'
+import ContentTabs from 'components/ContentPack/Tabs'
 
 const ContentPackUpdatePage = () => {
   const navigate = useNavigate()

@@ -2,7 +2,9 @@ import { Alert, message } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useParams } from 'react-router-dom'
 
-import ContentPackForm, { useParentFormInstance } from 'components/Content/Form'
+import ContentPackForm, {
+  useParentFormInstance,
+} from 'components/ContentPack/Form'
 
 import {
   useGetContentPackByIdQuery,
