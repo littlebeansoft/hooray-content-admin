@@ -1,13 +1,26 @@
-import { Space, TablePaginationConfig, TableProps } from 'antd'
+import { Key, useState } from 'react'
+import {
+  Badge,
+  Button,
+  message,
+  Popconfirm,
+  Space,
+  TablePaginationConfig,
+  TableProps,
+} from 'antd'
 import { useParams } from 'react-router-dom'
 import { StringParam, useQueryParams } from 'use-query-params'
 
+import BottomActionBar from 'components/BottomActionBar'
 import SectionListControl, { Filter, OnFilterChangeType } from './ListControl'
 import SectionListTable, { RecordType } from './ListTable'
 
 import usePaginationForAPI from 'hooks/usePaginationForAPI'
 
-import { useGetSectionListQuery } from 'graphql/__generated/operations'
+import {
+  useDeleteSectionMutation,
+  useGetSectionListQuery,
+} from 'graphql/__generated/operations'
 
 import { getActiveBooleanValue } from 'helpers/utils'
 
@@ -28,17 +41,65 @@ const SectionList = ({
   onFilterChange,
   onTableChange,
 }: SectionListProps) => {
-  return (
-    <Space style={{ width: '100%' }} direction="vertical">
-      <SectionListControl filter={filter} onFilterChange={onFilterChange} />
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
 
-      <SectionListTable
-        loading={loading}
-        dataSource={dataSource}
-        pagination={pagination}
-        onChange={onTableChange}
-      />
-    </Space>
+  const [deleteSection, query] = useDeleteSectionMutation({
+    refetchQueries: ['getSectionList'],
+    onCompleted() {
+      message.success('ลบบทเรียนเรียบร้อยแล้ว')
+    },
+    onError(error) {
+      console.log(error)
+
+      message.error('ไม่สามารถลบบทเรียนได้ โปรดลองใหม่อีกครั้ง')
+    },
+  })
+
+  return (
+    <>
+      <Space style={{ width: '100%' }} direction="vertical">
+        <SectionListControl filter={filter} onFilterChange={onFilterChange} />
+
+        <SectionListTable
+          loading={loading}
+          dataSource={dataSource}
+          pagination={pagination}
+          onChange={onTableChange}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: setSelectedRowKeys,
+          }}
+        />
+      </Space>
+
+      <BottomActionBar visible={selectedRowKeys.length > 0}>
+        <Space>
+          <Space size="small">
+            <Badge count={selectedRowKeys.length} />
+            <span>จำนวนบทเรียนที่เลือกไว้</span>
+          </Space>
+
+          <Popconfirm
+            title="แน่ใจที่จะลบหรือไม่?"
+            placement="topRight"
+            onConfirm={() => {
+              deleteSection({
+                variables: {
+                  ids: selectedRowKeys as string[],
+                },
+              })
+            }}
+            okButtonProps={{
+              danger: true,
+            }}
+          >
+            <Button loading={query.loading} type="primary" danger>
+              ลบ
+            </Button>
+          </Popconfirm>
+        </Space>
+      </BottomActionBar>
+    </>
   )
 }
 
