@@ -7,7 +7,7 @@ import PageTitle from 'components/PageTitle'
 import { useCreateContentPackMutation } from 'graphql/__generated/operations'
 import { LeftOutlined } from '@ant-design/icons'
 
-const ContentCreatePage = () => {
+const ContentPackCreatePage = () => {
   const [form] = useParentFormInstance()
 
   const navigate = useNavigate()
@@ -45,4 +45,4 @@ const ContentCreatePage = () => {
   )
 }
 
-export default ContentCreatePage
+export default ContentPackCreatePage

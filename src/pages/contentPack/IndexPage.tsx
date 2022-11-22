@@ -5,7 +5,7 @@ import PageTitle from 'components/PageTitle'
 
 import { useDeleteContentPackMutation } from 'graphql/__generated/operations'
 
-const ContentPage = () => {
+const ContentPackPage = () => {
   const { filter, query, pagination, onFilterChange, onTableChange } =
     useGetContentList()
 
@@ -47,4 +47,4 @@ const ContentPage = () => {
   )
 }
 
-export default ContentPage
+export default ContentPackPage
