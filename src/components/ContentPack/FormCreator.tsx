@@ -6,7 +6,7 @@ import { useGetListCreatorsProfileQuery } from 'graphql/__generated/operations'
 
 import { coreClient } from 'setup/apollo'
 
-const FormCreator = () => {
+const ContentPackFormCreator = () => {
   const query = useGetListCreatorsProfileQuery({
     client: coreClient,
   })
@@ -34,4 +34,4 @@ const FormCreator = () => {
   )
 }
 
-export default FormCreator
+export default ContentPackFormCreator

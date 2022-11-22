@@ -2,7 +2,7 @@ import { Checkbox, Col, Form, Row, Switch } from 'antd'
 
 import ContentBlock from 'components/ContentBlock'
 
-const ContentFormSetting = () => {
+const ContentPackFormSetting = () => {
   return (
     <ContentBlock title="ตั้งค่า">
       <Row gutter={[32, 16]}>
@@ -22,4 +22,4 @@ const ContentFormSetting = () => {
   )
 }
 
-export default ContentFormSetting
+export default ContentPackFormSetting

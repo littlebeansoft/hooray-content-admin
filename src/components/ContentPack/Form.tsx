@@ -2,10 +2,10 @@ import { Col, Dropdown, Form, FormInstance, Input, Row } from 'antd'
 import { CaretUpOutlined } from '@ant-design/icons'
 
 import BottomActionBar from 'components/BottomActionBar'
-import ContentFormGeneral from './FormGeneral'
-import ContentFormSetting from './FormSetting'
-import ContentFormPrice from './FormPrice'
-import FormCreator from './FormCreator'
+import ContentPackFormGeneral from './FormGeneral'
+import ContentPackFormSetting from './FormSetting'
+import ContentPackFormPrice from './FormPrice'
+import ContentPackFormCreator from './FormCreator'
 
 import { baseFormProps } from 'helpers/antdUtils'
 
@@ -15,13 +15,13 @@ import type { QR_GetContentPackByIDResult as FormValues } from 'graphql/queryRes
 
 const { useForm, useFormInstance } = Form
 
-interface ContentFormProps {
+interface ContentPackFormProps {
   loading?: boolean
   form: FormInstance<FormValues>
   onFinish?: (values: FormValues) => void
 }
 
-const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
+const ContentPackForm = ({ loading, form, onFinish }: ContentPackFormProps) => {
   return (
     <Form {...baseFormProps} form={form} onFinish={onFinish}>
       <Form.Item hidden>
@@ -32,14 +32,14 @@ const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
 
       <Row gutter={32}>
         <Col span={16}>
-          <ContentFormGeneral />
+          <ContentPackFormGeneral />
         </Col>
         <Col span={8}>
-          <FormCreator />
+          <ContentPackFormCreator />
 
-          <ContentFormSetting />
+          <ContentPackFormSetting />
 
-          <ContentFormPrice />
+          <ContentPackFormPrice />
         </Col>
       </Row>
 
@@ -82,7 +82,7 @@ const ContentForm = ({ loading, form, onFinish }: ContentFormProps) => {
   )
 }
 
-export default ContentForm
+export default ContentPackForm
 
 export const useParentFormInstance = () => useForm<FormValues>()
 

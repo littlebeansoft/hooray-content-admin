@@ -2,7 +2,7 @@ import { Col, Form, InputNumber, Row } from 'antd'
 
 import ContentBlock from 'components/ContentBlock'
 
-const ContentFormPrice = () => {
+const ContentPackFormPrice = () => {
   return (
     <ContentBlock title="ราคา">
       <Row gutter={[32, 16]}>
@@ -16,4 +16,4 @@ const ContentFormPrice = () => {
   )
 }
 
-export default ContentFormPrice
+export default ContentPackFormPrice

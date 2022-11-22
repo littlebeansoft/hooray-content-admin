@@ -1,26 +1,25 @@
-import { LeftOutlined, LoadingOutlined } from '@ant-design/icons'
-import { useNavigate, useParams } from 'react-router-dom'
 import { Alert, message } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import { useParams } from 'react-router-dom'
 
-import PageTitle from 'components/PageTitle'
-import ContentForm, { useParentFormInstance } from 'components/Content/Form'
+import ContentPackForm, {
+  useParentFormInstance,
+} from 'components/ContentPack/Form'
 
 import {
   useGetContentPackByIdQuery,
   useUpdateContentPackMutation,
 } from 'graphql/__generated/operations'
 
-const ContentUpdatePage = () => {
+const ContentPackTabsDetail = () => {
   const [form] = useParentFormInstance()
 
-  const navigate = useNavigate()
-
   const params = useParams()
-  const contentID = params.id as string
+  const contentPackID = params.id as string
 
   const query = useGetContentPackByIdQuery({
     variables: {
-      id: contentID,
+      id: contentPackID,
     },
     fetchPolicy: 'no-cache',
     onCompleted({ getContentPackByID }) {
@@ -36,7 +35,7 @@ const ContentUpdatePage = () => {
       console.log(error)
 
       message.error(
-        `ไม่สามารแก้ไขข้อมูลหลักสูตร ID: ${contentID} ได้โปรดลองใหม่อีกครั้ง`
+        `ไม่สามารแก้ไขข้อมูลหลักสูตร ID: ${contentPackID} ได้โปรดลองใหม่อีกครั้ง`
       )
     },
   })
@@ -54,29 +53,20 @@ const ContentUpdatePage = () => {
     )
   }
 
-  const data = query.data?.getContentPackByID.payload
-
   return (
-    <>
-      <PageTitle>
-        <LeftOutlined onClick={() => navigate(-1)} />
-        {data?.title}
-      </PageTitle>
-
-      <ContentForm
-        loading={loading}
-        form={form}
-        onFinish={(values) => {
-          update({
-            variables: {
-              id: contentID,
-              input: values,
-            },
-          })
-        }}
-      />
-    </>
+    <ContentPackForm
+      loading={loading}
+      form={form}
+      onFinish={(values) => {
+        update({
+          variables: {
+            id: contentPackID,
+            input: values,
+          },
+        })
+      }}
+    />
   )
 }
 
-export default ContentUpdatePage
+export default ContentPackTabsDetail

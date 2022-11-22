@@ -1,8 +1,8 @@
 import type { RouteObject } from 'react-router-dom'
 
-import ContentPage from 'pages/content/IndexPage'
-import ContentCreatePage from 'pages/content/CreatePage'
-import ContentUpdatePage from 'pages/content/UpdatePage'
+import ContentPackPage from 'pages/contentPack/IndexPage'
+import ContentPackCreatePage from 'pages/contentPack/CreatePage'
+import ContentPackUpdatePage from 'pages/contentPack/UpdatePage'
 
 import ContentApprovalPage from 'pages/contentApproval/IndexPage'
 import ContentApprovalDetailPage from 'pages/contentApproval/DetailPage'
@@ -13,9 +13,9 @@ import CategoryUpdatePage from 'pages/category/UpdatePage'
 
 export type RouteKey =
   | 'root'
-  | 'orgContent'
-  | 'orgContentCreate'
-  | 'orgContentUpdate'
+  | 'orgContentPack'
+  | 'orgContentPackCreate'
+  | 'orgContentPackUpdate'
   | 'appCategory'
   | 'appCategoryCreate'
   | 'appCategoryUpdate'
@@ -25,9 +25,9 @@ export type RouteKey =
 export const paths: Record<RouteKey, string> = {
   root: '/',
 
-  orgContent: '/org/:ref/content',
-  orgContentCreate: '/org/:ref/content/create',
-  orgContentUpdate: '/org/:ref/content/:id',
+  orgContentPack: '/org/:ref/content',
+  orgContentPackCreate: '/org/:ref/content/create',
+  orgContentPackUpdate: '/org/:ref/content/:id',
 
   appCategory: '/app/:ref/category',
   appCategoryCreate: '/app/:ref/category/create',
@@ -39,16 +39,16 @@ export const paths: Record<RouteKey, string> = {
 
 export const orgRouteConfig: RouteObject[] = [
   {
-    path: paths.orgContent,
-    element: <ContentPage />,
+    path: paths.orgContentPack,
+    element: <ContentPackPage />,
   },
   {
-    path: paths.orgContentCreate,
-    element: <ContentCreatePage />,
+    path: paths.orgContentPackCreate,
+    element: <ContentPackCreatePage />,
   },
   {
-    path: paths.orgContentUpdate,
-    element: <ContentUpdatePage />,
+    path: paths.orgContentPackUpdate,
+    element: <ContentPackUpdatePage />,
   },
 ]
 

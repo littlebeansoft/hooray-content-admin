@@ -27,6 +27,7 @@ const Version = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 4;
   font-weight: bold;
   font-size: 12px;
   padding: 2px 4px;

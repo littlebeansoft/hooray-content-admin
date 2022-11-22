@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 const BottomActionBar = styled.div<{ visible?: boolean }>`
   width: 100%;
   position: fixed;
+  z-index: 3;
   bottom: ${({ visible }) => (visible ? '0px' : '-72px')};
   right: 0;
   padding: 16px;
