@@ -11,7 +11,7 @@ const { Content } = Layout
 const PageLayout = ({ children }: PageLayoutProps) => {
   return (
     <Layout>
-      <Content className="main-content">{children}</Content>
+      <Content id="main-content">{children}</Content>
     </Layout>
   )
 }
