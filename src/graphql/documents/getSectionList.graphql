@@ -1,0 +1,23 @@
+query getSectionList($contentPackID: String!, $input: SectionFindInput) {
+  getSectionList(contentPackID: $contentPackID, input: $input) {
+    pagination {
+      limit
+      page
+      totalItems
+      totalPages
+    }
+    payload {
+      _id
+      active
+      title
+      sortOrder
+      numOfContent
+      length
+      description
+      createdBy
+      createdAt
+      updatedAt
+      updatedBy
+    }
+  }
+}
