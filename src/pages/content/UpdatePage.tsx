@@ -1,6 +1,6 @@
 import { LeftOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Alert, message, Space } from 'antd'
+import { Alert, message } from 'antd'
 
 import PageTitle from 'components/PageTitle'
 import ContentForm, { useParentFormInstance } from 'components/Content/Form'
@@ -59,10 +59,8 @@ const ContentUpdatePage = () => {
   return (
     <>
       <PageTitle>
-        <Space>
-          <LeftOutlined onClick={() => navigate(-1)} />
-          {data?.title}
-        </Space>
+        <LeftOutlined onClick={() => navigate(-1)} />
+        {data?.title}
       </PageTitle>
 
       <ContentForm

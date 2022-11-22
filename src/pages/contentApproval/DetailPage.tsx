@@ -1,4 +1,4 @@
-import { Alert, Space } from 'antd'
+import { Alert } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import { LeftOutlined, LoadingOutlined } from '@ant-design/icons'
 
@@ -37,11 +37,8 @@ const ContentApprovalDetailPage = () => {
   return (
     <>
       <PageTitle>
-        <Space>
-          <LeftOutlined onClick={() => navigate(-1)} />
-
-          {contentPack?.title}
-        </Space>
+        <LeftOutlined onClick={() => navigate(-1)} />
+        {contentPack?.title}
       </PageTitle>
 
       <ContentApprovalPreview data={contentPack} />
