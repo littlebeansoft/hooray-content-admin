@@ -16,6 +16,9 @@ export type RouteKey =
   | 'orgContentPack'
   | 'orgContentPackCreate'
   | 'orgContentPackUpdate'
+  | 'orgContent'
+  | 'orgContentCreate'
+  | 'orgContentUpdate'
   | 'appCategory'
   | 'appCategoryCreate'
   | 'appCategoryUpdate'
@@ -25,9 +28,16 @@ export type RouteKey =
 export const paths: Record<RouteKey, string> = {
   root: '/',
 
-  orgContentPack: '/org/:ref/content',
-  orgContentPackCreate: '/org/:ref/content/create',
-  orgContentPackUpdate: '/org/:ref/content/:id',
+  orgContentPack: '/org/:ref/content-pack',
+  orgContentPackCreate: '/org/:ref/content-pack/create',
+  orgContentPackUpdate: '/org/:ref/content-pack/:id',
+
+  orgContent:
+    '/org/:ref/content-pack/:contentPackID/section/:sectionID/content',
+  orgContentCreate:
+    '/org/:ref/content-pack/:contentPackID/section/:sectionID/content/create',
+  orgContentUpdate:
+    '/org/:ref/content-pack/:contentPackID/section/:sectionID/content/:contentID',
 
   appCategory: '/app/:ref/category',
   appCategoryCreate: '/app/:ref/category/create',
