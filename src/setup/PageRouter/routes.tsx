@@ -1,8 +1,8 @@
 import type { RouteObject } from 'react-router-dom'
 
-import ContentPage from 'pages/content/IndexPage'
-import ContentCreatePage from 'pages/content/CreatePage'
-import ContentUpdatePage from 'pages/content/UpdatePage'
+import ContentPackPage from 'pages/contentPack/IndexPage'
+import ContentPackCreatePage from 'pages/contentPack/CreatePage'
+import ContentPackUpdatePage from 'pages/contentPack/UpdatePage'
 
 import ContentApprovalPage from 'pages/contentApproval/IndexPage'
 import ContentApprovalDetailPage from 'pages/contentApproval/DetailPage'
@@ -40,15 +40,15 @@ export const paths: Record<RouteKey, string> = {
 export const orgRouteConfig: RouteObject[] = [
   {
     path: paths.orgContentPack,
-    element: <ContentPage />,
+    element: <ContentPackPage />,
   },
   {
     path: paths.orgContentPackCreate,
-    element: <ContentCreatePage />,
+    element: <ContentPackCreatePage />,
   },
   {
     path: paths.orgContentPackUpdate,
-    element: <ContentUpdatePage />,
+    element: <ContentPackUpdatePage />,
   },
 ]
 
