@@ -1,6 +1,6 @@
 import { ConfigProvider } from 'antd'
 import { ApolloProvider } from '@apollo/client'
-import thTH from 'antd/lib/locale/th_TH'
+import thTH from 'antd/locale/th_TH'
 
 import PageRouter from 'setup/PageRouter'
 import { contentClient } from 'setup/apollo'
