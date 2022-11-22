@@ -1,0 +1,17 @@
+query getSectionByID($id: String!) {
+  getSectionByID(id: $id) {
+    payload {
+      _id
+      active
+      title
+      sortOrder
+      numOfContent
+      length
+      description
+      createdBy
+      createdAt
+      updatedAt
+      updatedBy
+    }
+  }
+}

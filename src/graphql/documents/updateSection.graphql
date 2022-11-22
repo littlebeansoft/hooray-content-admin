@@ -1,0 +1,7 @@
+mutation updateSection($id: String!, $input: UpdateSectionInput!) {
+  updateSection(id: $id, input: $input) {
+    payload {
+      _id
+    }
+  }
+}
