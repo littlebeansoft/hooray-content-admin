@@ -3,6 +3,15 @@ query getListCreatorsProfile($find: INPUT_FIND_DATA) {
     payload {
       _id
       attribute
+      email {
+        value
+        verifyStatus
+      }
+      phone {
+        value
+        verifyStatus
+        code
+      }
     }
   }
 }
