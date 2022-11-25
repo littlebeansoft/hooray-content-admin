@@ -8,6 +8,7 @@ import {
   GetListCategoriesQuery,
   GetSectionListQuery,
   GetGroupSectionWithContentListQuery,
+  GetContentByIdQuery,
 } from './__generated/operations'
 
 export type QR_GetOrgAccessTokenWithRefResult =
@@ -38,3 +39,6 @@ export type QR_GetSectionResult = GetSectionListQuery['getSectionList']
 
 export type QR_ContentListResult =
   GetGroupSectionWithContentListQuery['getContentList']['payload']
+
+export type QR_GetContentByIDResult =
+  GetContentByIdQuery['getContentByID']['payload']
