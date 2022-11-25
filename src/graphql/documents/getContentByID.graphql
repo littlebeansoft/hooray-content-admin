@@ -1,0 +1,30 @@
+query getContentByID($id: String!) {
+  getContentByID(id: $id) {
+    payload {
+      _id
+      active
+      canBePreviewed
+      contentUrl {
+        file
+        name
+      }
+      description
+      files {
+        file
+        name
+      }
+      length
+      previewUrls {
+        file
+        name
+      }
+      sectionID
+      sortOrder
+      thumbnails {
+        file
+        name
+      }
+      title
+    }
+  }
+}
