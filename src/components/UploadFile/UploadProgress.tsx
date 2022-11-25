@@ -83,6 +83,10 @@ const UploadProgress = ({ file }: UploadProgressProps) => {
     })
   })
 
+  if (rcFile == null) {
+    return null
+  }
+
   if (isUploading || uploading) {
     return (
       <ProgressContainer>
