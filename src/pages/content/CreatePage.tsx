@@ -2,9 +2,12 @@ import { useNavigate } from 'react-router-dom'
 import { LeftOutlined } from '@ant-design/icons'
 
 import PageTitle from 'components/PageTitle'
+import ContentForm, { useParentFormInstance } from 'components/Content/Form'
 
 const ContentCreatePage = () => {
   const navigate = useNavigate()
+
+  const [form] = useParentFormInstance()
 
   return (
     <>
@@ -13,7 +16,7 @@ const ContentCreatePage = () => {
         สร้างเนื้อหา
       </PageTitle>
 
-      <h1>Form goes here</h1>
+      <ContentForm form={form} />
     </>
   )
 }
