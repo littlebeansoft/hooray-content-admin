@@ -10,6 +10,7 @@ import CategorySearchInput from 'components/CategorySearchInput'
 import Label, { LabelContainer } from 'components/Label'
 
 import { ruleRequired } from 'helpers/antdUtils'
+import { allowVideoFileExtensions } from 'helpers/utils'
 
 const ContentPackFormGeneral = () => {
   const objectiveRef = useRef<FormListOperation>()
@@ -65,7 +66,7 @@ const ContentPackFormGeneral = () => {
 
         <Col span={24}>
           <Form.Item label="ตัวอย่างหลักสูตร (วิดิโอ)" name="previewUrls">
-            <UploadFile allowFileExtension=".mp4,.mkv,.mov,.avi" />
+            <UploadFile allowFileExtension={allowVideoFileExtensions} />
           </Form.Item>
         </Col>
 
