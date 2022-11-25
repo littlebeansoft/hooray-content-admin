@@ -11,6 +11,11 @@ interface RouteToOptions {
   query?: ParsedQuery
 }
 
+export const allowDocumentFileExtensions =
+  '.doc,.docx,.html,.htm,.odt,.pdf,.xls,.xlsx,.ods,.ppt,.pptx,.txt,.csv'
+
+export const allowVideoFileExtensions = '.mp4,.mkv,.mov,.avi'
+
 export const getSearchParams = () => {
   return new URLSearchParams(window.location.search)
 }
