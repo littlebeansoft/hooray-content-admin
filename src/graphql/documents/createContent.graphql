@@ -1,0 +1,7 @@
+mutation createContent($input: CreateContentInput!) {
+  createContent(input: $input) {
+    payload {
+      _id
+    }
+  }
+}
