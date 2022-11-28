@@ -120,6 +120,6 @@ const ProgressContainer = styled.div`
   align-items: center;
 
   .ant-progress-text {
-    color: #fff;
+    color: #fff !important;
   }
 `
