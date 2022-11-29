@@ -31,7 +31,7 @@ const GetInstructorProfileName = ({
   const data = query.data?.getPublicProfile.payload
 
   return (
-    <>
+    <Space size="small" wrap>
       {data?.map((item) => (
         <Tag key={item._id}>
           <Space size="small">
@@ -40,7 +40,7 @@ const GetInstructorProfileName = ({
           </Space>
         </Tag>
       ))}
-    </>
+    </Space>
   )
 }
 

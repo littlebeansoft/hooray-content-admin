@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 
 import UploadProgress from './UploadProgress'
+import DocumentFileItem from './DocumentFileItem'
 
 import { getFileExtensionType } from './utils'
 
@@ -24,7 +25,7 @@ const FileDisplayItem = ({ file }: FileDisplayItemProps) => {
 
     switch (fileType) {
       case 'document':
-        return null
+        return <DocumentFileItem file={file} />
 
       case 'video':
         return <video controls={false} src={file.url} />

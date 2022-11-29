@@ -1,0 +1,29 @@
+{
+  "app": {
+    "menuOrder": 1,
+    "pattern": "${endpoint}/app/${authorization_code}/${path}?credentialKey=${credentialKey}",
+    "menuList": [
+      {
+        "name": { "en": "Category", "th": "หมวดหมู่สินค้า" },
+        "path": "category",
+        "icon": "boxes"
+      },
+      {
+        "name": { "en": "Content Approval", "th": "การยืนยันหลักสูตร" },
+        "path": "content-approval",
+        "icon": "box-check"
+      }
+    ]
+  },
+  "organization": {
+    "menuOrder": 1,
+    "pattern": "${endpoint}/org/${authorization_code}/${path}?credentialKey=${credentialKey}",
+    "menuList": [
+      {
+        "name": { "en": "Course", "th": "หลักสูตร" },
+        "path": "content-pack",
+        "icon": "book"
+      }
+    ]
+  }
+}

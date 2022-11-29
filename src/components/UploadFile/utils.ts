@@ -1,4 +1,6 @@
-import { RcFile } from 'antd/es/upload'
+import type { RcFile } from 'antd/es/upload'
+
+import type { FileListItemData } from './type'
 
 type FileType = 'video' | 'image' | 'document'
 
@@ -36,6 +38,10 @@ export const getBase64 = (file: RcFile): Promise<string> =>
     reader.onload = () => resolve(reader.result as string)
     reader.onerror = (error) => reject(error)
   })
+
+export const getFileExtension = (file: FileListItemData) => {
+  return file.alt?.split('.')[1].toLowerCase()
+}
 
 export const getFileExtensionType = (file?: string): FileType => {
   if (file == null) {

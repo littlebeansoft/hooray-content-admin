@@ -4,6 +4,8 @@ import styled from '@emotion/styled'
 
 import useUploadContext from './context'
 
+import { getFileExtensionType } from './utils'
+
 import type { FileListItemData } from './type'
 
 interface ActionMenuProps {
@@ -23,7 +25,19 @@ const ActionMenu = ({ file }: ActionMenuProps) => {
         </Popconfirm>
 
         <MenuItem>
-          <EyeOutlined onClick={() => onPreview(file)} />
+          <EyeOutlined
+            onClick={() => {
+              const fileType = getFileExtensionType(file.url)
+
+              if (fileType === 'document') {
+                window.open(file.url, '_blank')
+
+                return
+              }
+
+              onPreview(file)
+            }}
+          />
         </MenuItem>
       </Space>
     </ActionMenuContainer>

@@ -83,6 +83,10 @@ const UploadProgress = ({ file }: UploadProgressProps) => {
     })
   })
 
+  if (rcFile == null) {
+    return null
+  }
+
   if (isUploading || uploading) {
     return (
       <ProgressContainer>
@@ -116,6 +120,6 @@ const ProgressContainer = styled.div`
   align-items: center;
 
   .ant-progress-text {
-    color: #fff;
+    color: #fff !important;
   }
 `
