@@ -6,6 +6,8 @@ import ErrorPage from 'pages/ErrorPage'
 
 import PageLayout from 'layouts/PageLayout'
 
+import { appAuthValidUser, orgAuthValidUser } from 'helpers/auth'
+
 import { appRouteConfig, orgRouteConfig } from 'setup/PageRouter/routes'
 
 const PageRouter = () => {
@@ -16,10 +18,12 @@ const PageRouter = () => {
       children: [
         {
           errorElement: <ErrorPage />,
+          loader: orgAuthValidUser,
           children: orgRouteConfig,
         },
         {
           errorElement: <ErrorPage />,
+          loader: appAuthValidUser,
           children: appRouteConfig,
         },
       ],

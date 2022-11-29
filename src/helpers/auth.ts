@@ -55,6 +55,8 @@ export const orgAuthValidUser = async ({ params }: LoaderFunctionArgs) => {
 
     app.set(appResult)
   } catch (error) {
+    console.log('Error from org auth user', error)
+
     throw Error()
   }
 }
@@ -85,6 +87,8 @@ export const appAuthValidUser = async ({ params }: LoaderFunctionArgs) => {
 
     app.set(appResult)
   } catch (error) {
+    console.log('Error from app auth user', error)
+
     throw Error()
   }
 }
