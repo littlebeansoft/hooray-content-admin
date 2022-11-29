@@ -4,7 +4,7 @@ query getContentByID($id: String!) {
       _id
       active
       canBePreviewed
-      contentUrl {
+      contentUrls {
         file
         name
       }
