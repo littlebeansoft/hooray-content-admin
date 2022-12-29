@@ -7,6 +7,7 @@ import { coreClient } from 'setup/apollo'
 import { getSearchParams } from './utils'
 
 import {
+  GetAppAuthUserDocument,
   GetAppAuthUserQuery,
   GetAppAuthUserQueryVariables,
   GetOrgAuthUserDocument,
@@ -69,7 +70,7 @@ export const appAuthValidUser = async ({ params }: LoaderFunctionArgs) => {
       GetAppAuthUserQuery,
       GetAppAuthUserQueryVariables
     >({
-      query: GetOrgAuthUserDocument,
+      query: GetAppAuthUserDocument,
       variables: {
         code: ref,
         credentialKey,
